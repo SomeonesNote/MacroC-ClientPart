@@ -9,30 +9,37 @@ import SwiftUI
 
 struct LoginView: View {
     //MARK: -1.PROPERTY
+    @StateObject var viewModel = LoginViewModel()
     
     //MARK: -2.BODY
     var body: some View {
         
-            ZStack {
-                loginBackgroundView()
-                VStack(alignment: .center) {
-                    
-                    Spacer()
-                    
-                    appTitle
-                    
-                    Spacer()
-                    
-                    googleLoginButton
-                    
-                    appleLoginButton
-                    
-                    kakaoLoginButton
+        ZStack {
+            //                loginBackgroundView()
+            VStack(alignment: .center) {
+                TextField("Email", text: $viewModel.email)
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(10)
+                
+                TextField("Password", text: $viewModel.password)
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(10)
+                
+                Button {
+                    //        viewModel.signIn()
+                } label: {
+                    Text("Log In")
+                        .padding()
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(10)
                 }
-                .padding(.init(top: 10, leading: 10, bottom: 50, trailing: 10))
             }
+            .padding(.init(top: 10, leading: 10, bottom: 50, trailing: 10))
         }
     }
+}
 
 
 //MARK: -3.PREVIEW
@@ -43,39 +50,5 @@ struct LoginView: View {
 //MARK: -4.EXTENSION
 extension LoginView {
     
-    var appTitle: some View {
-        Text("appName")
-            .font(.system(size: 50,weight: .heavy))
-            .shadow(color: Color(appIndigo1).opacity(0.7), radius: 10)
-    }
     
-    var googleLoginButton: some View {
-        Button {
-            //TODO: -Google LogIn 구현하기
-          
-        } label: {
-            LogInButton(LogoName: GoogleLogo, ButtonText: "Log In with Google")
-                .modifier(dropShadow())
-        }
-    }
-    
-    var appleLoginButton: some View {
-        Button {
-            //TODO: -Apple LogIn 구현하기
-          
-        } label: {
-            LogInButton(LogoName: AppleLogo, ButtonText: "Log In with Apple")
-                .modifier(dropShadow())
-        }
-    }
-    
-    var kakaoLoginButton: some View {
-        Button {
-            //TODO: -Kakao LogIn 구현하기
-          
-        } label: {
-            LogInButton(LogoName: KakaoLogo, ButtonText: "Log In with Kakao")
-                .modifier(dropShadow())
-        }
-    }
 }

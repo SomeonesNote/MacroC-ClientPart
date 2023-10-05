@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* LoginViewModel.swift */; };
 		F62B8A742ACED1B80077CA17 /* MacroC_ClientPartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */; };
 		F62B8A762ACED1B80077CA17 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A752ACED1B80077CA17 /* ContentView.swift */; };
 		F62B8A782ACED1B90077CA17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F62B8A772ACED1B90077CA17 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07FBF2872ACF5223004EF174 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		F62B8A702ACED1B80077CA17 /* MacroC-ClientPart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MacroC-ClientPart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroC_ClientPartApp.swift; sourceTree = "<group>"; };
 		F62B8A752ACED1B80077CA17 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				F62B8ADA2ACED90B0077CA17 /* MapBuskerInfoViewModel.swift */,
 				F62B8ADC2ACED9220077CA17 /* AddBuskingPageViewModel.swift */,
 				F62B8ADE2ACED9380077CA17 /* UserBuskerPageViewModel.swift */,
+				07FBF2872ACF5223004EF174 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */,
 				F62B8AA42ACED4B10077CA17 /* EditBuskerView.swift in Sources */,
 				F62B8AC52ACED7E80077CA17 /* LoginButton.swift in Sources */,
 				F62B8A762ACED1B80077CA17 /* ContentView.swift in Sources */,

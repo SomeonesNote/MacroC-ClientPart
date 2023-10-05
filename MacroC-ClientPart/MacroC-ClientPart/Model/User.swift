@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-struct User: Encodable {
+struct User:  Identifiable, Decodable, Encodable {
     let id: Int
     let email: String
     let username: String

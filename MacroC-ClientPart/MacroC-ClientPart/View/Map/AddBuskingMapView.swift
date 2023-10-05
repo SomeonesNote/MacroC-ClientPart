@@ -32,6 +32,7 @@ struct AddBuskingMapView: UIViewRepresentable {
         if let coordinate = viewModel.selectedCoordinate {
             let camera = GMSCameraPosition.camera(withLatitude: coordinate.latitude, longitude: coordinate.longitude, zoom: 16.0)
             uiView.animate(to: camera)
+            viewModel.selectedCoordinate = nil
         }
     }
     

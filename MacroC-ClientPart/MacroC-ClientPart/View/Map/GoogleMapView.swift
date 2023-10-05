@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-
-import SwiftUI
 import GoogleMaps
 import CoreLocation
 import CoreLocationUI

@@ -22,7 +22,7 @@ class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDele
     
     private var fetcher: GMSAutocompleteFetcher
     @Published var locationManager: CLLocationManager
-
+    
     override init() {
         let filter = GMSAutocompleteFilter()
         self.fetcher = GMSAutocompleteFetcher(filter: filter)
@@ -48,12 +48,14 @@ class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDele
         }
         
         func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-                marker?.position = mapView.camera.target
-                
-                debounceTimer?.invalidate()
-                debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
+            marker?.position = mapView.camera.target
+            
+            debounceTimer?.invalidate()
+            debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
+                DispatchQueue.main.async {
                     self?.reverseGeo(busking: position.target)
                 }
+            }
         }
         
         func startLocationUpdates() {
@@ -67,7 +69,7 @@ class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDele
             }
             locationManager.stopUpdatingLocation()
         }
-
+        
         func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
             switch manager.authorizationStatus {
             case .authorizedWhenInUse, .authorizedAlways:
@@ -75,11 +77,11 @@ class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDele
                     locationManager.startUpdatingLocation()
                 }
             default:
-               
+                
                 break
             }
         }
-
+        
         
         func reverseGeo(busking: CLLocationCoordinate2D) {
             let geocoder = CLGeocoder()
@@ -96,17 +98,17 @@ class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDele
     }
     
     func didAutocomplete(with predictions: [GMSAutocompletePrediction]) {
-           self.results = predictions
-       }
+        self.results = predictions
+    }
     
     func didFailAutocompleteWithError(_ error: Error) {
         print("Error: \(error.localizedDescription)")
     }
-
+    
     func sourceTextHasChanged(_ newValue: String) {
         fetcher.sourceTextHasChanged(newValue)
     }
-
+    
     func getPlaceCoordinate(placeID: String, completion: @escaping (CLLocationCoordinate2D) -> Void) {
         let placesClient = GMSPlacesClient.shared()
         placesClient.lookUpPlaceID(placeID) { (place, error) in
@@ -120,7 +122,7 @@ class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDele
             }
         }
     }
-
+    
     func formatDate() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")

@@ -47,11 +47,16 @@ extension BuskerPageView {
             .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
             .overlay (
                 HStack(spacing: 10){
-                    Button { } label: { linkButton(name: YouTubeLogo) }
+                    Button {
+                        UIApplication.shared.open(URL(string: viewModel.busker.youtube)!)
+                    } label: { linkButton(name: YouTubeLogo) }
                     
-                    Button { } label: { linkButton(name: InstagramLogo) }
+                    Button { 
+                        UIApplication.shared.open(URL(string: viewModel.busker.instagram)!)
+                    } label: { linkButton(name: InstagramLogo) }
                     
                     Button { } label: { linkButton(name: SoundCloudLogo) }
+                    
                 }
                     .frame( height: 27)
                     .padding(.init(top: 0, leading: 0, bottom: 20, trailing: 15))

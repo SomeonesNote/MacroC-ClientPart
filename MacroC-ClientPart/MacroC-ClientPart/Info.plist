@@ -12,6 +12,11 @@
         <dict/>
     </dict>
     
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>youtube</string>
+    </array>
+    
     <key>UIBackgroundModes</key>
     <array/>
     <key>UILaunchScreen</key>

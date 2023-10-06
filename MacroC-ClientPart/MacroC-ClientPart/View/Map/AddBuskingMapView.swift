@@ -123,6 +123,11 @@ struct AddBuskingMapView: UIViewRepresentable {
                 }
             }
         }
+        
+        func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+
     }
 }
 

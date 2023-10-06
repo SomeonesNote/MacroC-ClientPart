@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EditBuskerView: View {
+struct EditFollowingListView: View {
     
     @State private var searchText = ""
     let data: [String] = ["Apple", "Banana", "Orange", "Pineapple", "Grape", "Cherry"]
@@ -33,5 +33,5 @@ struct EditBuskerView: View {
 }
 
 #Preview {
-    EditBuskerView()
+    EditFollowingListView()
 }

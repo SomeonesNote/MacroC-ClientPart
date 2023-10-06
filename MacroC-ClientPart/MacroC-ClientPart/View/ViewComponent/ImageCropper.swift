@@ -11,8 +11,8 @@ import PhotosUI
 //MARK: view extension
 extension View {
     @ViewBuilder
-    func cropImagePicker(show: Binding<Bool>, croppedImage: Binding<UIImage?>) -> some View {
-        CustomImagePicker(show: show, croppedImage: croppedImage) {
+    func cropImagePicker(show: Binding<Bool>, croppedImage: Binding<UIImage?>, isLoding: Binding<Bool>) -> some View {
+        CustomImagePicker(show: show, croppedImage: croppedImage, isLoading: isLoding) {
             self
         }
     }
@@ -36,11 +36,13 @@ fileprivate struct CustomImagePicker<Content: View>: View {
     var content: Content
     @Binding var show: Bool
     @Binding var croppedImage: UIImage?
+    @Binding var isLoading: Bool
     
-    init(show: Binding<Bool>, croppedImage: Binding<UIImage?>, @ViewBuilder content: @escaping () -> Content) {
+    init(show: Binding<Bool>, croppedImage: Binding<UIImage?>, isLoading: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
         self.content = content()
         self._show = show
         self._croppedImage = croppedImage
+        self._isLoading = isLoading
     }
     
     // view properties
@@ -49,26 +51,33 @@ fileprivate struct CustomImagePicker<Content: View>: View {
     @State private var showCropView: Bool = false
     
     
+    
     var body: some View {
          content
              .photosPicker(isPresented: $show, selection: $photosItem)
              .onChange(of: photosItem) { newValue in
-                 // extracting ui image from photos view
+                 isLoading = true // 이미지 로드 시작
                  if let newValue {
                      Task {
                          if let imageData = try? await newValue.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
-                             // UI must be updated on main thread
                              await MainActor.run(body: {
                                  selectedImage = image
-                                 showCropView.toggle()
+                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                     showCropView = true
+                                     isLoading = false // 이미지 로드 완료
+                                 }
                              })
+                         } else {
+                             isLoading = false // 이미지 로드 실패
                          }
                      }
+                 } else {
+                     isLoading = false // 이미지 선택 취소
                  }
              }
              .fullScreenCover(isPresented: $showCropView) {
                  // when exited clearing the old selected image
-                 selectedImage = nil
+//                 selectedImage = nil
              } content: {
                  CropView(image: selectedImage) { croppedImage, status in
                      if let croppedImage {
@@ -216,13 +225,6 @@ struct CropView: View {
         }
         .scaleEffect(scale)
         .offset(offset)
-//        .overlay(content:{
-//            //Grids()
-//            ///hided above because We dont need grids for cropped images
-//            if !hideGrids{
-//                Grids()
-//            }
-//        })
         .coordinateSpace(name: "CROPVIEW")
         .gesture(
             DragGesture()
@@ -259,36 +261,8 @@ struct CropView: View {
         .frame(cropSize)
         .cornerRadius(0)
     }
-    
-//    @ViewBuilder
-//    func Grids()->some View{
-//        ZStack{
-//            HStack{
-//                ForEach(1...2,id:\.self){_ in
-//                    Rectangle()
-//                        .fill(.white.opacity(0.7))
-//                        .frame(width: 1)
-//                        .frame(maxWidth: .infinity)
-//
-//                }
-//            }
-//
-//            VStack{
-//                ForEach(1...2,id:\.self){_ in
-//                    Rectangle()
-//                        .fill(.white.opacity(0.7))
-//                        .frame(height: 1)
-//                        .frame(maxHeight: .infinity)
-//
-//                }
-//            }
-//
-//        }
-//    }
 }
 
-struct CustomImagePicker_Previews: PreviewProvider {
-    static var previews: some View {
-        CropView(image: UIImage(named: "samplePic1")) { _, _ in }
-    }
-}
+#Preview(body: {
+    SignUpPageView()
+})

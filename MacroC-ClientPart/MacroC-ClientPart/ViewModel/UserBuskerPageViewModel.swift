@@ -15,7 +15,8 @@ class UserBuskerPageViewModel: ObservableObject {
     @Published var selectedPhotoData: Data?
     @Published var popCrop: Bool = false
     @Published var popCropImage: Data?
-    @Published var croppedImage: UIImage? // 크롭된 이미지
+    @Published var croppedImage: UIImage?
+    @Published var isLoading: Bool = false
 
     init(userBusker: UserBusker) {
         self.userBusker = userBusker

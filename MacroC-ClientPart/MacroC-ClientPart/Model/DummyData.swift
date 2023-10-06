@@ -12,11 +12,11 @@ let dummyUser = User(id: 1, email: "User", username: "User", password: "User", a
 
 let dummyUserBusker = UserBusker(id: 1, email: "User", username: "User", password: "User", avartaUrl: "User")
 
-let dummyBusker1 = Busker(id: UUID(), name: "박보영", image: "Busker1", youtube: "youtube", instagram: "instagram", soundcloud: "soundcloud", buskerInfo: "안녕하세요 박보영입니다")
-let dummyBusker2 = Busker(id: UUID(), name: "NewJeans", image: "Busker2", youtube: "youtube", instagram: "instagram", soundcloud: "soundcloud", buskerInfo: "안녕하세요 뉴진스입니다")
-let dummyBusker3 = Busker(id: UUID(), name: "SunMe", image: "Busker3", youtube: "youtube", instagram: "instagram", soundcloud: "soundcloud", buskerInfo: "안녕하세요 선미입니다")
-let dummyBusker4 = Busker(id: UUID(), name: "AKB48", image: "Busker4", youtube: "youtube", instagram: "instagram", soundcloud: "soundcloud", buskerInfo: "안녕하세요 AKB48입니다")
-let dummyBusker5 = Busker(id: UUID(), name: "김채원", image: "Busker5", youtube: "youtube", instagram: "instagram", soundcloud: "soundcloud", buskerInfo: "안녕하세요 김채원입니다")
+let dummyBusker1 = Busker(id: UUID(), name: "박보영", image: "Busker1", youtube: "https://www.youtube.com/@Bbovely_", instagram: "https://www.instagram.com/park_bo_young_/", soundcloud: "soundcloud", buskerInfo: "안녕하세요 박보영입니다")
+let dummyBusker2 = Busker(id: UUID(), name: "NewJeans", image: "Busker2", youtube: "https://www.youtube.com/@NewJeans_official", instagram: "https://www.instagram.com/newjeans.updates/", soundcloud: "soundcloud", buskerInfo: "안녕하세요 뉴진스입니다")
+let dummyBusker3 = Busker(id: UUID(), name: "SunMe", image: "Busker3", youtube: "https://www.youtube.com/@sunmi_official", instagram: "https://www.instagram.com/miyayeah/", soundcloud: "soundcloud", buskerInfo: "안녕하세요 선미입니다")
+let dummyBusker4 = Busker(id: UUID(), name: "AKB48", image: "Busker4", youtube: "https://www.youtube.com/@akb48", instagram: "https://www.instagram.com/akb48/", soundcloud: "soundcloud", buskerInfo: "안녕하세요 AKB48입니다")
+let dummyBusker5 = Busker(id: UUID(), name: "김채원", image: "Busker5", youtube: "https://www.youtube.com/@LESSERAFIM_official", instagram: "https://www.instagram.com/_chaechae_1/", soundcloud: "soundcloud", buskerInfo: "안녕하세요 김채원입니다")
 
 let dummyBuskingNow: [Busking] = [dummyBusking1,dummyBusking2,dummyBusking3,dummyBusking4,dummyBusking5]
 

@@ -30,7 +30,7 @@ func sendPostRequest(user: User) {
     }
 }
 
-func sendDeleteRequest(userid: String) {
+func sendDeleteRequest(userid: Int) {
     let url = "http://ec2-3-37-89-214.ap-northeast-2.compute.amazonaws.com/users/\(userid)"
     
     AF.request(url,
@@ -51,7 +51,7 @@ struct Apitest: View {
         .padding(.all, 50)
         
         Button("삭제", action: {
-//            sendDeleteRequest(userid: User.id)
+            sendDeleteRequest(userid: dummy1user.id)
             print("send")
         })
         .padding(.all, 50)

@@ -74,7 +74,7 @@ struct UserBuskerPageView: View {
                 viewModel.popCrop = false
             }
         }
-        .cropImagePicker(show: $viewModel.popCrop, croppedImage: $viewModel.croppedImage)
+        .cropImagePicker(show: $viewModel.popCrop, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
     }
 }
 

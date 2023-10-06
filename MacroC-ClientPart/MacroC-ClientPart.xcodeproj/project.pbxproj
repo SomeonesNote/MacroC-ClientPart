@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* LoginViewModel.swift */; };
+		07FBF28B2ACFF90B004EF174 /* SignUpPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpPageView.swift */; };
 		F62B8A742ACED1B80077CA17 /* MacroC_ClientPartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */; };
 		F62B8A762ACED1B80077CA17 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A752ACED1B80077CA17 /* ContentView.swift */; };
 		F62B8A782ACED1B90077CA17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F62B8A772ACED1B90077CA17 /* Assets.xcassets */; };
@@ -25,7 +26,7 @@
 		F62B8A9D2ACED46D0077CA17 /* UserBuskerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A9C2ACED46D0077CA17 /* UserBuskerPageView.swift */; };
 		F62B8A9F2ACED4830077CA17 /* BuskerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A9E2ACED4830077CA17 /* BuskerPageView.swift */; };
 		F62B8AA22ACED4980077CA17 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA12ACED4980077CA17 /* ProfileView.swift */; };
-		F62B8AA42ACED4B10077CA17 /* EditBuskerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA32ACED4B10077CA17 /* EditBuskerView.swift */; };
+		F62B8AA42ACED4B10077CA17 /* EditFollowingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA32ACED4B10077CA17 /* EditFollowingListView.swift */; };
 		F62B8AA62ACED4CB0077CA17 /* DonationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA52ACED4CB0077CA17 /* DonationListView.swift */; };
 		F62B8AA82ACED4E30077CA17 /* EditUserAcountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA72ACED4E30077CA17 /* EditUserAcountView.swift */; };
 		F62B8AAC2ACED5260077CA17 /* BuskerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AAB2ACED5260077CA17 /* BuskerProfileView.swift */; };
@@ -66,6 +67,7 @@
 /* Begin PBXFileReference section */
 		07FBF2872ACF5223004EF174 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		07FBF2892ACFD143004EF174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07FBF28A2ACFF90B004EF174 /* SignUpPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPageView.swift; sourceTree = "<group>"; };
 		F62B8A702ACED1B80077CA17 /* MacroC-ClientPart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MacroC-ClientPart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroC_ClientPartApp.swift; sourceTree = "<group>"; };
 		F62B8A752ACED1B80077CA17 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -79,7 +81,7 @@
 		F62B8A9C2ACED46D0077CA17 /* UserBuskerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBuskerPageView.swift; sourceTree = "<group>"; };
 		F62B8A9E2ACED4830077CA17 /* BuskerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuskerPageView.swift; sourceTree = "<group>"; };
 		F62B8AA12ACED4980077CA17 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		F62B8AA32ACED4B10077CA17 /* EditBuskerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBuskerView.swift; sourceTree = "<group>"; };
+		F62B8AA32ACED4B10077CA17 /* EditFollowingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFollowingListView.swift; sourceTree = "<group>"; };
 		F62B8AA52ACED4CB0077CA17 /* DonationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationListView.swift; sourceTree = "<group>"; };
 		F62B8AA72ACED4E30077CA17 /* EditUserAcountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserAcountView.swift; sourceTree = "<group>"; };
 		F62B8AAB2ACED5260077CA17 /* BuskerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuskerProfileView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				F62B8A752ACED1B80077CA17 /* ContentView.swift */,
 				F62B8A942ACED3E70077CA17 /* LaunchScreenView.swift */,
+				07FBF28A2ACFF90B004EF174 /* SignUpPageView.swift */,
 				F62B8A962ACED4070077CA17 /* LoginView.swift */,
 				F62B8A9C2ACED46D0077CA17 /* UserBuskerPageView.swift */,
 				F62B8A9E2ACED4830077CA17 /* BuskerPageView.swift */,
@@ -193,13 +196,13 @@
 		F62B8A912ACED34E0077CA17 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				07FBF2872ACF5223004EF174 /* LoginViewModel.swift */,
 				F62B8AD42ACED8C10077CA17 /* MapViewMedel.swift */,
 				F62B8AD62ACED8D80077CA17 /* BuskerPageViewModel.swift */,
 				F62B8AD82ACED8EF0077CA17 /* MapBuskingInfoViewModel.swift */,
 				F62B8ADA2ACED90B0077CA17 /* MapBuskerInfoViewModel.swift */,
 				F62B8ADC2ACED9220077CA17 /* AddBuskingPageViewModel.swift */,
 				F62B8ADE2ACED9380077CA17 /* UserBuskerPageViewModel.swift */,
-				07FBF2872ACF5223004EF174 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -230,7 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				F62B8AA12ACED4980077CA17 /* ProfileView.swift */,
-				F62B8AA32ACED4B10077CA17 /* EditBuskerView.swift */,
+				F62B8AA32ACED4B10077CA17 /* EditFollowingListView.swift */,
 				F62B8AA52ACED4CB0077CA17 /* DonationListView.swift */,
 				F62B8AA72ACED4E30077CA17 /* EditUserAcountView.swift */,
 				F62B8AAA2ACED5040077CA17 /* Busker */,
@@ -370,7 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */,
-				F62B8AA42ACED4B10077CA17 /* EditBuskerView.swift in Sources */,
+				F62B8AA42ACED4B10077CA17 /* EditFollowingListView.swift in Sources */,
 				F62B8AC52ACED7E80077CA17 /* LoginButton.swift in Sources */,
 				F62B8A762ACED1B80077CA17 /* ContentView.swift in Sources */,
 				F62B8ABD2ACED6590077CA17 /* GooglePlacesView.swift in Sources */,
@@ -393,6 +396,7 @@
 				F62B8AB02ACED5590077CA17 /* EditDonationView.swift in Sources */,
 				F62B8A992ACED4130077CA17 /* MainView.swift in Sources */,
 				F62B8AD12ACED8690077CA17 /* AddBuskingSerchBar.swift in Sources */,
+				07FBF28B2ACFF90B004EF174 /* SignUpPageView.swift in Sources */,
 				F62B8AE12ACED9500077CA17 /* User.swift in Sources */,
 				F62B8ABB2ACED6410077CA17 /* MapBuskerInfoView.swift in Sources */,
 				F62B8AC02ACED6F30077CA17 /* AddBuskingMapView.swift in Sources */,
@@ -550,7 +554,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroC-ClientPart/Preview Content\"";
-				DEVELOPMENT_TEAM = 6RJC8T2X94;
+				DEVELOPMENT_TEAM = S7ZW77C4W7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -593,7 +597,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MacroC-ClientPart/Preview Content\"";
-				DEVELOPMENT_TEAM = 6RJC8T2X94;
+				DEVELOPMENT_TEAM = S7ZW77C4W7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

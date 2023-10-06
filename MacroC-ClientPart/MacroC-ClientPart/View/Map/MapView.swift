@@ -23,6 +23,7 @@ struct MapView: View {
                     .ignoresSafeArea(.all, edges: .top)
                     .overlay(alignment: .top) {
                         GooglePlaceSearchBar(viewModel: viewModel)
+                            .scrollDismissesKeyboard(.immediately)
                             .padding(4)
                     }
             }

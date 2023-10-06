@@ -49,7 +49,7 @@ struct ProfileView: View {
                             NavigationLink("프로필 관리", destination: MainView())
                                 .padding(.all, 20)
                             
-                            NavigationLink("아티스트 관리", destination: EditBuskerView())
+                            NavigationLink("아티스트 관리", destination: EditFollowingListView())
                                 .padding(.all, 20)
                             
                             NavigationLink("후원 목록", destination: DonationListView())

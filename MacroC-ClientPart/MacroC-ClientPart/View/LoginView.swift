@@ -14,30 +14,17 @@ struct LoginView: View {
     //MARK: -2.BODY
     var body: some View {
         
-        ZStack {
-            //                loginBackgroundView()
             VStack(alignment: .center) {
-                TextField("Email", text: $viewModel.email)
-                    .padding()
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(10)
-                
-                TextField("Password", text: $viewModel.password)
-                    .padding()
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(10)
-                
-                Button {
-                    //        viewModel.signIn()
-                } label: {
-                    Text("Log In")
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(10)
-                }
+                Spacer()
+                Spacer()
+                textFieldList
+                signInbutton
+                Spacer()
             }
-            .padding(.init(top: 10, leading: 10, bottom: 50, trailing: 10))
-        }
+            .padding()
+            .background(Color.black.hideKeyboardWhenTappedAround())
+           
+
     }
 }
 
@@ -49,6 +36,33 @@ struct LoginView: View {
 
 //MARK: -4.EXTENSION
 extension LoginView {
+    var textFieldList: some View {
+        VStack(spacing: 5){
+            TextField("Email", text: $viewModel.email)
+                .padding(13)
+                .background(.ultraThinMaterial)
+                .cornerRadius(6)
+            
+            TextField("Password", text: $viewModel.password)
+                .padding(13)
+                .background(.ultraThinMaterial)
+                .cornerRadius(6)
+        }
+    }
     
-    
+    var signInbutton: some View {
+        Button {
+//            viewModel.()
+        } label: {
+            HStack{
+                Spacer()
+                Text("Sign In").fontWeight(.semibold)
+                Spacer()
+            }
+            .padding()
+            .background(.ultraThinMaterial)
+            .cornerRadius(6)
+            
+        }.padding(.top, 30)
+    }
 }

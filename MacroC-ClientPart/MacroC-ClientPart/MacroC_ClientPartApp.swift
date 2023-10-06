@@ -12,7 +12,7 @@ import GooglePlaces
 @main
 struct MacroC_ClientPartApp: App {
     
-    let APIKey = "AIzaSyBgin5aar0gpBJO8eV7DXH_kfo-zUHR1QQ"
+    let APIKey = "AIzaSyDF3d8OqWRipyjxQh7C2HF6KHn-C3YhSt8"
     
     init() {
         GMSServices.provideAPIKey(APIKey)

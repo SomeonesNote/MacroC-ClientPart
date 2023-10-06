@@ -84,25 +84,25 @@ struct AddBuskingMapView: UIViewRepresentable {
                 marker.map = mapView
                 self.marker = marker
                 let markerImage = UIImageView(image: UIImage(named: self.parent.viewModel.userBusker.avartaUrl))
-                let customMarker = UIView(frame: CGRect(x: 0, y: 0, width: 94, height: 94))
+                let customMarker = UIView(frame: CGRect(x: 0, y: 0, width: 74, height: 74))
                 
                 customMarker.addSubview(markerImage)
                 customMarker.layer.borderWidth = 2
                 customMarker.layer.borderColor = UIColor.systemYellow.cgColor
-                customMarker.layer.cornerRadius = 47
+                customMarker.layer.cornerRadius = 37
                 
                 markerImage.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
                     markerImage.centerXAnchor.constraint(equalTo: customMarker.centerXAnchor),
                     markerImage.centerYAnchor.constraint(equalTo: customMarker.centerYAnchor),
-                    markerImage.widthAnchor.constraint(equalToConstant: 90),
-                    markerImage.heightAnchor.constraint(equalToConstant: 90)
+                    markerImage.widthAnchor.constraint(equalToConstant: 70),
+                    markerImage.heightAnchor.constraint(equalToConstant: 70)
                 ])
                 
                 markerImage.contentMode = .scaleAspectFill
                 markerImage.layer.borderColor = UIColor.white.cgColor
                 markerImage.layer.borderWidth = 2
-                markerImage.layer.cornerRadius = 45
+                markerImage.layer.cornerRadius = 35
                 markerImage.layer.masksToBounds = true
                 marker.iconView = customMarker
                 

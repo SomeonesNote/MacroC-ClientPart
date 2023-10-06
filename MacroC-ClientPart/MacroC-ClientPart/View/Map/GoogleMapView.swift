@@ -35,15 +35,15 @@ struct GoogleMapView: UIViewRepresentable {
             let markerImage = UIImageView(image: UIImage(named: i.image))
             let customMarker = UIView()
             
-            customMarker.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            customMarker.frame = CGRect(x: 0, y: 0, width: 84, height: 84)
             customMarker.addSubview(markerImage)
             
             markerImage.center = customMarker.center
             markerImage.contentMode = .scaleToFill
-            markerImage.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            markerImage.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
             markerImage.layer.borderColor = UIColor.white.cgColor
             markerImage.layer.borderWidth = 2
-            markerImage.layer.cornerRadius = 50
+            markerImage.layer.cornerRadius = 40
             markerImage.layer.masksToBounds = true
             
             let marker = GMSMarker()

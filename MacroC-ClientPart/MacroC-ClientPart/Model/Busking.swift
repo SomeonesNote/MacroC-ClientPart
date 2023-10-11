@@ -8,22 +8,21 @@
 import Foundation
 import MapKit
 
-struct Busking: Codable, Identifiable {
+struct Busking:  Identifiable, Codable {
     //BuskerInfo
-    var id: UUID
-    var name: String
-    var image: String
+    let id : Int
+    
+    //이거진짜 없어도 되나여
+    let buskername: String
+    let buskerimage: String
     
     //TimeInfo
-    var time: String
+    let buskingstarttime : Date
+    let buskingendtime : Date
     
     //LocationInfo
     var latitude: Double
     var longitude: Double
     
-    //ComputedLocationInfo
-    var location: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-    }
-    
+    let buskinginfo : String
 }

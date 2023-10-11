@@ -18,4 +18,23 @@ class MapBuskerInfoViewModel: ObservableObject {
     func toggleLike() {
         isClickedLike.toggle()
     }
+    
+    func formatDate() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy년 M월 d일"
+        return formatter.string(from: busking.buskingstarttime)
+    }
+    func formatStartTime() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "a h시 mm분"
+        return formatter.string(from: busking.buskingstarttime)
+    }
+    func formatEndTime() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "h시 mm분"
+        return formatter.string(from: busking.buskingendtime)
+    }
 }

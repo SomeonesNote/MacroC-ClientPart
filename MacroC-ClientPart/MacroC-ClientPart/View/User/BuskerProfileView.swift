@@ -36,7 +36,7 @@ struct BuskerProfileView: View {
                         Spacer()
                     }.padding(.top, 60)
                     HStack {
-                        ProfileCircle(image: user.avartaUrl) //아티스트 정보로 바뀌어야함
+                        ProfileCircle(image: user.userimage) //아티스트 정보로 바뀌어야함
                             .padding(.trailing, 30)
                             .padding(.leading)
                         
@@ -57,7 +57,7 @@ struct BuskerProfileView: View {
                     
                     VStack(alignment: .leading) {
                         VStack(alignment: .leading) {
-                            NavigationLink("아티스트 페이지 관리", destination: UserBuskerPageView(viewModel: UserBuskerPageViewModel(userBusker: dummyUserBusker)))
+                            NavigationLink("아티스트 페이지 관리", destination: UserArtistPageView(viewModel: UserArtistPageViewModel(userArtist: dummyArtist2)))
                                 .navigationTitle("")
                                 .padding(.all, 20)
                             

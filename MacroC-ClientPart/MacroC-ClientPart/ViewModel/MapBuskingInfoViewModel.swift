@@ -21,10 +21,29 @@ class MapBuskingInfoViewModel: ObservableObject {
     func toggleLike() {
         isClickedLike.toggle()
     }
+    
+    func formatDate() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy년 M월 d일"
+        return formatter.string(from: busking.buskingstarttime)
+    }
+    func formatStartTime() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "a h시 mm분"
+        return formatter.string(from: busking.buskingstarttime)
+    }
+    func formatEndTime() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "h시 mm분"
+        return formatter.string(from: busking.buskingendtime)
+    }
 
     private func reverseGeo(busking: Busking) {
         let geocoder = CLGeocoder()
-        let location = CLLocation(latitude: busking.location.latitude, longitude: busking.location.longitude)
+        let location = CLLocation(latitude: busking.latitude, longitude: busking.longitude)
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
             if let placemark = placemarks?.first {
                 let district = placemark.locality ?? ""

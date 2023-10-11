@@ -25,7 +25,7 @@ struct SignUpPageView: View {
             Spacer()
         }.cropImagePicker(show: $viewModel.popCrop, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
             .padding()
-            .background(Color.black.hideKeyboardWhenTappedAround())
+            .background(backgroundView().hideKeyboardWhenTappedAround())
             
     }
 }
@@ -47,7 +47,7 @@ extension SignUpPageView {
                     .resizable()
                     .scaledToFit()
                     .clipShape(Circle())
-                    .frame(width: 200)
+                    .frame(width: 150)
                     .overlay(Group {
                         if viewModel.isLoading {
                             ProgressView()
@@ -59,12 +59,12 @@ extension SignUpPageView {
             } else {
                 Circle()
                     .stroke(lineWidth: 3)
-                    .frame(width: 200)
+                    .frame(width: 150)
                     .overlay {
                         Image(systemName: "photo.on.rectangle.angled")
                             .foregroundColor(.white)
                             .font(.system(size: 50))
-                    }
+                }
             }
         }
     }
@@ -99,9 +99,11 @@ extension SignUpPageView {
             }
             .padding()
             .background(.ultraThinMaterial)
+            .background(viewModel.email.isEmpty || viewModel.username.isEmpty || viewModel.password.isEmpty ?  Color.black : Color.blue)
             .cornerRadius(6)
-            
         }.padding(.top, 30)
+            .disabled(viewModel.email.isEmpty || viewModel.username.isEmpty || viewModel.password.isEmpty)
+
     }
 }
 

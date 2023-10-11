@@ -30,10 +30,11 @@ struct MapView: View {
             .background(backgroundView())
             .ignoresSafeArea(.keyboard)
             .hideKeyboardWhenTappedAround()
-            .sheet(isPresented: $viewModel.isShowModal) {
+            .sheet(isPresented: $viewModel.isShowModal, onDismiss: {viewModel.isShowModal = false}) {
                 if let busking = viewModel.selectedBusking {
                     MapBuskerInfoView(viewModel: MapBuskerInfoViewModel(busking: busking))
-                        .presentationDetents([.height(uiheight * 2/3)])
+                        .presentationDetents([.fraction(0.72)])
+                        .presentationDragIndicator(.visible)
                 }
             }
         }

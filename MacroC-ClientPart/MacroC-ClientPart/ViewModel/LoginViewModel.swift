@@ -21,6 +21,7 @@ class LoginViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var popCrop: Bool = false
     @Published var croppedImage: UIImage?
+    
     func getProfile() {
         let headers: HTTPHeaders = [.authorization(bearerToken: accessToken ?? "")]
         AF.request("http://localhost:3000/auth/profile", method: .post, headers: headers)
@@ -33,7 +34,8 @@ class LoginViewModel: ObservableObject {
                     print("Error : \(error)")
                 }
             }
-    }
+        }
+    
     //  func signIn() {
     //    let parameters: Parameters = [
     //      "email": email,
@@ -84,6 +86,7 @@ class LoginViewModel: ObservableObject {
             }
         }
     }
+    
     func initStates() {
         self.email = ""
         self.username = ""

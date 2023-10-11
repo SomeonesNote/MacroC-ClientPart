@@ -6,20 +6,16 @@
 //
 
 import Foundation
-import MapKit
 import Alamofire
 
-
-let dummy1user = User(id: 1, email: "", username: "", password: "", avartaUrl: "")
-
-let url = "http://ec2-3-37-89-214.ap-northeast-2.compute.amazonaws.com/users/\(dummy1user.id)"
-
-struct User:  Identifiable, Decodable, Encodable {
+struct User: Codable {
     let id: Int
-    let email: String
+    let artistid : Int
     let username: String
+    let email: String
     let password: String
-    let avartaUrl: String
+    let userimage : String
+    let follow : [Int]
 }
 //    let following: [Busker]
 
@@ -30,23 +26,25 @@ struct User:  Identifiable, Decodable, Encodable {
 //        self.password = user.password
 //        self.avartaUrl = user.avartaUrl
 //    }
-//}
 
-class userDummyDatatest : ObservableObject {
-    
-    @Published var user: User?
-    
-    func getUserData() {
-        
-        AF.request(url, method: .get)
-            .validate()
-            .responseDecodable(of: User.self){ response in
-                switch response.result {
-                case .success(let userData) :
-                    self.user = userData
-                case .failure(let error) :
-                    print("Error : \(error)")
-                }
-            }
-    }
-}
+//let dummy1user = User(id: 1, email: "", username: "", password: "", avartaUrl: "")
+//let url = "http://ec2-3-37-89-214.ap-northeast-2.compute.amazonaws.com/users/\(dummy1user.id)"
+//
+//class userDummyDatatest : ObservableObject {
+//    
+//    @Published var user: User?
+//    
+//    func getUserData() {
+//        
+//        AF.request(url, method: .get)
+//            .validate()
+//            .responseDecodable(of: User.self){ response in
+//                switch response.result {
+//                case .success(let userData) :
+//                    self.user = userData
+//                case .failure(let error) :
+//                    print("Error : \(error)")
+//                }
+//            }
+//    }
+//}

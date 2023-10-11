@@ -8,9 +8,9 @@
 import SwiftUI
 
 class BuskerPageViewModel: ObservableObject {
-    @Published var busker: Busker
+    @Published var artist: Artist
 
-    init(busker: Busker) {
-        self.busker = busker
+    init(busker: Artist) {
+        self.artist = busker
     }
 }

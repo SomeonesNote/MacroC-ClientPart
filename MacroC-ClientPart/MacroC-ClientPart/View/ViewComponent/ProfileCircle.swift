@@ -19,10 +19,16 @@ struct ProfileCircle: View {
             .scaledToFit()
             .clipShape(Circle())
             .frame(width: 140, height: 140)
-            .overlay(Circle().stroke(Color.white, lineWidth: 2))
-            .padding(5)
-            .modifier(dropShadow())
-        
+//            .overlay(Circle().stroke(Color.white, lineWidth: 2))
+            .padding(-10)
+            .overlay {
+                Circle()
+                    .stroke(lineWidth: 1)
+                    .blur(radius: 3)
+                    .foregroundColor(Color(appBlue).opacity(0.3))
+                    .padding(1)
+            }
+
     }
 }
 

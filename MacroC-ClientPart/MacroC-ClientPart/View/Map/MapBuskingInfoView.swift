@@ -14,8 +14,6 @@ struct MapBuskingInfoView: View {
     
     //MARK: -2.BODY
     var body: some View {
-        ZStack {
-            backgroundView()
             VStack(spacing: 0) {
                 Spacer()
                 buskingInfoToolbar
@@ -24,8 +22,7 @@ struct MapBuskingInfoView: View {
                 buskingInfoAddress
                 buskingInfoMap
             }
-        }
-        .frame(height: UIScreen.main.bounds.height * 2/3)
+            .background(backgroundView())
     }
 }
 
@@ -42,7 +39,7 @@ struct MapBuskingInfoView: View {
 extension MapBuskingInfoView {
     var buskingInfoToolbar: some View {
         HStack{
-            Text(viewModel.busking.name)
+            Text(viewModel.busking.buskername)
                 .font(.title)
                 .fontWeight(.black)
             Spacer()
@@ -52,45 +49,56 @@ extension MapBuskingInfoView {
                     .foregroundColor(.white)
                     .padding(.trailing, 5)
             }
-        }.padding(.init(top: 40, leading: 15, bottom: 40, trailing: 15))
+        }.padding(.init(top: 40, leading: 15, bottom: 30, trailing: 15))
     }
     
     var buskingInfoImage: some View {
-        Image(viewModel.busking.image)
+        Image(viewModel.busking.buskerimage)
             .resizable()
             .scaledToFit()
             .frame(width: 150, height: 150, alignment: .center)
             .clipShape(Circle())
-            .shadow(color: .white, radius: 30)
+            .shadow(color: .white.opacity(0.2), radius: 20)
             .overlay {
-                Circle().stroke(Color.white, lineWidth: 2)
+                Circle()
+                    .stroke(lineWidth: 5)
+                    .blur(radius: 2)
+                    .foregroundColor(Color(appSky).opacity(0.4))
+                    .padding(0)
             }
     }
     
     var buskingTime: some View {
-        Text(viewModel.busking.time)
-            .font(.title3)
-            .fontWeight(.black)
-            .padding(.top)
+        VStack {
+            Text(viewModel.formatDate()) //TODO: 시간모델
+                .font(.headline)
+                .fontWeight(.heavy)
+                .padding(.top)
+            Text("\(viewModel.formatStartTime()) ~ \(viewModel.formatEndTime())")
+                .font(.subheadline)
+                .fontWeight(.heavy)
+        }
     }
-    
     var buskingInfoAddress: some View {
         HStack {
             Text(viewModel.addressString)
-                .fontWeight(.semibold)
+                .font(.subheadline)
+                .fontWeight(.heavy)
                 .padding(.trailing, 10)
             Button { UIPasteboard.general.string = viewModel.addressString } label: {
                 Image(systemName: "rectangle.on.rectangle")
                     .resizable()
-                    .fontWeight(.heavy)
+                    .fontWeight(.bold)
                     .frame(width: 15, height: 15)
             }
-        }.padding(.bottom)
+        }.padding(.vertical)
     }
     
     var buskingInfoMap: some View {
         MiniGoogleMapView(busking: viewModel.busking)
-            .frame(height: UIScreen.main.bounds.height / 2)
+            .frame(height: UIScreen.main.bounds.height / 3)
             .cornerRadius(20)
+            .padding(.horizontal, 8)
+            .padding(.bottom, 20)
     }
 }

@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		070752A32AD75BA60090E11D /* AppleSigninButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070752A22AD75BA60090E11D /* AppleSigninButton.swift */; };
 		07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* LoginViewModel.swift */; };
 		07FBF28B2ACFF90B004EF174 /* SignUpPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpPageView.swift */; };
+		07FD2BE62AD32D4B0030865A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD2BE52AD32D4B0030865A /* MainViewModel.swift */; };
 		F62B8A742ACED1B80077CA17 /* MacroC_ClientPartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */; };
 		F62B8A762ACED1B80077CA17 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A752ACED1B80077CA17 /* ContentView.swift */; };
 		F62B8A782ACED1B90077CA17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F62B8A772ACED1B90077CA17 /* Assets.xcassets */; };
@@ -23,7 +25,7 @@
 		F62B8A972ACED4070077CA17 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A962ACED4070077CA17 /* LoginView.swift */; };
 		F62B8A992ACED4130077CA17 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A982ACED4130077CA17 /* MainView.swift */; };
 		F62B8A9B2ACED41F0077CA17 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A9A2ACED41F0077CA17 /* MapView.swift */; };
-		F62B8A9D2ACED46D0077CA17 /* UserBuskerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A9C2ACED46D0077CA17 /* UserBuskerPageView.swift */; };
+		F62B8A9D2ACED46D0077CA17 /* UserArtistPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A9C2ACED46D0077CA17 /* UserArtistPageView.swift */; };
 		F62B8A9F2ACED4830077CA17 /* BuskerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A9E2ACED4830077CA17 /* BuskerPageView.swift */; };
 		F62B8AA22ACED4980077CA17 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA12ACED4980077CA17 /* ProfileView.swift */; };
 		F62B8AA42ACED4B10077CA17 /* EditFollowingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA32ACED4B10077CA17 /* EditFollowingListView.swift */; };
@@ -53,11 +55,11 @@
 		F62B8AD92ACED8EF0077CA17 /* MapBuskingInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AD82ACED8EF0077CA17 /* MapBuskingInfoViewModel.swift */; };
 		F62B8ADB2ACED90B0077CA17 /* MapBuskerInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ADA2ACED90B0077CA17 /* MapBuskerInfoViewModel.swift */; };
 		F62B8ADD2ACED9220077CA17 /* AddBuskingPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ADC2ACED9220077CA17 /* AddBuskingPageViewModel.swift */; };
-		F62B8ADF2ACED9380077CA17 /* UserBuskerPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ADE2ACED9380077CA17 /* UserBuskerPageViewModel.swift */; };
+		F62B8ADF2ACED9380077CA17 /* UserArtistPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ADE2ACED9380077CA17 /* UserArtistPageViewModel.swift */; };
 		F62B8AE12ACED9500077CA17 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE02ACED9500077CA17 /* User.swift */; };
-		F62B8AE32ACED95B0077CA17 /* Busker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE22ACED95B0077CA17 /* Busker.swift */; };
+		F62B8AE32ACED95B0077CA17 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE22ACED95B0077CA17 /* Artist.swift */; };
 		F62B8AE52ACED9690077CA17 /* Busking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE42ACED9690077CA17 /* Busking.swift */; };
-		F62B8AE72ACED9760077CA17 /* UserBusker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE62ACED9760077CA17 /* UserBusker.swift */; };
+		F62B8AE72ACED9760077CA17 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE62ACED9760077CA17 /* Member.swift */; };
 		F62B8AE92ACED9890077CA17 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE82ACED9890077CA17 /* DummyData.swift */; };
 		F62B8AEB2ACED9950077CA17 /* Apitest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AEA2ACED9950077CA17 /* Apitest.swift */; };
 		F62B8AED2ACED9BA0077CA17 /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AEC2ACED9BA0077CA17 /* ViewModifier.swift */; };
@@ -65,9 +67,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		070752A22AD75BA60090E11D /* AppleSigninButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSigninButton.swift; sourceTree = "<group>"; };
 		07FBF2872ACF5223004EF174 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		07FBF2892ACFD143004EF174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07FBF28A2ACFF90B004EF174 /* SignUpPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPageView.swift; sourceTree = "<group>"; };
+		07FD2BE52AD32D4B0030865A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		F62B8A702ACED1B80077CA17 /* MacroC-ClientPart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MacroC-ClientPart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroC_ClientPartApp.swift; sourceTree = "<group>"; };
 		F62B8A752ACED1B80077CA17 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -78,7 +82,7 @@
 		F62B8A962ACED4070077CA17 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F62B8A982ACED4130077CA17 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F62B8A9A2ACED41F0077CA17 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		F62B8A9C2ACED46D0077CA17 /* UserBuskerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBuskerPageView.swift; sourceTree = "<group>"; };
+		F62B8A9C2ACED46D0077CA17 /* UserArtistPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArtistPageView.swift; sourceTree = "<group>"; };
 		F62B8A9E2ACED4830077CA17 /* BuskerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuskerPageView.swift; sourceTree = "<group>"; };
 		F62B8AA12ACED4980077CA17 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		F62B8AA32ACED4B10077CA17 /* EditFollowingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFollowingListView.swift; sourceTree = "<group>"; };
@@ -108,11 +112,11 @@
 		F62B8AD82ACED8EF0077CA17 /* MapBuskingInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBuskingInfoViewModel.swift; sourceTree = "<group>"; };
 		F62B8ADA2ACED90B0077CA17 /* MapBuskerInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBuskerInfoViewModel.swift; sourceTree = "<group>"; };
 		F62B8ADC2ACED9220077CA17 /* AddBuskingPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBuskingPageViewModel.swift; sourceTree = "<group>"; };
-		F62B8ADE2ACED9380077CA17 /* UserBuskerPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBuskerPageViewModel.swift; sourceTree = "<group>"; };
+		F62B8ADE2ACED9380077CA17 /* UserArtistPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArtistPageViewModel.swift; sourceTree = "<group>"; };
 		F62B8AE02ACED9500077CA17 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		F62B8AE22ACED95B0077CA17 /* Busker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Busker.swift; sourceTree = "<group>"; };
+		F62B8AE22ACED95B0077CA17 /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		F62B8AE42ACED9690077CA17 /* Busking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Busking.swift; sourceTree = "<group>"; };
-		F62B8AE62ACED9760077CA17 /* UserBusker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBusker.swift; sourceTree = "<group>"; };
+		F62B8AE62ACED9760077CA17 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		F62B8AE82ACED9890077CA17 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		F62B8AEA2ACED9950077CA17 /* Apitest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apitest.swift; sourceTree = "<group>"; };
 		F62B8AEC2ACED9BA0077CA17 /* ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifier.swift; sourceTree = "<group>"; };
@@ -183,7 +187,7 @@
 				F62B8A942ACED3E70077CA17 /* LaunchScreenView.swift */,
 				07FBF28A2ACFF90B004EF174 /* SignUpPageView.swift */,
 				F62B8A962ACED4070077CA17 /* LoginView.swift */,
-				F62B8A9C2ACED46D0077CA17 /* UserBuskerPageView.swift */,
+				F62B8A9C2ACED46D0077CA17 /* UserArtistPageView.swift */,
 				F62B8A9E2ACED4830077CA17 /* BuskerPageView.swift */,
 				F62B8ABE2ACED68C0077CA17 /* Main */,
 				F62B8AB32ACED5870077CA17 /* Map */,
@@ -197,12 +201,13 @@
 			isa = PBXGroup;
 			children = (
 				07FBF2872ACF5223004EF174 /* LoginViewModel.swift */,
+				07FD2BE52AD32D4B0030865A /* MainViewModel.swift */,
 				F62B8AD42ACED8C10077CA17 /* MapViewMedel.swift */,
 				F62B8AD62ACED8D80077CA17 /* BuskerPageViewModel.swift */,
 				F62B8AD82ACED8EF0077CA17 /* MapBuskingInfoViewModel.swift */,
 				F62B8ADA2ACED90B0077CA17 /* MapBuskerInfoViewModel.swift */,
 				F62B8ADC2ACED9220077CA17 /* AddBuskingPageViewModel.swift */,
-				F62B8ADE2ACED9380077CA17 /* UserBuskerPageViewModel.swift */,
+				F62B8ADE2ACED9380077CA17 /* UserArtistPageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -211,9 +216,9 @@
 			isa = PBXGroup;
 			children = (
 				F62B8AE02ACED9500077CA17 /* User.swift */,
-				F62B8AE22ACED95B0077CA17 /* Busker.swift */,
+				F62B8AE22ACED95B0077CA17 /* Artist.swift */,
 				F62B8AE42ACED9690077CA17 /* Busking.swift */,
-				F62B8AE62ACED9760077CA17 /* UserBusker.swift */,
+				F62B8AE62ACED9760077CA17 /* Member.swift */,
 				F62B8AE82ACED9890077CA17 /* DummyData.swift */,
 				F62B8AEA2ACED9950077CA17 /* Apitest.swift */,
 			);
@@ -286,6 +291,7 @@
 				F62B8ACE2ACED8550077CA17 /* GooglePlacesSerchBar.swift */,
 				F62B8AD02ACED8690077CA17 /* AddBuskingSerchBar.swift */,
 				F62B8AD22ACED87C0077CA17 /* ImageCropper.swift */,
+				070752A22AD75BA60090E11D /* AppleSigninButton.swift */,
 			);
 			path = ViewComponent;
 			sourceTree = "<group>";
@@ -381,13 +387,13 @@
 				F62B8AA22ACED4980077CA17 /* ProfileView.swift in Sources */,
 				F62B8AB52ACED5AD0077CA17 /* GoogleMapView.swift in Sources */,
 				F62B8A9B2ACED41F0077CA17 /* MapView.swift in Sources */,
-				F62B8AE72ACED9760077CA17 /* UserBusker.swift in Sources */,
+				F62B8AE72ACED9760077CA17 /* Member.swift in Sources */,
 				F62B8A742ACED1B80077CA17 /* MacroC_ClientPartApp.swift in Sources */,
 				F62B8ACF2ACED8550077CA17 /* GooglePlacesSerchBar.swift in Sources */,
 				F62B8A9F2ACED4830077CA17 /* BuskerPageView.swift in Sources */,
 				F62B8AE52ACED9690077CA17 /* Busking.swift in Sources */,
 				F62B8AAC2ACED5260077CA17 /* BuskerProfileView.swift in Sources */,
-				F62B8AE32ACED95B0077CA17 /* Busker.swift in Sources */,
+				F62B8AE32ACED95B0077CA17 /* Artist.swift in Sources */,
 				F62B8A972ACED4070077CA17 /* LoginView.swift in Sources */,
 				F62B8ADD2ACED9220077CA17 /* AddBuskingPageViewModel.swift in Sources */,
 				F62B8AEB2ACED9950077CA17 /* Apitest.swift in Sources */,
@@ -409,16 +415,18 @@
 				F62B8AED2ACED9BA0077CA17 /* ViewModifier.swift in Sources */,
 				F62B8AA62ACED4CB0077CA17 /* DonationListView.swift in Sources */,
 				F62B8AB72ACED5C80077CA17 /* MiniGoogleMapView.swift in Sources */,
-				F62B8A9D2ACED46D0077CA17 /* UserBuskerPageView.swift in Sources */,
+				F62B8A9D2ACED46D0077CA17 /* UserArtistPageView.swift in Sources */,
 				F62B8ACB2ACED8270077CA17 /* BuskingListRow.swift in Sources */,
 				F62B8AB92ACED5E30077CA17 /* MapBuskingInfoView.swift in Sources */,
 				F62B8AC92ACED8110077CA17 /* ProfileRectangle.swift in Sources */,
 				F62B8AAE2ACED53E0077CA17 /* AddBuskingPageView.swift in Sources */,
 				F62B8AC32ACED78C0077CA17 /* EditFanView.swift in Sources */,
+				070752A32AD75BA60090E11D /* AppleSigninButton.swift in Sources */,
 				F62B8AD72ACED8D80077CA17 /* BuskerPageViewModel.swift in Sources */,
-				F62B8ADF2ACED9380077CA17 /* UserBuskerPageViewModel.swift in Sources */,
+				F62B8ADF2ACED9380077CA17 /* UserArtistPageViewModel.swift in Sources */,
 				F62B8ADB2ACED90B0077CA17 /* MapBuskerInfoViewModel.swift in Sources */,
 				F62B8AD92ACED8EF0077CA17 /* MapBuskingInfoViewModel.swift in Sources */,
+				07FD2BE62AD32D4B0030865A /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,6 +574,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
@@ -577,7 +586,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "DonsNote.MacroC-ClientPart";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DonsNote.MacroC-ClientPart";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -609,6 +618,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
@@ -620,7 +630,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "DonsNote.MacroC-ClientPart";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DonsNote.MacroC-ClientPart";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

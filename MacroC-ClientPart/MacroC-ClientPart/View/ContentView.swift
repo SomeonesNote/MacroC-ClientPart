@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    //MARK: -1.BODY
     var body: some View {
         
         TabView {
             MainView()
                 .tabItem {
-                    Image(systemName: "house")
-                    Text("Main Page")
+                    Image(systemName: "person.3.fill")
+                    Text("Main")
                 }
             
             MapView()
@@ -25,8 +27,8 @@ struct ContentView: View {
             
             ProfileView()
                 .tabItem {
-                    Image(systemName: "person")
-                    Text("My Profile")
+                    Image(systemName: "person.crop.circle")
+                    Text("Profile")
                 }
         }
         .onAppear {
@@ -37,6 +39,7 @@ struct ContentView: View {
     }
 }
 
+//MARK: -2.PREVIEW
 #Preview {
     ContentView()
 }

@@ -10,17 +10,11 @@ import SwiftUI
 struct MainView: View{
     
     //MARK: - 1.PROPERTY
-    @State var isClickedBuskingInfo: Bool = false
-    @State var selectedBusking: Busking = dummyBusking1
-    var user : User = dummyUser
-    
+    @ObservedObject var viewModel = MainViewModel()
     
     //MARK: - 2.BODY
     var body: some View {
-        GeometryReader { Geo in
             NavigationView {
-                ZStack {
-                    backgroundView()
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 20){
                             MyProfileSection
@@ -35,12 +29,10 @@ struct MainView: View{
                         }
                     }
                     .padding(.top, 30)
-                }
-                
-                .navigationTitle("")
+                    .navigationTitle("")
+                    .background(backgroundView())
+                    .ignoresSafeArea(.all)
             }
-            .ignoresSafeArea(.all)
-        }
     }
 }
 //MARK: - 3.PREVIEW
@@ -51,20 +43,48 @@ struct MainView: View{
 //MARK: - 4.EXTENSION
 extension MainView {
     
+    var buskingInfoImage: some View {
+        Image(viewModel.user.userimage)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 150, height: 150, alignment: .center)
+            .clipShape(Circle())
+            .shadow(color: .white.opacity(0.4), radius: 30)
+            .overlay {
+                Circle()
+                    .stroke(lineWidth: 2)
+                    .blur(radius: 1)
+                    .foregroundColor(Color(appSky).opacity(0.2))
+                    .padding(0)
+            }
+    }
+
     var MyProfileSection: some View {
         return VStack {
             HStack{
                 roundedBoxText(text: "My Profile")
                 Spacer()
-                                Button { } label: {customSFButton(image: "ellipsis.circle.fill")}
+                Button { } label: {customSFButton(image: "ellipsis.circle.fill")}
             }.padding(.init(top: 0, leading: 15, bottom: 20, trailing: 15))
             
             HStack(alignment: .top, spacing: 20){
-                ProfileCircle(image: user.avartaUrl)
+                Image(viewModel.user.userimage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 120, height: 120, alignment: .center)
+                    .clipShape(Circle())
+                    .shadow(color: .white.opacity(0.4), radius: 3)
+                    .overlay {
+                        Circle()
+                            .stroke(lineWidth: 3)
+                            .blur(radius: 2)
+                            .foregroundColor(Color(appSky).opacity(0.5))
+                            .padding(2)
+                    }
                     .padding(.leading, 20)
-
+                
                 VStack(alignment: .leading) {
-                    Text(user.username)
+                    Text(viewModel.user.username)
                         .font(.title2)
                         .fontWeight(.semibold)
                 }
@@ -83,12 +103,11 @@ extension MainView {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 0) {
-                    //                    ForEach(user.following) { i in // 유저모델에서 일단 팔로잉 지워벌이
                     ForEach(dummyUserFollowing) { i in
                         NavigationLink {
                             BuskerPageView(viewModel: BuskerPageViewModel(busker: i))
                         } label: {
-                            ProfileRectangle(image: i.image,name: i.name)
+                            ProfileRectangle(image: i.artistimage,name: i.stagename)
                         }
                     }
                 }
@@ -104,19 +123,20 @@ extension MainView {
                 Spacer()
             }.padding(.init(top: 0, leading: 15, bottom: 20, trailing: 15))
             
-            VStack(spacing: 5) {
+            VStack(spacing: 15) {
                 ForEach(dummyBuskingNow) { i in
                     BuskingListRow(busking: i)
                         .onTapGesture {
-                            selectedBusking = i
-                            isClickedBuskingInfo = true
+                            viewModel.selectedBusking = i
+                            viewModel.isClickedBuskingInfo = true
                         }
-                        .sheet(isPresented: $isClickedBuskingInfo) {
-                            MapBuskingInfoView(viewModel: MapBuskingInfoViewModel(busking: selectedBusking))
-                                .presentationDetents([.height(uiheight * 3/4)])
-                        }
+                        .sheet(isPresented: $viewModel.isClickedBuskingInfo, onDismiss: {viewModel.isClickedBuskingInfo = false}) {
+                            MapBuskingInfoView(viewModel: MapBuskingInfoViewModel(busking: viewModel.selectedBusking))
+                                .presentationDetents([.fraction(0.8)])
+                                .presentationDragIndicator(.visible)
+                    }
                 }
             }
-        }.padding(.init(top: 0, leading: 4, bottom: 80, trailing: 4))
+        }.padding(.init(top: 0, leading: 4, bottom: 100, trailing: 4))
     }
 }

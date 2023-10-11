@@ -25,7 +25,7 @@ struct ProfileView: View {
                     .ignoresSafeArea(.all, edges: .top)
                     VStack {
                     HStack {
-                        ProfileCircle(image: user.avartaUrl) //아티스트 정보로 바뀌어야함
+                        ProfileCircle(image: user.userimage) //아티스트 정보로 바뀌어야함
                             .padding(.trailing, 30)
                             .padding(.leading)
                         
@@ -64,8 +64,6 @@ struct ProfileView: View {
                         customDivider()
                         
                         if isT2 {
-//                            NavigationLink("아티스트 계정 전환", destination: ArtistProfileView(isShowBuskerProfile: $isShowBuskerProfile))
-//                                .padding(.all, 20)
                             Button(action: {
                                 isShowBuskerProfile = true
                             }, label: {

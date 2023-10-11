@@ -12,6 +12,7 @@ import SwiftUI
 let appBlue = "appBlue"
 let appIndigo = "appIndigo"
 let appIndigo1 = "appIndigo1"
+let appIndigo2 = "appIndigo2"
 let appSky = "appSky"
 
 func backgroundGradient(a:Color, b: Color) -> LinearGradient {
@@ -26,8 +27,8 @@ let loginViewBG3 = "loginViewBG3"
 
 let topBarSteel = "topBarSteel"
 
-let backgroundStill = Image("loginViewBG5")
-let backgroundStillReverse = Image("loginViewBG4")
+let backgroundStill = Image("background")
+//let backgroundStillReverse = Image("background")
 
 //MARK: -LOGO
 let GoogleLogo = "GoogleLogo"
@@ -108,7 +109,7 @@ struct customSFButton: View {
     var image: String
     var body: some View {
         Image(systemName: image)
-            .scaleEffect(1.5)
+            .font(.title)
             .modifier(dropShadow())
             .foregroundColor(.white)
     }
@@ -118,7 +119,7 @@ struct sheetBoxText: View {
     var text: String
     var body: some View {
         Text(text)
-            .font(.headline)
+            .font(.subheadline)
             .fontWeight(.heavy)
             .frame(width: 300, height: 50)
             .background{
@@ -197,5 +198,21 @@ struct toolbarButtonLabel: View {
 extension View {
     func clearButton(text: Binding<String>) -> some View {
         modifier(ClearButton(text: text))
+    }
+}
+
+extension View {
+    func innerShadow<S: Shape, SS: ShapeStyle>(shape: S, color: SS, lineWidth: CGFloat = 1, offsetX: CGFloat = 0, offsetY: CGFloat = 0, blur: CGFloat = 0, blendMode: BlendMode = .normal, opacity: Double = 1) -> some View {
+        return self
+            .overlay {
+                // MARK: Bottom Sheet Inner Shadow
+                shape
+                    .stroke(color, lineWidth: 1)
+                    .blendMode(blendMode)
+                    .offset(x: offsetX, y: offsetY)
+                    .blur(radius: blur)
+                    .mask (shape)
+                    .opacity(opacity)
+            }
     }
 }

@@ -12,13 +12,13 @@ import CoreLocation
 
 
 class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, GMSAutocompleteFetcherDelegate {
-    @Published var userBusker: UserBusker = dummyUserBusker
+    @Published var userArtist: Artist = dummyArtist2
     @Published var markerAdressString: String = "address"
-    @Published var currentTime = Date()
+    @Published var startTime = Date()
+    @Published var endTime = Date()
     @Published var query: String = ""
     @Published var results: [GMSAutocompletePrediction] = []
     @Published var selectedCoordinate: CLLocationCoordinate2D?
-    
     
     private var fetcher: GMSAutocompleteFetcher
     @Published var locationManager: CLLocationManager
@@ -126,7 +126,19 @@ class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDele
     func formatDate() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "yyyy년 M월 d일 a h시 mm분"
-        return formatter.string(from: currentTime)
+        formatter.dateFormat = "yyyy년 M월 d일"
+        return formatter.string(from: startTime)
+    }
+    func formatStartTime() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "a h시 mm분"
+        return formatter.string(from: startTime)
+    }
+    func formatEndTime() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "a h시 mm분"
+        return formatter.string(from: endTime)
     }
 }

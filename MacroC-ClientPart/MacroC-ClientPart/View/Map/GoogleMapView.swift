@@ -22,7 +22,6 @@ struct GoogleMapView: UIViewRepresentable {
         
         view.isMyLocationEnabled = true
         view.settings.myLocationButton = true
-        view.settings.compassButton = true
         view.animate(toZoom: 15)
         
         view.delegate = context.coordinator
@@ -30,24 +29,30 @@ struct GoogleMapView: UIViewRepresentable {
         
         context.coordinator.mapView = view
         context.coordinator.startLocationUpdates()
-        
         for i in viewModel.buskings {
-            let markerImage = UIImageView(image: UIImage(named: i.image))
-            let customMarker = UIView()
-            
-            customMarker.frame = CGRect(x: 0, y: 0, width: 84, height: 84)
+            let markerImage = UIImageView(image: UIImage(named: i.buskerimage))
+            let customMarker = UIImageView(image: UIImage(named: "markerpin_blue"))
+
             customMarker.addSubview(markerImage)
+            customMarker.translatesAutoresizingMaskIntoConstraints = false
             
-            markerImage.center = customMarker.center
+            markerImage.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                markerImage.centerXAnchor.constraint(equalTo: customMarker.centerXAnchor),
+                markerImage.centerYAnchor.constraint(equalTo: customMarker.centerYAnchor, constant: -4),
+                markerImage.widthAnchor.constraint(equalToConstant: 74),
+                markerImage.heightAnchor.constraint(equalToConstant: 74)
+            ])
+            
             markerImage.contentMode = .scaleToFill
-            markerImage.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
             markerImage.layer.borderColor = UIColor.white.cgColor
             markerImage.layer.borderWidth = 2
-            markerImage.layer.cornerRadius = 40
+            markerImage.layer.cornerRadius = 37
             markerImage.layer.masksToBounds = true
             
             let marker = GMSMarker()
-            marker.position = i.location
+            marker.position.latitude = i.latitude
+            marker.position.longitude = i.longitude
             marker.map = view
             marker.iconView = customMarker
             marker.isDraggable = false

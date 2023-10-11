@@ -5,14 +5,12 @@
 //  Created by Kimdohyun on 2023/10/05.
 //
 
-
 import SwiftUI
 import GooglePlaces
 
 struct GooglePlacesSearchView: UIViewControllerRepresentable {
     @Binding var address: String
     
-
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }

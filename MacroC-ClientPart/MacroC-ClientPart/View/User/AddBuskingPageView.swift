@@ -16,46 +16,18 @@ struct AddBuskingPageView: View {
     
     //MARK: -2.BODY
     var body: some View {
-        GeometryReader { Geo in
-            VStack(spacing: 20) {
-                HStack {
-                    Button{
-                        dismiss()
-                    } label: {
-                        toolbarButtonLabel(buttonLabel: "Cancle")
-                    }
-                    Spacer()
-                    Button{
-                        //공연 데이터에 올리는 작업 수행
-                    } label: {
-                        toolbarButtonLabel(buttonLabel: "Register")
-                    }
-                }
-                .padding(.all, 8)
-                
-                locationHeader
-                map
-                Spacer()
-                timeHeader
-                datePickerView
-                Spacer()
-            }
-            .padding(.horizontal)
+        VStack(spacing: 20) {
+            topbar
+            locationHeader
+            map
+            Spacer()
+            timeHeader
+            datePickerView
+            Spacer()
         }
-        .background(backgroundView())
-        .hideKeyboardWhenTappedAround()
+        .padding(.horizontal)
+        .background(backgroundView().hideKeyboardWhenTappedAround())
         .ignoresSafeArea(.keyboard)
-//        .toolbar{
-//            ToolbarItem(placement: .topBarTrailing) {
-//                Button{
-//                    //공연 데이터에 올리는 작업 수행
-//                } label: {
-//                    Text("등록")
-//                        .font(.headline)
-//                        .fontWeight(.semibold)
-//                }
-//            }
-//        }
     }
 }
 
@@ -66,6 +38,27 @@ struct AddBuskingPageView: View {
 
 //MARK: -4.EXTENSION
 extension AddBuskingPageView {
+    
+    var topbar: some View {
+        HStack {
+            Button{
+                dismiss()
+            } label: {
+                toolbarButtonLabel(buttonLabel: "Cancle")
+            }
+            Spacer()
+            Button{
+                //공연 데이터에 올리는 작업 수행
+                print("공연 장소: \(viewModel.markerAdressString)")
+                print("공연 시작: \(viewModel.startTime)")
+                print("공연 종료: \(viewModel.endTime)")
+            } label: {
+                toolbarButtonLabel(buttonLabel: "Register")
+            }
+        }
+        .padding(.init(top: 40, leading: 8, bottom: 8, trailing: 8))
+    }
+    
     var locationHeader: some View {
         HStack {
             roundedBoxText(text: "Location")
@@ -81,9 +74,9 @@ extension AddBuskingPageView {
                 .overlay(alignment: .bottom) {
                     Text(viewModel.markerAdressString)
                         .fontWeight(.semibold)
-                        .font(.headline)
+                        .font(.footnote)
                         .padding(.init(top: 8, leading: 30, bottom: 8, trailing: 30))
-                        .background(Color(appIndigo1).opacity(0.9))
+                        .background(LinearGradient(colors: [Color(appIndigo2),Color(appIndigo)], startPoint: .topLeading, endPoint: .bottomTrailing))
                         .cornerRadius(20)
                         .modifier(dropShadow())
                         .padding(5)
@@ -101,17 +94,35 @@ extension AddBuskingPageView {
     }
     
     var datePickerView: some View {
-        VStack(spacing: 20) {
-            DatePicker(selection: $viewModel.currentTime) {
-                Text("")
+        VStack(spacing: 5) {
+            DatePicker(selection: $viewModel.startTime, displayedComponents: .date) {
+                Text("공연 날짜")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
             }
+            DatePicker(selection: $viewModel.startTime, displayedComponents: .hourAndMinute) {
+                Text("시작 시간")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+            }
+            DatePicker(selection: $viewModel.endTime, displayedComponents: .hourAndMinute) {
+                Text("종료 시간")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+            }
+            customDivider()
+                .padding(.vertical, 10)
             Text(viewModel.formatDate())
                 .fontWeight(.semibold)
-                .font(.headline)
+                .font(.subheadline)
+            HStack {
+                Text("\(viewModel.formatStartTime())   ~   \(viewModel.formatEndTime())")
+                    .fontWeight(.semibold)
+                    .font(.subheadline)
+            }
         }
-        .padding(.init(top: 10, leading: 10, bottom: 25, trailing: 10))
-//        .background(Material.ultraThin.opacity(0.8))
-        .background(RoundedRectangle(cornerRadius: 10).fill(LinearGradient(colors: [Color(appBlue).opacity(0.7), Color(appIndigo)], startPoint: .bottomTrailing, endPoint: .topLeading)).opacity(0.4))
-        .cornerRadius(10)
+            .padding(.init(top: 10, leading: 15, bottom: 25, trailing: 15))
+            .background(Material.ultraThin.opacity(0.5))
+            .cornerRadius(10)
     }
 }

@@ -20,6 +20,7 @@ class MapViewModel: ObservableObject {
     @Published var query: String = ""
     @Published var results: [GMSAutocompletePrediction] = []
     
+    
     let buskings: [Busking] = dummyBuskingNow
     private var fetcher: GMSAutocompleteFetcher
     private var coordinator: Coordinator

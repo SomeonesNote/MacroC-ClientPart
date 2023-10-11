@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    
     //MARK: -1.PROPERTY
     @StateObject var viewModel = LoginViewModel()
     
@@ -19,12 +20,11 @@ struct LoginView: View {
                 Spacer()
                 textFieldList
                 signInbutton
+                AppleSigninButton()
                 Spacer()
             }
             .padding()
-            .background(Color.black.hideKeyboardWhenTappedAround())
-           
-
+            .background(backgroundView().hideKeyboardWhenTappedAround())
     }
 }
 
@@ -50,9 +50,24 @@ extension LoginView {
         }
     }
     
+//    var signInbutton: some View {
+//        Button {
+////            viewModel.()
+//        } label: {
+//            HStack{
+//                Spacer()
+//                Text("Sign In").fontWeight(.semibold)
+//                Spacer()
+//            }
+//            .padding()
+//            .background(.ultraThinMaterial)
+//            .cornerRadius(6)
+//            
+//        }.padding(.top, 30)
+//    }
     var signInbutton: some View {
         Button {
-//            viewModel.()
+//            viewModel.signIn()
         } label: {
             HStack{
                 Spacer()
@@ -61,8 +76,10 @@ extension LoginView {
             }
             .padding()
             .background(.ultraThinMaterial)
+            .background(viewModel.email.isEmpty || viewModel.password.isEmpty ?  Color.black : Color.blue.opacity(0.7))
             .cornerRadius(6)
-            
         }.padding(.top, 30)
+            .disabled(viewModel.email.isEmpty || viewModel.password.isEmpty)
+
     }
 }

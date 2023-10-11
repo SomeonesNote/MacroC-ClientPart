@@ -14,8 +14,6 @@ struct MapBuskerInfoView: View {
     
     //MARK: -2.BODY
     var body: some View {
-        ZStack {
-            backgroundView()
             VStack(spacing: 10) {
                 buskerInfoToolbar
                 buskerInfoImage
@@ -23,8 +21,7 @@ struct MapBuskerInfoView: View {
                 Button { } label: { sheetBoxText(text: "더보기") }
                 Button { } label: { sheetBoxText(text: "찾아가기") }
                 Spacer()
-            }.frame(height: 600)
-        }
+            }.background(backgroundView())
     }
 }
 
@@ -48,29 +45,37 @@ extension MapBuskerInfoView {
     
     var buskerInfoToolbar: some View {
         HStack{
-            Text(viewModel.busking.name)
+            Text(viewModel.busking.buskername)
                 .font(.title)
                 .fontWeight(.black)
             Spacer()
             likeButton
-        }.padding(.init(top: 50, leading: 15, bottom: 30, trailing: 15))
+        }.padding(.init(top: 50, leading: 15, bottom: 10, trailing: 15))
     }
     
     var buskerInfoImage: some View {
-        Image(viewModel.busking.image)
+        Image(viewModel.busking.buskerimage)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 200, height: 200, alignment: .center)
+                .frame(width: 180, height: 180, alignment: .center)
                 .clipShape(Circle())
                 .padding(.vertical, 30)
-                .shadow(color: .white,radius: 30)
-                .overlay { Circle().stroke(Color.white, lineWidth: 2) }
+                .shadow(color: .white.opacity(0.2),radius: 20)
+                .overlay {
+                    Circle()
+                        .stroke(lineWidth: 5)
+                        .blur(radius: 4)
+                        .foregroundColor(Color(appSky).opacity(0.4))
+                        .padding(0)
+                }
+
             
         }
     
     var buskingTime: some View {
-        Text("13:00 ~ 16:00")
-            .fontWeight(.black)
-            .padding(.vertical, 10)
+        Text("\(viewModel.formatStartTime()) ~ \(viewModel.formatEndTime())")
+            .font(.subheadline)
+            .fontWeight(.heavy)
+            .padding(.bottom, 20)
     }
 }

@@ -17,32 +17,39 @@ struct BuskingListRow: View {
     //MARK: -2.BODY
     var body: some View {
         HStack(spacing: 10) {
-            Image(busking.image)
+            Image(busking.buskerimage)
                 .resizable()
                 .scaledToFit()
             
             VStack(alignment: .leading,spacing: 1) {
-                Text(busking.name)
+                Text(busking.buskername)
                     .font(.title3)
                     .fontWeight(.heavy)
                     .padding(.bottom, 9)
-                Text("2023/12/23")
+                Text(formatDate())
                     .font(.footnote)
                     .fontWeight(.semibold)
-                Text(busking.time)
+                Text("\(formatStartTime()) ~ \(formatEndTime())") // TODO: 시간 포맷 다시 설정해야
                     .font(.footnote)
                     .fontWeight(.semibold)
                     .padding(.bottom, 5)
                 Text("\(addressString)")
-                    .font(.callout)
+                    .font(.subheadline)
                     .fontWeight(.heavy)
             }
             Spacer()
         }
-        .background(RoundedRectangle(cornerRadius: 10).fill(LinearGradient(colors: [Color(appBlue), Color(appIndigo1)], startPoint: .bottomTrailing, endPoint: .topLeading)).opacity(0.4))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .frame(height: 140)
+        .background(RoundedRectangle(cornerRadius: 10).fill(LinearGradient(colors: [Color(appIndigo2), Color(appIndigo1)], startPoint: .bottomTrailing, endPoint: .topLeading)).opacity(0.4))
+        .clipShape(RoundedRectangle(cornerRadius: 30))
+        .frame(height: 130)
         .modifier(dropShadow())
+        .overlay {
+            RoundedRectangle(cornerRadius: 30)
+                .stroke(lineWidth: 1)
+                .blur(radius: 2)
+                .foregroundColor(Color(appBlue).opacity(0.2))
+                .padding(0)
+        }
         .onAppear {
             reverseGeo(busking: busking)
         }
@@ -51,14 +58,14 @@ struct BuskingListRow: View {
 
 //MARK: -3.PREVIEW
 #Preview {
-    MainView()
+    MainView(viewModel: MainViewModel())
 }
 
 //MARK: - 4.EXTENSION
 extension BuskingListRow {
     func reverseGeo(busking: Busking) {
         let geocoder = CLGeocoder()
-        let location = CLLocation(latitude: busking.location.latitude, longitude: busking.location.longitude)
+        let location = CLLocation(latitude: busking.latitude, longitude: busking.longitude)
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
             if let placemark = placemarks?.first {
                 let district = placemark.locality ?? ""
@@ -68,4 +75,24 @@ extension BuskingListRow {
             }
         }
     }
+    
+    func formatDate() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy년 M월 d일"
+        return formatter.string(from: busking.buskingstarttime)
+    }
+    func formatStartTime() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "a h시 mm분"
+        return formatter.string(from: busking.buskingstarttime)
+    }
+    func formatEndTime() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "h시 mm분"
+        return formatter.string(from: busking.buskingendtime)
+    }
+
 }

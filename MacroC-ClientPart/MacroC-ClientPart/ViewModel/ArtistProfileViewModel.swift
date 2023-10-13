@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BuskerProfileViewModel: ObservableObject {
+class ArtistProfileViewModel: ObservableObject {
     
     @Published var selectedBusking: Busking = dummyBusking1
     @Published var user: User = dummyUser

@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct MapBuskerInfoView: View {
+struct BuskerInfoModalView: View {
     
     //MARK: -1.PROPERTY
-    @ObservedObject var viewModel: MapBuskerInfoViewModel
+    @ObservedObject var viewModel: BuskerInfoModalViewModel
     
     //MARK: -2.BODY
     var body: some View {
@@ -30,12 +30,12 @@ struct MapBuskerInfoView: View {
 //MARK: -3.PREVIEW
 #Preview {
 //    MapView()
-    MapBuskerInfoView(viewModel: MapBuskerInfoViewModel(busking: dummyBusking4))
+    BuskerInfoModalView(viewModel: BuskerInfoModalViewModel(busking: dummyBusking4))
 }
 
 
 //MARK: -4. EXTENSION
-extension MapBuskerInfoView {
+extension BuskerInfoModalView {
     var likeButton: some View {
         Button {
             viewModel.toggleLike()

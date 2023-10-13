@@ -264,5 +264,5 @@ struct CropView: View {
 }
 
 #Preview(body: {
-    SignUpPageView()
+    SignUpView()
 })

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class BuskerPageViewModel: ObservableObject {
+class ArtistPageViewModel: ObservableObject {
     @Published var artist: Artist
 
     init(busker: Artist) {

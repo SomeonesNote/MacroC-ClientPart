@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct BuskerProfileView: View {
+struct ArtistProfileView: View {
     
     //MARK: -1.PROPERTY
-    @ObservedObject var viewModel = BuskerProfileViewModel()
+    @ObservedObject var viewModel = ArtistProfileViewModel()
     @Environment(\.dismiss) var dismiss
     
     //MARK: -2.BODY
@@ -52,12 +52,12 @@ struct BuskerProfileView: View {
 
 //MARK: -3.PREVIEW
 #Preview {
-    BuskerProfileView()
+    ArtistProfileView()
 }
 
 //MARK: -4.EXTENSION
 
-extension BuskerProfileView {
+extension ArtistProfileView {
     var profileSection: some View {
         HStack(spacing: 20) {
             Image(viewModel.user.userimage)

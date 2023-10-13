@@ -8,7 +8,7 @@
 import SwiftUI
 import GooglePlaces
 
-struct GooglePlaceSearchBar: View {
+struct MapViewSearchBar: View {
     @ObservedObject var viewModel: MapViewModel
     
     var body: some View {

@@ -33,7 +33,7 @@ struct ProfileView: View {
                 
                 Spacer()
             }.background(backgroundView().ignoresSafeArea())
-        }.fullScreenCover(isPresented: $viewModel.isShowBuskerProfile) {BuskerProfileView()}
+        }.fullScreenCover(isPresented: $viewModel.isShowBuskerProfile) {ArtistProfileView()}
     }
 }
 

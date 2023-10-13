@@ -21,7 +21,7 @@ struct MapView: View {
                 GoogleMapView(viewModel: viewModel)
                     .ignoresSafeArea(.all, edges: .top)
                     .overlay(alignment: .top) {
-                        GooglePlaceSearchBar(viewModel: viewModel)
+                        MapViewSearchBar(viewModel: viewModel)
                             .padding(UIScreen.getWidth(4))
                     }
             }
@@ -29,7 +29,7 @@ struct MapView: View {
             .ignoresSafeArea(.keyboard)
             .sheet(isPresented: $viewModel.isShowModal, onDismiss: {viewModel.isShowModal = false}) {
                 if let busking = viewModel.selectedBusking {
-                    MapBuskerInfoView(viewModel: MapBuskerInfoViewModel(busking: busking))
+                    BuskerInfoModalView(viewModel: BuskerInfoModalViewModel(busking: busking))
                         .presentationDetents([.height(UIScreen.getHeight(380))])
                         .presentationDragIndicator(.visible)
                 }

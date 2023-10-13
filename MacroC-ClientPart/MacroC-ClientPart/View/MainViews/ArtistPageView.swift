@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct BuskerPageView: View {
+struct ArtistPageView: View {
     
     //MARK: -1.PROPERTY
-    @ObservedObject var viewModel: BuskerPageViewModel
+    @ObservedObject var viewModel: ArtistPageViewModel
     
     //MARK: -2.BODY
     var body: some View {
@@ -35,11 +35,11 @@ struct BuskerPageView: View {
 
 //MARK: -3.PREVIEW
 #Preview {
-    BuskerPageView(viewModel: BuskerPageViewModel(busker: dummyArtist4))
+    ArtistPageView(viewModel: ArtistPageViewModel(busker: dummyArtist4))
 }
 
 //MARK: -4.EXTENSION
-extension BuskerPageView {
+extension ArtistPageView {
     var buskerPageImage: some View {
         Image(viewModel.artist.artistimage)
             .resizable()

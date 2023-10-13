@@ -9,7 +9,7 @@ import SwiftUI
 import GoogleMaps
 
   
-struct MiniGoogleMapView: UIViewRepresentable {
+struct CropedGoogleMapView: UIViewRepresentable {
     
     //MARK: -1.PROPERTY
     let busking: Busking
@@ -53,5 +53,5 @@ struct MiniGoogleMapView: UIViewRepresentable {
 
 //MARK: -3.PREVIEW
 #Preview {
-    MiniGoogleMapView(busking: dummyBusking4)
+    CropedGoogleMapView(busking: dummyBusking4)
 }

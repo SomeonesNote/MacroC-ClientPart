@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-struct SignUpPageView: View {
+struct SignUpView: View {
     
     //MARK: -1.PROPERTY
     @ObservedObject var viewModel = LoginViewModel()
@@ -32,12 +32,12 @@ struct SignUpPageView: View {
 
 //MARK: -3.PREVIEW
 #Preview {
-    SignUpPageView()
+    SignUpView()
 }
 
 //MARK: -4.EXTENSION
 
-extension SignUpPageView {
+extension SignUpView {
     var imagePicker: some View {
         Button {
             viewModel.popCrop = true

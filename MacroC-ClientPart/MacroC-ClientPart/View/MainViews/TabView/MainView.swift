@@ -46,7 +46,7 @@ extension MainView {
                 HStack(spacing: 0) {
                     ForEach(dummyUserFollowing) { i in
                         NavigationLink {
-                            BuskerPageView(viewModel: BuskerPageViewModel(busker: i))
+                            ArtistPageView(viewModel: ArtistPageViewModel(busker: i))
                         } label: {
                             ProfileRectangle(image: i.artistimage,name: i.stagename)
                         }

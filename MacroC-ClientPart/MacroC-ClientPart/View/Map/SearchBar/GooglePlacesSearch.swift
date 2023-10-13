@@ -8,7 +8,7 @@
 import SwiftUI
 import GooglePlaces
 
-struct GooglePlacesSearchView: UIViewControllerRepresentable {
+struct GooglePlacesSearch: UIViewControllerRepresentable {
     @Binding var address: String
     
     func makeCoordinator() -> Coordinator {
@@ -28,9 +28,9 @@ struct GooglePlacesSearchView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UISearchController, context: Context) {}
 
     class Coordinator: NSObject, GMSAutocompleteResultsViewControllerDelegate {
-        var parent: GooglePlacesSearchView
+        var parent: GooglePlacesSearch
 
-        init(_ parent: GooglePlacesSearchView) {
+        init(_ parent: GooglePlacesSearch) {
             self.parent = parent
         }
 
@@ -46,6 +46,6 @@ struct GooglePlacesSearchView: UIViewControllerRepresentable {
 }
 
 #Preview {
-    GooglePlacesSearchView(address: .constant(""))
+    GooglePlacesSearch(address: .constant(""))
 
 }

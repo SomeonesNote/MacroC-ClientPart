@@ -96,7 +96,7 @@ extension MapBuskingInfoView {
     }
     
     var buskingInfoMap: some View {
-        MiniGoogleMapView(busking: viewModel.busking)
+        CropedGoogleMapView(busking: viewModel.busking)
             .frame(height: UIScreen.getHeight(300))
             .cornerRadius(20)
             .padding(.init(top: UIScreen.getWidth(0), leading: UIScreen.getWidth(8), bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(8)))

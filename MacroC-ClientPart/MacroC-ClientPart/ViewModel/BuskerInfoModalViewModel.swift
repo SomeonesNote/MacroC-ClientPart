@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class MapBuskerInfoViewModel: ObservableObject {
+class BuskerInfoModalViewModel: ObservableObject {
     @Published var isClickedLike: Bool = false
     @Published var busking: Busking
 

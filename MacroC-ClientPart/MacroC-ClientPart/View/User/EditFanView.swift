@@ -9,7 +9,8 @@ import SwiftUI
 
 struct EditFanView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("\(UIScreen.main.bounds.size.width)")
+        Text("\(UIScreen.main.bounds.size.height)")
     }
 }
 

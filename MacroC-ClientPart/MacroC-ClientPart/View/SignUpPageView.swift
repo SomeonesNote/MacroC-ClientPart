@@ -15,18 +15,18 @@ struct SignUpPageView: View {
     
     //MARK: -2.BODY
     var body: some View {
-        VStack {
-            Spacer()
+        VStack(spacing: UIScreen.getWidth(20)) {
             Spacer()
             imagePicker
             Spacer()
-            textFieldList
+            textField
             signUpbutton
-            Spacer()
-        }.cropImagePicker(show: $viewModel.popCrop, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
-            .padding()
-            .background(backgroundView().hideKeyboardWhenTappedAround())
-            
+                .padding(.bottom, UIScreen.getHeight(40))
+        }
+        .cropImagePicker(show: $viewModel.popCrop, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
+        .padding()
+        .background(backgroundView().hideKeyboardWhenTappedAround())
+        
     }
 }
 
@@ -47,7 +47,7 @@ extension SignUpPageView {
                     .resizable()
                     .scaledToFit()
                     .clipShape(Circle())
-                    .frame(width: 150)
+                    .frame(width: UIScreen.getHeight(140))
                     .overlay(Group {
                         if viewModel.isLoading {
                             ProgressView()
@@ -59,32 +59,32 @@ extension SignUpPageView {
             } else {
                 Circle()
                     .stroke(lineWidth: 3)
-                    .frame(width: 150)
+                    .frame(width: UIScreen.getHeight(140))
                     .overlay {
                         Image(systemName: "photo.on.rectangle.angled")
                             .foregroundColor(.white)
-                            .font(.system(size: 50))
-                }
+                            .font(.largeTitle)
+                    }
             }
         }
     }
     
-    var textFieldList: some View {
-        VStack(spacing: 5){
-            TextField("Email", text: $viewModel.email)
-                .padding(13)
+    var textField: some View {
+        HStack(spacing: UIScreen.getWidth(8)){
+            TextField("닉네임을 입력하세요", text: $viewModel.email)
+                .font(.custom14semibold())
+                .padding(UIScreen.getWidth(13))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
-            
-            TextField("UserName", text: $viewModel.username)
-                .padding(13)
-                .background(.ultraThinMaterial)
-                .cornerRadius(6)
-            
-            TextField("Password", text: $viewModel.password)
-                .padding(13)
-                .background(.ultraThinMaterial)
-                .cornerRadius(6)
+            Button {
+                // TODO: 서버에 같은 닉네임이 있는지 확인하는 함수 + 시트로 가능하다고 띄우는 함수
+            } label: {
+                Text("중복확인")
+                    .font(.custom12semibold())
+                    .padding(UIScreen.getWidth(15))
+                    .background(Color(appIndigo))
+                    .cornerRadius(6)
+            }
         }
     }
     
@@ -94,16 +94,15 @@ extension SignUpPageView {
         } label: {
             HStack{
                 Spacer()
-                Text("Sign Up").fontWeight(.semibold)
+                Text("Sign Up").font(.custom14semibold())
                 Spacer()
             }
             .padding()
             .background(.ultraThinMaterial)
             .background(viewModel.email.isEmpty || viewModel.username.isEmpty || viewModel.password.isEmpty ?  Color.black : Color.blue)
             .cornerRadius(6)
-        }.padding(.top, 30)
-            .disabled(viewModel.email.isEmpty || viewModel.username.isEmpty || viewModel.password.isEmpty)
-
+        }.disabled(viewModel.email.isEmpty || viewModel.username.isEmpty || viewModel.password.isEmpty)
+        
     }
 }
 

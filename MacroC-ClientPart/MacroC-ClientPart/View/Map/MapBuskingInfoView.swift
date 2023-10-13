@@ -14,15 +14,13 @@ struct MapBuskingInfoView: View {
     
     //MARK: -2.BODY
     var body: some View {
-            VStack(spacing: 0) {
-                Spacer()
-                buskingInfoToolbar
-                buskingInfoImage
-                buskingTime
-                buskingInfoAddress
-                buskingInfoMap
-            }
-            .background(backgroundView())
+        VStack(spacing: 0) {
+            Spacer()
+            buskingInfoToolbar
+            buskingTime
+            buskingInfoAddress
+            buskingInfoMap
+        }.background(backgroundView())
     }
 }
 
@@ -39,24 +37,22 @@ struct MapBuskingInfoView: View {
 extension MapBuskingInfoView {
     var buskingInfoToolbar: some View {
         HStack{
+            buskingInfoImage
             Text(viewModel.busking.buskername)
-                .font(.title)
-                .fontWeight(.black)
+                .font(.custom24black())
             Spacer()
             Button(action: viewModel.toggleLike) {
                 Image(systemName: viewModel.isClickedLike ? "heart.fill" : "heart")
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .padding(.trailing, 5)
+                    .font(.custom24semibold())
             }
-        }.padding(.init(top: 40, leading: 15, bottom: 30, trailing: 15))
+        }.padding(.init(top: UIScreen.getWidth(40), leading: UIScreen.getWidth(5), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(15)))
     }
     
     var buskingInfoImage: some View {
         Image(viewModel.busking.buskerimage)
             .resizable()
             .scaledToFit()
-            .frame(width: 150, height: 150, alignment: .center)
+            .frame(width: UIScreen.getWidth(40), alignment: .center)
             .clipShape(Circle())
             .shadow(color: .white.opacity(0.2), radius: 20)
             .overlay {
@@ -69,36 +65,40 @@ extension MapBuskingInfoView {
     }
     
     var buskingTime: some View {
-        VStack {
+        VStack(spacing: UIScreen.getHeight(3)) {
             Text(viewModel.formatDate()) //TODO: 시간모델
-                .font(.headline)
-                .fontWeight(.heavy)
-                .padding(.top)
+                .font(.custom14heavy())
+                .padding(.horizontal, 30)
+                .overlay(alignment: .leading) {
+                    Image(systemName: "calendar")
+                }
             Text("\(viewModel.formatStartTime()) ~ \(viewModel.formatEndTime())")
-                .font(.subheadline)
-                .fontWeight(.heavy)
+                .font(.custom14heavy())
+                .padding(.horizontal, 30)
+                .overlay(alignment: .leading) {
+                    Image(systemName: "clock")
+                }
         }
     }
     var buskingInfoAddress: some View {
         HStack {
             Text(viewModel.addressString)
-                .font(.subheadline)
-                .fontWeight(.heavy)
+                .font(.custom14bold())
                 .padding(.trailing, 10)
-            Button { UIPasteboard.general.string = viewModel.addressString } label: {
-                Image(systemName: "rectangle.on.rectangle")
-                    .resizable()
-                    .fontWeight(.bold)
-                    .frame(width: 15, height: 15)
+            
+        }.padding(UIScreen.getWidth(15))
+            .overlay(alignment: .trailing) {
+                Button { UIPasteboard.general.string = viewModel.addressString } label: {
+                    Image(systemName: "rectangle.on.rectangle")
+                        .frame(width: UIScreen.getWidth(13), height: UIScreen.getHeight(10))
+                }
             }
-        }.padding(.vertical)
     }
     
     var buskingInfoMap: some View {
         MiniGoogleMapView(busking: viewModel.busking)
-            .frame(height: UIScreen.main.bounds.height / 3)
+            .frame(height: UIScreen.getHeight(300))
             .cornerRadius(20)
-            .padding(.horizontal, 8)
-            .padding(.bottom, 20)
+            .padding(.init(top: UIScreen.getWidth(0), leading: UIScreen.getWidth(8), bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(8)))
     }
 }

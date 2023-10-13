@@ -22,6 +22,7 @@ class LoginViewModel: ObservableObject {
     @Published var popCrop: Bool = false
     @Published var croppedImage: UIImage?
     
+    //서버에서 프로필 가져오는 함수
     func getProfile() {
         let headers: HTTPHeaders = [.authorization(bearerToken: accessToken ?? "")]
         AF.request("http://localhost:3000/auth/profile", method: .post, headers: headers)
@@ -36,6 +37,7 @@ class LoginViewModel: ObservableObject {
             }
         }
     
+
     //  func signIn() {
     //    let parameters: Parameters = [
     //      "email": email,

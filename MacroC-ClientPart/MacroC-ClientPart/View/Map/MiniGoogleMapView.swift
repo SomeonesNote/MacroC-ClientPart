@@ -39,8 +39,6 @@ struct MiniGoogleMapView: UIViewRepresentable {
         markerImage.layer.cornerRadius = 37
         markerImage.layer.masksToBounds = true
         
-        
-        
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: busking.latitude, longitude: busking.longitude)
         marker.map = mapView

@@ -98,7 +98,7 @@ struct CropView: View {
     @State private var scale: CGFloat = 1
     @State private var lastScale: CGFloat = 0
     @State private var offset: CGSize = .zero
-    let cropSize = CGSize(width: 300, height: 300)
+    let cropSize = CGSize(width: UIScreen.getWidth(300), height: UIScreen.getHeight(300))
     @State private var lastStoredOffset: CGSize = .zero
     @GestureState private var isInteracting: Bool = false // indicates that whether or not the gesture is in interaction
     

@@ -14,21 +14,25 @@ struct MapBuskerInfoView: View {
     
     //MARK: -2.BODY
     var body: some View {
-            VStack(spacing: 10) {
+        VStack(spacing: UIScreen.getHeight(15)) {
+                Spacer()
                 buskerInfoToolbar
                 buskerInfoImage
                 buskingTime
-                Button { } label: { sheetBoxText(text: "더보기") }
+            NavigationLink {
+//                BuskerPageView(viewModel: BuskerPageViewModel(busker: viewModel.busking.))
+            } label: { sheetBoxText(text: "더보기") }
                 Button { } label: { sheetBoxText(text: "찾아가기") }
-                Spacer()
             }.background(backgroundView())
     }
 }
 
 //MARK: -3.PREVIEW
 #Preview {
-    MapBuskerInfoView(viewModel: MapBuskerInfoViewModel(busking: dummyBusking5))
+//    MapView()
+    MapBuskerInfoView(viewModel: MapBuskerInfoViewModel(busking: dummyBusking4))
 }
+
 
 //MARK: -4. EXTENSION
 extension MapBuskerInfoView {
@@ -37,45 +41,41 @@ extension MapBuskerInfoView {
             viewModel.toggleLike()
         } label: {
             Image(systemName: viewModel.isClickedLike ? "heart.fill" : "heart")
-                .font(.title)
-                .foregroundColor(.white)
-                .padding(.trailing, 5)
+                .font(.custom24semibold())
         }
     }
     
     var buskerInfoToolbar: some View {
         HStack{
             Text(viewModel.busking.buskername)
-                .font(.title)
-                .fontWeight(.black)
+                .font(.custom24black())
             Spacer()
             likeButton
-        }.padding(.init(top: 50, leading: 15, bottom: 10, trailing: 15))
+        }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(15), bottom: UIScreen.getWidth(0), trailing: UIScreen.getWidth(15)))
     }
     
     var buskerInfoImage: some View {
         Image(viewModel.busking.buskerimage)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 180, height: 180, alignment: .center)
+                .frame(width: UIScreen.getWidth(130), alignment: .center)
                 .clipShape(Circle())
-                .padding(.vertical, 30)
                 .shadow(color: .white.opacity(0.2),radius: 20)
                 .overlay {
                     Circle()
-                        .stroke(lineWidth: 5)
+                        .stroke(lineWidth: 3)
                         .blur(radius: 4)
-                        .foregroundColor(Color(appSky).opacity(0.4))
+                        .foregroundColor(Color(appSky).opacity(0.6))
                         .padding(0)
                 }
-
-            
         }
     
     var buskingTime: some View {
         Text("\(viewModel.formatStartTime()) ~ \(viewModel.formatEndTime())")
-            .font(.subheadline)
-            .fontWeight(.heavy)
-            .padding(.bottom, 20)
+            .font(.custom14heavy())
+            .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(30), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(30)))
+            .overlay(alignment: .leading) {
+                Image(systemName: "clock")
+            }
     }
 }

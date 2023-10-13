@@ -119,9 +119,8 @@ struct sheetBoxText: View {
     var text: String
     var body: some View {
         Text(text)
-            .font(.subheadline)
-            .fontWeight(.heavy)
-            .frame(width: 300, height: 50)
+            .font(.custom14heavy())
+            .frame(width: UIScreen.getWidth(300), height: UIScreen.getHeight(50))
             .background{
                 Capsule().stroke(Color.white, lineWidth: 2)
             }
@@ -188,8 +187,7 @@ struct toolbarButtonLabel: View {
     var buttonLabel: String
     var body: some View {
         Text(buttonLabel)
-            .font(.headline)
-            .fontWeight(.semibold)
+            .font(.custom14bold())
             .modifier(dropShadow())
     }
 }

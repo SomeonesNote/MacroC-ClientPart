@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0707172B2AD9412700B72319 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172A2AD9412700B72319 /* SignInView.swift */; };
+		0707172D2AD9427E00B72319 /* BuskerProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172C2AD9427E00B72319 /* BuskerProfileViewModel.swift */; };
+		0707172F2AD9428D00B72319 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172E2AD9428D00B72319 /* ProfileViewModel.swift */; };
+		070717312AD942BD00B72319 /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717302AD942BD00B72319 /* KeychainItem.swift */; };
+		070717332AD942CE00B72319 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717322AD942CE00B72319 /* Font.swift */; };
+		070717352AD942E300B72319 /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717342AD942E300B72319 /* UIScreen.swift */; };
+		070717382AD9430A00B72319 /* AppleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717372AD9430A00B72319 /* AppleAuth.swift */; };
 		070752A32AD75BA60090E11D /* AppleSigninButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070752A22AD75BA60090E11D /* AppleSigninButton.swift */; };
 		07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* LoginViewModel.swift */; };
 		07FBF28B2ACFF90B004EF174 /* SignUpPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpPageView.swift */; };
@@ -42,8 +49,6 @@
 		F62B8ABD2ACED6590077CA17 /* GooglePlacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ABC2ACED6590077CA17 /* GooglePlacesView.swift */; };
 		F62B8AC02ACED6F30077CA17 /* AddBuskingMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ABF2ACED6F30077CA17 /* AddBuskingMapView.swift */; };
 		F62B8AC32ACED78C0077CA17 /* EditFanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AC22ACED78C0077CA17 /* EditFanView.swift */; };
-		F62B8AC52ACED7E80077CA17 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AC42ACED7E80077CA17 /* LoginButton.swift */; };
-		F62B8AC72ACED7FE0077CA17 /* ProfileCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AC62ACED7FE0077CA17 /* ProfileCircle.swift */; };
 		F62B8AC92ACED8110077CA17 /* ProfileRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AC82ACED8110077CA17 /* ProfileRectangle.swift */; };
 		F62B8ACB2ACED8270077CA17 /* BuskingListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ACA2ACED8270077CA17 /* BuskingListRow.swift */; };
 		F62B8ACD2ACED8410077CA17 /* DonationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ACC2ACED8410077CA17 /* DonationBar.swift */; };
@@ -67,6 +72,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0707172A2AD9412700B72319 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		0707172C2AD9427E00B72319 /* BuskerProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuskerProfileViewModel.swift; sourceTree = "<group>"; };
+		0707172E2AD9428D00B72319 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		070717302AD942BD00B72319 /* KeychainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
+		070717322AD942CE00B72319 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		070717342AD942E300B72319 /* UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
+		070717372AD9430A00B72319 /* AppleAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuth.swift; sourceTree = "<group>"; };
 		070752A22AD75BA60090E11D /* AppleSigninButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSigninButton.swift; sourceTree = "<group>"; };
 		07FBF2872ACF5223004EF174 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		07FBF2892ACFD143004EF174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,8 +111,6 @@
 		F62B8ABC2ACED6590077CA17 /* GooglePlacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesView.swift; sourceTree = "<group>"; };
 		F62B8ABF2ACED6F30077CA17 /* AddBuskingMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBuskingMapView.swift; sourceTree = "<group>"; };
 		F62B8AC22ACED78C0077CA17 /* EditFanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFanView.swift; sourceTree = "<group>"; };
-		F62B8AC42ACED7E80077CA17 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
-		F62B8AC62ACED7FE0077CA17 /* ProfileCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCircle.swift; sourceTree = "<group>"; };
 		F62B8AC82ACED8110077CA17 /* ProfileRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRectangle.swift; sourceTree = "<group>"; };
 		F62B8ACA2ACED8270077CA17 /* BuskingListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuskingListRow.swift; sourceTree = "<group>"; };
 		F62B8ACC2ACED8410077CA17 /* DonationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationBar.swift; sourceTree = "<group>"; };
@@ -140,6 +150,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		070717362AD942FC00B72319 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				070717372AD9430A00B72319 /* AppleAuth.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		F62B8A672ACED1B80077CA17 = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +177,7 @@
 		F62B8A722ACED1B80077CA17 /* MacroC-ClientPart */ = {
 			isa = PBXGroup;
 			children = (
+				070717362AD942FC00B72319 /* Auth */,
 				07FBF2892ACFD143004EF174 /* Info.plist */,
 				F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */,
 				F62B8A902ACED33F0077CA17 /* View */,
@@ -186,11 +205,13 @@
 				F62B8A752ACED1B80077CA17 /* ContentView.swift */,
 				F62B8A942ACED3E70077CA17 /* LaunchScreenView.swift */,
 				07FBF28A2ACFF90B004EF174 /* SignUpPageView.swift */,
+				0707172A2AD9412700B72319 /* SignInView.swift */,
 				F62B8A962ACED4070077CA17 /* LoginView.swift */,
 				F62B8A9C2ACED46D0077CA17 /* UserArtistPageView.swift */,
 				F62B8A9E2ACED4830077CA17 /* BuskerPageView.swift */,
 				F62B8ABE2ACED68C0077CA17 /* Main */,
 				F62B8AB32ACED5870077CA17 /* Map */,
+				F62B8AAA2ACED5040077CA17 /* Busker */,
 				F62B8AA02ACED4880077CA17 /* User */,
 				F62B8AC12ACED7140077CA17 /* ViewComponent */,
 			);
@@ -208,6 +229,8 @@
 				F62B8ADA2ACED90B0077CA17 /* MapBuskerInfoViewModel.swift */,
 				F62B8ADC2ACED9220077CA17 /* AddBuskingPageViewModel.swift */,
 				F62B8ADE2ACED9380077CA17 /* UserArtistPageViewModel.swift */,
+				0707172C2AD9427E00B72319 /* BuskerProfileViewModel.swift */,
+				0707172E2AD9428D00B72319 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -230,6 +253,9 @@
 			children = (
 				F62B8AEC2ACED9BA0077CA17 /* ViewModifier.swift */,
 				F62B8AEE2ACED9CC0077CA17 /* Component.swift */,
+				070717302AD942BD00B72319 /* KeychainItem.swift */,
+				070717322AD942CE00B72319 /* Font.swift */,
+				070717342AD942E300B72319 /* UIScreen.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -241,7 +267,6 @@
 				F62B8AA32ACED4B10077CA17 /* EditFollowingListView.swift */,
 				F62B8AA52ACED4CB0077CA17 /* DonationListView.swift */,
 				F62B8AA72ACED4E30077CA17 /* EditUserAcountView.swift */,
-				F62B8AAA2ACED5040077CA17 /* Busker */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -256,6 +281,7 @@
 				F62B8AB12ACED5710077CA17 /* EditBuskerAcountView.swift */,
 			);
 			name = Busker;
+			path = User;
 			sourceTree = "<group>";
 		};
 		F62B8AB32ACED5870077CA17 /* Map */ = {
@@ -283,8 +309,6 @@
 		F62B8AC12ACED7140077CA17 /* ViewComponent */ = {
 			isa = PBXGroup;
 			children = (
-				F62B8AC42ACED7E80077CA17 /* LoginButton.swift */,
-				F62B8AC62ACED7FE0077CA17 /* ProfileCircle.swift */,
 				F62B8AC82ACED8110077CA17 /* ProfileRectangle.swift */,
 				F62B8ACA2ACED8270077CA17 /* BuskingListRow.swift */,
 				F62B8ACC2ACED8410077CA17 /* DonationBar.swift */,
@@ -380,10 +404,8 @@
 			files = (
 				07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */,
 				F62B8AA42ACED4B10077CA17 /* EditFollowingListView.swift in Sources */,
-				F62B8AC52ACED7E80077CA17 /* LoginButton.swift in Sources */,
 				F62B8A762ACED1B80077CA17 /* ContentView.swift in Sources */,
 				F62B8ABD2ACED6590077CA17 /* GooglePlacesView.swift in Sources */,
-				F62B8AC72ACED7FE0077CA17 /* ProfileCircle.swift in Sources */,
 				F62B8AA22ACED4980077CA17 /* ProfileView.swift in Sources */,
 				F62B8AB52ACED5AD0077CA17 /* GoogleMapView.swift in Sources */,
 				F62B8A9B2ACED41F0077CA17 /* MapView.swift in Sources */,
@@ -394,15 +416,19 @@
 				F62B8AE52ACED9690077CA17 /* Busking.swift in Sources */,
 				F62B8AAC2ACED5260077CA17 /* BuskerProfileView.swift in Sources */,
 				F62B8AE32ACED95B0077CA17 /* Artist.swift in Sources */,
+				0707172F2AD9428D00B72319 /* ProfileViewModel.swift in Sources */,
+				070717352AD942E300B72319 /* UIScreen.swift in Sources */,
 				F62B8A972ACED4070077CA17 /* LoginView.swift in Sources */,
 				F62B8ADD2ACED9220077CA17 /* AddBuskingPageViewModel.swift in Sources */,
 				F62B8AEB2ACED9950077CA17 /* Apitest.swift in Sources */,
 				F62B8AD52ACED8C10077CA17 /* MapViewMedel.swift in Sources */,
 				F62B8AEF2ACED9CC0077CA17 /* Component.swift in Sources */,
+				070717332AD942CE00B72319 /* Font.swift in Sources */,
 				F62B8AB02ACED5590077CA17 /* EditDonationView.swift in Sources */,
 				F62B8A992ACED4130077CA17 /* MainView.swift in Sources */,
 				F62B8AD12ACED8690077CA17 /* AddBuskingSerchBar.swift in Sources */,
 				07FBF28B2ACFF90B004EF174 /* SignUpPageView.swift in Sources */,
+				070717382AD9430A00B72319 /* AppleAuth.swift in Sources */,
 				F62B8AE12ACED9500077CA17 /* User.swift in Sources */,
 				F62B8ABB2ACED6410077CA17 /* MapBuskerInfoView.swift in Sources */,
 				F62B8AC02ACED6F30077CA17 /* AddBuskingMapView.swift in Sources */,
@@ -411,13 +437,16 @@
 				F62B8ACD2ACED8410077CA17 /* DonationBar.swift in Sources */,
 				F62B8AD32ACED87C0077CA17 /* ImageCropper.swift in Sources */,
 				F62B8AA82ACED4E30077CA17 /* EditUserAcountView.swift in Sources */,
+				0707172D2AD9427E00B72319 /* BuskerProfileViewModel.swift in Sources */,
 				F62B8AB22ACED5710077CA17 /* EditBuskerAcountView.swift in Sources */,
+				0707172B2AD9412700B72319 /* SignInView.swift in Sources */,
 				F62B8AED2ACED9BA0077CA17 /* ViewModifier.swift in Sources */,
 				F62B8AA62ACED4CB0077CA17 /* DonationListView.swift in Sources */,
 				F62B8AB72ACED5C80077CA17 /* MiniGoogleMapView.swift in Sources */,
 				F62B8A9D2ACED46D0077CA17 /* UserArtistPageView.swift in Sources */,
 				F62B8ACB2ACED8270077CA17 /* BuskingListRow.swift in Sources */,
 				F62B8AB92ACED5E30077CA17 /* MapBuskingInfoView.swift in Sources */,
+				070717312AD942BD00B72319 /* KeychainItem.swift in Sources */,
 				F62B8AC92ACED8110077CA17 /* ProfileRectangle.swift in Sources */,
 				F62B8AAE2ACED53E0077CA17 /* AddBuskingPageView.swift in Sources */,
 				F62B8AC32ACED78C0077CA17 /* EditFanView.swift in Sources */,

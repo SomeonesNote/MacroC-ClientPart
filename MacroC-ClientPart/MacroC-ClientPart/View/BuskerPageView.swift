@@ -46,7 +46,7 @@ extension BuskerPageView {
             .scaledToFit()
             .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
             .overlay (
-                HStack(spacing: 10){
+                HStack(spacing: UIScreen.getWidth(10)){
                     Button {
                         UIApplication.shared.open(URL(string: viewModel.artist.youtube)!)
                     } label: { linkButton(name: YouTubeLogo) }
@@ -58,33 +58,26 @@ extension BuskerPageView {
                     Button { } label: { linkButton(name: SoundCloudLogo) }
                     
                 }
-                    .frame( height: 27)
-                    .padding(.init(top: 0, leading: 0, bottom: 20, trailing: 15))
-                ,alignment: .bottomTrailing )
-    }
+                    .frame(height: UIScreen.getHeight(25))
+                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
+                ,alignment: .bottomTrailing )}
     
     var buskerPageTitle: some View {
         return VStack{
             Text(viewModel.artist.stagename)
-                .font(.largeTitle)
-                .fontWeight(.black)
-                .scaleEffect(1.4)
+                .font(.custom44black())
             
             Text("Simple Imforamtion of This Artist")
-                .font(.headline)
-                .fontWeight(.heavy)
-                .padding(.bottom, 20)
-        }
-        
+                .font(.custom14heavy())
+        }.padding(.bottom, UIScreen.getHeight(20))
     }
     
     var buskerPageFollowButton: some View {
         Button { } label: {
             Text("Follow")
-                .font(.title2)
-                .fontWeight(.black)
-                .padding(.init(top: 7, leading: 30, bottom: 7, trailing: 30))
-                .background{ Capsule().stroke(Color.white, lineWidth: 2) }
+                .font(.custom24black())
+                .padding(.init(top: UIScreen.getHeight(7), leading: UIScreen.getHeight(30), bottom: UIScreen.getHeight(7), trailing: UIScreen.getHeight(30)))
+                .background{ Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(2)) }
                 .modifier(dropShadow())
         }
     }

@@ -11,15 +11,13 @@ struct dropShadow: ViewModifier {
     func body(content: Content) -> some View {
         content
             .shadow(color: .white.opacity(0.1) ,radius: 3)
-//            .shadow(color: .black.opacity(0.1) ,radius: 2)
     }
 }
 
 struct mainpageTitleModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.title2)
-            .fontWeight(.black)
+            .font(.custom20black())
             .padding(.horizontal)
             .padding(.vertical, 3)
             .background{

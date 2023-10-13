@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import GoogleMaps
-import GooglePlaces
 import PhotosUI
 
 struct UserArtistPageView: View {
@@ -18,7 +16,7 @@ struct UserArtistPageView: View {
     //MARK: -2.BODY
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 5) {
+            VStack(spacing: UIScreen.getWidth(5)) {
                 if viewModel.croppedImage != nil { pickedImage }
                 else { buskerPageImage }
                 buskerPageTitle
@@ -50,6 +48,7 @@ struct UserArtistPageView: View {
                 viewModel.popCrop = false
             }
         }
+        .navigationTitle("")
     }
 }
 
@@ -70,7 +69,7 @@ extension UserArtistPageView {
             .scaledToFit()
             .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
             .overlay (
-                HStack(spacing: 10){
+                HStack(spacing: UIScreen.getWidth(10)){
                     Button { } label: { linkButton(name: YouTubeLogo) }
                     
                     Button { } label: { linkButton(name: InstagramLogo) }
@@ -80,12 +79,12 @@ extension UserArtistPageView {
                     Button {viewModel.isEditSocial = true} label: {
                         if viewModel.isEditMode == true {
                             Image(systemName: "pencil.circle.fill")
-                                .font(.title2)
+                                .font(.custom20semibold())
                         } else { }
                     }
                 }
-                    .frame( height: 27)
-                    .padding(.init(top: 0, leading: 0, bottom: 20, trailing: 15))
+                    .frame(height: UIScreen.getHeight(25))
+                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
                 ,alignment: .bottomTrailing )
             .overlay(alignment: .bottom) {
                 if viewModel.isEditMode {
@@ -94,15 +93,12 @@ extension UserArtistPageView {
                     } label: {
                         //TODO: 사진첩 접근해서 사진 받는 거 구현
                         Image(systemName: "camera.circle.fill")
-                            .font(.largeTitle)
+                            .font(.custom48bold())
                             .modifier(dropShadow())
-                            .scaleEffect(1.5)
-                            .opacity(0.9)
-                            .padding(.bottom, 60)
                     }
                 }
             }
-    }
+        }
     
     var pickedImage: some View {
         Image(uiImage: viewModel.croppedImage!)
@@ -110,15 +106,15 @@ extension UserArtistPageView {
             .scaledToFit()
             .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
             .overlay (
-                HStack(spacing: 10){
+                HStack(spacing: UIScreen.getWidth(10)){
                     Button { } label: { linkButton(name: YouTubeLogo) }
                     
                     Button { } label: { linkButton(name: InstagramLogo) }
                     
                     Button { } label: { linkButton(name: SoundCloudLogo) }
                 }
-                    .frame( height: 27)
-                    .padding(.init(top: 0, leading: 0, bottom: 20, trailing: 15))
+                    .frame(height: UIScreen.getHeight(25))
+                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
                 ,alignment: .bottomTrailing )
             .overlay(alignment: .bottom) {
                 if viewModel.isEditMode {
@@ -128,60 +124,53 @@ extension UserArtistPageView {
                         matching: .images,
                         photoLibrary: .shared()) {
                             Image(systemName: "camera.circle.fill")
-                                .font(.largeTitle)
+                                .font(.custom48bold())
                                 .modifier(dropShadow())
-                                .scaleEffect(1.5)
-                                .opacity(0.9)
-                                .padding(.bottom, 60)
-                        }
+                    }
                 }
             }
-    }
+        }
     
     var buskerPageTitle: some View {
         return VStack{
             ZStack {
                 Text(viewModel.userArtist.stagename)
-                    .font(.largeTitle)
-                    .fontWeight(.black)
-                    .scaleEffect(1.4)
+                    .font(.custom44black())
                 if viewModel.isEditMode == true {
                     HStack {
                         Spacer()
-                        Button(action: { viewModel.isEditName = true }, label: {
+                        Button { viewModel.isEditName = true } label: {
                             Image(systemName: "pencil.circle.fill")
-                                .font(.title2)
+                                .font(.custom20semibold())
                                 .padding(.horizontal)
-                        })
+                        }
                     }
                 }
             }
             ZStack {
                 Text(viewModel.EditUserInfo)
-                    .font(.headline)
-                    .fontWeight(.heavy)
+                    .font(.custom14heavy())
                 if viewModel.isEditMode == true {
                     HStack {
                         Spacer()
-                        Button(action: { viewModel.isEditInfo = true }, label: {
+                        Button { viewModel.isEditInfo = true } label: {
                             Image(systemName: "pencil.circle.fill")
-                                .font(.title2)
+                                .font(.custom20semibold())
                                 .padding(.horizontal)
-                        })
+                        }
                     }
                 }
-            }.padding(.bottom, 30)
-        }
+            }
+        }.padding(.bottom, UIScreen.getHeight(20))
         
     }
     
     var buskerPageFollowButton: some View {
         Button { } label: {
             Text("Follow")
-                .font(.title2)
-                .fontWeight(.black)
-                .padding(.init(top: 7, leading: 30, bottom: 7, trailing: 30))
-                .background{ Capsule().stroke(Color.white, lineWidth: 2) }
+                .font(.custom24black())
+                .padding(.init(top: UIScreen.getHeight(7), leading: UIScreen.getHeight(30), bottom: UIScreen.getHeight(7), trailing: UIScreen.getHeight(30)))
+                .background{ Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(2)) }
                 .modifier(dropShadow())
         }
     }
@@ -190,7 +179,7 @@ extension UserArtistPageView {
         if viewModel.isEditMode {
             return AnyView(Button {
                 viewModel.isEditMode = false
-                //TODO: 취소하는 거 구현
+                // 선택한 사진들 취소하는 함수들
                 viewModel.selectedItem = nil
                 viewModel.selectedPhotoData = nil
                 viewModel.croppedImage = nil
@@ -220,48 +209,91 @@ extension UserArtistPageView {
     }
     
     var editSocialSheet: some View {
-        VStack {
-            Text("Youtube")
+        VStack(alignment: .leading, spacing: UIScreen.getWidth(10)) {
+            HStack {
+                Image(YouTubeLogo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.getWidth(20))
+                Text("Youtube")
+                    .font(.custom14semibold())
+            }
             TextField("", text: $viewModel.userArtist.youtube)
-                .padding(13)
+                .font(.custom12semibold())
+                .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
-            Text("Instagram")
+            HStack {
+                Image(InstagramLogo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.getWidth(20))
+                Text("Instagram")
+                    .font(.custom14semibold())
+            }
             TextField("", text: $viewModel.userArtist.instagram)
-                .padding(13)
+                .font(.custom12semibold())
+                .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
-            Text("SoundCloud")
+            HStack {
+                Image(SoundCloudLogo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.getWidth(20))
+                Text("SoundCloud")
+                    .font(.custom14semibold())
+            }
             TextField("", text: $viewModel.userArtist.soundcloud)
-                .padding(13)
+                .font(.custom12semibold())
+                .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
-        }.presentationDetents([.medium])
-        .padding(.horizontal, 4)
-        
+        }
+        .padding(.horizontal, UIScreen.getWidth(10))
+        .presentationDetents([.height(UIScreen.getHeight(300))])
+        .presentationDragIndicator(.visible)
     }
     
     var editNameSheet: some View {
-        VStack{
-            Text("User Name")
+        VStack(alignment: .leading, spacing: UIScreen.getWidth(10)) {
+            HStack {
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.getWidth(20))
+                    .padding(.leading, UIScreen.getWidth(3))
+                Text("User Name").font(.custom14semibold())
+            }
             TextField("", text: $viewModel.EditUsername)
-                .padding(13)
+                .font(.custom12semibold())
+                .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
-            Spacer()
-        }.presentationDetents([.medium])
-            .padding()
+        }
+        .padding(.horizontal, UIScreen.getWidth(10))
+        .presentationDetents([.height(UIScreen.getHeight(150))])
+        .presentationDragIndicator(.visible)
     }
     
     var editInfoSheet: some View {
-        VStack{
-            Text("User Info")
+        VStack(alignment: .leading, spacing: UIScreen.getWidth(10)) {
+            HStack {
+                Image(systemName: "info.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: UIScreen.getWidth(20))
+                    .padding(.leading, UIScreen.getWidth(3))
+                Text("User Info").font(.custom14semibold())
+            }
             TextField("", text: $viewModel.EditUserInfo)
-                .padding(13)
+                .font(.custom12semibold())
+                .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
-            Spacer()
-        }.presentationDetents([.medium])
-            .padding()
+        }
+        .padding(.horizontal, UIScreen.getWidth(10))
+        .presentationDetents([.height(UIScreen.getHeight(150))])
+        .presentationDragIndicator(.visible)
     }
 }

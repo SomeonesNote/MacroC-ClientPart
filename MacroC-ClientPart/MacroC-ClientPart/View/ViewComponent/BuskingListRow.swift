@@ -16,32 +16,31 @@ struct BuskingListRow: View {
     
     //MARK: -2.BODY
     var body: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: UIScreen.getWidth(15)) {
             Image(busking.buskerimage)
                 .resizable()
                 .scaledToFit()
             
-            VStack(alignment: .leading,spacing: 1) {
+            VStack(alignment: .leading,spacing: UIScreen.getWidth(1)) {
                 Text(busking.buskername)
-                    .font(.title3)
-                    .fontWeight(.heavy)
+                    .font(.custom20black())
                     .padding(.bottom, 9)
                 Text(formatDate())
-                    .font(.footnote)
+                    .font(.custom12bold())
                     .fontWeight(.semibold)
                 Text("\(formatStartTime()) ~ \(formatEndTime())") // TODO: 시간 포맷 다시 설정해야
-                    .font(.footnote)
+                    .font(.custom12bold())
                     .fontWeight(.semibold)
                     .padding(.bottom, 5)
                 Text("\(addressString)")
-                    .font(.subheadline)
+                    .font(.custom14bold())
                     .fontWeight(.heavy)
             }
             Spacer()
         }
         .background(RoundedRectangle(cornerRadius: 10).fill(LinearGradient(colors: [Color(appIndigo2), Color(appIndigo1)], startPoint: .bottomTrailing, endPoint: .topLeading)).opacity(0.4))
         .clipShape(RoundedRectangle(cornerRadius: 30))
-        .frame(height: 130)
+        .frame(height: UIScreen.getHeight(130))
         .modifier(dropShadow())
         .overlay {
             RoundedRectangle(cornerRadius: 30)

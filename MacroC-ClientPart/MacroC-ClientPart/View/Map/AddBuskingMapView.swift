@@ -24,9 +24,6 @@ struct AddBuskingMapView: UIViewRepresentable {
         mapView.delegate = context.coordinator
         context.coordinator.mapView = mapView
         mapView.setMinZoom(13, maxZoom: 19)
-//        mapView.isMyLocationEnabled = true
-//        mapView.settings.myLocationButton = true
-        
         return mapView
     }
     

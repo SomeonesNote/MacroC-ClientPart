@@ -17,23 +17,20 @@ struct MapView: View {
     //MARK: -2.BODY
     var body: some View {
         NavigationView {
-            
             ZStack(alignment: .top){
                 GoogleMapView(viewModel: viewModel)
                     .ignoresSafeArea(.all, edges: .top)
                     .overlay(alignment: .top) {
                         GooglePlaceSearchBar(viewModel: viewModel)
-                            .scrollDismissesKeyboard(.immediately)
-                            .padding(4)
+                            .padding(UIScreen.getWidth(4))
                     }
             }
             .background(backgroundView())
             .ignoresSafeArea(.keyboard)
-            .hideKeyboardWhenTappedAround()
             .sheet(isPresented: $viewModel.isShowModal, onDismiss: {viewModel.isShowModal = false}) {
                 if let busking = viewModel.selectedBusking {
                     MapBuskerInfoView(viewModel: MapBuskerInfoViewModel(busking: busking))
-                        .presentationDetents([.fraction(0.72)])
+                        .presentationDetents([.height(UIScreen.getHeight(380))])
                         .presentationDragIndicator(.visible)
                 }
             }

@@ -26,28 +26,29 @@ struct GooglePlaceSearchBar: View {
                 .onChange(of: viewModel.query) { newValue in
                     viewModel.sourceTextHasChanged(newValue)
                 }
-            
             if viewModel.results.isEmpty == false {
                 List(viewModel.results, id: \.placeID) { result in
                     Text(result.attributedFullText.string)
                         .listRowBackground(Color.black.opacity(0.7))
+                        .font(.custom14regular())
                         .onTapGesture {
                             viewModel.getPlaceCoordinate(placeID: result.placeID) { coordinate in
                                 viewModel.selectedCoordinate = coordinate
-                            }
                         }
+                    }
                 }
                 .scrollDisabled(true)
                 .listRowSeparatorTint(.white)
                 .listStyle(.plain)
             } else {
-            }
         }
-        .frame(maxHeight: 270, alignment: .top)
+    }
+        .frame(maxHeight: UIScreen.getWidth(274), alignment: .top)
         .cornerRadius(10)
     }
 }
 
 #Preview {
-    GooglePlaceSearchBar(viewModel: MapViewModel())
+//    GooglePlaceSearchBar(viewModel: MapViewModel())
+    MapView(viewModel: MapViewModel())
 }

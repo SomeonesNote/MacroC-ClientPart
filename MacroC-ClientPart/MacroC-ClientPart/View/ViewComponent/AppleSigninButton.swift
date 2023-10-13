@@ -11,15 +11,14 @@ struct LoginTestView: View {
     var body: some View {
         VStack {
             AppleSigninButton()
-        }
-        .frame(height:UIScreen.main.bounds.height)
-        .background(Color.white)
-        
+        }.frame(height:UIScreen.main.bounds.height).background(Color.white)
     }
-    
 }
 
 struct AppleSigninButton : View{
+    
+    @EnvironmentObject var userAuth: UserAuth
+
     var body: some View{
         SignInWithAppleButton(
             onRequest: { request in
@@ -39,6 +38,15 @@ struct AppleSigninButton : View{
                         let email = appleIDCredential.email
                         let IdentityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)
                         let AuthorizationCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
+                        
+                        print(UserIdentifier)
+                        do {
+                            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(UserIdentifier)
+                            print("'\(UserIdentifier)' is saved on keychain")
+                            userAuth.showLoginView = false
+                        } catch {
+                            print("Unable to save userIdentifier to keychain.")
+                        }
                     default:
                         break
                     }
@@ -48,8 +56,8 @@ struct AppleSigninButton : View{
                 }
             }
         )
-        .frame(height:50)
-        .cornerRadius(8)
+        .frame(height:UIScreen.getHeight(50))
+        .cornerRadius(UIScreen.getHeight(25))
     }
 }
 

@@ -13,7 +13,7 @@ import GooglePlaces
 struct MacroC_ClientPartApp: App {
     
     let APIKey = "AIzaSyDF3d8OqWRipyjxQh7C2HF6KHn-C3YhSt8"
-    @StateObject private var userAuth = UserAuth()
+    @StateObject private var userAuth = AppleAuth()
     
     init() {
         GMSServices.provideAPIKey(APIKey)

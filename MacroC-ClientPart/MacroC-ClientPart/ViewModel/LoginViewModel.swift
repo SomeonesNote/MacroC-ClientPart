@@ -21,6 +21,13 @@ class LoginViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var popCrop: Bool = false
     @Published var croppedImage: UIImage?
+    @Published var usernameStatus: UsernameStatus = .empty // 중복확인
+    
+    enum UsernameStatus {
+        case empty
+        case duplicated
+        case available
+    }
     
     //서버에서 프로필 가져오는 함수
     func getProfile() {
@@ -88,6 +95,17 @@ class LoginViewModel: ObservableObject {
             }
         }
     }
+//    //TODO: 중복확인하는 함수 - 텍스트필드에 온체인지에 넣어야함
+//    func checkUsername() {
+//        // TODO: 서버에 요청하여 중복 확인
+//        if username.isEmpty {
+//            usernameStatus = .empty
+//        } else if {
+//            usernameStatus = .duplicated
+//        } else {
+//            usernameStatus = .available
+//        }
+//    }
     
     func initStates() {
         self.email = ""

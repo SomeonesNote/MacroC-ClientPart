@@ -33,6 +33,7 @@ struct ProfileView: View {
                 
                 Spacer()
             }.background(backgroundView().ignoresSafeArea())
+                .navigationTitle("")
         }.fullScreenCover(isPresented: $viewModel.isShowBuskerProfile) {ArtistProfileView()}
     }
 }
@@ -46,19 +47,8 @@ struct ProfileView: View {
 extension ProfileView {
     var profileSection: some View {
         HStack(spacing: 20) {
-            Image(viewModel.user.userimage)
-                .resizable()
-                .scaledToFit()
-                .frame(width: UIScreen.getWidth(120), alignment: .center)
-                .clipShape(Circle())
-                .shadow(color: .white.opacity(0.2),radius: 20)
-                .overlay {
-                    Circle()
-                        .stroke(lineWidth: 3)
-                        .blur(radius: 4)
-                        .foregroundColor(Color(appSky).opacity(0.6))
-                        .padding(0)
-                }
+            CircleBlur(image: viewModel.user.userimage, width: 120)
+                
             VStack(alignment: .leading) {
                 Text(viewModel.user.username)
                     .font(.custom20bold())
@@ -108,6 +98,7 @@ extension ProfileView {
             Text("알림 설정")
                 .font(.custom14bold())
         }).padding(.init(top: UIScreen.getWidth(15), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(15), trailing: UIScreen.getWidth(20)))
+            .tint(.cyan.opacity(0.4))
     }
     
     var artistAccount: some View {

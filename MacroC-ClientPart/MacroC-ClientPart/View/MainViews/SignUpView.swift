@@ -15,7 +15,7 @@ struct SignUpView: View {
     
     //MARK: -2.BODY
     var body: some View {
-        VStack(spacing: UIScreen.getWidth(20)) {
+        VStack(spacing: UIScreen.getWidth(6)) {
             Spacer()
             imagePicker
             Spacer()
@@ -48,43 +48,63 @@ extension SignUpView {
                     .scaledToFit()
                     .clipShape(Circle())
                     .frame(width: UIScreen.getHeight(140))
-                    .overlay(Group {
-                        if viewModel.isLoading {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                                .scaleEffect(2)
-                                .foregroundColor(.white)
-                        }
-                    })
+                    .mask(RadialGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black,Color.black,Color.black,Color.black, Color.clear]), center: .center,startRadius: 0, endRadius: UIScreen.getHeight(70)))
+                    .shadow(color: .white.opacity(0.4),radius: UIScreen.getHeight(5))
+                    .overlay {
+                        Circle()
+                            .stroke(lineWidth: UIScreen.getHeight(2))
+                            .blur(radius: UIScreen.getHeight(3))
+                            .foregroundColor(Color(appIndigo).opacity(0.6))
+                            .padding(0)
+                    }
             } else {
                 Circle()
-                    .stroke(lineWidth: 3)
+                    .stroke(lineWidth: UIScreen.getHeight(3))
                     .frame(width: UIScreen.getHeight(140))
                     .overlay {
                         Image(systemName: "photo.on.rectangle.angled")
                             .foregroundColor(.white)
-                            .font(.largeTitle)
+                            .font(.custom40regular())
                     }
             }
         }
     }
     
     var textField: some View {
-        HStack(spacing: UIScreen.getWidth(8)){
-            TextField("닉네임을 입력하세요", text: $viewModel.email)
-                .font(.custom14semibold())
-                .padding(UIScreen.getWidth(13))
-                .background(.ultraThinMaterial)
-                .cornerRadius(6)
-            Button {
-                // TODO: 서버에 같은 닉네임이 있는지 확인하는 함수 + 시트로 가능하다고 띄우는 함수
-            } label: {
-                Text("중복확인")
-                    .font(.custom12semibold())
-                    .padding(UIScreen.getWidth(15))
-                    .background(Color(appIndigo))
+        VStack {
+            HStack(spacing: UIScreen.getWidth(8)){
+                TextField("닉네임을 입력하세요", text: $viewModel.username)
+                    .font(.custom14semibold())
+                    .padding(UIScreen.getWidth(13))
+                    .background(.ultraThinMaterial)
                     .cornerRadius(6)
+                Button {
+                    // TODO: 서버에 같은 닉네임이 있는지 확인하는 함수 + 시트로 가능하다고 띄우는 함수
+                } label: {
+                    Text("중복확인")
+                        .font(.custom12semibold())
+                        .padding(UIScreen.getWidth(15))
+                        .background(Color(appIndigo))
+                        .cornerRadius(6)
+                }
             }
+            HStack {
+                switch viewModel.usernameStatus {
+                case .empty:
+                    Text("사용 가능한 닉네임입니다.") // 아무 메시지도 표시하지 않음
+                        .font(.custom10bold())
+                        .foregroundColor(.clear)
+                case .duplicated:
+                    Text("이미 사용 중인 닉네임입니다.")
+                        .font(.custom10bold())
+                        .foregroundColor(.red)
+                case .available:
+                    Text("사용 가능한 닉네임입니다.")
+                        .font(.custom10bold())
+                        .foregroundColor(.blue)
+                }
+                Spacer()
+            }.padding(.leading, 5)
         }
     }
     
@@ -97,11 +117,10 @@ extension SignUpView {
                 Text("Sign Up").font(.custom14semibold())
                 Spacer()
             }
-            .padding()
-            .background(.ultraThinMaterial)
-            .background(viewModel.email.isEmpty || viewModel.username.isEmpty || viewModel.password.isEmpty ?  Color.black : Color.blue)
+            .padding(15)
+            .background(viewModel.username.isEmpty ?  Color.gray.opacity(0.3) : Color(appIndigo))
             .cornerRadius(6)
-        }.disabled(viewModel.email.isEmpty || viewModel.username.isEmpty || viewModel.password.isEmpty)
+        }.disabled(viewModel.username.isEmpty)
         
     }
 }

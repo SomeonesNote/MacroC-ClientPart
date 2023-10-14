@@ -20,7 +20,8 @@ struct MapBuskingInfoView: View {
             buskingTime
             buskingInfoAddress
             buskingInfoMap
-        }.background(backgroundView())
+        }
+        .background(backgroundView())
     }
 }
 
@@ -43,25 +44,15 @@ extension MapBuskingInfoView {
             Spacer()
             Button(action: viewModel.toggleLike) {
                 Image(systemName: viewModel.isClickedLike ? "heart.fill" : "heart")
-                    .font(.custom24semibold())
+                    .foregroundStyle(viewModel.isClickedLike ? Color(appRed) : Color.white)
+                    .font(.custom24light())
+                    
             }
         }.padding(.init(top: UIScreen.getWidth(40), leading: UIScreen.getWidth(5), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(15)))
     }
     
     var buskingInfoImage: some View {
-        Image(viewModel.busking.buskerimage)
-            .resizable()
-            .scaledToFit()
-            .frame(width: UIScreen.getWidth(40), alignment: .center)
-            .clipShape(Circle())
-            .shadow(color: .white.opacity(0.2), radius: 20)
-            .overlay {
-                Circle()
-                    .stroke(lineWidth: 5)
-                    .blur(radius: 2)
-                    .foregroundColor(Color(appSky).opacity(0.4))
-                    .padding(0)
-            }
+        CircleBlur(image: viewModel.busking.buskerimage, width: 40)
     }
     
     var buskingTime: some View {
@@ -71,12 +62,14 @@ extension MapBuskingInfoView {
                 .padding(.horizontal, 30)
                 .overlay(alignment: .leading) {
                     Image(systemName: "calendar")
+                        .font(.custom14semibold())
                 }
             Text("\(viewModel.formatStartTime()) ~ \(viewModel.formatEndTime())")
                 .font(.custom14heavy())
                 .padding(.horizontal, 30)
                 .overlay(alignment: .leading) {
                     Image(systemName: "clock")
+                        .font(.custom14semibold())
                 }
         }
     }
@@ -91,6 +84,7 @@ extension MapBuskingInfoView {
                 Button { UIPasteboard.general.string = viewModel.addressString } label: {
                     Image(systemName: "rectangle.on.rectangle")
                         .frame(width: UIScreen.getWidth(13), height: UIScreen.getHeight(10))
+                        .font(.custom14semibold())
                 }
             }
     }

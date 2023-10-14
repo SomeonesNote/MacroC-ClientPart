@@ -8,30 +8,34 @@
 import SwiftUI
 
 struct EditUserAcountView: View {
-    @EnvironmentObject var userAuth: UserAuth
+    @EnvironmentObject var userAuth: AppleAuth
 
     var body: some View {
-        ZStack(alignment: .center) {
+        ZStack(alignment: .topLeading) {
             backgroundView().ignoresSafeArea()
-            VStack{
+            VStack(alignment: .leading) {
+                //로그아웃
                 Button {
-                    KeychainItem.deleteUserIdentifierFromKeychain()
-                    userAuth.showLoginView = true
-                    print("Log Out")
-                    print("delete User Identifier From Keychain")
+                    KeychainItem.deleteUserIdentifierFromKeychain() //키체인에서 UserIdentifier 제거
+                    userAuth.showLoginView = true //로그인뷰로 돌아가기
+                    print("Log Out : delete User Identifier From Keychain")
                 } label: {
-                    HStack {
-                        Spacer()
-                        Text("Log Out")
-                            .font(.custom14bold())
-                        Spacer()
-                    }
+                        Text("로그아웃") 
+                        .font(.custom14bold())
+                        .padding(UIScreen.getWidth(20))
                 }
-                .padding()
-                .frame(width: UIScreen.getWidth(380), height: UIScreen.getHeight(50))
-                .background(Color.black)
-                .cornerRadius(25)
-            }
+                //탈퇴
+                Button {
+                    KeychainItem.deleteUserIdentifierFromKeychain() //키체인에서 UserIdentifier 제거
+                    userAuth.showLoginView = true //로그인뷰로 돌아가기
+                    print("탈퇴")
+                } label: {
+                        Text("탈퇴") 
+                        .foregroundStyle(Color(appRed))
+                        .font(.custom14bold())
+                        .padding(UIScreen.getWidth(20))
+                }
+            }.padding(.top, UIScreen.getHeight(100))
         }
     }
 }

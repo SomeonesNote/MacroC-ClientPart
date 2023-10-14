@@ -14,6 +14,7 @@ let appIndigo = "appIndigo"
 let appIndigo1 = "appIndigo1"
 let appIndigo2 = "appIndigo2"
 let appSky = "appSky"
+let appRed = "appRed"
 
 func backgroundGradient(a:Color, b: Color) -> LinearGradient {
   return LinearGradient(gradient: Gradient(colors: [a, b]), startPoint: .topLeading, endPoint: .bottomTrailing)
@@ -79,15 +80,6 @@ struct customDivider: View {
     }
 }
 
-struct backgroundView: View {
-    var body: some View {
-        backgroundStill
-            .resizable()
-            .scaledToFill()
-            .ignoresSafeArea()
-    }
-}
-
 struct loginBackgroundView: View {
     var body: some View {
         Image(loginViewBG)
@@ -109,7 +101,7 @@ struct customSFButton: View {
     var image: String
     var body: some View {
         Image(systemName: image)
-            .font(.title)
+            .font(.custom24semibold())
             .modifier(dropShadow())
             .foregroundColor(.white)
     }

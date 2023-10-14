@@ -40,7 +40,10 @@ extension MainView {
             HStack {
                 roundedBoxText(text: "My Artist")
                 Spacer()
-                Button { } label: {customSFButton(image: "plus.circle.fill")}
+                NavigationLink {
+                    ArtistListView().toolbarBackground(.hidden, for: .navigationBar)
+                } label: {customSFButton(image: "plus.circle.fill")}
+
             } .padding(.init(top: UIScreen.getWidth(60), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(20)))
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 0) {
@@ -73,8 +76,7 @@ extension MainView {
                         .sheet(isPresented: $viewModel.isClickedBuskingInfo, onDismiss: {viewModel.isClickedBuskingInfo = false}) {
                             MapBuskingInfoView(viewModel: MapBuskingInfoViewModel(busking: viewModel.selectedBusking))
                                 .presentationDetents([.medium])
-                                .presentationDragIndicator(.visible)
-                    }
+                                .presentationDragIndicator(.visible)                    }
                 }
             }
         }

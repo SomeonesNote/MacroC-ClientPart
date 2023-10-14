@@ -60,19 +60,8 @@ struct ArtistProfileView: View {
 extension ArtistProfileView {
     var profileSection: some View {
         HStack(spacing: 20) {
-            Image(viewModel.user.userimage)
-                .resizable()
-                .scaledToFit()
-                .frame(width: UIScreen.getWidth(120), alignment: .center)
-                .clipShape(Circle())
-                .shadow(color: .white.opacity(0.2),radius: 20)
-                .overlay {
-                    Circle()
-                        .stroke(lineWidth: 3)
-                        .blur(radius: 4)
-                        .foregroundColor(Color(appSky).opacity(0.6))
-                        .padding(0)
-                }
+            CircleBlur(image: viewModel.user.userimage, width: 120)
+            
             VStack(alignment: .leading) {
                 Text(viewModel.user.username)
                     .font(.custom20bold())

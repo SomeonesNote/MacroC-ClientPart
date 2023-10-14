@@ -10,6 +10,9 @@ import Foundation
 //DummyUser
 let dummyUser = User(id: 1, artistid: 1, username: "User", email: "user1@google.com", password: "user1.pw", userimage: "User", follow: [])
 
+//dummyAllArtist
+let dummyAllArtist: [Artist] = [dummyArtist1, dummyArtist2, dummyArtist3, dummyArtist4, dummyArtist5]
+
 //DummyArtist
 let dummyArtist1 = Artist(id: 1, stagename: "박보영", artistinfo: "안녕하세요 박보영입니다", artistimage: "Busker1", youtube: "https://www.youtube.com/@Bbovely_", instagram: "https://www.instagram.com/park_bo_young_/", soundcloud: "soundcloud", genre: "Sing", fanlist: [], member: [])
 let dummyArtist2 = Artist(id: 2, stagename: "NewJeans", artistinfo: "안녕하세요 뉴진스입니다", artistimage: "Busker2", youtube: "https://www.instagram.com/newjeans.updates/", instagram: "https://www.instagram.com/newjeans.updates/", soundcloud: "soundcloud", genre: "Sing", fanlist: [], member: [])

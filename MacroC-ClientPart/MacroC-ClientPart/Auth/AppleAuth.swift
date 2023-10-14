@@ -8,7 +8,7 @@
 import Foundation
 import AuthenticationServices
 
-class UserAuth: ObservableObject {
+class AppleAuth: ObservableObject {
     @Published var showLoginView: Bool = false
     
     init() {

@@ -41,7 +41,8 @@ extension BuskerInfoModalView {
             viewModel.toggleLike()
         } label: {
             Image(systemName: viewModel.isClickedLike ? "heart.fill" : "heart")
-                .font(.custom24semibold())
+                .foregroundStyle(viewModel.isClickedLike ? Color(appRed) : Color.white)
+                .font(.custom24light())
         }
     }
     
@@ -55,19 +56,7 @@ extension BuskerInfoModalView {
     }
     
     var buskerInfoImage: some View {
-        Image(viewModel.busking.buskerimage)
-                .resizable()
-                .scaledToFit()
-                .frame(width: UIScreen.getWidth(130), alignment: .center)
-                .clipShape(Circle())
-                .shadow(color: .white.opacity(0.2),radius: 20)
-                .overlay {
-                    Circle()
-                        .stroke(lineWidth: 3)
-                        .blur(radius: 4)
-                        .foregroundColor(Color(appSky).opacity(0.6))
-                        .padding(0)
-                }
+        CircleBlur(image: viewModel.busking.buskerimage, width: 120,strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
         }
     
     var buskingTime: some View {
@@ -76,6 +65,7 @@ extension BuskerInfoModalView {
             .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(30), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(30)))
             .overlay(alignment: .leading) {
                 Image(systemName: "clock")
+                    .font(.custom14semibold())
             }
     }
 }

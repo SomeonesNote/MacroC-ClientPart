@@ -14,12 +14,14 @@ struct MapViewSearchBar: View {
     var body: some View {
         VStack(spacing:0) {
             TextField("Search", text: $viewModel.query)
+                .font(.custom14regular())
                 .padding()
                 .background(Color.black.opacity(0.7))
                 .cornerRadius(10, corners: viewModel.results.isEmpty ? [.allCorners] : [.topLeft, .topRight])
                 .overlay(alignment: .trailing,content: {
                     Button{ viewModel.query = "" } label: {
                         Image(systemName: "multiply.circle.fill")
+                            .font(.custom14regular())
                     }.padding()
                         .scaleEffect(1.2)
                 })

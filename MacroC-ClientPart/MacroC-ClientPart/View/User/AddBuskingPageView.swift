@@ -16,22 +16,19 @@ struct AddBuskingPageView: View {
     
     //MARK: -2.BODY
     var body: some View {
-        NavigationView {
-            ZStack {
-                VStack(spacing: UIScreen.getWidth(20)) {
-                    topbar
-                    locationHeader
-                    map
-                    timeHeader
-                    datePickerView
-                    Spacer()
-                }
-                
-            }
-            .padding(.horizontal)
-            .background(backgroundView().hideKeyboardWhenTappedAround())
-            .ignoresSafeArea(.keyboard)
-        }
+        ScrollView { // 키보드 뷰 밀림때문에 넣음
+            VStack(spacing: UIScreen.getWidth(20)) {
+                        topbar
+                        locationHeader
+                        map
+                        timeHeader
+                        datePickerView
+                        Spacer()
+                    }
+                .padding(.horizontal)
+                .background(backgroundView().ignoresSafeArea().hideKeyboardWhenTappedAround())
+                .ignoresSafeArea(.keyboard)
+        }.scrollDisabled(true)
     }
 }
 
@@ -101,15 +98,15 @@ extension AddBuskingPageView {
         VStack(spacing: 5) {
             DatePicker(selection: $viewModel.startTime, displayedComponents: .date) {
                 Text("공연 날짜")
-                    .font(.custom12bold()).padding(.leading, UIScreen.getWidth(5))
-            }
+                    .font(.custom14bold()).padding(.leading, UIScreen.getWidth(5))
+            } .font(.footnote)
             DatePicker(selection: $viewModel.startTime, displayedComponents: .hourAndMinute) {
                 Text("시작 시간")
-                    .font(.custom12bold()).padding(.leading, UIScreen.getWidth(5))
+                    .font(.custom14bold()).padding(.leading, UIScreen.getWidth(5))
             }
             DatePicker(selection: $viewModel.endTime, displayedComponents: .hourAndMinute) {
                 Text("종료 시간")
-                    .font(.custom12bold()).padding(.leading, UIScreen.getWidth(5))
+                    .font(.custom14bold()).padding(.leading, UIScreen.getWidth(5))
             }
             customDivider()
                 .padding(.vertical, UIScreen.getWidth(15))
@@ -118,6 +115,7 @@ extension AddBuskingPageView {
                 .padding(.horizontal,UIScreen.getWidth(30))
                 .overlay(alignment: .leading) {
                     Image(systemName: "calendar")
+                        .font(.custom14semibold())
                 }
             HStack {
                 Text("\(viewModel.formatStartTime())   ~   \(viewModel.formatEndTime())")
@@ -125,6 +123,7 @@ extension AddBuskingPageView {
                     .padding(.horizontal,UIScreen.getWidth(30))
                     .overlay(alignment: .leading) {
                         Image(systemName: "clock")
+                            .font(.custom14semibold())
                     }
             }
         }

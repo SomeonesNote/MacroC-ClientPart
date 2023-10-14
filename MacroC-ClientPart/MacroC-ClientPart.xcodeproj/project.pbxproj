@@ -14,7 +14,12 @@
 		070717332AD942CE00B72319 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717322AD942CE00B72319 /* Font.swift */; };
 		070717352AD942E300B72319 /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717342AD942E300B72319 /* UIScreen.swift */; };
 		070717382AD9430A00B72319 /* AppleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717372AD9430A00B72319 /* AppleAuth.swift */; };
+		0707173E2AD9FA7D00B72319 /* CircleBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707173D2AD9FA7D00B72319 /* CircleBlur.swift */; };
+		070717402ADA0CC100B72319 /* BackroundStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707173F2ADA0CC100B72319 /* BackroundStar.swift */; };
 		070752A32AD75BA60090E11D /* AppleSigninButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070752A22AD75BA60090E11D /* AppleSigninButton.swift */; };
+		070F6BDD2ADA135B00328570 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BDC2ADA135B00328570 /* BackgroundView.swift */; };
+		070F6BDF2ADA1EF300328570 /* ClearModalBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BDE2ADA1EF300328570 /* ClearModalBackground.swift */; };
+		070F6BE12ADA3B8A00328570 /* ArtistListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BE02ADA3B8A00328570 /* ArtistListView.swift */; };
 		07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* LoginViewModel.swift */; };
 		07FBF28B2ACFF90B004EF174 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpView.swift */; };
 		07FD2BE62AD32D4B0030865A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD2BE52AD32D4B0030865A /* MainViewModel.swift */; };
@@ -79,7 +84,12 @@
 		070717322AD942CE00B72319 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		070717342AD942E300B72319 /* UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
 		070717372AD9430A00B72319 /* AppleAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuth.swift; sourceTree = "<group>"; };
+		0707173D2AD9FA7D00B72319 /* CircleBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleBlur.swift; sourceTree = "<group>"; };
+		0707173F2ADA0CC100B72319 /* BackroundStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackroundStar.swift; sourceTree = "<group>"; };
 		070752A22AD75BA60090E11D /* AppleSigninButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSigninButton.swift; sourceTree = "<group>"; };
+		070F6BDC2ADA135B00328570 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		070F6BDE2ADA1EF300328570 /* ClearModalBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearModalBackground.swift; sourceTree = "<group>"; };
+		070F6BE02ADA3B8A00328570 /* ArtistListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistListView.swift; sourceTree = "<group>"; };
 		07FBF2872ACF5223004EF174 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		07FBF2892ACFD143004EF174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07FBF28A2ACFF90B004EF174 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -336,6 +346,7 @@
 				F62B8A962ACED4070077CA17 /* LoginView.swift */,
 				F62B8A9E2ACED4830077CA17 /* ArtistPageView.swift */,
 				F62B8A9C2ACED46D0077CA17 /* UserArtistPageView.swift */,
+				070F6BE02ADA3B8A00328570 /* ArtistListView.swift */,
 			);
 			path = MainViews;
 			sourceTree = "<group>";
@@ -343,11 +354,15 @@
 		F62B8AC12ACED7140077CA17 /* ViewComponent */ = {
 			isa = PBXGroup;
 			children = (
+				070752A22AD75BA60090E11D /* AppleSigninButton.swift */,
+				070F6BDC2ADA135B00328570 /* BackgroundView.swift */,
 				F62B8AC82ACED8110077CA17 /* ProfileRectangle.swift */,
 				F62B8ACA2ACED8270077CA17 /* BuskingListRow.swift */,
-				F62B8ACC2ACED8410077CA17 /* DonationBar.swift */,
+				0707173F2ADA0CC100B72319 /* BackroundStar.swift */,
 				F62B8AD22ACED87C0077CA17 /* ImageCropper.swift */,
-				070752A22AD75BA60090E11D /* AppleSigninButton.swift */,
+				F62B8ACC2ACED8410077CA17 /* DonationBar.swift */,
+				0707173D2AD9FA7D00B72319 /* CircleBlur.swift */,
+				070F6BDE2ADA1EF300328570 /* ClearModalBackground.swift */,
 			);
 			path = ViewComponent;
 			sourceTree = "<group>";
@@ -442,6 +457,7 @@
 				F62B8AB52ACED5AD0077CA17 /* GoogleMapView.swift in Sources */,
 				F62B8A9B2ACED41F0077CA17 /* MapView.swift in Sources */,
 				F62B8AE72ACED9760077CA17 /* Member.swift in Sources */,
+				0707173E2AD9FA7D00B72319 /* CircleBlur.swift in Sources */,
 				F62B8A742ACED1B80077CA17 /* MacroC_ClientPartApp.swift in Sources */,
 				F62B8ACF2ACED8550077CA17 /* MapViewSearchBar.swift in Sources */,
 				F62B8A9F2ACED4830077CA17 /* ArtistPageView.swift in Sources */,
@@ -467,13 +483,17 @@
 				F62B8AE92ACED9890077CA17 /* DummyData.swift in Sources */,
 				F62B8A952ACED3E70077CA17 /* LaunchScreenView.swift in Sources */,
 				F62B8ACD2ACED8410077CA17 /* DonationBar.swift in Sources */,
+				070F6BE12ADA3B8A00328570 /* ArtistListView.swift in Sources */,
 				F62B8AD32ACED87C0077CA17 /* ImageCropper.swift in Sources */,
+				070F6BDF2ADA1EF300328570 /* ClearModalBackground.swift in Sources */,
 				F62B8AA82ACED4E30077CA17 /* EditUserAcountView.swift in Sources */,
+				070F6BDD2ADA135B00328570 /* BackgroundView.swift in Sources */,
 				0707172D2AD9427E00B72319 /* ArtistProfileViewModel.swift in Sources */,
 				F62B8AB22ACED5710077CA17 /* EditBuskerAcountView.swift in Sources */,
 				0707172B2AD9412700B72319 /* SignInView.swift in Sources */,
 				F62B8AED2ACED9BA0077CA17 /* ViewModifier.swift in Sources */,
 				F62B8AA62ACED4CB0077CA17 /* DonationListView.swift in Sources */,
+				070717402ADA0CC100B72319 /* BackroundStar.swift in Sources */,
 				F62B8AB72ACED5C80077CA17 /* CropedGoogleMapView.swift in Sources */,
 				F62B8A9D2ACED46D0077CA17 /* UserArtistPageView.swift in Sources */,
 				F62B8ACB2ACED8270077CA17 /* BuskingListRow.swift in Sources */,

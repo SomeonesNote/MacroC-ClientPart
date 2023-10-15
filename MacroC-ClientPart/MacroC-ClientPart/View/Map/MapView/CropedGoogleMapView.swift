@@ -18,7 +18,7 @@ struct CropedGoogleMapView: UIViewRepresentable {
         
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         
-        let markerImage = UIImageView(image: UIImage(named: busking.buskerimage))
+        let markerImage = UIImageView(image: UIImage(named: busking.artistimage))
         let customMarker = UIImageView(image: UIImage(named: "markerpin_blue"))
         
         mapView.setMinZoom(13, maxZoom: 19)

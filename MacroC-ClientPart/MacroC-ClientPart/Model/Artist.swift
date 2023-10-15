@@ -1,5 +1,5 @@
 //
-//  Busker.swift
+//  Artist.swift
 //  MacroC-ClientPart
 //
 //  Created by Kimdohyun on 2023/10/05.

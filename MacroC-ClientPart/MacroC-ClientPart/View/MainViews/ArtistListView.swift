@@ -19,9 +19,9 @@ struct ArtistListView: View {
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(artistList.shuffled()) { i in
                     NavigationLink {
-                        ArtistPageView(viewModel: ArtistPageViewModel(busker: i))
+                        ArtistPageView(viewModel: ArtistPageViewModel(artist: i))
                     } label: {
-                        ProfileRectangle(image: i.artistimage, name: i.stagename).scaleEffect(0.8)
+                        ProfileRectangle(image: i.artistimage, name: i.stagename).scaleEffect(0.9)
                     }
                 }
             }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
@@ -30,5 +30,7 @@ struct ArtistListView: View {
 }
 
 #Preview {
-    ArtistListView()
+    NavigationView {
+        ArtistListView()
+    }
 }

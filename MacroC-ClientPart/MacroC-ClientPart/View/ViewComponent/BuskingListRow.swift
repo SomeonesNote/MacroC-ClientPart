@@ -17,37 +17,40 @@ struct BuskingListRow: View {
     //MARK: -2.BODY
     var body: some View {
         HStack(spacing: UIScreen.getWidth(10)) {
-            CircleBlur(image: busking.buskerimage, width: 120, strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
-                .padding(.horizontal, 10)
+            CircleBlur(image: busking.artistimage, width: 120, strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
+                .padding(.horizontal, UIScreen.getWidth(10))
             
-            VStack(alignment: .leading,spacing: UIScreen.getWidth(2)) {
-                Text(busking.buskername)
-                    .font(.custom20black())
-                    .padding(.bottom, 9)
+            VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
+                Text(busking.artistname)
+                    .font(.custom22black())
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                    .padding(.bottom, UIScreen.getHeight(4))
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "calendar").font(.custom12semibold())
-                    Text(formatDate()) .font(.custom12bold())
+                    Image(systemName: "calendar").font(.custom16semibold())
+                    Text(formatDate()) .font(.custom14bold())
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "clock").font(.custom12semibold())
-                    Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom12bold()) // TODO: 시간 포맷 다시 설정해야
-                }.padding(.bottom, 5)
+                    Image(systemName: "clock").font(.custom16semibold())
+                    Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom14bold())
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                }
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "signpost.right").font(.custom12semibold())
+                    Image(systemName: "signpost.right").font(.custom16semibold())
                     Text("\(addressString)").font(.custom14bold())
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
             }.frame(height: UIScreen.getHeight(130))
             Spacer()
         }
-        .background(RoundedRectangle(cornerRadius: 10).fill(LinearGradient(colors: [Color(appIndigo2), Color(appIndigo1)], startPoint: .bottomTrailing, endPoint: .topLeading)).opacity(0.3))
+        .background(RoundedRectangle(cornerRadius: 10).fill(LinearGradient(colors: [Color(appIndigo2), Color(appIndigo1)], startPoint: .bottomTrailing, endPoint: .topLeading)).opacity(0.2))
         .clipShape(RoundedRectangle(cornerRadius: 30))
         .frame(height: UIScreen.getHeight(130))
-        .modifier(dropShadow())
         .overlay {
             RoundedRectangle(cornerRadius: 30)
                 .stroke(lineWidth: 1)
                 .blur(radius: 2)
-                .foregroundColor(Color(appBlue).opacity(0.2))
+                .foregroundColor(Color.white.opacity(0.1))
                 .padding(0)
         }
         .onAppear {

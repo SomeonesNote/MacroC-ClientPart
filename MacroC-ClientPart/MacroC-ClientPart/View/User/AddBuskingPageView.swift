@@ -46,6 +46,7 @@ extension AddBuskingPageView {
                 dismiss()
             } label: {
                 toolbarButtonLabel(buttonLabel: "Cancle")
+                    .shadow(color: .black.opacity(0.7),radius: 5)
             }
             Spacer()
             Button{
@@ -55,6 +56,7 @@ extension AddBuskingPageView {
                 print("공연 종료: \(viewModel.endTime)")
             } label: {
                 toolbarButtonLabel(buttonLabel: "Register")
+                    .shadow(color: .black.opacity(0.7),radius: 5)
             }
         }
         .padding(.init(top: UIScreen.getWidth(0), leading: UIScreen.getWidth(8), bottom: UIScreen.getWidth(8), trailing: UIScreen.getWidth(8)))
@@ -63,6 +65,7 @@ extension AddBuskingPageView {
     var locationHeader: some View {
         HStack {
             roundedBoxText(text: "Location").padding(.leading, UIScreen.getWidth(10))
+                .shadow(color: .black.opacity(0.7),radius: 5)
             Spacer()
         }
     }
@@ -80,8 +83,8 @@ extension AddBuskingPageView {
                         .cornerRadius(20)
                         .modifier(dropShadow())
                         .padding(UIScreen.getHeight(5))
-                    
                 }
+                .shadow(color: .black.opacity(0.4),radius: 3)
             AddBuskingSearchBar(viewModel: viewModel)
                 .padding(UIScreen.getHeight(3))
         }
@@ -90,6 +93,7 @@ extension AddBuskingPageView {
     var timeHeader: some View {
         HStack {
             roundedBoxText(text: "Time").padding(.leading, UIScreen.getWidth(10))
+                .shadow(color: .black.opacity(0.7),radius: 5)
             Spacer()
         }.padding(.top, UIScreen.getHeight(30))
     }
@@ -99,33 +103,38 @@ extension AddBuskingPageView {
             DatePicker(selection: $viewModel.startTime, displayedComponents: .date) {
                 Text("공연 날짜")
                     .font(.custom14bold()).padding(.leading, UIScreen.getWidth(5))
+                    .shadow(color: .black.opacity(0.7),radius: 5)
             } .font(.footnote)
             DatePicker(selection: $viewModel.startTime, displayedComponents: .hourAndMinute) {
                 Text("시작 시간")
                     .font(.custom14bold()).padding(.leading, UIScreen.getWidth(5))
+                    .shadow(color: .black.opacity(0.7),radius: 5)
             }
             DatePicker(selection: $viewModel.endTime, displayedComponents: .hourAndMinute) {
                 Text("종료 시간")
                     .font(.custom14bold()).padding(.leading, UIScreen.getWidth(5))
+                    .shadow(color: .black.opacity(0.7),radius: 5)
             }
-            customDivider()
-                .padding(.vertical, UIScreen.getWidth(15))
-            Text(viewModel.formatDate())
-                .font(.custom14semibold())
-                .padding(.horizontal,UIScreen.getWidth(30))
-                .overlay(alignment: .leading) {
-                    Image(systemName: "calendar")
-                        .font(.custom14semibold())
-                }
-            HStack {
+            
+            customDivider().padding(.vertical, UIScreen.getWidth(15))
+            VStack {
+                Text(viewModel.formatDate())
+                    .font(.custom14semibold())
+                    .shadow(color: .black.opacity(0.7),radius: 5)
+                    .padding(.horizontal,UIScreen.getWidth(30))
+                
                 Text("\(viewModel.formatStartTime())   ~   \(viewModel.formatEndTime())")
                     .font(.custom14semibold())
+                    .shadow(color: .black.opacity(0.7),radius: 5)
                     .padding(.horizontal,UIScreen.getWidth(30))
-                    .overlay(alignment: .leading) {
-                        Image(systemName: "clock")
-                            .font(.custom14semibold())
                     }
+            .overlay(alignment: .leading) {
+                VStack {
+                    Image(systemName: "calendar").shadow(color: .black.opacity(0.7),radius: 5)
+                    Image(systemName: "clock").shadow(color: .black.opacity(0.7),radius: 5)
+                }.font(.custom16semibold())
             }
+
         }
         .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(15), bottom: UIScreen.getWidth(25), trailing: UIScreen.getWidth(15)))
         .background(Material.ultraThin.opacity(0.5))

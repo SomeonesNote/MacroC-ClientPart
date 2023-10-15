@@ -1,5 +1,5 @@
 //
-//  EditUserAcountView.swift
+//  EditArtistAcountView.swift
 //  MacroC-ClientPart
 //
 //  Created by Kimdohyun on 2023/10/05.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EditUserAcountView: View {
+struct EditArtistAcountView: View {
     @EnvironmentObject var userAuth: AppleAuth
 
     var body: some View {
@@ -20,7 +20,7 @@ struct EditUserAcountView: View {
                     userAuth.showLoginView = true //로그인뷰로 돌아가기
                     print("Log Out : delete User Identifier From Keychain")
                 } label: {
-                        Text("로그아웃") 
+                        Text("로그아웃")
                         .font(.custom14bold())
                         .padding(UIScreen.getWidth(20))
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
@@ -31,7 +31,7 @@ struct EditUserAcountView: View {
                     userAuth.showLoginView = true //로그인뷰로 돌아가기
                     print("탈퇴")
                 } label: {
-                        Text("탈퇴") 
+                        Text("탈퇴")
                         .foregroundStyle(Color(appRed))
                         .font(.custom14bold())
                         .padding(UIScreen.getWidth(20))
@@ -43,5 +43,5 @@ struct EditUserAcountView: View {
 }
 
 #Preview {
-    EditUserAcountView()
+    EditArtistAcountView()
 }

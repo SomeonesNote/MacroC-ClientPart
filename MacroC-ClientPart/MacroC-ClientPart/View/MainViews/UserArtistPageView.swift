@@ -1,5 +1,5 @@
 //
-//  UserBuskerPageView.swift
+//  UserArtistPageView.swift
 //  MacroC-ClientPart
 //
 //  Created by Kimdohyun on 2023/10/05.
@@ -15,25 +15,52 @@ struct UserArtistPageView: View {
     
     //MARK: -2.BODY
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: UIScreen.getWidth(5)) {
-                if viewModel.croppedImage != nil { pickedImage }
-                else { buskerPageImage }
-                buskerPageTitle
-                buskerPageFollowButton
-                Spacer()
+        ZStack {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: UIScreen.getWidth(5)) {
+                    if viewModel.croppedImage != nil { pickedImage }
+                    else { artistPageImage }
+                    artistPageTitle
+                    artistPageFollowButton
+                    Spacer()
+                }
+            }.blur(radius: viewModel.isEditSocial || viewModel.isEditName || viewModel.isEditInfo ? 15 : 0)
+            if viewModel.isEditSocial || viewModel.isEditName || viewModel.isEditInfo {
+                Color.black.opacity(0.1)
+                    .onTapGesture {
+                        viewModel.isEditSocial = false
+                        viewModel.isEditName = false
+                        viewModel.isEditInfo = false
+                    }
+            }
+            //수정시트 모달
+            if viewModel.isEditSocial {
+                editSocialSheet
+            }
+            if viewModel.isEditName {
+                editNameSheet
+            }
+            if viewModel.isEditInfo {
+                editInfoSheet
+            }
+            //저장완료 알림 모달
+            if viewModel.socialSaveOKModal {
+                PopOverText(text: "저장되었습니다")
+            }
+            if viewModel.nameSaveOKModal {
+                PopOverText(text: "저장되었습니다")
+            }
+            if viewModel.infoSaveOKModal {
+                PopOverText(text: "저장되었습니다")
             }
         }
         .background(backgroundView())
         .ignoresSafeArea()
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) { firstToolbarItem  }
-            ToolbarItem(placement: .topBarTrailing) { secondToolbarItem }
+            ToolbarItem(placement: .topBarTrailing) { firstToolbarItem.opacity(viewModel.isEditSocial || viewModel.isEditName || viewModel.isEditInfo ? 0 : 1) }
+            ToolbarItem(placement: .topBarTrailing) { secondToolbarItem.opacity(viewModel.isEditSocial || viewModel.isEditName || viewModel.isEditInfo ? 0 : 1) }
         }
         .cropImagePicker(show: $viewModel.popCrop, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
-        .sheet(isPresented: $viewModel.isEditSocial, onDismiss: {viewModel.isEditSocial = false}) { editSocialSheet }
-        .sheet(isPresented: $viewModel.isEditName, onDismiss: {viewModel.isEditName = false}) { editNameSheet }
-        .sheet(isPresented: $viewModel.isEditInfo, onDismiss: {viewModel.isEditInfo = false}) { editInfoSheet }
         .onChange(of: viewModel.selectedItem) { newItem in
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
@@ -48,6 +75,7 @@ struct UserArtistPageView: View {
                 viewModel.popCrop = false
             }
         }
+        .toolbarBackground(.hidden, for: .navigationBar)
         .navigationTitle("")
     }
 }
@@ -63,7 +91,7 @@ struct UserArtistPageView: View {
 
 //MARK: -4.EXTENSION
 extension UserArtistPageView {
-    var buskerPageImage: some View {
+    var artistPageImage: some View {
         Image(viewModel.userArtist.artistimage)
             .resizable()
             .scaledToFit()
@@ -94,11 +122,11 @@ extension UserArtistPageView {
                         //TODO: 사진첩 접근해서 사진 받는 거 구현
                         Image(systemName: "camera.circle.fill")
                             .font(.custom48bold())
-                            .modifier(dropShadow())
+                            .shadow(color: .black.opacity(0.7),radius: 5)
                     }
                 }
             }
-        }
+    }
     
     var pickedImage: some View {
         Image(uiImage: viewModel.croppedImage!)
@@ -125,13 +153,13 @@ extension UserArtistPageView {
                         photoLibrary: .shared()) {
                             Image(systemName: "camera.circle.fill")
                                 .font(.custom48bold())
-                                .modifier(dropShadow())
-                    }
+                                .shadow(color: .black.opacity(0.7),radius: 5)
+                        }
                 }
             }
-        }
+    }
     
-    var buskerPageTitle: some View {
+    var artistPageTitle: some View {
         return VStack{
             ZStack {
                 Text(viewModel.userArtist.stagename)
@@ -139,9 +167,12 @@ extension UserArtistPageView {
                 if viewModel.isEditMode == true {
                     HStack {
                         Spacer()
-                        Button { viewModel.isEditName = true } label: {
+                        Button {
+                            viewModel.isEditName = true
+                        } label: {
                             Image(systemName: "pencil.circle.fill")
                                 .font(.custom20semibold())
+                                .shadow(color: .black.opacity(0.7),radius: 5)
                                 .padding(.horizontal)
                         }
                     }
@@ -156,6 +187,7 @@ extension UserArtistPageView {
                         Button { viewModel.isEditInfo = true } label: {
                             Image(systemName: "pencil.circle.fill")
                                 .font(.custom20semibold())
+                                .shadow(color: .black.opacity(0.7),radius: 5)
                                 .padding(.horizontal)
                         }
                     }
@@ -165,13 +197,13 @@ extension UserArtistPageView {
         
     }
     
-    var buskerPageFollowButton: some View {
+    var artistPageFollowButton: some View {
         Button { } label: {
             Text("Follow")
                 .font(.custom24black())
                 .padding(.init(top: UIScreen.getHeight(7), leading: UIScreen.getHeight(30), bottom: UIScreen.getHeight(7), trailing: UIScreen.getHeight(30)))
                 .background{ Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(2)) }
-                .modifier(dropShadow())
+                .shadow(color: .black.opacity(0.7),radius: 5)
         }
     }
     
@@ -183,8 +215,12 @@ extension UserArtistPageView {
                 viewModel.selectedItem = nil
                 viewModel.selectedPhotoData = nil
                 viewModel.croppedImage = nil
+                
+                viewModel.isEditSocial = false
+                viewModel.isEditName = false
+                viewModel.isEditInfo = false
             } label: {
-                toolbarButtonLabel(buttonLabel: "Cancle")
+                toolbarButtonLabel(buttonLabel: "Cancle").shadow(color: .black.opacity(0.5),radius: 8)
             })
         } else {
             return AnyView(EmptyView())
@@ -194,16 +230,20 @@ extension UserArtistPageView {
     var secondToolbarItem: some View {
         if viewModel.isEditMode {
             return AnyView(Button{
+                feedback.notificationOccurred(.success)
                 viewModel.isEditMode = false
+                viewModel.isEditSocial = false
+                viewModel.isEditName = false
+                viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
             } label: {
-                toolbarButtonLabel(buttonLabel: "Save")
+                toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: 8)
             })
         } else {
             return AnyView(Button{
                 viewModel.isEditMode = true
             } label: {
-                toolbarButtonLabel(buttonLabel: "Edit")
+                toolbarButtonLabel(buttonLabel: "Edit").shadow(color: .black.opacity(0.5),radius: 8)
             })
         }
     }
@@ -249,10 +289,32 @@ extension UserArtistPageView {
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
+            //SocialEditSheet Button
+            Button {
+                //TODO: 서버에 올리는 함수 구현하기
+                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
+                feedback.notificationOccurred(.success)
+                withAnimation(.smooth(duration: 0.5)) {
+                    viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        viewModel.socialSaveOKModal = false
+                        viewModel.isEditSocial = false
+                    }
+                }
+            } label: {
+                HStack {
+                    Spacer()
+                    Text("Save")
+                    Spacer()
+                }
+                .font(.custom14semibold())
+                .padding(UIScreen.getWidth(14))
+                .background(LinearGradient(colors: [.appSky ,.appIndigo1, .appIndigo2], startPoint: .topLeading, endPoint: .bottomTrailing))
+                .cornerRadius(6)
+            }
+            .padding(.top, UIScreen.getWidth(26))
         }
-        .padding(.horizontal, UIScreen.getWidth(10))
-        .presentationDetents([.height(UIScreen.getHeight(300))])
-        .presentationDragIndicator(.visible)
+        .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
     }
     
     var editNameSheet: some View {
@@ -270,6 +332,29 @@ extension UserArtistPageView {
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
+            //editNameSheet Button
+            Button {
+                //TODO: 서버에 올리는 함수 구현하기
+                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
+                feedback.notificationOccurred(.success)
+                withAnimation(.smooth(duration: 0.5)) {
+                    viewModel.nameSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        viewModel.nameSaveOKModal = false
+                        viewModel.isEditName = false
+                    }
+                }
+            } label: {
+                HStack {
+                    Spacer()
+                    Text("Save")
+                    Spacer()
+                }
+                .font(.custom14semibold())
+                .padding(UIScreen.getWidth(14))
+                .background(LinearGradient(colors: [.appSky ,.appIndigo1, .appIndigo2], startPoint: .topLeading, endPoint: .bottomTrailing))
+                .cornerRadius(6)
+            }
         }
         .padding(.horizontal, UIScreen.getWidth(10))
         .presentationDetents([.height(UIScreen.getHeight(150))])
@@ -291,6 +376,29 @@ extension UserArtistPageView {
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
+            //editInfoSheet Button
+            Button {
+                //TODO: 서버에 올리는 함수 구현하기
+                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
+                feedback.notificationOccurred(.success)
+                withAnimation(.smooth(duration: 0.5)) {
+                    viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        viewModel.infoSaveOKModal = false
+                        viewModel.isEditInfo = false
+                    }
+                }
+            } label: {
+                HStack {
+                    Spacer()
+                    Text("Save")
+                    Spacer()
+                }
+                .font(.custom14semibold())
+                .padding(UIScreen.getWidth(14))
+                .background(LinearGradient(colors: [.appSky ,.appIndigo1, .appIndigo2], startPoint: .topLeading, endPoint: .bottomTrailing))
+                .cornerRadius(6)
+            }
         }
         .padding(.horizontal, UIScreen.getWidth(10))
         .presentationDetents([.height(UIScreen.getHeight(150))])

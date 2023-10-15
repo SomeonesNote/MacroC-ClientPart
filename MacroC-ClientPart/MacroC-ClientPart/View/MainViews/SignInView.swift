@@ -14,12 +14,14 @@ struct SignInView: View {
     //MARK: -2.BODY
     var body: some View {
         VStack(spacing: UIScreen.getWidth(80)) {
-            Image(AppLogo)
-                .resizable()
-                .scaledToFit()
-                .frame(height: UIScreen.getHeight(200))
-                .cornerRadius(30)
+//            Image(AppLogo)
+//                .resizable()
+//                .scaledToFit()
+//                .frame(height: UIScreen.getHeight(200))
+//                .cornerRadius(30)
             AppleSigninButton().padding()
+                .offset(y: UIScreen.getHeight(240))
+                .shadow(color: .black.opacity(0.5) ,radius: 8)
         }.background(backgroundView().ignoresSafeArea())
     }
 }

@@ -1,5 +1,5 @@
 //
-//  UserBuskerPageViewModel.swift
+//  UserArtistPageViewModel.swift
 //  MacroC-ClientPart
 //
 //  Created by Kimdohyun on 2023/10/05.
@@ -24,6 +24,10 @@ class UserArtistPageViewModel: ObservableObject {
     
     @Published var EditUsername: String = "User"
     @Published var EditUserInfo: String = "Simple Imforamtion of This Artist"
+    
+    @Published var socialSaveOKModal: Bool = false
+    @Published var nameSaveOKModal: Bool = false
+    @Published var infoSaveOKModal: Bool = false
 
     init(userArtist: Artist) {
         self.userArtist = userArtist

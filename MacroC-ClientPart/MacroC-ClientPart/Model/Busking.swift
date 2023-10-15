@@ -9,12 +9,12 @@ import Foundation
 import MapKit
 
 struct Busking:  Identifiable, Codable {
-    //BuskerInfo
+    //ArtistInfo
     let id : Int
     
     //이거진짜 없어도 되나여
-    let buskername: String
-    let buskerimage: String
+    let artistname: String
+    let artistimage: String
     
     //TimeInfo
     let buskingstarttime : Date

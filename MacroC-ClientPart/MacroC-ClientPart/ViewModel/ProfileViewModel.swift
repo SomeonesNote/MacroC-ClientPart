@@ -11,6 +11,6 @@ class ProfileViewModel: ObservableObject {
     @Published var selectedBusking: Busking = dummyBusking1
     @Published var isOn = false
     @Published var isT2 = true
-    @Published var isShowBuskerProfile: Bool = false
+    @Published var isShowArtistProfile: Bool = false
     @Published var user: User = dummyUser
 }

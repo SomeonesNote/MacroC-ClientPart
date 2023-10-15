@@ -11,4 +11,5 @@ class MainViewModel: ObservableObject {
     @Published var isClickedBuskingInfo: Bool = false
     @Published var selectedBusking: Busking = dummyBusking1
     @Published var user : User = dummyUser
+    
 }

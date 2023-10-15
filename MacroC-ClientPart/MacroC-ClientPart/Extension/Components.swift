@@ -10,6 +10,7 @@ import SwiftUI
 
 //MARK: -COLOR
 let appBlue = "appBlue"
+let appBlue2 = "appBlue2"
 let appIndigo = "appIndigo"
 let appIndigo1 = "appIndigo1"
 let appIndigo2 = "appIndigo2"
@@ -29,7 +30,9 @@ let loginViewBG3 = "loginViewBG3"
 let topBarSteel = "topBarSteel"
 
 let backgroundStill = Image("background")
-//let backgroundStillReverse = Image("background")
+
+//MARK: HAPTIC
+let feedback = UINotificationFeedbackGenerator()
 
 //MARK: -LOGO
 let GoogleLogo = "GoogleLogo"
@@ -179,6 +182,15 @@ struct toolbarButtonLabel: View {
     var buttonLabel: String
     var body: some View {
         Text(buttonLabel)
+            .font(.custom14bold())
+            .modifier(dropShadow())
+    }
+}
+
+struct custom14BoldLabel: View {
+    var label: String
+    var body: some View {
+        Text(label)
             .font(.custom14bold())
             .modifier(dropShadow())
     }

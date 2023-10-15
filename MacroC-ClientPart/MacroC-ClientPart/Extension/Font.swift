@@ -8,135 +8,156 @@
 import SwiftUI
 
 extension Font {
-
-    static func custom17semibold() -> Font {
-        return Font.system(size: 17 * setFontSize(), weight: .semibold)
+    
+    //Light
+    static func custom24light() -> Font {
+        return Font.custom("Pretendard-Light", size: 24)
+    }
+    
+    //Regular
+    static func custom14regular() -> Font {
+        return Font.custom("Pretendard-Regulard", size: 14)
     }
     
     static func custom16regular() -> Font {
-        return Font.system(size: 16 * setFontSize(), weight: .regular)
+        return Font.custom("Pretendard-Regular", size: 16)
     }
-
+    
+    static func custom24regular() -> Font {
+        return Font.custom("Pretendard-Regulard", size: 24)
+    }
+    
+    static func custom40regular() -> Font {
+        return Font.custom("Pretendard-Regulard", size: 40)
+    }
+    
+    //SemiBold
     static func custom10semibold() -> Font {
-        return Font.system(size: 10 * setFontSize(), weight: .semibold)
-    }
-    
-    static func custom24light() -> Font {
-        return Font.system(size: 24 * setFontSize(), weight: .light)
-    }
-    
-    static func custom12bold() -> Font {
-        return Font.system(size: 12 * setFontSize(), weight: .bold)
-    }
-    
-    static func custom10bold() -> Font {
-        return Font.system(size: 10 * setFontSize(), weight: .bold)
+        return Font.custom("Pretendard-SemiBold", size: 10)
     }
     
     static func custom12semibold() -> Font {
-        return Font.system(size: 12 * setFontSize(), weight: .semibold)
+        return Font.custom("Pretendard-SemiBold", size: 12)
     }
     
-    static func custom14regular() -> Font {
-        return Font.system(size: 14 * setFontSize(), weight: .regular)
+    static func custom16semibold() -> Font {
+        return Font.custom("Pretendard-SemiBold", size: 16)
     }
     
-    static func custom14semibold() -> Font {
-        return Font.system(size: 14 * setFontSize(), weight: .semibold)
-    }
-
-    static func custom20semibold() -> Font {
-        return Font.system(size: 20 * setFontSize(), weight: .semibold)
-    }
-    
-    static func custom20black() -> Font {
-        return Font.system(size: 20 * setFontSize(), weight: .black)
+    static func custom17semibold() -> Font {
+        return Font.custom("Pretendard-SemiBold", size: 17)
     }
     
     static func custom24semibold() -> Font {
-        return Font.system(size: 24 * setFontSize(), weight: .semibold)
+        return Font.custom("Pretendard-SemiBold", size: 24)
     }
-
+    
+    //Bold
+    static func custom10bold() -> Font {
+        return Font.custom("Pretendard-Bold", size: 10)
+    }
+    
+    static func custom12bold() -> Font {
+        return Font.custom("Pretendard-Bold", size: 12)
+    }
+    
     static func custom14bold() -> Font {
-        return Font.system(size: 14 * setFontSize(), weight: .bold)
+        return Font.custom("Pretendard-Bold", size: 14)
     }
     
-    static func custom14heavy() -> Font {
-        return Font.system(size: 14 * setFontSize(), weight: .heavy)
-    }
-    
-    static func custom14black() -> Font {
-        return Font.system(size: 14 * setFontSize(), weight: .black)
-    }
-
     static func custom16bold() -> Font {
-        return Font.system(size: 16 * setFontSize(), weight: .bold)
-    }
-
-    static func custom17bold() -> Font {
-        return Font.system(size: 17 * setFontSize(), weight: .bold)
+        return Font.custom("Pretendard-Bold", size: 16)
     }
     
-    static func custom18regular() -> Font {
-        return Font.system(size: 18 * setFontSize(), weight: .regular)
+    static func custom17bold() -> Font {
+        return Font.custom("Pretendard-Bold", size: 17)
     }
     
     static func custom18bold() -> Font {
-        return Font.system(size: 18 * setFontSize(), weight: .bold)
+        return Font.custom("Pretendard-Bold", size: 18)
     }
-
-    static func custom18semibold() -> Font {
-        return Font.system(size: 18 * setFontSize(), weight: .semibold)
-    }
-
+    
     static func custom20bold() -> Font {
-        return Font.system(size: 20 * setFontSize(), weight: .bold)
+        return Font.custom("Pretendard-Bold", size: 20)
     }
     
     static func custom22bold() -> Font {
-        return Font.system(size: 22 * setFontSize(), weight: .bold)
-    }
-
-    static func custom24bold() -> Font {
-        return Font.system(size: 24 * setFontSize(), weight: .bold)
+        return Font.custom("Pretendard-Bold", size: 22)
     }
     
-    static func custom40heavy() -> Font {
-        return Font.system(size: 40 * setFontSize(), weight: .heavy)
+    static func custom24bold() -> Font {
+        return Font.custom("Pretendard-Bold", size: 24)
     }
-
-    static func custom40regular() -> Font {
-        return Font.system(size: 40 * setFontSize(), weight: .regular)
+    
+    static func custom28bold() -> Font {
+        return Font.custom("Pretendard-Bold", size: 28)
+    }
+    
+    static func custom32bold() -> Font {
+        return Font.custom("Pretendard-Bold", size: 32)
     }
     
     static func custom40bold() -> Font {
-        return Font.system(size: 40 * setFontSize(), weight: .bold)
+        return Font.custom("Pretendard-Bold", size: 40)
     }
-
+    
     static func custom48bold() -> Font {
-        return Font.system(size: 48 * setFontSize(), weight: .bold)
+        return Font.custom("Pretendard-Bold", size: 48)
+    }
+    
+    static func custom60bold() -> Font {
+        return Font.custom("Pretendard-Bold", size: 60)
+    }
+    
+    //SemiBold
+    static func custom14semibold() -> Font {
+        return Font.custom("Pretendard-SemiBold", size: 14)
+    }
+    
+    static func custom18semibold() -> Font {
+        return Font.custom("Pretendard-SemiBold", size: 18)
+    }
+    
+    static func custom20semibold() -> Font {
+        return Font.custom("Pretendard-SemiBold", size: 20)
+    }
+    
+    static func custom20black() -> Font {
+        return Font.custom("Pretendard-Black", size: 20)
+    }
+    
+    
+    //Heavy
+    static func custom14heavy() -> Font {
+        return Font.custom("Pretendard-ExtraBold", size: 14)
+    }
+    
+    //Black
+    static func custom14black() -> Font {
+        return Font.custom("Pretendard-Black", size: 14)
+    }
+    
+    static func custom16black() -> Font {
+        return Font.custom("Pretendard-Black", size: 16)
     }
     
     static func custom44black() -> Font {
-        return Font.system(size: 44 * setFontSize(), weight: .black)
+        return Font.custom("Pretendard-Black", size: 44)
     }
     
     static func custom48black() -> Font {
-        return Font.system(size: 48 * setFontSize(), weight: .black)
+        return Font.custom("Pretendard-Black", size: 48)
     }
-
-    static func custom60bold() -> Font {
-        return Font.system(size: 60 * setFontSize(), weight: .bold)
+    
+    static func custom22black() -> Font {
+        return Font.custom("Pretendard-Black", size: 22)
     }
-
+    
     static func custom24black() -> Font {
-        return Font.system(size: 24 * setFontSize(), weight: .black)
+        return Font.custom("Pretendard-Black", size: 24)
     }
-
-    static func customTitle4() -> Font {
-        return Font.system(size: 18 * setFontSize(), weight: .regular)
-    }
-
+    
+    
     // swiftlint:disable:next cyclomatic_complexity
     static func setFontSize() -> Double {
         let height = UIScreen.screenHeight

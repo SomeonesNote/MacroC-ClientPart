@@ -30,7 +30,7 @@ struct GoogleMapView: UIViewRepresentable {
         context.coordinator.mapView = view
         context.coordinator.startLocationUpdates()
         for i in viewModel.buskings {
-            let markerImage = UIImageView(image: UIImage(named: i.buskerimage))
+            let markerImage = UIImageView(image: UIImage(named: i.artistimage))
             let customMarker = UIImageView(image: UIImage(named: "markerpin_blue"))
 
             customMarker.addSubview(markerImage)

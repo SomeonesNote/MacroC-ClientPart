@@ -1,5 +1,5 @@
 //
-//  MapBuskerInfoViewModel.swift
+//  ArtistInfoModalViewModel.swift
 //  MacroC-ClientPart
 //
 //  Created by Kimdohyun on 2023/10/05.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class BuskerInfoModalViewModel: ObservableObject {
+class ArtistInfoModalViewModel: ObservableObject {
     @Published var isClickedLike: Bool = false
     @Published var busking: Busking
 

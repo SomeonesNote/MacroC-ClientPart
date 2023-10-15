@@ -1,5 +1,5 @@
 //
-//  MapBuskerInfoView.swift
+//  MapArtistInfoView.swift
 //  MacroC-ClientPart
 //
 //  Created by Kimdohyun on 2023/10/05.
@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-struct BuskerInfoModalView: View {
+struct ArtistInfoModalView: View {
     
     //MARK: -1.PROPERTY
-    @ObservedObject var viewModel: BuskerInfoModalViewModel
+    @ObservedObject var viewModel: ArtistInfoModalViewModel
     
     //MARK: -2.BODY
     var body: some View {
         VStack(spacing: UIScreen.getHeight(15)) {
                 Spacer()
-                buskerInfoToolbar
-                buskerInfoImage
+                artistInfoToolbar
+                artistInfoImage
                 buskingTime
             NavigationLink {
-//                BuskerPageView(viewModel: BuskerPageViewModel(busker: viewModel.busking.))
-            } label: { sheetBoxText(text: "더보기") }
-                Button { } label: { sheetBoxText(text: "찾아가기") }
+//                ArtistPageView(viewModel: ArtistPageViewModel(busker: viewModel.busking))
+            } label: { sheetBoxText(text: "더보기").shadow(color: .black.opacity(0.7),radius: 5) }
+                Button { } label: { sheetBoxText(text: "찾아가기").shadow(color: .black.opacity(0.7),radius: 5) }
             }.background(backgroundView())
     }
 }
@@ -30,12 +30,12 @@ struct BuskerInfoModalView: View {
 //MARK: -3.PREVIEW
 #Preview {
 //    MapView()
-    BuskerInfoModalView(viewModel: BuskerInfoModalViewModel(busking: dummyBusking4))
+    ArtistInfoModalView(viewModel: ArtistInfoModalViewModel(busking: dummyBusking4))
 }
 
 
 //MARK: -4. EXTENSION
-extension BuskerInfoModalView {
+extension ArtistInfoModalView {
     var likeButton: some View {
         Button {
             viewModel.toggleLike()
@@ -43,29 +43,32 @@ extension BuskerInfoModalView {
             Image(systemName: viewModel.isClickedLike ? "heart.fill" : "heart")
                 .foregroundStyle(viewModel.isClickedLike ? Color(appRed) : Color.white)
                 .font(.custom24light())
+                .shadow(color: .black.opacity(0.7),radius: 5)
         }
     }
     
-    var buskerInfoToolbar: some View {
+    var artistInfoToolbar: some View {
         HStack{
-            Text(viewModel.busking.buskername)
+            Text(viewModel.busking.artistname)
                 .font(.custom24black())
+                .shadow(color: .black.opacity(0.7),radius: 5)
             Spacer()
             likeButton
         }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(15), bottom: UIScreen.getWidth(0), trailing: UIScreen.getWidth(15)))
     }
     
-    var buskerInfoImage: some View {
-        CircleBlur(image: viewModel.busking.buskerimage, width: 120,strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
+    var artistInfoImage: some View {
+        CircleBlur(image: viewModel.busking.artistimage, width: 120,strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
         }
     
     var buskingTime: some View {
         Text("\(viewModel.formatStartTime()) ~ \(viewModel.formatEndTime())")
             .font(.custom14heavy())
+            .shadow(color: .black.opacity(0.7),radius: 5)
             .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(30), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(30)))
             .overlay(alignment: .leading) {
                 Image(systemName: "clock")
-                    .font(.custom14semibold())
+                    .font(.custom16semibold())
             }
     }
 }

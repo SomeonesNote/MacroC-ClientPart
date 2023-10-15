@@ -78,6 +78,7 @@ extension SignUpView {
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 Button {
                     // TODO: 서버에 같은 닉네임이 있는지 확인하는 함수 + 시트로 가능하다고 띄우는 함수
                 } label: {
@@ -86,22 +87,26 @@ extension SignUpView {
                         .padding(UIScreen.getWidth(15))
                         .background(Color(appIndigo))
                         .cornerRadius(6)
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
             }
             HStack {
                 switch viewModel.usernameStatus {
                 case .empty:
                     Text("사용 가능한 닉네임입니다.") // 아무 메시지도 표시하지 않음
-                        .font(.custom10bold())
+                        .font(.custom12bold())
                         .foregroundColor(.clear)
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 case .duplicated:
                     Text("이미 사용 중인 닉네임입니다.")
-                        .font(.custom10bold())
+                        .font(.custom12bold())
                         .foregroundColor(.red)
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 case .available:
                     Text("사용 가능한 닉네임입니다.")
-                        .font(.custom10bold())
+                        .font(.custom12bold())
                         .foregroundColor(.blue)
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 Spacer()
             }.padding(.leading, 5)
@@ -114,12 +119,13 @@ extension SignUpView {
         } label: {
             HStack{
                 Spacer()
-                Text("Sign Up").font(.custom14semibold())
+                Text("Sign Up").font(.custom14bold())
                 Spacer()
             }
             .padding(15)
             .background(viewModel.username.isEmpty ?  Color.gray.opacity(0.3) : Color(appIndigo))
             .cornerRadius(6)
+            .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
         }.disabled(viewModel.username.isEmpty)
         
     }

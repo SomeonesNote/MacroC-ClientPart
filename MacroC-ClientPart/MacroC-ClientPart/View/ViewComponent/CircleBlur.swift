@@ -20,7 +20,7 @@ struct CircleBlur: View {
             .clipShape(Circle())
             .frame(width: UIScreen.getWidth(width))
             .mask(RadialGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black,Color.black,Color.black,Color.black, Color.clear]), center: .center,startRadius: 0, endRadius: width / 2))
-            .shadow(color: shadowColor.opacity(0.4),radius: 5)
+            .shadow(color: shadowColor.opacity(0.4),radius: 2)
             .overlay {
                 Circle()
                     .stroke(lineWidth: 2)

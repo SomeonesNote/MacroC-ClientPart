@@ -23,7 +23,7 @@ Circle()
             .foregroundStyle(Color.white)
             .frame(width: radius)
             .mask(RadialGradient(gradient: Gradient(colors: [Color.black,Color.clear, Color.clear]), center: .center,startRadius: 0, endRadius: radius / 2))
-            .shadow(color: Color(appIndigo2).opacity(0.4),radius: 5)
+            .shadow(color: Color(appIndigo2).opacity(0.7),radius: 5)
             .overlay {
                 Circle()
                     .stroke(lineWidth: 2)
@@ -60,7 +60,7 @@ struct BackroundStar: View {
     
     var body: some View {
         ZStack {
-            Star(radius: screenWidth/28 ,color1: color1, color2: color2.opacity(0.3))
+            Star(radius: screenWidth/8 ,color1: color1, color2: color2.opacity(0.1))
                 .offset(x:randomOffsetx1, y: -randomOffsety1)
                 .offset(x:offsetX[0], y: offsetY[0])
             Star(radius: screenWidth/27 ,color1: color1, color2: color2.opacity(0.3))
@@ -105,5 +105,8 @@ struct BackroundStar: View {
 }
 
 #Preview {
-    backgroundView()
+    ZStack {
+        backgroundView()
+        BackroundStar()
+    }
 }

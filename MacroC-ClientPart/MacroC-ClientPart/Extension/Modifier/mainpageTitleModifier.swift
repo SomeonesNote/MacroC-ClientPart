@@ -1,18 +1,11 @@
 //
-//  ViewModifier.swift
+//  mainpageTitleModifier.swift
 //  MacroC-ClientPart
 //
-//  Created by Kimdohyun on 2023/10/05.
+//  Created by Kimjaekyeong on 2023/10/15.
 //
 
 import SwiftUI
-
-struct dropShadow: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .shadow(color: .white.opacity(0.1) ,radius: 3)
-    }
-}
 
 struct mainpageTitleModifier: ViewModifier {
     func body(content: Content) -> some View {
@@ -26,3 +19,4 @@ struct mainpageTitleModifier: ViewModifier {
             .shadow(color: .black.opacity(0.35) ,radius: 10, x: 5,y: 5)
     }
 }
+

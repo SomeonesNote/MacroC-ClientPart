@@ -14,6 +14,7 @@ struct MapView: View {
     @StateObject var viewModel = MapViewModel()
     @State private var selectedCoordinate: CLLocationCoordinate2D?
     
+    
     //MARK: -2.BODY
     var body: some View {
         NavigationView {
@@ -29,7 +30,7 @@ struct MapView: View {
             .ignoresSafeArea(.keyboard)
             .sheet(isPresented: $viewModel.isShowModal, onDismiss: {viewModel.isShowModal = false}) {
                 if let busking = viewModel.selectedBusking {
-                    BuskerInfoModalView(viewModel: BuskerInfoModalViewModel(busking: busking))
+                    ArtistInfoModalView(viewModel: ArtistInfoModalViewModel(busking: busking))
                         .presentationDetents([.height(UIScreen.getHeight(380))])
                         .presentationDragIndicator(.visible)
                 }

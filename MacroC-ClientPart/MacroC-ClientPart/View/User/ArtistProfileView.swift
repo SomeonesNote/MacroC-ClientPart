@@ -1,5 +1,5 @@
 //
-//  BuskerProfileView.swift
+//  ArtistProfileView.swift
 //  MacroC-ClientPart
 //
 //  Created by Kimdohyun on 2023/10/05.
@@ -41,6 +41,7 @@ struct ArtistProfileView: View {
                         .padding(.init(top: UIScreen.getWidth(0), leading: UIScreen.getWidth(25), bottom: UIScreen.getWidth(0), trailing: UIScreen.getWidth(0)))
                 }
             }
+            .navigationTitle("")
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
             .fullScreenCover(isPresented: $viewModel.isShowAddBusking, content: {
@@ -85,6 +86,7 @@ extension ArtistProfileView {
                 Text("아티스트 페이지 관리")
                     .font(.custom14bold())
                     .padding(UIScreen.getWidth(20))
+                    .shadow(color: .black.opacity(0.7),radius: 5)
             }
             Button {
                 viewModel.isShowAddBusking = true
@@ -92,6 +94,7 @@ extension ArtistProfileView {
                 Text("공연 등록")
                     .font(.custom14bold())
                     .padding(UIScreen.getWidth(20))
+                    .shadow(color: .black.opacity(0.7),radius: 5)
             }
             NavigationLink {
                 EditFanView()
@@ -99,6 +102,7 @@ extension ArtistProfileView {
                 Text("팬 관리")
                     .font(.custom14bold())
                     .padding(UIScreen.getWidth(20))
+                    .shadow(color: .black.opacity(0.7),radius: 5)
             }
 //            NavigationLink {
 //                EditDonationView()
@@ -106,6 +110,7 @@ extension ArtistProfileView {
 //                Text("후원 관리")
 //                    .font(.custom14bold())
 //                    .padding(UIScreen.getWidth(20))
+//            .shadow(color: .black.opacity(0.7),radius: 5)
 //            }
 //
         }
@@ -117,6 +122,7 @@ extension ArtistProfileView {
             Toggle(isOn: $viewModel.isOn, label: {
                 Text("알림 설정")
                     .font(.custom14bold())
+                    .shadow(color: .black.opacity(0.7),radius: 5)
                 
             })
         }.padding(.init(top: UIScreen.getWidth(15), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(15), trailing: UIScreen.getWidth(20)))
@@ -131,14 +137,16 @@ extension ArtistProfileView {
                 Text("개인 계정 전환")
                     .font(.custom14bold())
                     .padding(UIScreen.getWidth(20))
+                    .shadow(color: .black.opacity(0.7),radius: 5)
             }
             
             NavigationLink {
-                EditBuskerAcountView()
+                EditArtistAcountView()
             } label: {
                 Text("아티스트 계정 관리")
                     .font(.custom14bold())
                     .padding(UIScreen.getWidth(20))
+                    .shadow(color: .black.opacity(0.7),radius: 5)
             }
         }
     }

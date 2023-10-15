@@ -34,7 +34,7 @@ struct ProfileView: View {
                 Spacer()
             }.background(backgroundView().ignoresSafeArea())
                 .navigationTitle("")
-        }.fullScreenCover(isPresented: $viewModel.isShowBuskerProfile) {ArtistProfileView()}
+        }.fullScreenCover(isPresented: $viewModel.isShowArtistProfile) {ArtistProfileView()}
     }
 }
 
@@ -70,6 +70,7 @@ extension ProfileView {
             Text("프로필 관리")
                 .font(.custom14bold())
                 .padding(UIScreen.getWidth(20))
+                .shadow(color: .black.opacity(0.7),radius: 5)
         }
     }
     
@@ -80,6 +81,7 @@ extension ProfileView {
             Text("아티스트 관리")
                 .font(.custom14bold())
                 .padding(UIScreen.getWidth(20))
+                .shadow(color: .black.opacity(0.7),radius: 5)
         }
     }
     
@@ -90,6 +92,7 @@ extension ProfileView {
             Text("후원 목록")
                 .font(.custom14bold())
                 .padding(UIScreen.getWidth(20))
+                .shadow(color: .black.opacity(0.7),radius: 5)
         }
     }
     
@@ -97,19 +100,22 @@ extension ProfileView {
         Toggle(isOn: $viewModel.isOn, label: {
             Text("알림 설정")
                 .font(.custom14bold())
+                .shadow(color: .black.opacity(0.7),radius: 5)
         }).padding(.init(top: UIScreen.getWidth(15), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(15), trailing: UIScreen.getWidth(20)))
             .tint(.cyan.opacity(0.4))
+        
     }
     
     var artistAccount: some View {
         Group {
             if viewModel.isT2 {
                 Button {
-                    viewModel.isShowBuskerProfile = true
+                    viewModel.isShowArtistProfile = true
                 } label: {
                     Text("아티스트 계정 전환")
                         .font(.custom14bold())
                         .padding(UIScreen.getWidth(20))
+                        .shadow(color: .black.opacity(0.7),radius: 5)
                 }
             } else {
                 NavigationLink {
@@ -118,6 +124,7 @@ extension ProfileView {
                     Text("아티스트 계정 등록")
                         .font(.custom14bold())
                         .padding(UIScreen.getWidth(20))
+                        .shadow(color: .black.opacity(0.7),radius: 5)
                 }
             }
         }

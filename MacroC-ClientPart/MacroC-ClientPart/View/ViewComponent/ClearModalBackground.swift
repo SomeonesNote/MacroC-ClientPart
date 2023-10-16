@@ -15,7 +15,6 @@ struct ClearModalBackground: UIViewRepresentable {
             }
             return view
         }
-
         func updateUIView(_ uiView: UIView, context: Context) {}
     }
 

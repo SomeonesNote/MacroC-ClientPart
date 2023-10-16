@@ -17,7 +17,7 @@ struct AddBuskingSearchBar: View {
     var body: some View {
         VStack(spacing:0) {
             TextField("Search", text: $viewModel.query)
-                .font(.custom14regular())
+                .font(.custom15regular())
                 .padding()
                 .background(Color.black.opacity(0.7))
                 .cornerRadius(10, corners: viewModel.results.isEmpty ? [.allCorners] : [.topLeft, .topRight])

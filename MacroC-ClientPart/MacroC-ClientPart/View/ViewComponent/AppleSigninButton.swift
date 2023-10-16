@@ -18,7 +18,7 @@ struct LoginTestView: View {
 struct AppleSigninButton : View{
     
     @EnvironmentObject var userAuth: AppleAuth
-
+    
     var body: some View{
         SignInWithAppleButton(
             onRequest: { request in

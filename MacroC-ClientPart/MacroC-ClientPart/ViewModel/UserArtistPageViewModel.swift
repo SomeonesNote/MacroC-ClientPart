@@ -13,8 +13,8 @@ class UserArtistPageViewModel: ObservableObject {
     @Published var isEditMode: Bool = false
     @Published var selectedItem: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data?
-    @Published var popCrop: Bool = false
-    @Published var popCropImage: Data?
+    @Published var popImagePicker: Bool = false
+    @Published var copppedImageData: Data?
     @Published var croppedImage: UIImage?
     @Published var isLoading: Bool = false
     
@@ -48,6 +48,4 @@ class UserArtistPageViewModel: ObservableObject {
         isEditMode = false
         //TODO: 세이브하는 거 구현
     }
-    
-    
 }

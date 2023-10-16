@@ -27,15 +27,15 @@ struct CropedGoogleMapView: UIViewRepresentable {
         markerImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             markerImage.centerXAnchor.constraint(equalTo: customMarker.centerXAnchor),
-            markerImage.centerYAnchor.constraint(equalTo: customMarker.centerYAnchor, constant: -4),
-            markerImage.widthAnchor.constraint(equalToConstant: 74),
-            markerImage.heightAnchor.constraint(equalToConstant: 74)
+            markerImage.centerYAnchor.constraint(equalTo: customMarker.centerYAnchor, constant: -UIScreen.getWidth(4)),
+            markerImage.widthAnchor.constraint(equalToConstant: UIScreen.getWidth(74)),
+            markerImage.heightAnchor.constraint(equalToConstant: UIScreen.getWidth(74))
         ])
         
         markerImage.center = customMarker.center
         markerImage.contentMode = .scaleToFill
         markerImage.layer.borderColor = UIColor.white.cgColor
-        markerImage.layer.borderWidth = 2
+        markerImage.layer.borderWidth = UIScreen.getWidth(2)
         markerImage.layer.cornerRadius = 37
         markerImage.layer.masksToBounds = true
         

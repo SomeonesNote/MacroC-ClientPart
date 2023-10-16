@@ -53,40 +53,40 @@ fileprivate struct CustomImagePicker<Content: View>: View {
     
     
     var body: some View {
-         content
-             .photosPicker(isPresented: $show, selection: $photosItem)
-             .onChange(of: photosItem) { newValue in
-                 isLoading = true // 이미지 로드 시작
-                 if let newValue {
-                     Task {
-                         if let imageData = try? await newValue.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
-                             await MainActor.run(body: {
-                                 selectedImage = image
-                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                     showCropView = true
-                                     isLoading = false // 이미지 로드 완료
-                                 }
-                             })
-                         } else {
-                             isLoading = false // 이미지 로드 실패
-                         }
-                     }
-                 } else {
-                     isLoading = false // 이미지 선택 취소
-                 }
-             }
-             .fullScreenCover(isPresented: $showCropView) {
-                 // when exited clearing the old selected image
-//                 selectedImage = nil
-             } content: {
-                 CropView(image: selectedImage) { croppedImage, status in
-                     if let croppedImage {
-                         self.croppedImage = croppedImage
-                     }
-                 }
-             }
-     }
- }
+        content
+            .photosPicker(isPresented: $show, selection: $photosItem)
+            .onChange(of: photosItem) { newValue in
+                isLoading = true // 이미지 로드 시작
+                if let newValue {
+                    Task {
+                        if let imageData = try? await newValue.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
+                            await MainActor.run(body: {
+                                selectedImage = image
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    showCropView = true
+                                    isLoading = false // 이미지 로드 완료
+                                }
+                            })
+                        } else {
+                            isLoading = false // 이미지 로드 실패
+                        }
+                    }
+                } else {
+                    isLoading = false // 이미지 선택 취소
+                }
+            }
+            .fullScreenCover(isPresented: $showCropView) {
+                // when exited clearing the old selected image
+                //                 selectedImage = nil
+            } content: {
+                CropView(image: selectedImage) { croppedImage, status in
+                    if let croppedImage {
+                        self.croppedImage = croppedImage
+                    }
+                }
+            }
+    }
+}
 
 struct CropView: View {
     var image: UIImage?
@@ -98,7 +98,7 @@ struct CropView: View {
     @State private var scale: CGFloat = 1
     @State private var lastScale: CGFloat = 0
     @State private var offset: CGSize = .zero
-    let cropSize = CGSize(width: UIScreen.getWidth(300), height: UIScreen.getHeight(300))
+    let cropSize = CGSize(width: UIScreen.getWidth(390), height: UIScreen.getHeight(390))
     @State private var lastStoredOffset: CGSize = .zero
     @GestureState private var isInteracting: Bool = false // indicates that whether or not the gesture is in interaction
     
@@ -110,14 +110,11 @@ struct CropView: View {
                     .navigationTitle("Crop View")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbarBackground(.visible, for: .navigationBar)
-                    .toolbarBackground(Color.black, for: .navigationBar)
+                //        .toolbarBackground(Color.black, for: .navigationBar)
+                    .toolbarBackground(.hidden, for: .navigationBar)
                     .toolbarColorScheme(.dark, for: .navigationBar)
                     .frame(maxWidth: .infinity,maxHeight: .infinity)
-                    .background{
-                        Color.black
-                            .ignoresSafeArea()
-                    }
-                
+                    .background{ backgroundView().ignoresSafeArea() }
                     .toolbar{
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
@@ -132,26 +129,20 @@ struct CropView: View {
                                 dismiss()
                             } label: {
                                 Image(systemName: "checkmark")
-                                    .font(.callout)
-                                    .fontWeight(.semibold)
+                                    .font(.custom18semibold())
                             }
-
                         }
                     }
-                
                     .toolbar{
                         ToolbarItem(placement:.navigationBarLeading) {
                             Button {
                                 dismiss()
                             } label: {
                                 Image(systemName: "xmark")
-                                    .font(.callout)
-                                    .fontWeight(.semibold)
-                            }
-
+                                    .font(.custom18semibold())
                         }
                     }
-                
+                }
             }
         }
     }
@@ -179,7 +170,7 @@ struct CropView: View {
                                         ///example : minX= 45 ; width of offset = 145; as a result we must remove the excess 45 by doing offset.width - minX
                                         ///#minX;minY
                                         
-                                    
+                                        
                                         if rect.minX > 0{
                                             //resetting to last location
                                             offset.width = (offset.width - rect.minX)
@@ -214,13 +205,10 @@ struct CropView: View {
                                     if !newValue{
                                         //storing last offset
                                         lastStoredOffset = offset
-                                    }
-                                }
-                            
+                            }
                         }
-                    })
-                    .frame(size)
-                
+                    }
+                }).frame(size)
             }
         }
         .scaleEffect(scale)
@@ -235,31 +223,34 @@ struct CropView: View {
                     offset = CGSize(width: translation.width+lastStoredOffset.width, height: translation.height+lastStoredOffset.width)
                     print("offset ooooo")
                     print(offset)
-                })
+            })
         )
         .gesture(
-        MagnificationGesture()
-            .updating($isInteracting, body: { _, out, _ in
-                out = true
-            }).onChanged({ value in
-                let updatedScale = value + lastScale
-                //limiting Beyond 1
-                scale = (updatedScale < 1 ? 1 : updatedScale)
-                print(scale)
-                print("above is scale")
-            }).onEnded({ valuea in
-                withAnimation(.easeInOut(duration: 0.02)){
-                    if scale < 1 {
-                        scale = 1
-                        lastScale = 0
-                    }else{
-                        lastScale = scale - 1
+            MagnificationGesture()
+                .updating($isInteracting, body: { _, out, _ in
+                    out = true
+                }).onChanged({ value in
+                    let updatedScale = value + lastScale
+                    //limiting Beyond 1
+                    scale = (updatedScale < 1 ? 1 : updatedScale)
+                    print(scale)
+                    print("above is scale")
+                }).onEnded({ valuea in
+                    withAnimation(.easeInOut(duration: 0.02)){
+                        if scale < 1 {
+                            scale = 1
+                            lastScale = 0
+                        }else{
+                            lastScale = scale - 1
                     }
                 }
             })
         )
         .frame(cropSize)
-        .cornerRadius(0)
+        .cornerRadius(UIScreen.getWidth(5))
+        .overlay {
+            Rectangle().stroke(lineWidth: UIScreen.getWidth(1))
+        }
     }
 }
 

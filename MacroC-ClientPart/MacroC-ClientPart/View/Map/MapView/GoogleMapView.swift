@@ -112,7 +112,7 @@ struct GoogleMapView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-            viewModel.isShowModal = true
+            viewModel.popModal = true
             
             if let busking = marker.userData as? Busking {
                 viewModel.selectedBusking = busking

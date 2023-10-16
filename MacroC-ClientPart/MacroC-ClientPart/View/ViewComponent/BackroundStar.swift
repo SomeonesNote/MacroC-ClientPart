@@ -19,7 +19,7 @@ struct Star: View {
     var screenHeight: CGFloat = UIScreen.screenHeight
     
     var body: some View {
-Circle()
+        Circle()
             .foregroundStyle(Color.white)
             .frame(width: radius)
             .mask(RadialGradient(gradient: Gradient(colors: [Color.black,Color.clear, Color.clear]), center: .center,startRadius: 0, endRadius: radius / 2))
@@ -60,7 +60,7 @@ struct BackroundStar: View {
     
     var body: some View {
         ZStack {
-            Star(radius: screenWidth/8 ,color1: color1, color2: color2.opacity(0.1))
+            Star(radius: screenWidth/18 ,color1: color1, color2: color2.opacity(0.1))
                 .offset(x:randomOffsetx1, y: -randomOffsety1)
                 .offset(x:offsetX[0], y: offsetY[0])
             Star(radius: screenWidth/27 ,color1: color1, color2: color2.opacity(0.3))
@@ -91,16 +91,16 @@ struct BackroundStar: View {
                 .offset(x:-randomOffsetx5, y: randomOffsety5)
                 .offset(x:offsetX[9], y: offsetY[9])
         }.opacity(0.9)
-        .onReceive(timer) { _ in
-            withAnimation(.easeIn(duration: 50)) {
-                for i in 0..<offsetX.count {
-                    offsetX[i] = Double.random(in: -300...300)
-                }
-                for i in 0..<offsetY.count {
-                    offsetY[i] = Double.random(in: -400...400)
+            .onReceive(timer) { _ in
+                withAnimation(.easeIn(duration: 50)) {
+                    for i in 0..<offsetX.count {
+                        offsetX[i] = Double.random(in: -300...300)
+                    }
+                    for i in 0..<offsetY.count {
+                        offsetY[i] = Double.random(in: -400...400)
+                    }
                 }
             }
-        }
     }
 }
 

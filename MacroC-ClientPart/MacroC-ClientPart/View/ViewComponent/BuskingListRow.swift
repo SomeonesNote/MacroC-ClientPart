@@ -27,17 +27,17 @@ struct BuskingListRow: View {
                     .padding(.bottom, UIScreen.getHeight(4))
                 HStack(spacing: UIScreen.getWidth(8)) {
                     Image(systemName: "calendar").font(.custom16semibold())
-                    Text(formatDate()) .font(.custom14bold())
+                    Text(formatDate()) .font(.custom15bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
                     Image(systemName: "clock").font(.custom16semibold())
-                    Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom14bold())
+                    Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom15bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
                     Image(systemName: "signpost.right").font(.custom16semibold())
-                    Text("\(addressString)").font(.custom14bold())
+                    Text("\(addressString)").font(.custom15bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
             }.frame(height: UIScreen.getHeight(130))
@@ -48,7 +48,7 @@ struct BuskingListRow: View {
         .frame(height: UIScreen.getHeight(130))
         .overlay {
             RoundedRectangle(cornerRadius: 30)
-                .stroke(lineWidth: 1)
+                .stroke(lineWidth: UIScreen.getWidth(1))
                 .blur(radius: 2)
                 .foregroundColor(Color.white.opacity(0.1))
                 .padding(0)

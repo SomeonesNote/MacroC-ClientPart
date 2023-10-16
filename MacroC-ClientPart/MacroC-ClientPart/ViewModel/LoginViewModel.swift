@@ -19,7 +19,7 @@ class LoginViewModel: ObservableObject {
     @Published var user: User?
     @Published var avatarImage: UIImage? // 선택된 이미지를 UIImage로 나타내는데 사용
     @Published var isLoading: Bool = false
-    @Published var popCrop: Bool = false
+    @Published var popImagePicker: Bool = false
     @Published var croppedImage: UIImage?
     @Published var usernameStatus: UsernameStatus = .empty // 중복확인
     

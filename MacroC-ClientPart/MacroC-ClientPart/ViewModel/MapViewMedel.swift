@@ -11,7 +11,7 @@ import GooglePlaces
 
 class MapViewModel: ObservableObject {
     @Published var text: String = ""
-    @Published var isShowModal: Bool = false
+    @Published var popModal: Bool = false
     @Published var selectedBusking: Busking? = nil
     @Published var address: String = "Enter the place."
     @Published var showSearchbar: Bool = false

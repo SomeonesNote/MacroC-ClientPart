@@ -12,20 +12,22 @@ struct DonationBar: View {
     //MARK: -1.BODY
     var body: some View {
         HStack {
-            Button(action: {
+            Button {
                 
-            }, label: {
-                Image(systemName: "tree")
-                Text("2000")
-
-            })
-            .padding()
-            .background(Capsule().strokeBorder())
+            } label: {
+                HStack(spacing: UIScreen.getWidth(5)){
+                    Image(systemName: "tree").font(.custom16regular())
+                    Text("2000").font(.custom16semibold())
+                }
+            }
+            .padding(.init(top: UIScreen.getWidth(5), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(5), trailing: UIScreen.getWidth(10)))
+            .background(Capsule().stroke(lineWidth: UIScreen.getWidth(1.2)))
+            .shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5))
         }
     }
 }
 
 //MARK: -2.PREVIEW
 #Preview {
-    DonationBar()
+    ArtistProfileSettingView()
 }

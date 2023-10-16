@@ -5,7 +5,6 @@
 //  Created by Kimdohyun on 2023/10/05.
 //
 
-import Foundation
 import SwiftUI
 
 //MARK: -COLOR
@@ -18,7 +17,7 @@ let appSky = "appSky"
 let appRed = "appRed"
 
 func backgroundGradient(a:Color, b: Color) -> LinearGradient {
-  return LinearGradient(gradient: Gradient(colors: [a, b]), startPoint: .topLeading, endPoint: .bottomTrailing)
+    return LinearGradient(gradient: Gradient(colors: [a, b]), startPoint: .topLeading, endPoint: .bottomTrailing)
 }
 
 //MARK: -IMGAE
@@ -48,7 +47,7 @@ var gradImage = LinearGradient(
     gradient: Gradient(colors: [.white, Color(appIndigo)]),
     startPoint: UnitPoint(x: 0.2, y: 0.2),
     endPoint: .bottomTrailing
-  )
+)
 
 
 //MARK: -Category
@@ -109,15 +108,15 @@ struct customSFButton: View {
             .foregroundColor(.white)
     }
 }
-    
+
 struct sheetBoxText: View {
     var text: String
     var body: some View {
         Text(text)
-            .font(.custom14heavy())
+            .font(.custom15heavy())
             .frame(width: UIScreen.getWidth(300), height: UIScreen.getHeight(50))
             .background{
-                Capsule().stroke(Color.white, lineWidth: 2)
+                Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(1.5))
             }
     }
 }
@@ -133,6 +132,8 @@ struct linkButton: View {
 }
 
 //MARK: -EXTENSION
+
+//KeyboardHide
 extension View {
     func hideKeyboardWhenTappedAround() -> some View {
         return self.onTapGesture {
@@ -141,23 +142,29 @@ extension View {
     }
 }
 
+//CornerRadius Corner
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
 }
-
 struct RoundedCorner: Shape {
-
+    
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
-
+    
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         return Path(path.cgPath)
     }
 }
 
+//SearchBar ClearButton
+extension View {
+    func clearButton(text: Binding<String>) -> some View {
+        modifier(ClearButton(text: text))
+    }
+}
 struct ClearButton: ViewModifier {
     @Binding var text: String
     
@@ -177,32 +184,17 @@ struct ClearButton: ViewModifier {
     }
 }
 
-
+//ToolBarButtonLabel
 struct toolbarButtonLabel: View {
     var buttonLabel: String
     var body: some View {
         Text(buttonLabel)
-            .font(.custom14bold())
+            .font(.custom15bold())
             .modifier(dropShadow())
     }
 }
 
-struct custom14BoldLabel: View {
-    var label: String
-    var body: some View {
-        Text(label)
-            .font(.custom14bold())
-            .modifier(dropShadow())
-    }
-}
-
-
-extension View {
-    func clearButton(text: Binding<String>) -> some View {
-        modifier(ClearButton(text: text))
-    }
-}
-
+//InnerShadow
 extension View {
     func innerShadow<S: Shape, SS: ShapeStyle>(shape: S, color: SS, lineWidth: CGFloat = 1, offsetX: CGFloat = 0, offsetY: CGFloat = 0, blur: CGFloat = 0, blendMode: BlendMode = .normal, opacity: Double = 1) -> some View {
         return self

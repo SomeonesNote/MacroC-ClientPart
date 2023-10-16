@@ -98,17 +98,21 @@ extension UserArtistPageView {
             .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
             .overlay (
                 HStack(spacing: UIScreen.getWidth(10)){
-                    Button { } label: { linkButton(name: YouTubeLogo) }
+                    Button {
+                        UIApplication.shared.open(URL(string: viewModel.userArtist.youtube)!)
+                    } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                     
-                    Button { } label: { linkButton(name: InstagramLogo) }
+                    Button {
+                        UIApplication.shared.open(URL(string: viewModel.userArtist.instagram)!)
+                    } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                     
-                    Button { } label: { linkButton(name: SoundCloudLogo) }
-                    
-                    Button {viewModel.isEditSocial = true} label: {
-                        if viewModel.isEditMode == true {
-                            Image(systemName: "pencil.circle.fill")
-                                .font(.custom20semibold())
-                        } else { }
+                    Button { } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                    if viewModel.isEditMode == true {
+                            Button { viewModel.isEditSocial = true } label: {
+                                Image(systemName: "pencil.circle.fill")
+                                    .font(.custom20semibold())
+                                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                        }
                     }
                 }
                     .frame(height: UIScreen.getHeight(25))

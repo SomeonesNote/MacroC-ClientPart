@@ -16,6 +16,7 @@
 		07038C802ADB7548002445DD /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07038C7F2ADB7547002445DD /* Pretendard-Light.otf */; };
 		07038C842ADCC422002445DD /* UserPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07038C832ADCC422002445DD /* UserPageViewModel.swift */; };
 		07038C862ADCC535002445DD /* UserPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07038C852ADCC535002445DD /* UserPageView.swift */; };
+		07038C882ADCEE83002445DD /* registerUserArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07038C872ADCEE83002445DD /* registerUserArtistView.swift */; };
 		0707172B2AD9412700B72319 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172A2AD9412700B72319 /* SignInView.swift */; };
 		0707172D2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172C2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift */; };
 		0707172F2AD9428D00B72319 /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172E2AD9428D00B72319 /* ProfileSettingViewModel.swift */; };
@@ -96,6 +97,7 @@
 		07038C7F2ADB7547002445DD /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		07038C832ADCC422002445DD /* UserPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageViewModel.swift; sourceTree = "<group>"; };
 		07038C852ADCC535002445DD /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
+		07038C872ADCEE83002445DD /* registerUserArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerUserArtistView.swift; sourceTree = "<group>"; };
 		0707172A2AD9412700B72319 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		0707172C2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArtistProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		0707172E2AD9428D00B72319 /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 				F62B8AA32ACED4B10077CA17 /* EditFollowingListView.swift */,
 				F62B8AA52ACED4CB0077CA17 /* DonationListView.swift */,
 				F62B8AA72ACED4E30077CA17 /* EditUserAcountView.swift */,
+				07038C872ADCEE83002445DD /* registerUserArtistView.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				F62B8AA22ACED4980077CA17 /* ProfileSettingView.swift in Sources */,
 				F62B8AB52ACED5AD0077CA17 /* GoogleMapView.swift in Sources */,
 				F62B8A9B2ACED41F0077CA17 /* MapView.swift in Sources */,
+				07038C882ADCEE83002445DD /* registerUserArtistView.swift in Sources */,
 				F62B8AE72ACED9760077CA17 /* Member.swift in Sources */,
 				0707173E2AD9FA7D00B72319 /* CircleBlur.swift in Sources */,
 				070F6BE32ADAC8B000328570 /* PopOverText.swift in Sources */,

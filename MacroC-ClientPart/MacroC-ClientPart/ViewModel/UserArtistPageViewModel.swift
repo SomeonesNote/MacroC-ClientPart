@@ -10,7 +10,7 @@ import PhotosUI
 
 class UserArtistPageViewModel: ObservableObject {
     @Published var userArtist: Artist
-    @Published var isEditMode: Bool = false
+    @Published var isEditMode: Bool = true
     @Published var selectedItem: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data?
     @Published var popImagePicker: Bool = false

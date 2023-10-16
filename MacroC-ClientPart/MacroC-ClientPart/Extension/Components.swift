@@ -26,7 +26,7 @@ let loginViewBG1 = "loginViewBG1"
 let loginViewBG2 = "loginViewBG2"
 let loginViewBG3 = "loginViewBG3"
 
-let topBarSteel = "topBarSteel"
+let userBlank = "UserBlank"
 
 let backgroundStill = Image("background")
 

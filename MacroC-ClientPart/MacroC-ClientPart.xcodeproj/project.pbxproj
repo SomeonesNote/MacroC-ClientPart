@@ -40,21 +40,16 @@
 		07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* LoginViewModel.swift */; };
 		07FBF28B2ACFF90B004EF174 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpView.swift */; };
 		07FD2BE62AD32D4B0030865A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD2BE52AD32D4B0030865A /* MainViewModel.swift */; };
-		F613F9292ADE97DC00649BD8 /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = F62B8A862ACED2020077CA17 /* GoogleMaps */; };
-		F613F92A2ADE97DC00649BD8 /* GoogleMapsBase in Frameworks */ = {isa = PBXBuildFile; productRef = F62B8A882ACED2020077CA17 /* GoogleMapsBase */; };
-		F613F92B2ADE97DC00649BD8 /* GoogleMapsCore in Frameworks */ = {isa = PBXBuildFile; productRef = F62B8A8A2ACED2020077CA17 /* GoogleMapsCore */; };
-		F613F92C2ADE97DC00649BD8 /* GoogleMapsM4B in Frameworks */ = {isa = PBXBuildFile; productRef = F62B8A8C2ACED2020077CA17 /* GoogleMapsM4B */; };
-		F613F92D2ADE97DC00649BD8 /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = F62B8A8E2ACED2020077CA17 /* GooglePlaces */; };
-		F613F9302ADE97FD00649BD8 /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = F613F92F2ADE97FD00649BD8 /* GoogleMaps */; };
-		F613F9322ADE97FD00649BD8 /* GoogleMapsBase in Frameworks */ = {isa = PBXBuildFile; productRef = F613F9312ADE97FD00649BD8 /* GoogleMapsBase */; };
-		F613F9342ADE97FD00649BD8 /* GoogleMapsCore in Frameworks */ = {isa = PBXBuildFile; productRef = F613F9332ADE97FD00649BD8 /* GoogleMapsCore */; };
-		F613F9362ADE97FD00649BD8 /* GoogleMapsM4B in Frameworks */ = {isa = PBXBuildFile; productRef = F613F9352ADE97FD00649BD8 /* GoogleMapsM4B */; };
-		F613F9382ADE97FD00649BD8 /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = F613F9372ADE97FD00649BD8 /* GooglePlaces */; };
+		F613F93B2ADE9D4700649BD8 /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = F613F93A2ADE9D4700649BD8 /* GoogleMaps */; };
+		F613F93D2ADE9D4700649BD8 /* GoogleMapsBase in Frameworks */ = {isa = PBXBuildFile; productRef = F613F93C2ADE9D4700649BD8 /* GoogleMapsBase */; };
+		F613F93F2ADE9D4700649BD8 /* GoogleMapsCore in Frameworks */ = {isa = PBXBuildFile; productRef = F613F93E2ADE9D4700649BD8 /* GoogleMapsCore */; };
+		F613F9412ADE9D4700649BD8 /* GoogleMapsM4B in Frameworks */ = {isa = PBXBuildFile; productRef = F613F9402ADE9D4700649BD8 /* GoogleMapsM4B */; };
+		F613F9432ADE9D4700649BD8 /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = F613F9422ADE9D4700649BD8 /* GooglePlaces */; };
+		F613F9462ADE9D5100649BD8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F613F9452ADE9D5100649BD8 /* Alamofire */; };
 		F62B8A742ACED1B80077CA17 /* MacroC_ClientPartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */; };
 		F62B8A762ACED1B80077CA17 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A752ACED1B80077CA17 /* ContentView.swift */; };
 		F62B8A782ACED1B90077CA17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F62B8A772ACED1B90077CA17 /* Assets.xcassets */; };
 		F62B8A7C2ACED1B90077CA17 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F62B8A7B2ACED1B90077CA17 /* Preview Assets.xcassets */; };
-		F62B8A842ACED1F10077CA17 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F62B8A832ACED1F10077CA17 /* Alamofire */; };
 		F62B8A972ACED4070077CA17 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A962ACED4070077CA17 /* LoginView.swift */; };
 		F62B8A992ACED4130077CA17 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A982ACED4130077CA17 /* MainView.swift */; };
 		F62B8A9B2ACED41F0077CA17 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A9A2ACED41F0077CA17 /* MapView.swift */; };
@@ -180,22 +175,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F613F92D2ADE97DC00649BD8 /* GooglePlaces in Frameworks */,
-				F613F9382ADE97FD00649BD8 /* GooglePlaces in Frameworks */,
-				F613F92C2ADE97DC00649BD8 /* GoogleMapsM4B in Frameworks */,
-				F613F92B2ADE97DC00649BD8 /* GoogleMapsCore in Frameworks */,
-				F613F9362ADE97FD00649BD8 /* GoogleMapsM4B in Frameworks */,
-				F613F92A2ADE97DC00649BD8 /* GoogleMapsBase in Frameworks */,
-				F613F9292ADE97DC00649BD8 /* GoogleMaps in Frameworks */,
+				F613F9412ADE9D4700649BD8 /* GoogleMapsM4B in Frameworks */,
 				070658FB2ADE6AED00FD1B00 /* (null) in Frameworks */,
+				F613F93D2ADE9D4700649BD8 /* GoogleMapsBase in Frameworks */,
+				F613F9432ADE9D4700649BD8 /* GooglePlaces in Frameworks */,
 				070658FD2ADE6AED00FD1B00 /* (null) in Frameworks */,
+				F613F9462ADE9D5100649BD8 /* Alamofire in Frameworks */,
+				F613F93B2ADE9D4700649BD8 /* GoogleMaps in Frameworks */,
 				070658F92ADE6AED00FD1B00 /* (null) in Frameworks */,
-				F613F9322ADE97FD00649BD8 /* GoogleMapsBase in Frameworks */,
-				F613F9302ADE97FD00649BD8 /* GoogleMaps in Frameworks */,
+				F613F93F2ADE9D4700649BD8 /* GoogleMapsCore in Frameworks */,
 				070659012ADE6AED00FD1B00 /* (null) in Frameworks */,
 				070658FF2ADE6AED00FD1B00 /* (null) in Frameworks */,
-				F62B8A842ACED1F10077CA17 /* Alamofire in Frameworks */,
-				F613F9342ADE97FD00649BD8 /* GoogleMapsCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,17 +451,12 @@
 			);
 			name = "MacroC-ClientPart";
 			packageProductDependencies = (
-				F62B8A832ACED1F10077CA17 /* Alamofire */,
-				F62B8A862ACED2020077CA17 /* GoogleMaps */,
-				F62B8A882ACED2020077CA17 /* GoogleMapsBase */,
-				F62B8A8A2ACED2020077CA17 /* GoogleMapsCore */,
-				F62B8A8C2ACED2020077CA17 /* GoogleMapsM4B */,
-				F62B8A8E2ACED2020077CA17 /* GooglePlaces */,
-				F613F92F2ADE97FD00649BD8 /* GoogleMaps */,
-				F613F9312ADE97FD00649BD8 /* GoogleMapsBase */,
-				F613F9332ADE97FD00649BD8 /* GoogleMapsCore */,
-				F613F9352ADE97FD00649BD8 /* GoogleMapsM4B */,
-				F613F9372ADE97FD00649BD8 /* GooglePlaces */,
+				F613F93A2ADE9D4700649BD8 /* GoogleMaps */,
+				F613F93C2ADE9D4700649BD8 /* GoogleMapsBase */,
+				F613F93E2ADE9D4700649BD8 /* GoogleMapsCore */,
+				F613F9402ADE9D4700649BD8 /* GoogleMapsM4B */,
+				F613F9422ADE9D4700649BD8 /* GooglePlaces */,
+				F613F9452ADE9D5100649BD8 /* Alamofire */,
 			);
 			productName = "MacroC-ClientPart";
 			productReference = F62B8A702ACED1B80077CA17 /* MacroC-ClientPart.app */;
@@ -502,8 +487,8 @@
 			);
 			mainGroup = F62B8A672ACED1B80077CA17;
 			packageReferences = (
-				F62B8A822ACED1F10077CA17 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				F613F92E2ADE97FD00649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */,
+				F613F9392ADE9D4700649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */,
+				F613F9442ADE9D5100649BD8 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = F62B8A712ACED1B80077CA17 /* Products */;
 			projectDirPath = "";
@@ -645,6 +630,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -740,6 +726,7 @@
 				DEVELOPMENT_TEAM = S7ZW77C4W7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MacroC-ClientPart/Info.plist";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App needs your coordinate to show on the Map";
@@ -843,15 +830,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F613F92E2ADE97FD00649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */ = {
+		F613F9392ADE9D4700649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/YAtechnologies/GoogleMaps-SP";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
+				minimumVersion = 7.2.0;
 			};
 		};
-		F62B8A822ACED1F10077CA17 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		F613F9442ADE9D5100649BD8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
 			requirement = {
@@ -862,55 +849,35 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F613F92F2ADE97FD00649BD8 /* GoogleMaps */ = {
+		F613F93A2ADE9D4700649BD8 /* GoogleMaps */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F613F92E2ADE97FD00649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
+			package = F613F9392ADE9D4700649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
 			productName = GoogleMaps;
 		};
-		F613F9312ADE97FD00649BD8 /* GoogleMapsBase */ = {
+		F613F93C2ADE9D4700649BD8 /* GoogleMapsBase */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F613F92E2ADE97FD00649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
+			package = F613F9392ADE9D4700649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
 			productName = GoogleMapsBase;
 		};
-		F613F9332ADE97FD00649BD8 /* GoogleMapsCore */ = {
+		F613F93E2ADE9D4700649BD8 /* GoogleMapsCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F613F92E2ADE97FD00649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
+			package = F613F9392ADE9D4700649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
 			productName = GoogleMapsCore;
 		};
-		F613F9352ADE97FD00649BD8 /* GoogleMapsM4B */ = {
+		F613F9402ADE9D4700649BD8 /* GoogleMapsM4B */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F613F92E2ADE97FD00649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
+			package = F613F9392ADE9D4700649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
 			productName = GoogleMapsM4B;
 		};
-		F613F9372ADE97FD00649BD8 /* GooglePlaces */ = {
+		F613F9422ADE9D4700649BD8 /* GooglePlaces */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F613F92E2ADE97FD00649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
+			package = F613F9392ADE9D4700649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
 			productName = GooglePlaces;
 		};
-		F62B8A832ACED1F10077CA17 /* Alamofire */ = {
+		F613F9452ADE9D5100649BD8 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F62B8A822ACED1F10077CA17 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = F613F9442ADE9D5100649BD8 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		F62B8A862ACED2020077CA17 /* GoogleMaps */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GoogleMaps;
-		};
-		F62B8A882ACED2020077CA17 /* GoogleMapsBase */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GoogleMapsBase;
-		};
-		F62B8A8A2ACED2020077CA17 /* GoogleMapsCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GoogleMapsCore;
-		};
-		F62B8A8C2ACED2020077CA17 /* GoogleMapsM4B */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GoogleMapsM4B;
-		};
-		F62B8A8E2ACED2020077CA17 /* GooglePlaces */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GooglePlaces;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

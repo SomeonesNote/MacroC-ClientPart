@@ -8,21 +8,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>ec2-3-37-89-214.ap-northeast-2.compute.amazonaws.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>New item</key>
-				<string></string>
-			</dict>
-		</dict>
-	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-SemiBold.otf</string>

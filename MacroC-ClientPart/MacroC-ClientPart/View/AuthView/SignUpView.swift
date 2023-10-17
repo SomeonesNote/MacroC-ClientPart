@@ -19,7 +19,8 @@ struct SignUpView: View {
             Spacer()
             imagePicker
             Spacer()
-            textField
+            nameTextField
+            infoTextField
             signUpbutton
                 .padding(.bottom, UIScreen.getHeight(40))
         }
@@ -70,7 +71,7 @@ extension SignUpView {
         }
     }
     
-    var textField: some View {
+    var nameTextField: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("닉네임을 입력하세요", text: $viewModel.username)
@@ -110,6 +111,20 @@ extension SignUpView {
                 }
                 Spacer()
             }.padding(.leading, UIScreen.getWidth(5))
+        }
+    }
+    
+    var infoTextField: some View {
+        VStack {
+            HStack(spacing: UIScreen.getWidth(8)){
+                TextField("상태메세지를 입력하세요", text: $viewModel.username)
+                    .font(.custom14semibold())
+                    .padding(UIScreen.getWidth(13))
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(6)
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+            }
+            Text(" ").font(.custom14semibold())
         }
     }
     

@@ -13,6 +13,8 @@ struct MainView: View{
     @ObservedObject var viewModel = MainViewModel()
     var following: [Artist] = dummyUserFollowing
     var nowBusking: [Busking] = dummyBuskingNow
+//    var following: [Artist] = dummyEmptyFollowing
+//    var nowBusking: [Busking] = dummyBuskingEmpty
     
     //MARK: - 2.BODY
     var body: some View {

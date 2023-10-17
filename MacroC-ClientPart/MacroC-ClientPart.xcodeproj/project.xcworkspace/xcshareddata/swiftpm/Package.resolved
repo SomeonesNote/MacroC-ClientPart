@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/YAtechnologies/GoogleMaps-SP.git",
       "state" : {
-        "revision" : "684ea6db362feaefdfcff89356e446bec8bcde3d",
-        "version" : "7.2.0"
+        "revision" : "89ec1adb807c78dd912a30b26a373a46ce8187ab",
+        "version" : "8.0.0"
       }
     }
   ],

@@ -15,7 +15,7 @@ class LoginViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var isSignednUp: Bool = false
     @Published var isSingedIn: Bool = false
-    @Published var accessToken: String? = UserDefaults.standard.string(forKey: "accessToken")
+    @Published var accessToken: String? = KeychainItem.currentUserIdentifier
     @Published var user: User?
     @Published var avatarImage: UIImage? // 선택된 이미지를 UIImage로 나타내는데 사용
     @Published var isLoading: Bool = false

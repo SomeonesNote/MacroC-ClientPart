@@ -25,7 +25,7 @@ struct ProfileRectangle: View {
                 .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.clear,Color.gray,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black, Color.clear]), startPoint: .topLeading, endPoint: .bottomTrailing))
                 .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.clear,Color.gray,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black, Color.clear]), startPoint: .topTrailing, endPoint: .bottomLeading))
             Text(name)
-                .font(.custom15black())
+                .font(.custom13black())
                 .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
             Spacer()
         }

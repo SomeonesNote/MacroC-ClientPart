@@ -36,7 +36,7 @@ struct EditFollowingListView: View {
                                 deleteAlert = true
                             } label: {
                                 Image(systemName: "xmark.circle.fill")
-                                    .font(.custom28bold())
+                                    .font(.custom25bold())
                                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                                     .foregroundStyle(Color.appBlue)
                                     .padding(-UIScreen.getWidth(5))

@@ -65,7 +65,7 @@ extension SignUpView {
                     .overlay {
                         Image(systemName: "photo.on.rectangle.angled")
                             .foregroundColor(.white)
-                            .font(.custom40regular())
+                            .font(.custom34regular())
                     }
             }
         }
@@ -84,7 +84,7 @@ extension SignUpView {
                     // TODO: 서버에 같은 닉네임이 있는지 확인하는 함수 + 시트로 가능하다고 띄우는 함수
                 } label: {
                     Text("중복확인")
-                        .font(.custom12semibold())
+                        .font(.custom10semibold())
                         .padding(UIScreen.getWidth(15))
                         .background(Color(appIndigo))
                         .cornerRadius(6)
@@ -95,17 +95,17 @@ extension SignUpView {
                 switch viewModel.usernameStatus {
                 case .empty:
                     Text("사용 가능한 닉네임입니다.") // 아무 메시지도 표시하지 않음
-                        .font(.custom12bold())
+                        .font(.custom10bold())
                         .foregroundColor(.clear)
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 case .duplicated:
                     Text("이미 사용 중인 닉네임입니다.")
-                        .font(.custom12bold())
+                        .font(.custom10bold())
                         .foregroundColor(.red)
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 case .available:
                     Text("사용 가능한 닉네임입니다.")
-                        .font(.custom12bold())
+                        .font(.custom10bold())
                         .foregroundColor(.blue)
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
@@ -134,7 +134,7 @@ extension SignUpView {
         } label: {
             HStack{
                 Spacer()
-                Text("Sign Up").font(.custom15bold())
+                Text("Sign Up").font(.custom13bold())
                 Spacer()
             }
             .padding(UIScreen.getWidth(15))

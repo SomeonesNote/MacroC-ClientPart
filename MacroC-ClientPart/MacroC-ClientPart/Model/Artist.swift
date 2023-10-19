@@ -10,7 +10,7 @@ import Foundation
 struct Artist: Identifiable ,Codable {
     var id: Int
     let stagename : String
-    let artistinfo : String
+    let artistInfo : String
     let artistimage : String
     
     var youtube: String

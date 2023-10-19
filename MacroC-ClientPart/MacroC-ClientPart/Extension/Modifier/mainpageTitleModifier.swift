@@ -10,7 +10,7 @@ import SwiftUI
 struct mainpageTitleModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.custom24black())
+            .font(.custom21black())
             .padding(.horizontal)
             .padding(.vertical, 3)
             .background{

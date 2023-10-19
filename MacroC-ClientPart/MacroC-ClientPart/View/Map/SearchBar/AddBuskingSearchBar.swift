@@ -17,14 +17,14 @@ struct AddBuskingSearchBar: View {
     var body: some View {
         VStack(spacing:0) {
             TextField("Search", text: $viewModel.query)
-                .font(.custom15regular())
+                .font(.custom13regular())
                 .padding()
                 .background(Color.black.opacity(0.7))
                 .cornerRadius(10, corners: viewModel.results.isEmpty ? [.allCorners] : [.topLeft, .topRight])
                 .overlay(alignment: .trailing,content: {
                     Button{ viewModel.query = "" } label: {
                         Image(systemName: "multiply.circle.fill")
-                            .font(.custom14regular())
+                            .font(.custom12regular())
                     }.padding()
                         .scaleEffect(1.2)
                 })
@@ -35,7 +35,7 @@ struct AddBuskingSearchBar: View {
                 List(viewModel.results, id: \.placeID) { result in
                     Text(result.attributedFullText.string)
                         .listRowBackground(Color.black.opacity(0.7))
-                        .font(.custom14regular())
+                        .font(.custom12regular())
                         .onTapGesture {
                             viewModel.getPlaceCoordinate(placeID: result.placeID) { coordinate in
                                 viewModel.selectedCoordinate = coordinate

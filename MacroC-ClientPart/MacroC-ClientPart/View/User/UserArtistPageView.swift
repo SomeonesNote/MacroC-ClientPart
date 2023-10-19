@@ -125,7 +125,7 @@ extension UserArtistPageView {
                     } label: {
                         //TODO: 사진첩 접근해서 사진 받는 거 구현
                         Image(systemName: "camera.circle.fill")
-                            .font(.custom48bold())
+                            .font(.custom40bold())
                             .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     }
                 }
@@ -156,7 +156,7 @@ extension UserArtistPageView {
                         matching: .images,
                         photoLibrary: .shared()) {
                             Image(systemName: "camera.circle.fill")
-                                .font(.custom48bold())
+                                .font(.custom40bold())
                                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                         }
                 }
@@ -167,7 +167,7 @@ extension UserArtistPageView {
         return VStack{
             ZStack {
                 Text(viewModel.userArtist.stagename)
-                    .font(.custom44black())
+                    .font(.custom40black())
                 if viewModel.isEditMode == true {
                     HStack {
                         Spacer()
@@ -184,7 +184,7 @@ extension UserArtistPageView {
             }
             ZStack {
                 Text(viewModel.EditUserInfo)
-                    .font(.custom14heavy())
+                    .font(.custom13heavy())
                 if viewModel.isEditMode == true {
                     HStack {
                         Spacer()
@@ -204,7 +204,7 @@ extension UserArtistPageView {
     var artistPageFollowButton: some View {
         Button { } label: {
             Text("Follow")
-                .font(.custom24black())
+                .font(.custom21black())
                 .padding(.init(top: UIScreen.getHeight(7), leading: UIScreen.getHeight(30), bottom: UIScreen.getHeight(7), trailing: UIScreen.getHeight(30)))
                 .background{ Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(2)) }
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
@@ -263,7 +263,7 @@ extension UserArtistPageView {
                     .font(.custom14semibold())
             }
             TextField("", text: $viewModel.userArtist.youtube)
-                .font(.custom12semibold())
+                .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
@@ -276,7 +276,7 @@ extension UserArtistPageView {
                     .font(.custom14semibold())
             }
             TextField("", text: $viewModel.userArtist.instagram)
-                .font(.custom12semibold())
+                .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
@@ -289,7 +289,7 @@ extension UserArtistPageView {
                     .font(.custom14semibold())
             }
             TextField("", text: $viewModel.userArtist.soundcloud)
-                .font(.custom12semibold())
+                .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
@@ -332,7 +332,7 @@ extension UserArtistPageView {
                 Text("User Name").font(.custom14semibold())
             }
             TextField("", text: $viewModel.EditUsername)
-                .font(.custom12semibold())
+                .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
@@ -376,7 +376,7 @@ extension UserArtistPageView {
                 Text("User Info").font(.custom14semibold())
             }
             TextField("", text: $viewModel.EditUserInfo)
-                .font(.custom12semibold())
+                .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)

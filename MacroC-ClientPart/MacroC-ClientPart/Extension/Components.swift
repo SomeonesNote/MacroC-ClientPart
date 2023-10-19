@@ -103,7 +103,7 @@ struct customSFButton: View {
     var image: String
     var body: some View {
         Image(systemName: image)
-            .font(.custom24semibold())
+            .font(.custom20semibold())
             .modifier(dropShadow())
             .foregroundColor(.white)
     }
@@ -113,7 +113,7 @@ struct sheetBoxText: View {
     var text: String
     var body: some View {
         Text(text)
-            .font(.custom15heavy())
+            .font(.custom13heavy())
             .frame(width: UIScreen.getWidth(300), height: UIScreen.getHeight(50))
             .background{
                 Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(1.5))
@@ -189,7 +189,7 @@ struct toolbarButtonLabel: View {
     var buttonLabel: String
     var body: some View {
         Text(buttonLabel)
-            .font(.custom15bold())
+            .font(.custom16bold())
             .modifier(dropShadow())
     }
 }

@@ -21,7 +21,7 @@ struct EditArtistAcountView: View {
                     print("Log Out : delete User Identifier From Keychain")
                 } label: {
                     Text("로그아웃")
-                        .font(.custom15bold())
+                        .font(.custom13bold())
                         .padding(UIScreen.getWidth(20))
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
@@ -33,7 +33,7 @@ struct EditArtistAcountView: View {
                 } label: {
                     Text("탈퇴")
                         .foregroundStyle(Color(appRed))
-                        .font(.custom15bold())
+                        .font(.custom13bold())
                         .padding(UIScreen.getWidth(20))
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }

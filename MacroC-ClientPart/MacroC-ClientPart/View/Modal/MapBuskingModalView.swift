@@ -41,7 +41,7 @@ extension MapBuskingModalView {
         HStack(spacing: UIScreen.getWidth(2)){
             buskingInfoImage.shadow(color: .black.opacity(0.2),radius: UIScreen.getWidth(5))
             Text(viewModel.busking.artistname)
-                .font(.custom26black())
+                .font(.custom22black())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             Spacer()
             Button{
@@ -50,36 +50,39 @@ extension MapBuskingModalView {
             } label: {
                 Image(systemName: viewModel.isClickedLike ? "heart.fill" : "heart")
                     .foregroundStyle(viewModel.isClickedLike ? Color(appRed) : Color.white)
-                    .font(.custom24light())
+                    .font(.custom22light())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
         }.padding(.init(top: UIScreen.getWidth(40), leading: UIScreen.getWidth(5), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(15)))
     }
     
     var buskingInfoImage: some View {
-        CircleBlur(image: viewModel.busking.artistimage, width: 40)
+        CircleBlur(image: viewModel.busking.artistimage, width: UIScreen.getWidth(40))
+            .overlay {
+                Circle().stroke(lineWidth: 1).opacity(0.8)
+            }
     }
     
     var buskingTime: some View {
         HStack {
             VStack(spacing: UIScreen.getHeight(3)) {
                 Text(viewModel.formatDate()) //TODO: 시간모델
-                    .font(.custom15heavy())
+                    .font(.custom13heavy())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     .padding(.horizontal, UIScreen.getWidth(30))
                 
                 Text("\(viewModel.formatStartTime()) ~ \(viewModel.formatEndTime())")
-                    .font(.custom15heavy())
+                    .font(.custom13heavy())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     .padding(.horizontal, UIScreen.getWidth(30))
                 
             } .overlay(alignment: .leading) {
                 VStack(spacing: UIScreen.getHeight(3)) {
                     Image(systemName: "calendar")
-                        .font(.custom16semibold())
+                        .font(.custom14semibold())
                         .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     Image(systemName: "clock")
-                        .font(.custom16semibold())
+                        .font(.custom14semibold())
                         .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                 }
             }
@@ -88,7 +91,7 @@ extension MapBuskingModalView {
     var buskingInfoAddress: some View {
         HStack {
             Text(viewModel.addressString)
-                .font(.custom15heavy())
+                .font(.custom13heavy())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                 .padding(.horizontal, UIScreen.getWidth(30))
             
@@ -97,7 +100,7 @@ extension MapBuskingModalView {
         .overlay(alignment: .leading) {
             Image(systemName: "signpost.right")
                 .frame(width: UIScreen.getWidth(13), height: UIScreen.getHeight(10))
-                .font(.custom16semibold())
+                .font(.custom14semibold())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
         }
         .overlay(alignment: .trailing) {
@@ -115,7 +118,7 @@ extension MapBuskingModalView {
                 Image(systemName: "rectangle.on.rectangle")
                     .resizable()
                     .frame(width: UIScreen.getWidth(15), height: UIScreen.getHeight(15))
-                    .font(.custom16semibold())
+                    .font(.custom14semibold())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
         }

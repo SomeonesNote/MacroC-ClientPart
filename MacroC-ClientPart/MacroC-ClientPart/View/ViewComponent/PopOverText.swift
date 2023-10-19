@@ -11,7 +11,7 @@ struct PopOverText: View {
     var text: String = "클립보드에 복사되었습니다"
     var body: some View {
         Text(text)
-            .font(.custom16semibold())
+            .font(.custom14semibold())
             .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
             .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(35), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(35)))
             .background(backgroundView().opacity(0.95))

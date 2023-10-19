@@ -42,7 +42,7 @@ extension ArtistInfoModalView {
         } label: {
             Image(systemName: viewModel.isClickedLike ? "heart.fill" : "heart")
                 .foregroundStyle(viewModel.isClickedLike ? Color(appRed) : Color.white)
-                .font(.custom24light())
+                .font(.custom22light())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
         }
     }
@@ -50,7 +50,7 @@ extension ArtistInfoModalView {
     var artistInfoToolbar: some View {
         HStack{
             Text(viewModel.busking.artistname)
-                .font(.custom26black())
+                .font(.custom22black())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             Spacer()
             likeButton
@@ -58,17 +58,17 @@ extension ArtistInfoModalView {
     }
     
     var artistInfoImage: some View {
-        CircleBlur(image: viewModel.busking.artistimage, width: 120,strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
+        CircleBlur(image: viewModel.busking.artistimage, width: UIScreen.getWidth(120),strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
     }
     
     var buskingTime: some View {
         Text("\(viewModel.formatStartTime()) ~ \(viewModel.formatEndTime())")
-            .font(.custom15heavy())
+            .font(.custom13heavy())
             .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(30), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(30)))
             .overlay(alignment: .leading) {
                 Image(systemName: "clock")
-                    .font(.custom16semibold())
+                    .font(.custom14semibold())
             }
     }
 }

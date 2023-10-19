@@ -16,8 +16,8 @@ struct DonationBar: View {
                 
             } label: {
                 HStack(spacing: UIScreen.getWidth(5)){
-                    Image(systemName: "tree").font(.custom16regular())
-                    Text("2000").font(.custom16semibold())
+                    Image(systemName: "tree").font(.custom14regular())
+                    Text("2000").font(.custom14semibold())
                 }
             }
             .padding(.init(top: UIScreen.getWidth(5), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(5), trailing: UIScreen.getWidth(10)))

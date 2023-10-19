@@ -26,18 +26,18 @@ struct BuskingListRow: View {
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                     .padding(.bottom, UIScreen.getHeight(4))
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "calendar").font(.custom16semibold())
-                    Text(formatDate()) .font(.custom15bold())
+                    Image(systemName: "calendar").font(.custom14semibold())
+                    Text(formatDate()) .font(.custom13bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "clock").font(.custom16semibold())
-                    Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom15bold())
+                    Image(systemName: "clock").font(.custom14semibold())
+                    Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom13bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "signpost.right").font(.custom16semibold())
-                    Text("\(addressString)").font(.custom15bold())
+                    Image(systemName: "signpost.right").font(.custom14semibold())
+                    Text("\(addressString)").font(.custom13bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
             }.frame(height: UIScreen.getHeight(130))

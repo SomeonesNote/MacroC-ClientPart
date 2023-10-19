@@ -20,18 +20,21 @@ struct AddBuskingPageView: View {
         ZStack {
             ScrollView { // 키보드 뷰 밀림때문에 넣음
                 VStack(spacing: UIScreen.getWidth(18)) {
-                    topbar
+//                    topbar
                     locationHeader
                     map
                     timeHeader
                     datePickerView
                     Spacer()
                     registerButton
+                    Spacer()
                 }
                 .padding(.horizontal)
                 .ignoresSafeArea(.keyboard)
-                .background(backgroundView().ignoresSafeArea().hideKeyboardWhenTappedAround())
+                
             }
+            .hideKeyboardWhenTappedAround()
+            .background(backgroundView().ignoresSafeArea())
             .scrollDisabled(true)
             if showPopover { PopOverText(text: "공연이 등록되었습니다") } }
         .onChange(of: showPopover) { newValue in
@@ -54,7 +57,7 @@ extension AddBuskingPageView {
                 dismiss()
             } label: {
                 Text("Cancle")
-                    .font(.custom16bold())
+                    .font(.custom14bold())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
             Spacer()
@@ -77,7 +80,7 @@ extension AddBuskingPageView {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(alignment: .bottom) {
                     Text(viewModel.markerAdressString)
-                        .font(.custom14semibold())
+                        .font(.custom12semibold())
                         .padding(.init(top: UIScreen.getWidth(8), leading: UIScreen.getWidth(30), bottom: UIScreen.getWidth(8), trailing: UIScreen.getWidth(30)))
                         .background(LinearGradient(colors: [Color(appIndigo2),Color(appIndigo)], startPoint: .topLeading, endPoint: .bottomTrailing))
                         .cornerRadius(20)
@@ -102,29 +105,29 @@ extension AddBuskingPageView {
         VStack(spacing: UIScreen.getWidth(5)) {
             DatePicker(selection: $viewModel.startTime, displayedComponents: .date) {
                 Text("공연 날짜")
-                    .font(.custom15bold()).padding(.leading, UIScreen.getWidth(5))
+                    .font(.custom13bold()).padding(.leading, UIScreen.getWidth(5))
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             } .font(.footnote)
             DatePicker(selection: $viewModel.startTime, displayedComponents: .hourAndMinute) {
                 Text("시작 시간")
-                    .font(.custom15bold()).padding(.leading, UIScreen.getWidth(5))
+                    .font(.custom13bold()).padding(.leading, UIScreen.getWidth(5))
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
             DatePicker(selection: $viewModel.endTime, displayedComponents: .hourAndMinute) {
                 Text("종료 시간")
-                    .font(.custom15bold()).padding(.leading, UIScreen.getWidth(5))
+                    .font(.custom13bold()).padding(.leading, UIScreen.getWidth(5))
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
             
             customDivider().padding(.vertical, UIScreen.getWidth(8))
             VStack {
                 Text(viewModel.formatDate())
-                    .font(.custom15semibold())
+                    .font(.custom13semibold())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     .padding(.horizontal,UIScreen.getWidth(30))
                 
                 Text("\(viewModel.formatStartTime())   ~   \(viewModel.formatEndTime())")
-                    .font(.custom15semibold())
+                    .font(.custom13semibold())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     .padding(.horizontal,UIScreen.getWidth(30))
             }
@@ -132,7 +135,7 @@ extension AddBuskingPageView {
                 VStack {
                     Image(systemName: "calendar").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     Image(systemName: "clock").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-                }.font(.custom16semibold())
+                }.font(.custom14semibold())
             }
             
         }
@@ -160,7 +163,7 @@ extension AddBuskingPageView {
         } label: {
             HStack{
                 Spacer()
-                Text("Register").font(.custom15bold()).shadow(color: .black.opacity(0.7),radius: UIScreen.getHeight(5))
+                Text("Register").font(.custom13bold()).shadow(color: .black.opacity(0.7),radius: UIScreen.getHeight(5))
                 Spacer()
             }
             .padding(UIScreen.getWidth(15))

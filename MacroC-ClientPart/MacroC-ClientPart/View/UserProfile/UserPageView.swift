@@ -120,7 +120,7 @@ extension UserPageView {
                     } label: {
                         //TODO: 사진첩 접근해서 사진 받는 거 구현
                         Image(systemName: "camera.circle.fill")
-                            .font(.custom48bold())
+                            .font(.custom40bold())
                             .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     }
                 }
@@ -151,7 +151,7 @@ extension UserPageView {
                         matching: .images,
                         photoLibrary: .shared()) {
                             Image(systemName: "camera.circle.fill")
-                                .font(.custom48bold())
+                                .font(.custom40bold())
                                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                         }
                 }
@@ -162,7 +162,7 @@ extension UserPageView {
         return VStack{
             ZStack {
                 Text(viewModel.user.username)
-                    .font(.custom44black())
+                    .font(.custom40black())
                 if viewModel.isEditMode == true {
                     HStack {
                         Spacer()
@@ -179,7 +179,7 @@ extension UserPageView {
             }
             ZStack {
                 Text(viewModel.EditUserInfo)
-                    .font(.custom14heavy())
+                    .font(.custom13heavy())
                 if viewModel.isEditMode == true {
                     HStack {
                         Spacer()
@@ -317,7 +317,7 @@ extension UserPageView {
                 Text("User Name").font(.custom14semibold())
             }
             TextField("", text: $viewModel.EditUsername)
-                .font(.custom12semibold())
+                .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
@@ -361,7 +361,7 @@ extension UserPageView {
                 Text("User Info").font(.custom14semibold())
             }
             TextField("", text: $viewModel.EditUserInfo)
-                .font(.custom12semibold())
+                .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)

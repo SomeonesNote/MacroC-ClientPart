@@ -64,11 +64,11 @@ extension ArtistPageView {
     var artistPageTitle: some View {
         return VStack{
             Text(viewModel.artist.stagename)
-                .font(.custom44black())
+                .font(.custom40black())
                 .shadow(color: .black.opacity(1),radius: UIScreen.getWidth(9))
             
             Text("Simple Imforamtion of This Artist")
-                .font(.custom15heavy())
+                .font(.custom13heavy())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
         }.padding(.bottom, UIScreen.getHeight(20))
     }
@@ -76,7 +76,7 @@ extension ArtistPageView {
     var artistPageFollowButton: some View {
         Button { } label: {
             Text("Follow")
-                .font(.custom24black())
+                .font(.custom21black())
                 .padding(.init(top: UIScreen.getHeight(7), leading: UIScreen.getHeight(30), bottom: UIScreen.getHeight(7), trailing: UIScreen.getHeight(30)))
                 .background{ Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(2)) }
                 .modifier(dropShadow())

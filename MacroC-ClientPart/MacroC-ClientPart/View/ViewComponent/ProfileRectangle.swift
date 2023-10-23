@@ -16,9 +16,12 @@ struct ProfileRectangle: View {
     //MARK: -2.BODY
     var body: some View {
         VStack(spacing: 0){
-            Image(image)
-                .resizable()
-                .scaledToFit()
+//            Image(image)
+            AsyncImage(url: URL(string: image)){ image in
+                image.resizable().aspectRatio(contentMode: .fit)
+            } placeholder: {
+                ProgressView()
+            }
                 .frame(width: UIScreen.getWidth(130), height: UIScreen.getHeight(130))
                 .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.clear,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,  Color.clear]), startPoint: .top, endPoint: .bottom))
                 .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.gray,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.gray,  Color.clear]), startPoint: .leading, endPoint: .trailing))

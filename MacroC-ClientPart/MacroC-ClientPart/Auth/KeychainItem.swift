@@ -135,7 +135,16 @@ struct KeychainItem {
             let storedIdentifier = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").readItem()
             return storedIdentifier
         } catch {
-            return ""
+            return "currentUserIdentifier error!"
+        }
+    }
+    
+    static var currentTokenResponse: String {
+        do {
+            let storedTokenResponse = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").readItem()
+            return storedTokenResponse
+        } catch {
+            return "currentTokenResponse error!"
         }
     }
     

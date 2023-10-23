@@ -9,7 +9,8 @@ import SwiftUI
 import PhotosUI
 
 class UserArtistPageViewModel: ObservableObject {
-    @Published var userArtist: Artist
+    @EnvironmentObject var awsService: AwsService
+    
     @Published var isEditMode: Bool = true
     @Published var selectedItem: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data?
@@ -18,20 +19,18 @@ class UserArtistPageViewModel: ObservableObject {
     @Published var croppedImage: UIImage?
     @Published var isLoading: Bool = false
     
-    @Published var isEditSocial: Bool = false
-    @Published var isEditName: Bool = false
-    @Published var isEditInfo: Bool = false
+    @Published var EditUsername: String = AwsService().userArtist.stageName
+    @Published var EditUserInfo: String = AwsService().userArtist.artistInfo
     
-    @Published var EditUsername: String = "User"
-    @Published var EditUserInfo: String = "Simple Imforamtion of This Artist"
-    
+    //ModalButton
     @Published var socialSaveOKModal: Bool = false
     @Published var nameSaveOKModal: Bool = false
     @Published var infoSaveOKModal: Bool = false
+    
+    @Published var isEditSocial: Bool = false
+    @Published var isEditName: Bool = false
+    @Published var isEditInfo: Bool = false
 
-    init(userArtist: Artist) {
-        self.userArtist = userArtist
-    }
     
     func toggleEditMode() {
         isEditMode.toggle()

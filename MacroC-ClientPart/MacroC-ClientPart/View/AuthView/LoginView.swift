@@ -8,13 +8,13 @@
 //import SwiftUI
 //
 //struct LoginView: View {
-//    
+//
 //    //MARK: -1.PROPERTY
 //    @StateObject var viewModel = LoginViewModel()
-//    
+//
 //    //MARK: -2.BODY
 //    var body: some View {
-//        
+//
 //            VStack(alignment: .center) {
 //                Spacer()
 //                Spacer()
@@ -42,14 +42,14 @@
 //                .padding(13)
 //                .background(.ultraThinMaterial)
 //                .cornerRadius(6)
-//            
+//
 //            TextField("Password", text: $viewModel.password)
 //                .padding(13)
 //                .background(.ultraThinMaterial)
 //                .cornerRadius(6)
 //        }
 //    }
-//    
+//
 ////    var signInbutton: some View {
 ////        Button {
 //////            viewModel.()
@@ -62,7 +62,7 @@
 ////            .padding()
 ////            .background(.ultraThinMaterial)
 ////            .cornerRadius(6)
-////            
+////
 ////        }.padding(.top, 30)
 ////    }
 //    var signInbutton: some View {

@@ -9,12 +9,13 @@ import SwiftUI
 
 class ArtistInfoModalViewModel: ObservableObject {
     @Published var isClickedLike: Bool = false
-    @Published var busking: Busking
-
-    init(busking: Busking) {
-        self.busking = busking
+    @Published var artist: Artist
+    
+    
+    init(busking: Artist) {
+        self.artist = busking
     }
-
+    
     func toggleLike() {
         isClickedLike.toggle()
     }
@@ -23,18 +24,30 @@ class ArtistInfoModalViewModel: ObservableObject {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "yyyy년 M월 d일"
-        return formatter.string(from: busking.buskingstarttime)
+        if let busking = artist.buskings?.last?.BuskingStartTime {
+            return formatter.string(from: busking)
+        }
+        return ""
     }
+
+    
     func formatStartTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "a h시 mm분"
-        return formatter.string(from: busking.buskingstarttime)
+        if let busking = artist.buskings?.last?.BuskingStartTime{
+            return formatter.string(from: busking)
+        }
+        return ""
     }
+    
     func formatEndTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "h시 mm분"
-        return formatter.string(from: busking.buskingendtime)
+        if let busking = artist.buskings?.last?.BuskingEndTime{
+            return formatter.string(from: busking)
+        }
+        return ""
     }
 }

@@ -20,7 +20,7 @@ struct AddBuskingPageView: View {
         ZStack {
             ScrollView { // 키보드 뷰 밀림때문에 넣음
                 VStack(spacing: UIScreen.getWidth(18)) {
-//                    topbar
+                    //                    topbar
                     locationHeader
                     map
                     timeHeader

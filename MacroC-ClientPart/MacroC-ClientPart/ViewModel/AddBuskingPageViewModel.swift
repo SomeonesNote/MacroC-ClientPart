@@ -12,7 +12,7 @@ import CoreLocation
 
 
 class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, GMSAutocompleteFetcherDelegate {
-    @Published var userArtist: Artist = dummyUserArtist
+    @Published var userArtist: Artist = AwsService().userArtist
     @Published var markerAdressString: String = "address"
     @Published var startTime = Date()
     @Published var endTime = Date()

@@ -30,7 +30,7 @@ struct ArtistInfoModalView: View {
 //MARK: -3.PREVIEW
 #Preview {
     //    MapView()
-    ArtistInfoModalView(viewModel: ArtistInfoModalViewModel(busking: dummyBusking4))
+    ArtistInfoModalView(viewModel: ArtistInfoModalViewModel(busking: dummyArtist1))
 }
 
 
@@ -49,7 +49,7 @@ extension ArtistInfoModalView {
     
     var artistInfoToolbar: some View {
         HStack{
-            Text(viewModel.busking.artistname)
+            Text(viewModel.artist.stageName)
                 .font(.custom22black())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             Spacer()
@@ -58,7 +58,7 @@ extension ArtistInfoModalView {
     }
     
     var artistInfoImage: some View {
-        CircleBlur(image: viewModel.busking.artistimage, width: UIScreen.getWidth(120),strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
+        CircleBlur(image: viewModel.artist.artistImage, width: UIScreen.getWidth(120),strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
     }
     
     var buskingTime: some View {

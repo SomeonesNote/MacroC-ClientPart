@@ -9,42 +9,37 @@ import Foundation
 import Alamofire
 
 struct User: Codable {
-    let id: Int
-    let artistid : Int
-    let username: String
-    let email: String
-    let password: String
-    let userimage : String
-    let follow : [Int]
+    var id: Int
+    var username: String
+    var email: String
+    var password: String
+    var avatarUrl : String
+    var artist : Artist
+    
+    init(id: Int = 0,
+    username: String = "",
+    email: String = "",
+    password: String = "",
+    avatarUrl : String = "",
+         artist : Artist = Artist()
+    ) {
+        self.id = id
+        self.username = username
+        self.email = email
+        self.password = password
+        self.avatarUrl = avatarUrl
+        self.artist = artist
+    }
 }
-//    let following: [Busker]
 
-//    init(user: User) {
-//        self.id = user.id
-//        self.email = user.email
-//        self.username = user.username
-//        self.password = user.password
-//        self.avartaUrl = user.avartaUrl
-//    }
+extension User {
+    init(from user: User) {
+        self.id = user.id
+        self.username = user.username
+        self.email = user.email
+        self.password = user.password
+        self.avatarUrl = user.avatarUrl
+        self.artist = user.artist
+    }
+}
 
-//let dummy1user = User(id: 1, email: "", username: "", password: "", avartaUrl: "")
-//let url = "http://ec2-3-37-89-214.ap-northeast-2.compute.amazonaws.com/users/\(dummy1user.id)"
-//
-//class userDummyDatatest : ObservableObject {
-//    
-//    @Published var user: User?
-//    
-//    func getUserData() {
-//        
-//        AF.request(url, method: .get)
-//            .validate()
-//            .responseDecodable(of: User.self){ response in
-//                switch response.result {
-//                case .success(let userData) :
-//                    self.user = userData
-//                case .failure(let error) :
-//                    print("Error : \(error)")
-//                }
-//            }
-//    }
-//}

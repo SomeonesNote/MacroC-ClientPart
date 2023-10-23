@@ -33,10 +33,10 @@
 		070717402ADA0CC100B72319 /* BackroundStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707173F2ADA0CC100B72319 /* BackroundStar.swift */; };
 		070752A32AD75BA60090E11D /* AppleSigninButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070752A22AD75BA60090E11D /* AppleSigninButton.swift */; };
 		070F6BDD2ADA135B00328570 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BDC2ADA135B00328570 /* BackgroundView.swift */; };
-		070F6BDF2ADA1EF300328570 /* ClearModalBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BDE2ADA1EF300328570 /* ClearModalBackground.swift */; };
 		070F6BE12ADA3B8A00328570 /* ArtistListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BE02ADA3B8A00328570 /* ArtistListView.swift */; };
 		070F6BE32ADAC8B000328570 /* PopOverText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BE22ADAC8B000328570 /* PopOverText.swift */; };
 		070F6BE72ADB1BCD00328570 /* mainpageTitleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BE62ADB1BCD00328570 /* mainpageTitleModifier.swift */; };
+		076744922AE574910053E413 /* AwsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076744912AE574910053E413 /* AwsService.swift */; };
 		07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* LoginViewModel.swift */; };
 		07FBF28B2ACFF90B004EF174 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpView.swift */; };
 		07FD2BE62AD32D4B0030865A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD2BE52AD32D4B0030865A /* MainViewModel.swift */; };
@@ -114,10 +114,10 @@
 		0707173F2ADA0CC100B72319 /* BackroundStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackroundStar.swift; sourceTree = "<group>"; };
 		070752A22AD75BA60090E11D /* AppleSigninButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSigninButton.swift; sourceTree = "<group>"; };
 		070F6BDC2ADA135B00328570 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
-		070F6BDE2ADA1EF300328570 /* ClearModalBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearModalBackground.swift; sourceTree = "<group>"; };
 		070F6BE02ADA3B8A00328570 /* ArtistListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistListView.swift; sourceTree = "<group>"; };
 		070F6BE22ADAC8B000328570 /* PopOverText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverText.swift; sourceTree = "<group>"; };
 		070F6BE62ADB1BCD00328570 /* mainpageTitleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainpageTitleModifier.swift; sourceTree = "<group>"; };
+		076744912AE574910053E413 /* AwsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwsService.swift; sourceTree = "<group>"; };
 		07FBF2872ACF5223004EF174 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		07FBF2892ACFD143004EF174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07FBF28A2ACFF90B004EF174 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -283,6 +283,14 @@
 			path = MapView;
 			sourceTree = "<group>";
 		};
+		076744902AE574800053E413 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				076744912AE574910053E413 /* AwsService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		F62B8A672ACED1B80077CA17 = {
 			isa = PBXGroup;
 			children = (
@@ -303,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				07FBF2892ACFD143004EF174 /* Info.plist */,
+				076744902AE574800053E413 /* Service */,
 				F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */,
 				F62B8A752ACED1B80077CA17 /* ContentView.swift */,
 				F62B8A902ACED33F0077CA17 /* View */,
@@ -428,7 +437,6 @@
 				F62B8AD22ACED87C0077CA17 /* ImageCropper.swift */,
 				F62B8ACC2ACED8410077CA17 /* DonationBar.swift */,
 				0707173D2AD9FA7D00B72319 /* CircleBlur.swift */,
-				070F6BDE2ADA1EF300328570 /* ClearModalBackground.swift */,
 				070F6BE22ADAC8B000328570 /* PopOverText.swift */,
 			);
 			path = ViewComponent;
@@ -562,8 +570,8 @@
 				F62B8AE92ACED9890077CA17 /* DummyData.swift in Sources */,
 				F62B8ACD2ACED8410077CA17 /* DonationBar.swift in Sources */,
 				070F6BE12ADA3B8A00328570 /* ArtistListView.swift in Sources */,
+				076744922AE574910053E413 /* AwsService.swift in Sources */,
 				F62B8AD32ACED87C0077CA17 /* ImageCropper.swift in Sources */,
-				070F6BDF2ADA1EF300328570 /* ClearModalBackground.swift in Sources */,
 				F62B8AA82ACED4E30077CA17 /* EditUserAcountView.swift in Sources */,
 				070F6BDD2ADA135B00328570 /* BackgroundView.swift in Sources */,
 				0707172D2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift in Sources */,

@@ -11,7 +11,9 @@ import PhotosUI
 struct UserArtistPageView: View {
     
     //MARK: -1.PROPERTY
-    @ObservedObject var viewModel: UserArtistPageViewModel
+    @EnvironmentObject var awsService: AwsService
+    @ObservedObject var viewModel = UserArtistPageViewModel()
+    @State var emptyText: String = ""
     
     //MARK: -2.BODY
     var body: some View {
@@ -83,53 +85,57 @@ struct UserArtistPageView: View {
 
 
 //MARK: -3.PREVIEW
-#Preview {
-    NavigationView {
-        UserArtistPageView(viewModel: UserArtistPageViewModel(userArtist: dummyUserArtist))
-    }
-}
+//#Preview {
+//    NavigationView {
+//        UserArtistPageView(viewModel: UserArtistPageViewModel(userArtist: dummyUserArtist))
+//    }
+//}
 
 //MARK: -4.EXTENSION
 extension UserArtistPageView {
     var artistPageImage: some View {
-        Image(viewModel.userArtist.artistimage)
-            .resizable()
-            .scaledToFit()
-            .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
-            .overlay (
-                HStack(spacing: UIScreen.getWidth(10)){
-                    Button {
-                        UIApplication.shared.open(URL(string: viewModel.userArtist.youtube)!)
-                    } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
-                    
-                    Button {
-                        UIApplication.shared.open(URL(string: viewModel.userArtist.instagram)!)
-                    } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
-                    
-                    Button { } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
-                    if viewModel.isEditMode == true {
-                            Button { viewModel.isEditSocial = true } label: {
-                                Image(systemName: "pencil.circle.fill")
-                                    .font(.custom20semibold())
-                                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-                        }
-                    }
-                }
-                    .frame(height: UIScreen.getHeight(25))
-                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
-                ,alignment: .bottomTrailing )
-            .overlay(alignment: .bottom) {
-                if viewModel.isEditMode {
-                    Button{
-                        viewModel.popImagePicker = true
-                    } label: {
-                        //TODO: 사진첩 접근해서 사진 받는 거 구현
-                        Image(systemName: "camera.circle.fill")
-                            .font(.custom40bold())
+        //        Image(viewModel.userArtist.artistimage)
+        AsyncImage(url: URL(string: awsService.userArtist.artistImage)) { image in
+            image.resizable().aspectRatio(contentMode: .fit)
+        } placeholder: {
+            ProgressView()
+        }
+        .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth)
+        .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
+        .overlay (
+            HStack(spacing: UIScreen.getWidth(10)){
+                Button {
+                    UIApplication.shared.open(URL(string: emptyText)!)
+                } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                
+                Button {
+                    UIApplication.shared.open(URL(string: emptyText)!)
+                } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                
+                Button { } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                if viewModel.isEditMode == true {
+                    Button { viewModel.isEditSocial = true } label: {
+                        Image(systemName: "pencil.circle.fill")
+                            .font(.custom20semibold())
                             .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     }
                 }
             }
+                .frame(height: UIScreen.getHeight(25))
+                .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
+            ,alignment: .bottomTrailing )
+        .overlay(alignment: .bottom) {
+            if viewModel.isEditMode {
+                Button{
+                    viewModel.popImagePicker = true
+                } label: {
+                    //TODO: 사진첩 접근해서 사진 받는 거 구현
+                    Image(systemName: "camera.circle.fill")
+                        .font(.custom40bold())
+                        .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                }
+            }
+        }
     }
     
     var pickedImage: some View {
@@ -166,7 +172,7 @@ extension UserArtistPageView {
     var artistPageTitle: some View {
         return VStack{
             ZStack {
-                Text(viewModel.userArtist.stagename)
+                Text(awsService.userArtist.stageName)
                     .font(.custom40black())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -183,7 +189,7 @@ extension UserArtistPageView {
                 }
             }
             ZStack {
-                Text(viewModel.EditUserInfo)
+                Text(awsService.userArtist.artistInfo)
                     .font(.custom13heavy())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -262,7 +268,7 @@ extension UserArtistPageView {
                 Text("Youtube")
                     .font(.custom14semibold())
             }
-            TextField("", text: $viewModel.userArtist.youtube)
+            TextField("", text: $emptyText)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -275,7 +281,7 @@ extension UserArtistPageView {
                 Text("Instagram")
                     .font(.custom14semibold())
             }
-            TextField("", text: $viewModel.userArtist.instagram)
+            TextField("", text: $emptyText)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -288,7 +294,7 @@ extension UserArtistPageView {
                 Text("SoundCloud")
                     .font(.custom14semibold())
             }
-            TextField("", text: $viewModel.userArtist.soundcloud)
+            TextField("", text: $emptyText)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)

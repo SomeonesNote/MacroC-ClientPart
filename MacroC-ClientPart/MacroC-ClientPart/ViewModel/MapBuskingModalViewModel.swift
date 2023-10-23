@@ -26,19 +26,19 @@ class MapBuskingModalViewModel: ObservableObject {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "yyyy년 M월 d일"
-        return formatter.string(from: busking.buskingstarttime)
+        return formatter.string(from: busking.BuskingStartTime)
     }
     func formatStartTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "a h시 mm분"
-        return formatter.string(from: busking.buskingstarttime)
+        return formatter.string(from: busking.BuskingStartTime)
     }
     func formatEndTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "h시 mm분"
-        return formatter.string(from: busking.buskingendtime)
+        return formatter.string(from: busking.BuskingEndTime)
     }
 
     private func reverseGeo(busking: Busking) {

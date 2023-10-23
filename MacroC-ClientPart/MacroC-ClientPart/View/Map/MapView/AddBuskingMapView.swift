@@ -67,6 +67,7 @@ struct AddBuskingMapView: UIViewRepresentable {
             }
         }
         
+        
         func mapViewDidFinishTileRendering(_ mapView: GMSMapView) {
             if !initialSetupDone {
                 if let currentLocation = parent.viewModel.locationManager.location?.coordinate {
@@ -82,8 +83,10 @@ struct AddBuskingMapView: UIViewRepresentable {
                 
                 marker.map = mapView
                 self.marker = marker
-                let markerImage = UIImageView(image: UIImage(named: self.parent.viewModel.userArtist.artistimage))
 
+                
+                let markerImage = UIImageView(image: UIImage(named: self.parent.viewModel.userArtist.artistImage))
+//                let markerImage = UIImageView(image: UII)
                 let customMarker = UIImageView(image: UIImage(named: "markerpin"))
                 
                 customMarker.addSubview(markerImage)
@@ -107,6 +110,9 @@ struct AddBuskingMapView: UIViewRepresentable {
             } else {
                 self.marker?.position = mapView.camera.target
             }
+            
+            
+            
         }
         
         func reverseGeo(busking: CLLocationCoordinate2D) {
@@ -125,7 +131,7 @@ struct AddBuskingMapView: UIViewRepresentable {
         func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-
+        
     }
 }
 

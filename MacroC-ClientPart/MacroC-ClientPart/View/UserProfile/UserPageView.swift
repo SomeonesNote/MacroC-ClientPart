@@ -27,15 +27,15 @@ struct UserPageView: View {
             if viewModel.isEditName || viewModel.isEditInfo {
                 Color.black.opacity(0.1)
                     .onTapGesture {
-//                        viewModel.isEditSocial = false
+                        //                        viewModel.isEditSocial = false
                         viewModel.isEditName = false
                         viewModel.isEditInfo = false
                     }
             }
             //수정시트 모달
-//            if viewModel.isEditSocial {
-//                editSocialSheet
-//            }
+            //            if viewModel.isEditSocial {
+            //                editSocialSheet
+            //            }
             if viewModel.isEditName {
                 editNameSheet
             }
@@ -43,9 +43,9 @@ struct UserPageView: View {
                 editInfoSheet
             }
             //저장완료 알림 모달
-//            if viewModel.socialSaveOKModal {
-//                PopOverText(text: "저장되었습니다")
-//            }
+            //            if viewModel.socialSaveOKModal {
+            //                PopOverText(text: "저장되었습니다")
+            //            }
             if viewModel.nameSaveOKModal {
                 PopOverText(text: "저장되었습니다")
             }
@@ -91,40 +91,43 @@ struct UserPageView: View {
 //MARK: -4.EXTENSION
 extension UserPageView {
     var artistPageImage: some View {
-        Image(viewModel.user.userimage)
-            .resizable()
-            .scaledToFit()
-            .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
-//            .overlay (
-//                HStack(spacing: UIScreen.getWidth(10)){
-//                    Button { } label: { linkButton(name: YouTubeLogo) }
-//                    
-//                    Button { } label: { linkButton(name: InstagramLogo) }
-//                    
-//                    Button { } label: { linkButton(name: SoundCloudLogo) }
-//                    
-//                    Button {viewModel.isEditSocial = true} label: {
-//                        if viewModel.isEditMode == true {
-//                            Image(systemName: "pencil.circle.fill")
-//                                .font(.custom20semibold())
-//                        } else { }
-//                    }
-//                }
-//                    .frame(height: UIScreen.getHeight(25))
-//                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
-//                ,alignment: .bottomTrailing )
-            .overlay(alignment: .bottom) {
-                if viewModel.isEditMode {
-                    Button{
-                        viewModel.popImagePicker = true
-                    } label: {
-                        //TODO: 사진첩 접근해서 사진 받는 거 구현
-                        Image(systemName: "camera.circle.fill")
-                            .font(.custom40bold())
-                            .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-                    }
+        AsyncImage(url: URL(string: viewModel.user.avatarUrl)) { image in
+            image.resizable().aspectRatio(contentMode: .fit)
+        } placeholder: {
+            ProgressView()
+        }
+        .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth)
+        .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
+        //            .overlay (
+        //                HStack(spacing: UIScreen.getWidth(10)){
+        //                    Button { } label: { linkButton(name: YouTubeLogo) }
+        //
+        //                    Button { } label: { linkButton(name: InstagramLogo) }
+        //
+        //                    Button { } label: { linkButton(name: SoundCloudLogo) }
+        //
+        //                    Button {viewModel.isEditSocial = true} label: {
+        //                        if viewModel.isEditMode == true {
+        //                            Image(systemName: "pencil.circle.fill")
+        //                                .font(.custom20semibold())
+        //                        } else { }
+        //                    }
+        //                }
+        //                    .frame(height: UIScreen.getHeight(25))
+        //                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
+        //                ,alignment: .bottomTrailing )
+        .overlay(alignment: .bottom) {
+            if viewModel.isEditMode {
+                Button{
+                    viewModel.popImagePicker = true
+                } label: {
+                    //TODO: 사진첩 접근해서 사진 받는 거 구현
+                    Image(systemName: "camera.circle.fill")
+                        .font(.custom40bold())
+                        .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                 }
             }
+        }
     }
     
     var pickedImage: some View {
@@ -132,17 +135,17 @@ extension UserPageView {
             .resizable()
             .scaledToFit()
             .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
-//            .overlay (
-//                HStack(spacing: UIScreen.getWidth(10)){
-//                    Button { } label: { linkButton(name: YouTubeLogo) }
-//                    
-//                    Button { } label: { linkButton(name: InstagramLogo) }
-//                    
-//                    Button { } label: { linkButton(name: SoundCloudLogo) }
-//                }
-//                    .frame(height: UIScreen.getHeight(25))
-//                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
-//                ,alignment: .bottomTrailing )
+        //            .overlay (
+        //                HStack(spacing: UIScreen.getWidth(10)){
+        //                    Button { } label: { linkButton(name: YouTubeLogo) }
+        //
+        //                    Button { } label: { linkButton(name: InstagramLogo) }
+        //
+        //                    Button { } label: { linkButton(name: SoundCloudLogo) }
+        //                }
+        //                    .frame(height: UIScreen.getHeight(25))
+        //                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
+        //                ,alignment: .bottomTrailing )
             .overlay(alignment: .bottom) {
                 if viewModel.isEditMode {
                     PhotosPicker(
@@ -205,7 +208,7 @@ extension UserPageView {
                 viewModel.selectedPhotoData = nil
                 viewModel.croppedImage = nil
                 
-//                viewModel.isEditSocial = false
+                //                viewModel.isEditSocial = false
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
             } label: {
@@ -221,7 +224,7 @@ extension UserPageView {
             return AnyView(Button{
                 feedback.notificationOccurred(.success)
                 viewModel.isEditMode = false
-//                viewModel.isEditSocial = false
+                //                viewModel.isEditSocial = false
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
@@ -237,74 +240,74 @@ extension UserPageView {
         }
     }
     
-//    var editSocialSheet: some View {
-//        VStack(alignment: .leading, spacing: UIScreen.getWidth(10)) {
-//            HStack {
-//                Image(YouTubeLogo)
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: UIScreen.getWidth(20))
-//                Text("Youtube")
-//                    .font(.custom14semibold())
-//            }
-//            TextField("", text: $viewModel.userArtist.youtube)
-//                .font(.custom12semibold())
-//                .padding(UIScreen.getWidth(12))
-//                .background(.ultraThinMaterial)
-//                .cornerRadius(6)
-//            HStack {
-//                Image(InstagramLogo)
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: UIScreen.getWidth(20))
-//                Text("Instagram")
-//                    .font(.custom14semibold())
-//            }
-//            TextField("", text: $viewModel.userArtist.instagram)
-//                .font(.custom12semibold())
-//                .padding(UIScreen.getWidth(12))
-//                .background(.ultraThinMaterial)
-//                .cornerRadius(6)
-//            HStack {
-//                Image(SoundCloudLogo)
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: UIScreen.getWidth(20))
-//                Text("SoundCloud")
-//                    .font(.custom14semibold())
-//            }
-//            TextField("", text: $viewModel.userArtist.soundcloud)
-//                .font(.custom12semibold())
-//                .padding(UIScreen.getWidth(12))
-//                .background(.ultraThinMaterial)
-//                .cornerRadius(6)
-//            //SocialEditSheet Button
-//            Button {
-//                //TODO: 서버에 올리는 함수 구현하기
-//                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
-//                feedback.notificationOccurred(.success)
-//                withAnimation(.smooth(duration: 0.5)) {
-//                    viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-//                        viewModel.socialSaveOKModal = false
-//                        viewModel.isEditSocial = false
-//                    }
-//                }
-//            } label: {
-//                HStack {
-//                    Spacer()
-//                    Text("Save")
-//                    Spacer()
-//                }
-//                .font(.custom14semibold())
-//                .padding(UIScreen.getWidth(14))
-//                .background(LinearGradient(colors: [.appSky ,.appIndigo1, .appIndigo2], startPoint: .topLeading, endPoint: .bottomTrailing))
-//                .cornerRadius(6)
-//            }
-//            .padding(.top, UIScreen.getWidth(26))
-//        }
-//        .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
-//    }
+    //    var editSocialSheet: some View {
+    //        VStack(alignment: .leading, spacing: UIScreen.getWidth(10)) {
+    //            HStack {
+    //                Image(YouTubeLogo)
+    //                    .resizable()
+    //                    .scaledToFit()
+    //                    .frame(width: UIScreen.getWidth(20))
+    //                Text("Youtube")
+    //                    .font(.custom14semibold())
+    //            }
+    //            TextField("", text: $viewModel.userArtist.youtube)
+    //                .font(.custom12semibold())
+    //                .padding(UIScreen.getWidth(12))
+    //                .background(.ultraThinMaterial)
+    //                .cornerRadius(6)
+    //            HStack {
+    //                Image(InstagramLogo)
+    //                    .resizable()
+    //                    .scaledToFit()
+    //                    .frame(width: UIScreen.getWidth(20))
+    //                Text("Instagram")
+    //                    .font(.custom14semibold())
+    //            }
+    //            TextField("", text: $viewModel.userArtist.instagram)
+    //                .font(.custom12semibold())
+    //                .padding(UIScreen.getWidth(12))
+    //                .background(.ultraThinMaterial)
+    //                .cornerRadius(6)
+    //            HStack {
+    //                Image(SoundCloudLogo)
+    //                    .resizable()
+    //                    .scaledToFit()
+    //                    .frame(width: UIScreen.getWidth(20))
+    //                Text("SoundCloud")
+    //                    .font(.custom14semibold())
+    //            }
+    //            TextField("", text: $viewModel.userArtist.soundcloud)
+    //                .font(.custom12semibold())
+    //                .padding(UIScreen.getWidth(12))
+    //                .background(.ultraThinMaterial)
+    //                .cornerRadius(6)
+    //            //SocialEditSheet Button
+    //            Button {
+    //                //TODO: 서버에 올리는 함수 구현하기
+    //                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
+    //                feedback.notificationOccurred(.success)
+    //                withAnimation(.smooth(duration: 0.5)) {
+    //                    viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+    //                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+    //                        viewModel.socialSaveOKModal = false
+    //                        viewModel.isEditSocial = false
+    //                    }
+    //                }
+    //            } label: {
+    //                HStack {
+    //                    Spacer()
+    //                    Text("Save")
+    //                    Spacer()
+    //                }
+    //                .font(.custom14semibold())
+    //                .padding(UIScreen.getWidth(14))
+    //                .background(LinearGradient(colors: [.appSky ,.appIndigo1, .appIndigo2], startPoint: .topLeading, endPoint: .bottomTrailing))
+    //                .cornerRadius(6)
+    //            }
+    //            .padding(.top, UIScreen.getWidth(26))
+    //        }
+    //        .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
+    //    }
     
     var editNameSheet: some View {
         VStack(alignment: .leading, spacing: UIScreen.getWidth(10)) {

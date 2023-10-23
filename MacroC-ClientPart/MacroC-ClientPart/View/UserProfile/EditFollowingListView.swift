@@ -10,9 +10,9 @@ import SwiftUI
 struct EditFollowingListView: View {
     
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     @State var isEditMode: Bool = false
     @State var deleteAlert: Bool = false
-    var followingtList = dummyUserFollowing
     let columns = Array(
         repeating: GridItem(.flexible(), spacing: 0),
         count: 3
@@ -22,11 +22,11 @@ struct EditFollowingListView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 0) {
-                ForEach(followingtList) { i in
+                ForEach(awsService.following) { i in
                     NavigationLink {
                         ArtistPageView(viewModel: ArtistPageViewModel(artist: i))
                     } label: {
-                        ProfileRectangle(image: i.artistimage, name: i.stagename)
+                        ProfileRectangle(image: i.artistImage, name: i.stageName)
                         
                     }
                     .overlay(alignment: .topTrailing) {

@@ -10,9 +10,10 @@ import SwiftUI
 struct MainView: View{
     
     //MARK: - 1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel = MainViewModel()
-    var following: [Artist] = dummyUserFollowing
-    var nowBusking: [Busking] = dummyBuskingNow
+    var following: [Artist] = []
+    var nowBusking: [Busking] = []
 //    var following: [Artist] = dummyEmptyFollowing
 //    var nowBusking: [Busking] = dummyBuskingEmpty
     
@@ -50,16 +51,16 @@ extension MainView {
                 } label: {customSFButton(image: "plus.circle.fill").shadow(color: .black.opacity(0.8),radius: UIScreen.getHeight(5)) }
                 
             } .padding(.init(top: UIScreen.getWidth(60), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(20)))
-            if following.isEmpty {
+            if awsService.following.isEmpty {
                 myArtistSkeleton
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 0) {
-                        ForEach(following) { i in
+                        ForEach(awsService.following) { i in
                             NavigationLink {
                                 ArtistPageView(viewModel: ArtistPageViewModel(artist: i))
                             } label: {
-                                ProfileRectangle(image: i.artistimage,name: i.stagename)
+                                ProfileRectangle(image: i.artistImage,name: i.stageName)
                             }
                         }
                     }
@@ -98,7 +99,7 @@ extension MainView {
             }.padding(UIScreen.getWidth(20))
             
             VStack(spacing: UIScreen.getWidth(15)) {
-                if nowBusking.isEmpty {
+                if nowBusking.isEmpty {      //TODO: nowBusking처리해야함
                     HStack(alignment: .center, spacing: UIScreen.getWidth(8)) {
                         Spacer()
                         Image(systemName: "plus.circle.fill").font(.custom20semibold())
@@ -116,20 +117,21 @@ extension MainView {
                                 .foregroundColor(Color.white.opacity(0.1))
                                 .padding(0)
                         }
-                } else {
-                    ForEach(nowBusking) { i in
-                        BuskingListRow(busking: i)
-                            .onTapGesture {
-                                viewModel.selectedBusking = i
-                                viewModel.popBuskingModal = true
-                            }
-                            .sheet(isPresented: $viewModel.popBuskingModal, onDismiss: {viewModel.popBuskingModal = false}) {
-                                MapBuskingModalView(viewModel: MapBuskingModalViewModel(busking: viewModel.selectedBusking))
-                                    .presentationDetents([.medium])
-                                    .presentationDragIndicator(.visible)
-                            }
-                    }
                 }
+//                else {
+//                    ForEach(nowBusking) { i in
+//                        BuskingListRow(busking: i)
+//                            .onTapGesture {
+//                                viewModel.selectedBusking = i
+//                                viewModel.popBuskingModal = true
+//                            }
+//                            .sheet(isPresented: $viewModel.popBuskingModal, onDismiss: {viewModel.popBuskingModal = false}) {
+//                                MapBuskingModalView(viewModel: MapBuskingModalViewModel(busking: viewModel.selectedBusking))
+//                                    .presentationDetents([.medium])
+//                                    .presentationDragIndicator(.visible)
+//                            }
+//                    }
+//                }
             }
         }
         .padding(.init(top: 0, leading: UIScreen.getWidth(5), bottom:  UIScreen.getWidth(120), trailing:  UIScreen.getWidth(5)))

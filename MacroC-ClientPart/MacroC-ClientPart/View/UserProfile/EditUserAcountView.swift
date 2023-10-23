@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct EditUserAcountView: View {
-    @EnvironmentObject var userAuth: AppleAuth
+    //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     
+    //MARK: -2.BODY
     var body: some View {
         ZStack(alignment: .topLeading) {
             backgroundView().ignoresSafeArea()
@@ -17,7 +19,9 @@ struct EditUserAcountView: View {
                 //로그아웃
                 Button {
                     KeychainItem.deleteUserIdentifierFromKeychain() //키체인에서 UserIdentifier 제거
-                    userAuth.showLoginView = true //로그인뷰로 돌아가기
+                    awsService.isSignIn = false //로그인뷰로 돌아가기
+                    UserDefaults.standard.set(false, forKey: "isSignIn")
+                    try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
                     print("Log Out : delete User Identifier From Keychain")
                 } label: {
                     Text("로그아웃")
@@ -27,8 +31,9 @@ struct EditUserAcountView: View {
                 }
                 //탈퇴
                 Button {
-                    KeychainItem.deleteUserIdentifierFromKeychain() //키체인에서 UserIdentifier 제거
-                    userAuth.showLoginView = true //로그인뷰로 돌아가기
+                    awsService.isSignIn = false
+                    UserDefaults.standard.set(false, forKey: "isSignIn")
+                    try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
                     print("탈퇴")
                 } label: {
                     Text("탈퇴")
@@ -42,6 +47,6 @@ struct EditUserAcountView: View {
     }
 }
 
-#Preview {
-    EditUserAcountView()
-}
+//#Preview {
+//    EditUserAcountView(userAuth: aws)
+//}

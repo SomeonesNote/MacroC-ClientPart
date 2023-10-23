@@ -11,6 +11,7 @@ import GoogleMaps
 struct MapView: View {
     
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     @StateObject var viewModel = MapViewModel()
     @State private var selectedCoordinate: CLLocationCoordinate2D?
     
@@ -19,20 +20,20 @@ struct MapView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .top){
-                GoogleMapView(viewModel: viewModel)
-                    .ignoresSafeArea(.all, edges: .top)
-                    .overlay(alignment: .top) {
-                        MapViewSearchBar(viewModel: viewModel)
-                            .padding(UIScreen.getWidth(4))
-                    }
+                //                GoogleMapView(viewModel: viewModel)
+                //                    .ignoresSafeArea(.all, edges: .top)
+                //                    .overlay(alignment: .top) {
+                //                        MapViewSearchBar(viewModel: viewModel)
+                //                            .padding(UIScreen.getWidth(4))
+                //                    }
             }
             .background(backgroundView())
             .ignoresSafeArea(.keyboard)
             .sheet(isPresented: $viewModel.popModal, onDismiss: {viewModel.popModal = false}) {
                 if let busking = viewModel.selectedBusking {
-                    ArtistInfoModalView(viewModel: ArtistInfoModalViewModel(busking: busking))
-                        .presentationDetents([.height(UIScreen.getHeight(380))])
-                        .presentationDragIndicator(.visible)
+                    //                    ArtistInfoModalView(viewModel: ArtistInfoModalViewModel(busking: busking))
+                    //                        .presentationDetents([.height(UIScreen.getHeight(380))])
+                    //                        .presentationDragIndicator(.visible)
                 }
             }
         }

@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct EditArtistAcountView: View {
+        //MARK: -1.PROPERTY
     @EnvironmentObject var userAuth: AppleAuth
     
+    //MARK: -2.BODY
     var body: some View {
         ZStack(alignment: .topLeading) {
             backgroundView().ignoresSafeArea()
@@ -42,6 +44,7 @@ struct EditArtistAcountView: View {
     }
 }
 
+//MARK: -3.PREVIEW
 #Preview {
     EditArtistAcountView()
 }

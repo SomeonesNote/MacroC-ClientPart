@@ -41,33 +41,39 @@ struct ArtistPageView: View {
 //MARK: -4.EXTENSION
 extension ArtistPageView {
     var artistPageImage: some View {
-        Image(viewModel.artist.artistimage)
-            .resizable()
-            .scaledToFit()
+//        Image(viewModel.artist.artistImage)
+        AsyncImage(url: URL(string: viewModel.artist.artistImage)) { image in
+            image.resizable().aspectRatio(contentMode: .fit)
+        } placeholder: {
+            ProgressView()
+        }
+        .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth)
             .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
-            .overlay (
-                HStack(spacing: UIScreen.getWidth(10)){
-                    Button {
-                        UIApplication.shared.open(URL(string: viewModel.artist.youtube)!)
-                    } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
-                    
-                    Button {
-                        UIApplication.shared.open(URL(string: viewModel.artist.instagram)!)
-                    } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
-                    
-                    Button { } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
-                }
-                    .frame(height: UIScreen.getHeight(25))
-                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
-                ,alignment: .bottomTrailing )}
+        //            .overlay (
+        //                HStack(spacing: UIScreen.getWidth(10)){
+        //                    Button {
+        //                        UIApplication.shared.open(URL(string: viewModel.artist.youtube)!)
+        //                    } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+        //
+        //                    Button {
+        //                        UIApplication.shared.open(URL(string: viewModel.artist.instagram)!)
+        //                    } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+        //
+        //                    Button { } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+        //                }
+        //                    .frame(height: UIScreen.getHeight(25))
+        //                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
+        //                ,alignment: .bottomTrailing )
+    }
     
     var artistPageTitle: some View {
         return VStack{
-            Text(viewModel.artist.stagename)
+            Text(viewModel.artist.stageName)
                 .font(.custom40black())
                 .shadow(color: .black.opacity(1),radius: UIScreen.getWidth(9))
             
-            Text("Simple Imforamtion of This Artist")
+//            Text("Simple Imforamtion of This Artist")
+            Text(viewModel.artist.artistInfo)
                 .font(.custom13heavy())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
         }.padding(.bottom, UIScreen.getHeight(20))

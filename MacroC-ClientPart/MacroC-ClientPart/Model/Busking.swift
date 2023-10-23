@@ -9,20 +9,37 @@ import Foundation
 import MapKit
 
 struct Busking:  Identifiable, Codable {
-    //ArtistInfo
-    let id : Int
-    
-    //이거진짜 없어도 되나여
-    let artistname: String
-    let artistimage: String
-    
-    //TimeInfo
-    let buskingstarttime : Date
-    let buskingendtime : Date
-    
-    //LocationInfo
+    var id : Int
+    var BuskingStartTime : Date
+    var BuskingEndTime : Date
     var latitude: Double
     var longitude: Double
+    var BuskingInfo : String
     
-    let buskinginfo : String
+    init(
+        id: Int = 0,
+        BuskingStartTime: Date = Date(),
+        BuskingEndTime: Date = Date(),
+        latitude: Double = 0.0,
+        longitude: Double = 0.0,
+        BuskingInfo : String = ""
+    ) {
+        self.id = id
+        self.BuskingStartTime = BuskingStartTime
+        self.BuskingEndTime = BuskingEndTime
+        self.latitude = latitude
+        self.longitude = longitude
+        self.BuskingInfo = BuskingInfo
+    }
+}
+
+extension Busking {
+    init(from busking: Busking) {
+        self.id = busking.id
+        self.BuskingStartTime = busking.BuskingStartTime
+        self.BuskingEndTime = busking.BuskingEndTime
+        self.latitude = busking.latitude
+        self.longitude = busking.longitude
+        self.BuskingInfo = busking.BuskingInfo
+    }
 }

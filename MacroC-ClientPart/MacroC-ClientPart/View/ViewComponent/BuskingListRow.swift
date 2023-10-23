@@ -12,16 +12,16 @@ struct BuskingListRow: View {
     
     //MARK: -1.PROPERTY
     @State private var addressString: String = ""
-    var busking : Busking
+    var artist : Artist
     
     //MARK: -2.BODY
     var body: some View {
         HStack(spacing: UIScreen.getWidth(10)) {
-            CircleBlur(image: busking.artistimage, width: 120, strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
+            CircleBlur(image: artist.artistImage, width: 120, strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
                 .padding(.horizontal, UIScreen.getWidth(10))
             
             VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
-                Text(busking.artistname)
+                Text(artist.stageName)
                     .font(.custom22black())
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                     .padding(.bottom, UIScreen.getHeight(4))
@@ -54,7 +54,7 @@ struct BuskingListRow: View {
                 .padding(0)
         }
         .onAppear {
-            reverseGeo(busking: busking)
+            reverseGeo(busking: artist.buskings?.last ?? dummyBusking1)
         }
     }
 }
@@ -83,19 +83,31 @@ extension BuskingListRow {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "yyyy년 M월 d일"
-        return formatter.string(from: busking.buskingstarttime)
+        if let busking = artist.buskings?.last?.BuskingStartTime {
+            return formatter.string(from: busking)
+        }
+        return ""
     }
+    
+    
     func formatStartTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "a h시 mm분"
-        return formatter.string(from: busking.buskingstarttime)
+        if let busking = artist.buskings?.last?.BuskingStartTime{
+            return formatter.string(from: busking)
+        }
+        return ""
     }
+    
     func formatEndTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "h시 mm분"
-        return formatter.string(from: busking.buskingendtime)
+        if let busking = artist.buskings?.last?.BuskingEndTime{
+            return formatter.string(from: busking)
+        }
+        return ""
     }
     
 }

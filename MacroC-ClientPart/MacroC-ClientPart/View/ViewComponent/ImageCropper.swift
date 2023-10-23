@@ -140,9 +140,9 @@ struct CropView: View {
                             } label: {
                                 Image(systemName: "xmark")
                                     .font(.custom18semibold())
+                            }
                         }
                     }
-                }
             }
         }
     }
@@ -205,10 +205,10 @@ struct CropView: View {
                                     if !newValue{
                                         //storing last offset
                                         lastStoredOffset = offset
-                            }
+                                    }
+                                }
                         }
-                    }
-                }).frame(size)
+                    }).frame(size)
             }
         }
         .scaleEffect(scale)
@@ -223,7 +223,7 @@ struct CropView: View {
                     offset = CGSize(width: translation.width+lastStoredOffset.width, height: translation.height+lastStoredOffset.width)
                     print("offset ooooo")
                     print(offset)
-            })
+                })
         )
         .gesture(
             MagnificationGesture()
@@ -242,9 +242,9 @@ struct CropView: View {
                             lastScale = 0
                         }else{
                             lastScale = scale - 1
+                        }
                     }
-                }
-            })
+                })
         )
         .frame(cropSize)
         .cornerRadius(UIScreen.getWidth(5))

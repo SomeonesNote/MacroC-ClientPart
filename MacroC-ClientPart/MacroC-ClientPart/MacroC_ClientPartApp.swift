@@ -14,6 +14,7 @@ struct MacroC_ClientPartApp: App {
     
     let APIKey = "AIzaSyDF3d8OqWRipyjxQh7C2HF6KHn-C3YhSt8"
     @StateObject private var userAuth = AppleAuth()
+    @StateObject private var awsService = AwsService()
     
     init() {
         GMSServices.provideAPIKey(APIKey)
@@ -21,12 +22,20 @@ struct MacroC_ClientPartApp: App {
     }
     
     var body: some Scene {
-          WindowGroup {
-              if userAuth.showLoginView {
-                  SignInView() .environmentObject(userAuth)
-              } else {
-                  ContentView() .environmentObject(userAuth)
-              }
-          }
+        WindowGroup {
+            if awsService.isSignIn {
+                ContentView().environmentObject(awsService)
+            } else {
+                SignInView().environmentObject(awsService)
+            }
+        }
+        
+//          WindowGroup {
+//              if userAuth.showLoginView {
+//                  SignInView() .environmentObject(userAuth)
+//              } else {
+//                  ContentView() .environmentObject(userAuth)
+//              }
+//          }
       }
   }

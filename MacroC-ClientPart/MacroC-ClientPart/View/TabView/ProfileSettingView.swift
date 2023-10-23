@@ -10,7 +10,10 @@ import SwiftUI
 struct ProfileSettingView: View {
     
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel = ProfileSettingViewModel()
+    
+//    var artistProfileImage: UIImage = UIImage(resource: AsyncImage(url: URL(string: AwsService().userArtist.artistImage)))
     
     //MARK: -2.BODY
     var body: some View {
@@ -21,7 +24,7 @@ struct ProfileSettingView: View {
                 customDivider()
                 profileSetting
                 artistSetting
-                //                donationList
+                //  donationList
                 
                 customDivider()
                 notificationSetting
@@ -35,6 +38,9 @@ struct ProfileSettingView: View {
             }.background(backgroundView().ignoresSafeArea())
                 .navigationTitle("")
         }.fullScreenCover(isPresented: $viewModel.popArtistProfile) {ArtistProfileSettingView()}
+            .onAppear {
+                print(awsService.user)
+            }
     }
 }
 
@@ -47,9 +53,9 @@ struct ProfileSettingView: View {
 extension ProfileSettingView {
     var profileSection: some View {
         HStack(spacing: UIScreen.getWidth(20)) {
-            CircleBlur(image: viewModel.user.avatarUrl, width: 120)
+            CircleBlur(image: awsService.user.avatarUrl, width: 120)
             VStack(alignment: .leading) {
-                Text(viewModel.user.username)
+                Text(awsService.user.username)
                     .font(.custom20bold())
                 Text(" ")
                     .font(.custom13semibold())
@@ -64,7 +70,7 @@ extension ProfileSettingView {
     
     var profileSetting: some View {
         NavigationLink {
-            UserPageView(viewModel: UserPageViewModel(user: dummyUser))
+            UserPageView(viewModel: UserPageViewModel(user: awsService.user))
         } label: {
             Text("프로필 관리")
                 .font(.custom13bold())
@@ -75,7 +81,7 @@ extension ProfileSettingView {
     
     var artistSetting: some View {
         NavigationLink {
-            EditFollowingListView()
+            EditFollowingListView() // TODO: 팔로잉 연결하기
         } label: {
             Text("아티스트 관리")
                 .font(.custom13bold())
@@ -106,10 +112,11 @@ extension ProfileSettingView {
     }
     
     var artistAccount: some View {
-        Group {
-            if viewModel.isArtistAccount {
+        VStack(spacing: 0) {
+            if awsService.user.artist.stageName != "" {
                 Button {
                     viewModel.popArtistProfile = true
+                    print(awsService.user.artist.stageName)
                 } label: {
                     Text("아티스트 계정 전환")
                         .font(.custom13bold())
@@ -118,7 +125,7 @@ extension ProfileSettingView {
                 }
             } else {
                 NavigationLink {
-                    MainView()
+                    RegisterUserArtistView()
                 } label: {
                     Text("아티스트 계정 등록")
                         .font(.custom13bold())

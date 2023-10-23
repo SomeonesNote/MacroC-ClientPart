@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     
-    //MARK: -1.BODY
+    //MARK: -2.BODY
     var body: some View {
         
         TabView {
@@ -32,6 +34,15 @@ struct ContentView: View {
                 }
         }
         .onAppear {
+            awsService.getUserProfile { //유저프로필 가져오기
+                print("1.contentViewUser : \(awsService.user)")
+                print("2.userArtist : \(awsService.userArtist)")
+                
+                awsService.getFollowingList { //팔로우 리스트 가져오기
+                    print("3.following: \(awsService.following)") }}
+            awsService.getAllArtistList{
+                print("4.allArtist: \(awsService.allAtrist)")
+            }
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
@@ -39,7 +50,7 @@ struct ContentView: View {
     }
 }
 
-//MARK: -2.PREVIEW
+//MARK: -3.PREVIEW
 #Preview {
     ContentView()
 }

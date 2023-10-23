@@ -10,6 +10,7 @@ import SwiftUI
 struct ArtistProfileSettingView: View {
     
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService : AwsService
     @ObservedObject var viewModel = UserArtistProfileSettingViewModel()
     @Environment(\.dismiss) var dismiss
     
@@ -61,12 +62,12 @@ struct ArtistProfileSettingView: View {
 extension ArtistProfileSettingView {
     var profileSection: some View {
         HStack(spacing: UIScreen.getWidth(20)) {
-            CircleBlur(image: viewModel.userArtist.artistimage, width: 120)
+            CircleBlur(image: awsService.user.artist.artistImage, width: 120)
             
             VStack(alignment: .leading) {
-                Text(viewModel.userArtist.stagename)
+                Text(awsService.user.artist.stageName)
                     .font(.custom20bold())
-                Text(viewModel.userArtist.artistInfo)
+                Text(awsService.user.artist.artistInfo)
                     .font(.custom13semibold())
                     .padding(.bottom, UIScreen.getWidth(15))
                 HStack{
@@ -81,15 +82,15 @@ extension ArtistProfileSettingView {
     var firstSection: some View {
         VStack(alignment: .leading) {
             NavigationLink {
-                UserArtistPageView(viewModel: UserArtistPageViewModel(userArtist: dummyUserArtist))
+                UserArtistPageView()
             } label: {
                 Text("아티스트 페이지 관리")
                     .font(.custom13bold())
                     .padding(UIScreen.getWidth(20))
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
-//            Button {
-//                viewModel.popAddBusking = true
+            //            Button {
+            //                viewModel.popAddBusking = true
             NavigationLink {
                 AddBuskingPageView(viewModel: AddBuskingPageViewModel())
             } label: {

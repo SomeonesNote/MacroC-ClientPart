@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct ArtistListView: View {
-    
-    var artistList = dummyAllArtist
+    //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     let columns = Array(
         repeating: GridItem(.flexible(), spacing: 0),
         count: 3
     )
+    
+    //MARK: -2.BODY
     var body: some View {
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 0) {
-                ForEach(artistList.shuffled()) { i in
+                ForEach(awsService.allAtrist.shuffled()) { i in
                     NavigationLink {
                         ArtistPageView(viewModel: ArtistPageViewModel(artist: i))
                     } label: {
-                        ProfileRectangle(image: i.artistimage, name: i.stagename).scaleEffect(0.9)
+                        ProfileRectangle(image: i.artistImage, name: i.stageName).scaleEffect(0.9)
                     }
                 }
             }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
@@ -29,8 +31,10 @@ struct ArtistListView: View {
     }
 }
 
+//MARK: -3.PREVIEW
 #Preview {
     NavigationView {
         ArtistListView()
     }
 }
+

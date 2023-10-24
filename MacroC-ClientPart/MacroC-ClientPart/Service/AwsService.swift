@@ -23,6 +23,7 @@ class AwsService : ObservableObject {
     @Published var followingInt: [Int] = []
     @Published var allAtrist : [Artist] = [] // 모든 아티스트 리스트
     @Published var croppedImage: UIImage?                       //이거 아티스트이미지랑 유저이미지 분리할 필요가 없는지????
+    @Published var patchcroppedImage: UIImage?
     @Published var nowBuskingArtist : [Artist] = [] // 맵뷰 그리기 위해서 필요한 리스트
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
     @Published var popImagePicker: Bool = false
@@ -143,14 +144,14 @@ class AwsService : ObservableObject {
             "username" : self.user.username,
         ]
         
-        if !user.email.isEmpty && !user.username.isEmpty && !user.password.isEmpty {
+        if !user.username.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
+                if let imageData = self.patchcroppedImage?.jpegData(compressionQuality: 1) {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
-                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
+//                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+//                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                }
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
@@ -159,6 +160,7 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let patchData):
                     self.user = patchData
+                    print(patchData)
                     print("Patched successfully!")
                 case .failure(let error):
                     print("Error : \(error.localizedDescription)")

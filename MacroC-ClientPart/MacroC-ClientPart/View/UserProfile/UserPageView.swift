@@ -73,9 +73,12 @@ struct UserPageView: View {
                 viewModel.copppedImageData = data
                 viewModel.croppedImage = uiImage
                 viewModel.popImagePicker = false
-                awsService.croppedImage = viewModel.croppedImage
+                awsService.patchcroppedImage = viewModel.croppedImage
             }
         }
+//        .onChange(of: viewModel.croppedImage) { newValue in
+//            awsService.croppedImage = newValue
+//        }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationTitle("")
     }

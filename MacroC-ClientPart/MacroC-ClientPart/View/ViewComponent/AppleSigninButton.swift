@@ -34,17 +34,10 @@ struct AppleSigninButton : View{
                         // 계정 정보 가져오기
                         let UserIdentifier = appleIDCredential.user
                         let fullName = appleIDCredential.fullName
-                        let name =  (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
-                        let email = appleIDCredential.email
-                        let IdentityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)
-                        let AuthorizationCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
-                        
-                        print("UserIdentifier: \(UserIdentifier)")
-                        print("fullName: \(fullName)")
-                        print("name: \(name)")
-                        print("email: \(email)")
-                        print("IdentityToken: \(IdentityToken ?? "")")
-                        print("AuthorizationCode: \(AuthorizationCode)")
+                        _ =  (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
+                        _ = appleIDCredential.email
+                        _ = String(data: appleIDCredential.identityToken!, encoding: .utf8)
+                        _ = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
                         do {
                             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(UserIdentifier)
                             print("'\(UserIdentifier)' is saved on keychain")

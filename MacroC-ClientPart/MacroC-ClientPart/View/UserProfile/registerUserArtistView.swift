@@ -77,7 +77,7 @@ struct RegisterUserArtistView: View {
                 viewModel.copppedImageData = data
                 viewModel.croppedImage = uiImage
                 viewModel.popImagePicker = false
-                awsService.croppedImage = viewModel.croppedImage
+//                awsService.croppedImage = viewModel.croppedImage
             }
         }
         .toolbarBackground(.hidden, for: .navigationBar)

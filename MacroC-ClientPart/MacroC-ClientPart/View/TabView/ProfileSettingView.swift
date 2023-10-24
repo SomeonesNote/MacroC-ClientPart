@@ -70,7 +70,7 @@ extension ProfileSettingView {
     
     var profileSetting: some View {
         NavigationLink {
-            UserPageView(viewModel: UserPageViewModel(user: awsService.user))
+            UserPageView()
         } label: {
             Text("프로필 관리")
                 .font(.custom13bold())

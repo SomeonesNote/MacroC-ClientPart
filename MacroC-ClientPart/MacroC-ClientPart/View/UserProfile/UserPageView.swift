@@ -11,8 +11,8 @@ import PhotosUI
 struct UserPageView: View {
     
     //MARK: -1.PROPERTY
-    @EnvironmentObject var awsService: AwsService
-    @ObservedObject var viewModel: UserPageViewModel
+    @EnvironmentObject var awsService : AwsService
+    @ObservedObject var viewModel = UserPageViewModel()
     
     //MARK: -2.BODY
     var body: some View {
@@ -73,7 +73,7 @@ struct UserPageView: View {
                 viewModel.copppedImageData = data
                 viewModel.croppedImage = uiImage
                 viewModel.popImagePicker = false
-                awsService.patchcroppedImage = viewModel.croppedImage
+//                awsService.croppedImage = viewModel.croppedImage
             }
         }
 //        .onChange(of: viewModel.croppedImage) { newValue in
@@ -89,14 +89,14 @@ struct UserPageView: View {
 //MARK: -3.PREVIEW
 #Preview {
     NavigationView {
-        UserPageView(viewModel: UserPageViewModel(user: dummyUser))
+        UserPageView(viewModel: UserPageViewModel())
     }
 }
 
 //MARK: -4.EXTENSION
 extension UserPageView {
     var artistPageImage: some View {
-        AsyncImage(url: URL(string: viewModel.user.avatarUrl)) { image in
+        AsyncImage(url: URL(string: awsService.user.avatarUrl)) { image in
             image.resizable().aspectRatio(contentMode: .fit)
         } placeholder: {
             ProgressView()
@@ -140,17 +140,17 @@ extension UserPageView {
             .resizable()
             .scaledToFit()
             .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
-        //            .overlay (
-        //                HStack(spacing: UIScreen.getWidth(10)){
-        //                    Button { } label: { linkButton(name: YouTubeLogo) }
-        //
-        //                    Button { } label: { linkButton(name: InstagramLogo) }
-        //
-        //                    Button { } label: { linkButton(name: SoundCloudLogo) }
-        //                }
-        //                    .frame(height: UIScreen.getHeight(25))
-        //                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
-        //                ,alignment: .bottomTrailing )
+                    .overlay (
+                        HStack(spacing: UIScreen.getWidth(10)){
+                            Button { } label: { linkButton(name: YouTubeLogo) }
+        
+                            Button { } label: { linkButton(name: InstagramLogo) }
+        
+                            Button { } label: { linkButton(name: SoundCloudLogo) }
+                        }
+                            .frame(height: UIScreen.getHeight(25))
+                            .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
+                        ,alignment: .bottomTrailing )
             .overlay(alignment: .bottom) {
                 if viewModel.isEditMode {
                     PhotosPicker(
@@ -169,7 +169,7 @@ extension UserPageView {
     var userPageTitle: some View {
         return VStack{
             ZStack {
-                Text(viewModel.user.username)
+                Text(awsService.user.username)
                     .font(.custom40black())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -233,6 +233,7 @@ extension UserPageView {
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
+                awsService.croppedImage = viewModel.croppedImage
                 awsService.patchUserProfile()
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))

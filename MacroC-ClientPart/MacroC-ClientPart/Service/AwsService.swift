@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Alamofire
+import PhotosUI
 
 struct TokenResponse : Codable {
     let accessToken : String
@@ -15,19 +16,15 @@ struct TokenResponse : Codable {
 class AwsService : ObservableObject {
     
     @Published var user : User = User()
-//    @Published var userArtist : Artist = Artist()
     @Published var addBusking : Busking = Busking()
     @Published var targetBusking : Busking = Busking()
     @Published var myBuskingList : [Busking] = []
     @Published var following : [Artist] = [] // 유저가 팔로우한 리스트
     @Published var followingInt: [Int] = []
     @Published var allAtrist : [Artist] = [] // 모든 아티스트 리스트
-    @Published var croppedImage: UIImage?                       //이거 아티스트이미지랑 유저이미지 분리할 필요가 없는지????
-    @Published var patchcroppedImage: UIImage?
     @Published var nowBuskingArtist : [Artist] = [] // 맵뷰 그리기 위해서 필요한 리스트
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
-    @Published var popImagePicker: Bool = false
-    @Published var isLoading: Bool = false
+    @Published var croppedImage: UIImage?                       //이거 아티스트이미지랑 유저이미지 분리할 필요가 없는지????
     @Published var isCreatUserArtist: Bool = UserDefaults.standard.bool(forKey: "isCreatUserArtist")
     @Published var isSignIn : Bool = UserDefaults.standard.bool(forKey: "isSignIn") // 테스트 SignIn 테스트 유저 토큰 발행용
     @Published var usernameStatus: UsernameStatus = .empty
@@ -65,50 +62,45 @@ class AwsService : ObservableObject {
     
     
     //Add UserProfile
-    func postUserProfile(completion: @escaping () -> Void) {
-        
+//    func postUserProfile(completion: @escaping () -> Void) {
+//        let parameters: [String: String] = [
+//            "email" : self.user.email,
+//            "username" : self.user.username,
+//            "password" : self.user.password ]
+//        
+//        if !user.email.isEmpty && !user.username.isEmpty && !user.password.isEmpty {
+//            AF.upload(multipartFormData: { multipartFormData in
+//                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
+//                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                }
+//                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+//                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                }
+//                for (key, value) in parameters {
+//                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
+//                }
+//            }, to: "http://localhost:3000/auth/signup-with-image", method: .post)
+//            .responseDecodable(of: User.self) { response in
+//                switch response.result {
+//                case .success:
+//                    print("Signed up successfully!")
+//                    self.user = User()
+//                    //                    self.isPostProfile = true
+//                case .failure(let error):
+//                    print("Error : \(error.localizedDescription)")
+//                    //                    self.isPostProfile = false
+//                }
+//                completion()
+//            }
+//        }
+//    }
+    
+    //Login for get Token //배치완료
+    func testSignIn() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        let parameters: [String: String] = [
-            "email" : self.user.email,
-            "username" : self.user.username,
-            "password" : self.user.password ]
-        
-        if !user.email.isEmpty && !user.username.isEmpty && !user.password.isEmpty {
-            AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
-                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
-                for (key, value) in parameters {
-                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
-                }
-            }, to: "http://localhost:3000/auth/signup-with-image", method: .post)
-            .responseDecodable(of: User.self, decoder: decoder) { response in
-                switch response.result {
-                case .success:
-                    print("Signed up successfully!")
-                    self.user = User()
-                    //                    self.isPostProfile = true
-                case .failure(let error):
-                    print("Error : \(error.localizedDescription)")
-                    //                    self.isPostProfile = false
-                }
-                completion()
-            }
-        }
-    }
-    
-    //Login for get Token //배치완료
-    func testSignIn() {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-//        let decoder = JSONDecoder()
-//        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         let parameters: [String : String] = [
             "email": self.user.email,
             "password": self.user.password ]
@@ -140,22 +132,23 @@ class AwsService : ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        let userid : Int = self.user.id
         let parameters: [String: String] = [
             "username" : self.user.username,
         ]
         
         if !user.username.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.patchcroppedImage?.jpegData(compressionQuality: 1) {
+                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
-//                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-//                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-//                }
+                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+                }
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
-            }, to: "http://localhost:3000/auth/\(self.user.id)", method: .patch)
+            }, to: "http://localhost:3000/auth/\(userid)", method: .patch)
             .responseDecodable(of: User.self, decoder: decoder) { response in
                 switch response.result {
                 case .success(let patchData):
@@ -163,6 +156,7 @@ class AwsService : ObservableObject {
                     print(patchData)
                     print("Patched successfully!")
                 case .failure(let error):
+                    print(error)
                     print("Error : \(error.localizedDescription)")
                 }
             }
@@ -177,15 +171,14 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success :
                     self.getFollowingList {
-                    print("Followed")
-                }
+                        print("Followed")
+                    }
                 case .failure :
                     print("Error")
                 }
                 completion()
-        }
+            }
     }
-    
     
     //Following List //배치완료
     func getFollowingList(completion: @escaping () -> Void) {
@@ -208,7 +201,7 @@ class AwsService : ObservableObject {
                 }
                 completion()
             }
-        }
+    }
     
     //UnFollow //배치완료
     func unFollowing(userid: Int, artistid : Int, completion: @escaping () -> Void) {
@@ -217,7 +210,7 @@ class AwsService : ObservableObject {
             .response { response in
                 switch response.result {
                 case .success :
-                        self.getFollowingList {
+                    self.getFollowingList {
                         print("Unfollowed")
                     }
                 case .failure :
@@ -225,7 +218,7 @@ class AwsService : ObservableObject {
                 }
                 completion()
             }
-        }
+    }
     
     //Delete User Acount //배치완료
     func deleteUser() {
@@ -240,8 +233,8 @@ class AwsService : ObservableObject {
                     print("Delete Success!")
                 case .failure(let Error) :
                     print("Error : \(Error)")
+                }
             }
-        }
     }
     
     //Add User Artist ////
@@ -282,7 +275,7 @@ class AwsService : ObservableObject {
     //Get UserArtistProfilfe // 일단 지금 안쓸듯
     func getUserArtistProfile(completion: @escaping () -> Void) {
         let dateFormatter = DateFormatter()
-          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         AF.request("http://localhost:3000/artist/\(self.user.id)", method: .get)
@@ -297,19 +290,13 @@ class AwsService : ObservableObject {
                     print("Error : \(error)")
                 }
                 completion()
-        }
+            }
     }
-    
-    
-    
-    
-    
-    
     
     //Get All Artist List //배치완료
     func getAllArtistList(completion: @escaping () -> Void) {
         let dateFormatter = DateFormatter()
-          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         AF.request("http://localhost:3000/artist/All", method: .get)
@@ -322,9 +309,9 @@ class AwsService : ObservableObject {
                     print("allArtistData : \(allArtistData)")
                 case .failure(let error) :
                     print("Error : \(error)")
-            }
+                }
                 completion()
-        }
+            }
     }
     
     //Add Busking
@@ -334,7 +321,7 @@ class AwsService : ObservableObject {
         let artistid : Int = self.user.artist?.id ?? 0
         
         let dateFormatter = DateFormatter()
-          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         let buskingStartTimeString = dateFormatter.string(from: self.addBusking.BuskingStartTime)
@@ -358,14 +345,14 @@ class AwsService : ObservableObject {
                     print("Error : \(error)")
                 }
             }
-        }
+    }
     
     //Get My Busking List //??
     func getMyBuskingList() {
         let artistid : Int = self.user.artist?.id ?? 0
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
         let dateFormatter = DateFormatter()
-          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
@@ -380,13 +367,13 @@ class AwsService : ObservableObject {
                     print("Error : \(error)")
                 }
             }
-        }
+    }
     
     // 버스킹 아이디로 버스킹 가져오기 - 어디서 어떻게 써야할지 모르겠음(테이블이 만들어져있어서 우선 만들어 놓음)
     func getTargetBusking(tarGetBusking: Int) {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
         let dateFormatter = DateFormatter()
-          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
@@ -401,7 +388,7 @@ class AwsService : ObservableObject {
                     print("Error : \(error)")
                 }
             }
-        }
+    }
     
     //Delete Busking - 리스트 어레이에 인덱스번호를 인자로 받아서 id값을 사용함 - 아직 사용안됨!!
     func deleteBusking(at index: Int) {
@@ -417,7 +404,7 @@ class AwsService : ObservableObject {
                     print("Delete Success!")
                 case .failure(let error) :
                     print("Error : \(error)")
+                }
             }
-        }
     }
 }

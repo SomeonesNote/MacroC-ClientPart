@@ -10,20 +10,20 @@ import SwiftUI
 struct SignInView: View {
     
     //MARK: -1.PROPERTY
-    @EnvironmentObject var viewModel : AwsService
+    @EnvironmentObject var awsService : AwsService
     
     //MARK: -2.BODY
     var body: some View {
-        //        VStack(spacing: UIScreen.getWidth(80)) {
-        ////            Image(AppLogo)
-        ////                .resizable()
-        ////                .scaledToFit()
-        ////                .frame(height: UIScreen.getHeight(200))
-        ////                .cornerRadius(30)
-        //            AppleSigninButton().padding()
-        //                .offset(y: UIScreen.getHeight(240))
-        //                .shadow(color: .black.opacity(0.5) ,radius: UIScreen.getWidth(8))
-        //        }.background(backgroundView().ignoresSafeArea())
+//        VStack(spacing: UIScreen.getWidth(80)) {
+//            Image(AppLogo)
+//                .resizable()
+//                .scaledToFit()
+//                .frame(height: UIScreen.getHeight(200))
+//                .cornerRadius(30)
+//            AppleSigninButton().padding()
+//                .offset(y: UIScreen.getHeight(240))
+//                .shadow(color: .black.opacity(0.5) ,radius: UIScreen.getWidth(8))
+//        }.background(backgroundView().ignoresSafeArea())
         NavigationView {
             VStack(spacing: UIScreen.getWidth(6)) {
                 emailTextField
@@ -46,11 +46,10 @@ struct SignInView: View {
 
 //MARK: -4.EXTENSION
 extension SignInView {
-    
     var emailTextField: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
-                TextField("이메일주소를 입력하세요", text: $viewModel.user.email)
+                TextField("이메일주소를 입력하세요", text: $awsService.user.email)
                     .font(.custom14semibold())
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)
@@ -64,7 +63,7 @@ extension SignInView {
     var passwordTextField: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
-                TextField("비밀번호를 입력하세요", text: $viewModel.user.password)
+                TextField("비밀번호를 입력하세요", text: $awsService.user.password)
                     .font(.custom14semibold())
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)
@@ -77,7 +76,7 @@ extension SignInView {
     
     var signInbutton: some View {
         Button {
-            viewModel.testSignIn()
+            awsService.testSignIn()
         } label: {
             HStack{
                 Spacer()
@@ -85,11 +84,10 @@ extension SignInView {
                 Spacer()
             }
             .padding(UIScreen.getWidth(15))
-            .background(viewModel.user.username.isEmpty ?  Color.gray.opacity(0.3) : Color(appIndigo))
+            .background(awsService.user.username.isEmpty ?  Color.gray.opacity(0.3) : Color(appIndigo))
             .cornerRadius(6)
             .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-        }.disabled(viewModel.user.email.isEmpty || viewModel.user.password.isEmpty)
-        
+        }.disabled(awsService.user.email.isEmpty || awsService.user.password.isEmpty)
     }
     
     var addAcountbutton: some View {

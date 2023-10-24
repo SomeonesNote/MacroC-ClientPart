@@ -8,7 +8,7 @@ import SwiftUI
 import PhotosUI
 
 class UserPageViewModel: ObservableObject {
-    @Published var user: User
+    
     @Published var isEditMode: Bool = false
     @Published var selectedItem: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data?
@@ -28,10 +28,6 @@ class UserPageViewModel: ObservableObject {
     @Published var nameSaveOKModal: Bool = false
     @Published var infoSaveOKModal: Bool = false
 
-    init(user: User) {
-        self.user = user
-    }
-    
     func toggleEditMode() {
         isEditMode.toggle()
     }
@@ -47,4 +43,7 @@ class UserPageViewModel: ObservableObject {
         isEditMode = false
         //TODO: 세이브하는 거 구현
     }
+    
+    
+    
 }

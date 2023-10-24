@@ -11,6 +11,7 @@ import PhotosUI
 struct SignUpView: View {
     
     //MARK: -1.PROPERTY
+//    @EnvironmentObject var awsService : AwsService
     @ObservedObject var viewModel = LoginViewModel()
     
     //MARK: -2.BODY
@@ -21,6 +22,7 @@ struct SignUpView: View {
             Spacer()
             nameTextField
             infoTextField
+            passWordField
             signUpbutton
                 .padding(.bottom, UIScreen.getHeight(40))
         }
@@ -117,7 +119,21 @@ extension SignUpView {
     var infoTextField: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
-                TextField("상태메세지를 입력하세요", text: $viewModel.username)
+                TextField("이메일을 입력하세요", text: $viewModel.email)
+                    .font(.custom14semibold())
+                    .padding(UIScreen.getWidth(13))
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(6)
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+            }
+            Text(" ").font(.custom14semibold())
+        }
+    }
+    
+    var passWordField: some View {
+        VStack {
+            HStack(spacing: UIScreen.getWidth(8)){
+                TextField("비밀번호를 입력하세요", text: $viewModel.password)
                     .font(.custom14semibold())
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)

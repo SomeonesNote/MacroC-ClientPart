@@ -19,9 +19,7 @@ class UserArtistPageViewModel: ObservableObject {
     @Published var croppedImage: UIImage?
     @Published var isLoading: Bool = false
     
-    @Published var EditUsername: String = AwsService().userArtist.stageName
-    @Published var EditUserInfo: String = AwsService().userArtist.artistInfo
-    
+   
     //ModalButton
     @Published var socialSaveOKModal: Bool = false
     @Published var nameSaveOKModal: Bool = false

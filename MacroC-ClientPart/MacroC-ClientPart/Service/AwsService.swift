@@ -15,11 +15,12 @@ struct TokenResponse : Codable {
 class AwsService : ObservableObject {
     
     @Published var user : User = User()
-    @Published var userArtist : Artist = Artist()
+//    @Published var userArtist : Artist = Artist()
     @Published var addBusking : Busking = Busking()
     @Published var targetBusking : Busking = Busking()
     @Published var myBuskingList : [Busking] = []
     @Published var following : [Artist] = [] // 유저가 팔로우한 리스트
+    @Published var followingInt: [Int] = []
     @Published var allAtrist : [Artist] = [] // 모든 아티스트 리스트
     @Published var croppedImage: UIImage?
     @Published var nowBuskingArtist : [Artist] = [] // 맵뷰 그리기 위해서 필요한 리스트
@@ -36,26 +37,7 @@ class AwsService : ObservableObject {
         case available
     }
     
-    //Get UserProfile
-    //    func getUserProfile(completion: @escaping () -> Void) {
-    //        let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
-    //        AF.request("http://localhost:3000/auth/profile", method: .post, headers: headers)
-    //            .validate()
-    //            .responseDecodable(of: User.self) { response in
-    //                switch response.result {
-    //                case .success(let userData) :
-    //                    self.user = userData
-    //                    self.userArtist = userData.artist
-    //                    debugPrint("debugPrint\(response)")
-    //                    print("**userdata : \(userData)")
-    //                    print("**user: \(self.user)")
-    //                case .failure(let error) :
-    //                    print("Error : \(error)")
-    //                }
-    //                completion()
-    //        }
-    //    }
-    //
+    //Get Profile
     func getUserProfile(completion: @escaping () -> Void) {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
         let dateFormatter = DateFormatter()
@@ -68,11 +50,11 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let userData) :
                     self.user = userData
-                    self.userArtist = userData.artist
+                    if userData.artist == nil {
+                        self.user.artist = Artist(id: 0, stageName: "", artistInfo: "", genres: "", members: [], buskings: [])
+                    }
                     print("1.userdata : \(userData)")
-                    print("2.user : \(userData)")
-                    print("3.userArtist : \(userData.artist)")
-                    
+                    print("2.user : \(self.user)")
                 case .failure(let error) :
                     print("Error : \(error)")
                 }
@@ -82,12 +64,16 @@ class AwsService : ObservableObject {
     
     
     //Add UserProfile
-    func postUserProfile() {
+    func postUserProfile(completion: @escaping () -> Void) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         let parameters: [String: String] = [
             "email" : self.user.email,
             "username" : self.user.username,
-            "password" : self.user.password
-        ]
+            "password" : self.user.password ]
         
         if !user.email.isEmpty && !user.username.isEmpty && !user.password.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
@@ -101,7 +87,7 @@ class AwsService : ObservableObject {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
             }, to: "http://localhost:3000/auth/signup-with-image", method: .post)
-            .response { response in
+            .responseDecodable(of: User.self, decoder: decoder) { response in
                 switch response.result {
                 case .success:
                     print("Signed up successfully!")
@@ -111,19 +97,20 @@ class AwsService : ObservableObject {
                     print("Error : \(error.localizedDescription)")
                     //                    self.isPostProfile = false
                 }
+                completion()
             }
         }
     }
     
     //Login for get Token
     func testSignIn() {
-        
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+//        let decoder = JSONDecoder()
+//        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         let parameters: [String : String] = [
-            
             "email": self.user.email,
-            "password": self.user.password
-            
-        ]
+            "password": self.user.password ]
         
         AF.request("http://localhost:3000/auth/signin", method: .post, parameters: parameters)
             .responseDecodable(of: TokenResponse.self) { response in
@@ -148,7 +135,10 @@ class AwsService : ObservableObject {
     
     //Edit UserProfile
     func patchUserProfile() {
-        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         let parameters: [String: String] = [
             "username" : self.user.username,
         ]
@@ -165,7 +155,7 @@ class AwsService : ObservableObject {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
             }, to: "http://localhost:3000/auth/\(self.user.id)", method: .patch)
-            .responseDecodable(of: User.self) { response in
+            .responseDecodable(of: User.self, decoder: decoder) { response in
                 switch response.result {
                 case .success(let patchData):
                     self.user = patchData
@@ -178,19 +168,22 @@ class AwsService : ObservableObject {
     }
     
     //Follow
-    func following(artistid : Int) {
-        AF.request("http://localhost:3000/user-following/\(self.user.id)/follow/\(artistid)", method: .post)
+    func following(userid: Int, artistid : Int, completion: @escaping () -> Void) {
+        AF.request("http://localhost:3000/user-following/\(userid)/follow/\(artistid)", method: .post)
             .validate()
             .response { response in
                 switch response.result {
                 case .success :
-                    debugPrint(response)
-                    print("Followed!!")
+                    self.getFollowingList {
+                    print("Followed")
+                }
                 case .failure :
                     print("Error")
                 }
-            }
+                completion()
+        }
     }
+    
     
     //Following List
     func getFollowingList(completion: @escaping () -> Void) {
@@ -204,28 +197,33 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let followingData) :
                     self.following = followingData
+                    self.followingInt = self.following.map {$0.id}
                     debugPrint(response)
                     print("followingData : \(self.following)")
+                    print("followingInt : \(self.followingInt)")
                 case .failure(let error) :
                     print("Error \(error)")
                 }
                 completion()
             }
-    }
+        }
     
     //UnFollow
-    func unFollowing(artistid : Int) {
-        AF.request("http://localhost:3000/user-following/\(self.user.id)/unfollow/\(artistid)", method: .delete)
+    func unFollowing(userid: Int, artistid : Int, completion: @escaping () -> Void) {
+        AF.request("http://localhost:3000/user-following/\(userid)/unfollow/\(artistid)", method: .delete)
             .validate()
             .response { response in
                 switch response.result {
                 case .success :
-                    print("Unfollowed")
+                        self.getFollowingList {
+                        print("Unfollowed")
+                    }
                 case .failure :
                     print("Error")
                 }
+                completion()
             }
-    }
+        }
     
     //Delete User Acount
     func deleteUser() {
@@ -244,16 +242,16 @@ class AwsService : ObservableObject {
         }
     }
     
-    //Add User Artist
-    func postUserArtist() {
+    //Add User Artist ////
+    func postUserArtist(completion: @escaping () -> Void) {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
         let parameters: [String: String] = [
-            "stageName" : self.userArtist.stageName,
-            "genres" : self.userArtist.genres,
-            "artistInfo" : self.userArtist.artistInfo
+            "stageName" : self.user.artist?.stageName ?? "",
+            "genres" : self.user.artist?.genres ?? "",
+            "artistInfo" : self.user.artist?.artistInfo ?? ""
         ]
         
-        if !userArtist.stageName.isEmpty && !userArtist.genres.isEmpty && !userArtist.artistInfo.isEmpty {
+        if ((user.artist?.stageName.isEmpty) == nil) && ((user.artist?.genres.isEmpty) == nil) && ((user.artist?.artistInfo.isEmpty) == nil) {
             AF.upload(multipartFormData: { multipartFormData in
                 if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
@@ -275,19 +273,22 @@ class AwsService : ObservableObject {
                     print("Error : \(error.localizedDescription)")
                 }
             }
+            completion()
         }
     }
     
     //Get UserArtistProfilfe // 일단 지금 안쓸듯
     func getUserArtistProfile(completion: @escaping () -> Void) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         AF.request("http://localhost:3000/artist/\(self.user.id)", method: .get)
             .validate()
-            .responseDecodable(of: Artist.self) { response in
+            .responseDecodable(of: Artist.self, decoder: decoder) { response in
                 switch response.result {
                 case .success(let userArtistData) :
-                    self.userArtist = userArtistData
+                    self.user.artist = userArtistData
                     debugPrint(response)
                     print("userArtistdata : \(userArtistData)")
                 case .failure(let error) :
@@ -328,8 +329,12 @@ class AwsService : ObservableObject {
     func postBusking() {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
         
+        let artistid : Int = self.user.artist?.id ?? 0
+        
         let dateFormatter = DateFormatter()
           dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         let buskingStartTimeString = dateFormatter.string(from: self.addBusking.BuskingStartTime)
         let buskingEndTimeString = dateFormatter.string(from: self.addBusking.BuskingEndTime)
         
@@ -341,9 +346,9 @@ class AwsService : ObservableObject {
             "latitude" : self.addBusking.latitude
         ]
         
-        AF.request("http://localhost:3000/busking/register/\(self.userArtist.id)", method: .post, parameters: parameters, headers: headers)
+        AF.request("http://localhost:3000/busking/register/\(artistid)", method: .post, parameters: parameters, headers: headers)
             .validate()
-            .response { response in
+            .responseDecodable(of: Busking.self ,decoder: decoder) { response in
                 switch response.result {
                 case .success :
                     print("Busking Registing Complite")
@@ -351,15 +356,20 @@ class AwsService : ObservableObject {
                     print("Error : \(error)")
                 }
             }
-    }
+        }
     
     //Get My Busking List
     func getMyBuskingList() {
+        let artistid : Int = self.user.artist?.id ?? 0
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
+        let dateFormatter = DateFormatter()
+          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
-        AF.request("http://localhost:3000/busking/getAll/\(self.userArtist.id)", method: .get, headers: headers)
+        AF.request("http://localhost:3000/busking/getAll/\(artistid)", method: .get, headers: headers)
             .validate()
-            .responseDecodable(of: [Busking].self) { response in
+            .responseDecodable(of: [Busking].self, decoder: decoder) { response in
                 switch response.result {
                 case .success(let myBuskingData) :
                     self.myBuskingList = myBuskingData
@@ -368,7 +378,7 @@ class AwsService : ObservableObject {
                     print("Error : \(error)")
                 }
             }
-    }
+        }
     
     // 버스킹 아이디로 버스킹 가져오기 - 어디서 어떻게 써야할지 모르겠음(테이블이 만들어져있어서 우선 만들어 놓음)
     func getTargetBusking(tarGetBusking: Int) {
@@ -377,8 +387,6 @@ class AwsService : ObservableObject {
           dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
-//        let decoder = JSONDecoder()
-//        decoder.dateDecodingStrategy = .iso8601
         
         AF.request("http://localhost:3000/busking/\(tarGetBusking)", method: .get, headers: headers)
             .validate()
@@ -391,16 +399,14 @@ class AwsService : ObservableObject {
                     print("Error : \(error)")
                 }
             }
-    }
+        }
     
     //Delete Busking - 리스트 어레이에 인덱스번호를 인자로 받아서 id값을 사용함 - 아직 사용안됨!!
     func deleteBusking(at index: Int) {
         guard index >= 0 && index < myBuskingList.count else {
             print("Invalid index")
-            return
-        }
+            return }
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
-        
         AF.request("http://localhost:3000/busking/\(self.myBuskingList[index].id)", method: .delete, headers: headers)
             .validate()
             .response { response in
@@ -409,7 +415,7 @@ class AwsService : ObservableObject {
                     print("Delete Success!")
                 case .failure(let error) :
                     print("Error : \(error)")
-                }
             }
+        }
     }
 }

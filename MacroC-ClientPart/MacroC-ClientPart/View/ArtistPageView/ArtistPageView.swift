@@ -10,11 +10,12 @@ import SwiftUI
 struct ArtistPageView: View {
     
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel: ArtistPageViewModel
+    @State var isfollowing: Bool = false
     
     //MARK: -2.BODY
     var body: some View {
-        
         ScrollView(showsIndicators: false) {
             VStack(spacing: UIScreen.getWidth(5)) {
                 
@@ -30,25 +31,23 @@ struct ArtistPageView: View {
         .background(backgroundView())
         .ignoresSafeArea()
         .toolbarBackground(.hidden, for: .navigationBar)
+        .onAppear{
+            isfollowing = awsService.followingInt.contains(viewModel.artist.id)
+        }
     }
-}
-
-//MARK: -3.PREVIEW
-#Preview {
-    ArtistPageView(viewModel: ArtistPageViewModel(artist: dummyArtist2))
 }
 
 //MARK: -4.EXTENSION
 extension ArtistPageView {
     var artistPageImage: some View {
-//        Image(viewModel.artist.artistImage)
+        //        Image(viewModel.artist.artistImage)
         AsyncImage(url: URL(string: viewModel.artist.artistImage)) { image in
             image.resizable().aspectRatio(contentMode: .fit)
         } placeholder: {
             ProgressView()
         }
         .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth)
-            .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
+        .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
         //            .overlay (
         //                HStack(spacing: UIScreen.getWidth(10)){
         //                    Button {
@@ -71,8 +70,6 @@ extension ArtistPageView {
             Text(viewModel.artist.stageName)
                 .font(.custom40black())
                 .shadow(color: .black.opacity(1),radius: UIScreen.getWidth(9))
-            
-//            Text("Simple Imforamtion of This Artist")
             Text(viewModel.artist.artistInfo)
                 .font(.custom13heavy())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
@@ -80,8 +77,22 @@ extension ArtistPageView {
     }
     
     var artistPageFollowButton: some View {
-        Button { } label: {
-            Text("Follow")
+        Button {
+            if awsService.followingInt.contains(viewModel.artist.id) == false {
+                awsService.following(userid: awsService.user.id, artistid: viewModel.artist.id) { // 팔로우하는 함수
+                    awsService.getFollowingList(completion: {
+                        print("isfollow: \(isfollowing)")
+                    })
+                }
+            } else {
+                awsService.unFollowing(userid: awsService.user.id, artistid: viewModel.artist.id) { // 언팔하는 함수
+                    awsService.getFollowingList(completion: {
+                        print("isfollow: \(isfollowing)")
+                    })
+                }
+            }
+        } label: {
+            Text(isfollowing ? "Unfollow" : "Follow")
                 .font(.custom21black())
                 .padding(.init(top: UIScreen.getHeight(7), leading: UIScreen.getHeight(30), bottom: UIScreen.getHeight(7), trailing: UIScreen.getHeight(30)))
                 .background{ Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(2)) }

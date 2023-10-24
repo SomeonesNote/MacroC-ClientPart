@@ -12,7 +12,9 @@ import CoreLocation
 struct AddBuskingMapView: UIViewRepresentable {
     
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel: AddBuskingPageViewModel
+    
     
     func makeUIView(context: Context) -> GMSMapView {
         
@@ -85,7 +87,7 @@ struct AddBuskingMapView: UIViewRepresentable {
                 self.marker = marker
 
                 
-                let markerImage = UIImageView(image: UIImage(named: self.parent.viewModel.userArtist.artistImage))
+                let markerImage = UIImageView(image: UIImage(named: parent.awsService.user.artist?.artistImage ?? ""))
 //                let markerImage = UIImageView(image: UII)
                 let customMarker = UIImageView(image: UIImage(named: "markerpin"))
                 

@@ -14,13 +14,13 @@ struct User: Codable {
     var email: String
     var password: String
     var avatarUrl : String
-    var artist : Artist
+    var artist : Artist?
     
     init(id: Int = 0,
-    username: String = "",
-    email: String = "",
-    password: String = "",
-    avatarUrl : String = "",
+         username: String = "",
+         email: String = "",
+         password: String = "",
+         avatarUrl : String = "",
          artist : Artist = Artist()
     ) {
         self.id = id

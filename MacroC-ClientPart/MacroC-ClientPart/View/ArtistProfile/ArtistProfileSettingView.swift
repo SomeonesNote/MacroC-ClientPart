@@ -62,12 +62,12 @@ struct ArtistProfileSettingView: View {
 extension ArtistProfileSettingView {
     var profileSection: some View {
         HStack(spacing: UIScreen.getWidth(20)) {
-            CircleBlur(image: awsService.user.artist.artistImage, width: 120)
+            CircleBlur(image: awsService.user.artist?.artistImage ?? "", width: 120)
             
             VStack(alignment: .leading) {
-                Text(awsService.user.artist.stageName)
+                Text(awsService.user.artist?.stageName ?? "")
                     .font(.custom20bold())
-                Text(awsService.user.artist.artistInfo)
+                Text(awsService.user.artist?.artistInfo ?? "")
                     .font(.custom13semibold())
                     .padding(.bottom, UIScreen.getWidth(15))
                 HStack{

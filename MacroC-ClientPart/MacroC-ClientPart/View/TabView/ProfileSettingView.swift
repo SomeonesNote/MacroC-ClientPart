@@ -113,10 +113,10 @@ extension ProfileSettingView {
     
     var artistAccount: some View {
         VStack(spacing: 0) {
-            if awsService.user.artist.stageName != "" {
+            if awsService.user.artist?.stageName != "" {
                 Button {
                     viewModel.popArtistProfile = true
-                    print(awsService.user.artist.stageName)
+                    print(awsService.user.artist?.stageName ?? "shit")
                 } label: {
                     Text("아티스트 계정 전환")
                         .font(.custom13bold())

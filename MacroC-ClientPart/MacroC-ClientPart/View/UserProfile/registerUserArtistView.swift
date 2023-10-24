@@ -14,7 +14,8 @@ struct RegisterUserArtistView: View {
     @EnvironmentObject var awsService: AwsService
     
     @ObservedObject var viewModel = UserArtistPageViewModel()
-    
+    @State var EditUsername: String = ""
+    @State var EditUserInfo: String = ""
     @State var emptyText: String = ""
     
     //MARK: -2.BODY
@@ -76,6 +77,7 @@ struct RegisterUserArtistView: View {
                 viewModel.copppedImageData = data
                 viewModel.croppedImage = uiImage
                 viewModel.popImagePicker = false
+                awsService.croppedImage = viewModel.croppedImage
             }
         }
         .toolbarBackground(.hidden, for: .navigationBar)
@@ -95,32 +97,32 @@ struct RegisterUserArtistView: View {
 //MARK: -4.EXTENSION
 extension RegisterUserArtistView {
     var artistPageImage: some View {
-        //        Image(viewModel.userArtist.artistimage)
-        AsyncImage(url: URL(string: awsService.userArtist.artistImage)) { image in
-            image.resizable().aspectRatio(contentMode: .fit)
-        } placeholder: {
-            ProgressView()
-        }
+        Image("UserBlank").resizable().scaledToFit()
+//        AsyncImage(url: URL(string: awsService.user.artist?.artistImage ?? "")) { image in
+//            image.resizable().aspectRatio(contentMode: .fit)
+//        } placeholder: {
+//            ProgressView()
+//        }
         .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth)
         .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
-        .overlay (
-            HStack(spacing: UIScreen.getWidth(10)){
-                Button { } label: { linkButton(name: YouTubeLogo) }
-                
-                Button { } label: { linkButton(name: InstagramLogo) }
-                
-                Button { } label: { linkButton(name: SoundCloudLogo) }
-                
-                Button {viewModel.isEditSocial = true} label: {
-                    if viewModel.isEditMode == true {
-                        Image(systemName: "pencil.circle.fill")
-                            .font(.custom20semibold())
-                    } else { }
-                }
-            }
-                .frame(height: UIScreen.getHeight(25))
-                .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
-            ,alignment: .bottomTrailing )
+//        .overlay (
+//            HStack(spacing: UIScreen.getWidth(10)){
+//                Button { } label: { linkButton(name: YouTubeLogo) }
+//                
+//                Button { } label: { linkButton(name: InstagramLogo) }
+//                
+//                Button { } label: { linkButton(name: SoundCloudLogo) }
+//                
+//                Button {viewModel.isEditSocial = true} label: {
+//                    if viewModel.isEditMode == true {
+//                        Image(systemName: "pencil.circle.fill")
+//                            .font(.custom20semibold())
+//                    } else { }
+//                }
+//            }
+//                .frame(height: UIScreen.getHeight(25))
+//                .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
+//            ,alignment: .bottomTrailing )
         .overlay(alignment: .bottom) {
             if viewModel.isEditMode {
                 Button{
@@ -170,7 +172,7 @@ extension RegisterUserArtistView {
         return VStack{
             ZStack {
                 //                Text(viewModel.userArtist.stageName)
-                Text(awsService.userArtist.stageName)
+                Text(EditUsername != "" ? EditUsername : "Artist Name")
                     .font(.custom40black())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -188,7 +190,7 @@ extension RegisterUserArtistView {
             }
             ZStack {
                 //                Text(viewModel.EditUserInfo)
-                Text(awsService.userArtist.artistInfo)
+                Text(EditUserInfo != "" ? EditUserInfo : "Insert Artist Info")
                     .font(.custom13heavy())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -206,15 +208,7 @@ extension RegisterUserArtistView {
         
     }
     
-    var artistPageFollowButton: some View {
-        Button { } label: {
-            Text("Follow")
-                .font(.custom21black())
-                .padding(.init(top: UIScreen.getHeight(7), leading: UIScreen.getHeight(30), bottom: UIScreen.getHeight(7), trailing: UIScreen.getHeight(30)))
-                .background{ Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(2)) }
-                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-        }
-    }
+  
     
     var firstToolbarItem: some View {
         if viewModel.isEditMode {
@@ -245,12 +239,23 @@ extension RegisterUserArtistView {
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
+                awsService.croppedImage = viewModel.croppedImage
+                awsService.user.artist?.stageName = EditUsername
+                awsService.user.artist?.genres = ""
+                awsService.user.artist?.artistInfo = EditUserInfo
+                awsService.postUserArtist{
+                    print("postUserArtist Success")
+                }
+                awsService.getUserProfile {
+                    print("postUserArtist Success")
+                }
+                print(awsService.user.artist.debugDescription)
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
             })
         } else {
             return AnyView(Button{
-                viewModel.isEditMode = true
+//                awsService.postUserArtist()
             } label: {
                 toolbarButtonLabel(buttonLabel: "Edit").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
             })
@@ -336,7 +341,7 @@ extension RegisterUserArtistView {
                     .padding(.leading, UIScreen.getWidth(3))
                 Text("User Name").font(.custom14semibold())
             }
-            TextField("", text: $viewModel.EditUsername)
+            TextField("", text: $EditUsername)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -344,6 +349,9 @@ extension RegisterUserArtistView {
             //editNameSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
+                awsService.user.artist?.stageName = EditUsername
+
+                print("awsService.user.artist?.stageName: \(String(describing: awsService.user.artist?.stageName))")
                 //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {
@@ -380,7 +388,7 @@ extension RegisterUserArtistView {
                     .padding(.leading, UIScreen.getWidth(3))
                 Text("User Info").font(.custom14semibold())
             }
-            TextField("", text: $viewModel.EditUserInfo)
+            TextField("", text: $EditUserInfo)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -388,6 +396,8 @@ extension RegisterUserArtistView {
             //editInfoSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
+                awsService.user.artist?.artistInfo = EditUserInfo
+                print("awsService.user.artist?.artistInfo: \(String(describing: awsService.user.artist?.artistInfo))")
                 //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {

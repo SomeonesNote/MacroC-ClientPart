@@ -15,6 +15,9 @@ struct UserArtistPageView: View {
     @ObservedObject var viewModel = UserArtistPageViewModel()
     @State var emptyText: String = ""
     
+    @State var EditUsername: String = ""
+    @State var EditUserInfo: String = ""
+    
     //MARK: -2.BODY
     var body: some View {
         ZStack {
@@ -77,6 +80,10 @@ struct UserArtistPageView: View {
                 viewModel.popImagePicker = false
             }
         }
+        .onAppear {
+            EditUsername = awsService.user.artist?.stageName ?? ""
+            EditUserInfo = awsService.user.artist?.artistInfo ?? ""
+        }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationTitle("")
     }
@@ -95,7 +102,7 @@ struct UserArtistPageView: View {
 extension UserArtistPageView {
     var artistPageImage: some View {
         //        Image(viewModel.userArtist.artistimage)
-        AsyncImage(url: URL(string: awsService.userArtist.artistImage)) { image in
+        AsyncImage(url: URL(string: awsService.user.artist?.artistImage ?? "")) { image in
             image.resizable().aspectRatio(contentMode: .fit)
         } placeholder: {
             ProgressView()
@@ -172,7 +179,7 @@ extension UserArtistPageView {
     var artistPageTitle: some View {
         return VStack{
             ZStack {
-                Text(awsService.userArtist.stageName)
+                Text(EditUsername)
                     .font(.custom40black())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -189,7 +196,7 @@ extension UserArtistPageView {
                 }
             }
             ZStack {
-                Text(awsService.userArtist.artistInfo)
+                Text(EditUserInfo)
                     .font(.custom13heavy())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -337,7 +344,7 @@ extension UserArtistPageView {
                     .padding(.leading, UIScreen.getWidth(3))
                 Text("User Name").font(.custom14semibold())
             }
-            TextField("", text: $viewModel.EditUsername)
+            TextField("", text: $EditUsername)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -381,7 +388,7 @@ extension UserArtistPageView {
                     .padding(.leading, UIScreen.getWidth(3))
                 Text("User Info").font(.custom14semibold())
             }
-            TextField("", text: $viewModel.EditUserInfo)
+            TextField("", text: $EditUserInfo)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)

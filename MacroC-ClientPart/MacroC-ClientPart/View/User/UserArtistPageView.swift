@@ -80,10 +80,10 @@ struct UserArtistPageView: View {
                 viewModel.popImagePicker = false
             }
         }
-        .onAppear {
-            EditUsername = awsService.user.artist?.stageName ?? ""
-            EditUserInfo = awsService.user.artist?.artistInfo ?? ""
-        }
+//        .onAppear {
+//            EditUsername = awsService.user.artist?.stageName ?? ""
+//            EditUserInfo = awsService.user.artist?.artistInfo ?? ""
+//        }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationTitle("")
     }
@@ -179,7 +179,7 @@ extension UserArtistPageView {
     var artistPageTitle: some View {
         return VStack{
             ZStack {
-                Text(EditUsername)
+                Text(awsService.user.artist?.stageName ?? "")
                     .font(.custom40black())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -196,7 +196,7 @@ extension UserArtistPageView {
                 }
             }
             ZStack {
-                Text(EditUserInfo)
+                Text(awsService.user.artist?.artistInfo ?? "")
                     .font(.custom13heavy())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -253,6 +253,7 @@ extension UserArtistPageView {
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
+//                awsService.// 이거 유저아티스트 내용 변경하는거 없네;;;
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
             })
@@ -352,6 +353,7 @@ extension UserArtistPageView {
             //editNameSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
+                awsService.user.artist?.stageName = EditUsername // awsService에 값 할당
                 //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {
@@ -396,6 +398,7 @@ extension UserArtistPageView {
             //editInfoSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
+                awsService.user.artist?.artistInfo = EditUserInfo
                 //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {

@@ -33,6 +33,7 @@ struct EditUserAcountView: View {
                 Button {
                     awsService.isSignIn = false
                     UserDefaults.standard.set(false, forKey: "isSignIn")
+                    awsService.deleteUser()
                     try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
                     print("탈퇴")
                 } label: {

@@ -239,7 +239,6 @@ extension RegisterUserArtistView {
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
-                awsService.croppedImage = viewModel.croppedImage
                 awsService.user.artist?.stageName = EditUsername
                 awsService.user.artist?.genres = ""
                 awsService.user.artist?.artistInfo = EditUserInfo

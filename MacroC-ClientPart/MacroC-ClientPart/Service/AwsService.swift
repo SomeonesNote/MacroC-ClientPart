@@ -22,7 +22,8 @@ class AwsService : ObservableObject {
     @Published var following : [Artist] = [] // 유저가 팔로우한 리스트
     @Published var followingInt: [Int] = []
     @Published var allAtrist : [Artist] = [] // 모든 아티스트 리스트
-    @Published var croppedImage: UIImage?
+    @Published var croppedImage: UIImage?                       //이거 아티스트이미지랑 유저이미지 분리할 필요가 없는지????
+    @Published var patchcroppedImage: UIImage?
     @Published var nowBuskingArtist : [Artist] = [] // 맵뷰 그리기 위해서 필요한 리스트
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
     @Published var popImagePicker: Bool = false
@@ -37,7 +38,7 @@ class AwsService : ObservableObject {
         case available
     }
     
-    //Get Profile
+    //Get Profile //배치완료
     func getUserProfile(completion: @escaping () -> Void) {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
         let dateFormatter = DateFormatter()
@@ -102,7 +103,7 @@ class AwsService : ObservableObject {
         }
     }
     
-    //Login for get Token
+    //Login for get Token //배치완료
     func testSignIn() {
 //        let dateFormatter = DateFormatter()
 //        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -143,14 +144,14 @@ class AwsService : ObservableObject {
             "username" : self.user.username,
         ]
         
-        if !user.email.isEmpty && !user.username.isEmpty && !user.password.isEmpty {
+        if !user.username.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
+                if let imageData = self.patchcroppedImage?.jpegData(compressionQuality: 1) {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
-                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
+//                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+//                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                }
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
@@ -159,6 +160,7 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let patchData):
                     self.user = patchData
+                    print(patchData)
                     print("Patched successfully!")
                 case .failure(let error):
                     print("Error : \(error.localizedDescription)")
@@ -167,7 +169,7 @@ class AwsService : ObservableObject {
         }
     }
     
-    //Follow
+    //Follow //배치완료
     func following(userid: Int, artistid : Int, completion: @escaping () -> Void) {
         AF.request("http://localhost:3000/user-following/\(userid)/follow/\(artistid)", method: .post)
             .validate()
@@ -185,7 +187,7 @@ class AwsService : ObservableObject {
     }
     
     
-    //Following List
+    //Following List //배치완료
     func getFollowingList(completion: @escaping () -> Void) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -208,7 +210,7 @@ class AwsService : ObservableObject {
             }
         }
     
-    //UnFollow
+    //UnFollow //배치완료
     func unFollowing(userid: Int, artistid : Int, completion: @escaping () -> Void) {
         AF.request("http://localhost:3000/user-following/\(userid)/unfollow/\(artistid)", method: .delete)
             .validate()
@@ -225,7 +227,7 @@ class AwsService : ObservableObject {
             }
         }
     
-    //Delete User Acount
+    //Delete User Acount //배치완료
     func deleteUser() {
         AF.request("http://localhost:3000/auth/\(self.user.id)", method: .delete)
             .validate()
@@ -304,8 +306,8 @@ class AwsService : ObservableObject {
     
     
     
-    //Get All Artist List
-    func getAllArtistList(completion: @escaping () -> Void) { 
+    //Get All Artist List //배치완료
+    func getAllArtistList(completion: @escaping () -> Void) {
         let dateFormatter = DateFormatter()
           dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
@@ -358,7 +360,7 @@ class AwsService : ObservableObject {
             }
         }
     
-    //Get My Busking List
+    //Get My Busking List //??
     func getMyBuskingList() {
         let artistid : Int = self.user.artist?.id ?? 0
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]

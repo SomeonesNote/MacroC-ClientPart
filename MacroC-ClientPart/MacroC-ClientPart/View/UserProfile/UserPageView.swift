@@ -11,6 +11,7 @@ import PhotosUI
 struct UserPageView: View {
     
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel: UserPageViewModel
     
     //MARK: -2.BODY
@@ -72,8 +73,12 @@ struct UserPageView: View {
                 viewModel.copppedImageData = data
                 viewModel.croppedImage = uiImage
                 viewModel.popImagePicker = false
+                awsService.patchcroppedImage = viewModel.croppedImage
             }
         }
+//        .onChange(of: viewModel.croppedImage) { newValue in
+//            awsService.croppedImage = newValue
+//        }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationTitle("")
     }
@@ -228,6 +233,7 @@ extension UserPageView {
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
+                awsService.patchUserProfile()
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
             })
@@ -327,6 +333,7 @@ extension UserPageView {
             //editNameSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
+                awsService.user.username = viewModel.EditUsername
                 //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {
@@ -371,6 +378,7 @@ extension UserPageView {
             //editInfoSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
+                                                //UserInfo 없애야하나;;;;
                 //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {

@@ -30,7 +30,6 @@ class UserPageViewModel: ObservableObject {
     @Published var nameSaveOKModal: Bool = false
     @Published var infoSaveOKModal: Bool = false
 
-    
     func toggleEditMode() {
         isEditMode.toggle()
     }
@@ -46,4 +45,7 @@ class UserPageViewModel: ObservableObject {
         isEditMode = false
         //TODO: 세이브하는 거 구현
     }
+    
+    
+    
 }

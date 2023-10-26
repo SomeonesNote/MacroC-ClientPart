@@ -159,7 +159,7 @@ extension UserPageView {
                                 Image(systemName: "camera.circle.fill")
                                     .font(.custom40bold())
                                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-                            }
+                           }
                     }
                 }
         }
@@ -231,7 +231,7 @@ extension UserPageView {
                                 viewModel.isEditName = false
                                 viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
-               
+
                 awsService.patchcroppedImage = viewModel.croppedImage
                 awsService.patchUserProfile()
             } label: {

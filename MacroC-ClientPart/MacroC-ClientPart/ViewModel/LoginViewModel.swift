@@ -17,9 +17,14 @@ class LoginViewModel: ObservableObject {
     @Published var isSingedIn: Bool = false
     @Published var accessToken: String? = KeychainItem.currentUserIdentifier
     @Published var user: User?
+    
+    @Published var selectedPhotoData: Data?
+    @Published var copppedImageData: Data?
+    @Published var selectedItem: PhotosPickerItem? = nil
+    @Published var croppedImage: UIImage?
+   
     @Published var isLoading: Bool = false
     @Published var popImagePicker: Bool = false
-    @Published var croppedImage: UIImage?
     @Published var usernameStatus: UsernameStatus = .empty // 중복확인
     
     enum UsernameStatus {
@@ -27,6 +32,7 @@ class LoginViewModel: ObservableObject {
         case duplicated
         case available
     }
+
     
     func signUp() {
         let parameters: [String: String] = [

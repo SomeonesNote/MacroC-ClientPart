@@ -40,7 +40,7 @@ struct GooglePlacesSearch: UIViewControllerRepresentable {
         }
 
         func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didFailAutocompleteWithError error: Error) {
-            print("Error: \(error.localizedDescription)")
+            print("GooglePlacesSearch.resultsController.error: \(error.localizedDescription)")
         }
     }
 }

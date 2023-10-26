@@ -12,10 +12,10 @@ struct MainView: View{
     //MARK: - 1.PROPERTY
     @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel = MainViewModel()
-    var following: [Artist] = []
-    var nowBusking: [Busking] = []
-//    var following: [Artist] = dummyEmptyFollowing
-//    var nowBusking: [Busking] = dummyBuskingEmpty
+    var myArtistBusking : [Artist] {
+        return awsService.following.filter { $0.buskings != nil && !$0.buskings!.isEmpty }
+    }
+    
     
     //MARK: - 2.BODY
     var body: some View {
@@ -33,9 +33,9 @@ struct MainView: View{
     }
 }
 //MARK: - 3.PREVIEW
-#Preview {
-    MainView()
-}
+//#Preview {
+//    MainView()
+//}
 
 //MARK: - 4.EXTENSION
 extension MainView {
@@ -99,7 +99,7 @@ extension MainView {
             }.padding(UIScreen.getWidth(20))
             
             VStack(spacing: UIScreen.getWidth(15)) {
-                if nowBusking.isEmpty {      //TODO: nowBusking처리해야함
+                if myArtistBusking.isEmpty {
                     HStack(alignment: .center, spacing: UIScreen.getWidth(8)) {
                         Spacer()
                         Image(systemName: "plus.circle.fill").font(.custom20semibold())
@@ -117,23 +117,28 @@ extension MainView {
                                 .foregroundColor(Color.white.opacity(0.1))
                                 .padding(0)
                         }
+                } else {
+                    ScrollView(.vertical, showsIndicators: true) {
+                        VStack(spacing: 20) {
+                            ForEach(myArtistBusking, id: \.id) { artist in
+                                ForEach(artist.buskings!, id: \.id) { busking in
+                                    BuskingListRow(artist: artist, busking: busking)
+                                        .onTapGesture {
+                                            viewModel.selectedArtist = artist
+                                            viewModel.selectedBusking = busking
+                                            viewModel.popBuskingModal = true
+                                        }
+                                        .sheet(isPresented: $viewModel.popBuskingModal, onDismiss: {viewModel.popBuskingModal = false}) {
+                                            MapBuskingModalView(viewModel: MapBuskingModalViewModel(artist: viewModel.selectedArtist,busking: viewModel.selectedBusking))
+                                                .presentationDetents([.medium])
+                                                .presentationDragIndicator(.visible)
+                                        }
+                                }
+                            }
+                        }
+                    }
                 }
-//                else {
-//                    ForEach(nowBusking) { i in
-//                        BuskingListRow(busking: i)
-//                            .onTapGesture {
-//                                viewModel.selectedBusking = i
-//                                viewModel.popBuskingModal = true
-//                            }
-//                            .sheet(isPresented: $viewModel.popBuskingModal, onDismiss: {viewModel.popBuskingModal = false}) {
-//                                MapBuskingModalView(viewModel: MapBuskingModalViewModel(busking: viewModel.selectedBusking))
-//                                    .presentationDetents([.medium])
-//                                    .presentationDragIndicator(.visible)
-//                            }
-//                    }
-//                }
-            }
+            } .padding(.init(top: 0, leading: UIScreen.getWidth(5), bottom:  UIScreen.getWidth(120), trailing:  UIScreen.getWidth(5)))
         }
-        .padding(.init(top: 0, leading: UIScreen.getWidth(5), bottom:  UIScreen.getWidth(120), trailing:  UIScreen.getWidth(5)))
     }
 }

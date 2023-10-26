@@ -51,13 +51,10 @@ struct EditFollowingListView: View {
                     Button {
                         isEditMode.toggle()
                     } label: {
-                        toolbarButtonLabel(buttonLabel: isEditMode ? "완료" : "수정")
+                        toolbarButtonLabel(buttonLabel: isEditMode ? "Done" : "Edit")
                     }
                 }
             }
-        //            .alert("ddd", isPresented: $deleteAlert) {
-        //                Text("ddfad")
-        //            }
             .alert(isPresented: $deleteAlert) {
                 Alert(title: Text(""), message: Text("Do you want to unfollow?"), primaryButton: .destructive(Text("Unfollow"), action: {
                     //TODO: 팔로우 리스트에서 삭제

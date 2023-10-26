@@ -47,6 +47,6 @@ struct ProfileRectangle: View {
 }
 
 //MARK: -1.PREVIEW
-#Preview {
-    MainView()
-}
+//#Preview {
+//    MainView()
+//}

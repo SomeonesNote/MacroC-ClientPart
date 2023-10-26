@@ -10,6 +10,7 @@ import SwiftUI
 struct EditUserAcountView: View {
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
+    @State var showDeleteAlert: Bool = false
     
     //MARK: -2.BODY
     var body: some View {
@@ -22,7 +23,7 @@ struct EditUserAcountView: View {
                     awsService.isSignIn = false //로그인뷰로 돌아가기
                     UserDefaults.standard.set(false, forKey: "isSignIn")
                     try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
-                    print("Log Out : delete User Identifier From Keychain")
+                    print("EditUserAcountView.Log Out : delete User Identifier From Keychain")
                 } label: {
                     Text("로그아웃")
                         .font(.custom13bold())
@@ -31,11 +32,7 @@ struct EditUserAcountView: View {
                 }
                 //탈퇴
                 Button {
-                    awsService.isSignIn = false
-                    UserDefaults.standard.set(false, forKey: "isSignIn")
-                    awsService.deleteUser()
-                    try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
-                    print("탈퇴")
+                   showDeleteAlert = true
                 } label: {
                     Text("탈퇴")
                         .foregroundStyle(Color(appRed))
@@ -44,6 +41,16 @@ struct EditUserAcountView: View {
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
             }.padding(.top, UIScreen.getHeight(100))
+                .alert(isPresented: $showDeleteAlert) {
+                    Alert(title: Text(""), message: Text("Are you sure you want to delete your account?"), primaryButton: .destructive(Text("Delete"), action: {
+                        awsService.deleteUser() // 서버에서 유저 지워버리기
+                        awsService.isSignIn = false
+                        UserDefaults.standard.set(false, forKey: "isSignIn")
+                        try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
+                        print("탈퇴완료")
+                        showDeleteAlert = true
+                    }), secondaryButton: .cancel(Text("Cancle")))
+                }
         }
     }
 }

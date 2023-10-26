@@ -24,7 +24,7 @@ struct ProfileSettingView: View {
                 customDivider()
                 profileSetting
                 artistSetting
-                //  donationList
+//                donationList
                 
                 customDivider()
                 notificationSetting
@@ -38,9 +38,6 @@ struct ProfileSettingView: View {
             }.background(backgroundView().ignoresSafeArea())
                 .navigationTitle("")
         }.fullScreenCover(isPresented: $viewModel.popArtistProfile) {ArtistProfileSettingView()}
-            .onAppear {
-                print(awsService.user)
-            }
     }
 }
 
@@ -90,16 +87,17 @@ extension ProfileSettingView {
         }
     }
     
-    var donationList: some View {
-        NavigationLink {
-            DonationListView()
-        } label: {
-            Text("후원 목록")
-                .font(.custom13bold())
-                .padding(UIScreen.getWidth(20))
-                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-        }
-    }
+//    var donationList: some View {
+//        NavigationLink {
+////            DonationListView()
+//            ApiTest()
+//        } label: {
+//            Text("후원 목록")
+//                .font(.custom13bold())
+//                .padding(UIScreen.getWidth(20))
+//                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+//        }
+//    }
     
     var notificationSetting: some View {
         Toggle(isOn: $viewModel.switchNotiToggle, label: {
@@ -116,7 +114,6 @@ extension ProfileSettingView {
             if awsService.user.artist?.stageName != "" {
                 Button {
                     viewModel.popArtistProfile = true
-                    print(awsService.user.artist?.stageName ?? "shit")
                 } label: {
                     Text("아티스트 계정 전환")
                         .font(.custom13bold())

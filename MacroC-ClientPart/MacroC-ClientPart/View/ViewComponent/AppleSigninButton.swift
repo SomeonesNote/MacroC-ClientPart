@@ -34,23 +34,25 @@ struct AppleSigninButton : View{
                         // 계정 정보 가져오기
                         let UserIdentifier = appleIDCredential.user
                         let fullName = appleIDCredential.fullName
-                        _ =  (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
-                        _ = appleIDCredential.email
-                        _ = String(data: appleIDCredential.identityToken!, encoding: .utf8)
-                        _ = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
+                        let name =  (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
+                        let email = appleIDCredential.email
+                        let IdentityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)
+                        let AuthorizationCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
+                        
+                        print("AppleSigninButton.UserIdentifier : \(UserIdentifier)")
+                        print("AppleSigninButton.IdentityToken : \(IdentityToken ?? "")")
                         do {
                             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(UserIdentifier)
                             print("'\(UserIdentifier)' is saved on keychain")
                             userAuth.showLoginView = false
                         } catch {
-                            print("Unable to save userIdentifier to keychain.")
+                            print("AppleSigninButton.error : Unable to save userIdentifier to keychain.")
                         }
                     default:
                         break
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
-                    print("error")
+                    print("AppleSigninButton.error : \(error.localizedDescription)")
                 }
             }
         )

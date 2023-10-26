@@ -37,6 +37,10 @@
 		070F6BE32ADAC8B000328570 /* PopOverText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BE22ADAC8B000328570 /* PopOverText.swift */; };
 		070F6BE72ADB1BCD00328570 /* mainpageTitleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BE62ADB1BCD00328570 /* mainpageTitleModifier.swift */; };
 		076744922AE574910053E413 /* AwsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076744912AE574910053E413 /* AwsService.swift */; };
+		076744942AE76A440053E413 /* ApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076744932AE76A440053E413 /* ApiTest.swift */; };
+		076744962AE779AD0053E413 /* ApiTestBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076744952AE779AD0053E413 /* ApiTestBox.swift */; };
+		076744982AE7B05E0053E413 /* PhotoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076744972AE7B05E0053E413 /* PhotoTest.swift */; };
+		0767449D2AE9DD780053E413 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0767449C2AE9DD780053E413 /* AlamofireImage */; };
 		07FBF2882ACF5223004EF174 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* LoginViewModel.swift */; };
 		07FBF28B2ACFF90B004EF174 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpView.swift */; };
 		07FD2BE62AD32D4B0030865A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD2BE52AD32D4B0030865A /* MainViewModel.swift */; };
@@ -118,6 +122,9 @@
 		070F6BE22ADAC8B000328570 /* PopOverText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverText.swift; sourceTree = "<group>"; };
 		070F6BE62ADB1BCD00328570 /* mainpageTitleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainpageTitleModifier.swift; sourceTree = "<group>"; };
 		076744912AE574910053E413 /* AwsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwsService.swift; sourceTree = "<group>"; };
+		076744932AE76A440053E413 /* ApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTest.swift; sourceTree = "<group>"; };
+		076744952AE779AD0053E413 /* ApiTestBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTestBox.swift; sourceTree = "<group>"; };
+		076744972AE7B05E0053E413 /* PhotoTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTest.swift; sourceTree = "<group>"; };
 		07FBF2872ACF5223004EF174 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		07FBF2892ACFD143004EF174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07FBF28A2ACFF90B004EF174 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -180,6 +187,7 @@
 				F613F93D2ADE9D4700649BD8 /* GoogleMapsBase in Frameworks */,
 				F613F9432ADE9D4700649BD8 /* GooglePlaces in Frameworks */,
 				070658FD2ADE6AED00FD1B00 /* (null) in Frameworks */,
+				0767449D2AE9DD780053E413 /* AlamofireImage in Frameworks */,
 				F613F9462ADE9D5100649BD8 /* Alamofire in Frameworks */,
 				F613F93B2ADE9D4700649BD8 /* GoogleMaps in Frameworks */,
 				070658F92ADE6AED00FD1B00 /* (null) in Frameworks */,
@@ -287,6 +295,9 @@
 			isa = PBXGroup;
 			children = (
 				076744912AE574910053E413 /* AwsService.swift */,
+				076744932AE76A440053E413 /* ApiTest.swift */,
+				076744952AE779AD0053E413 /* ApiTestBox.swift */,
+				076744972AE7B05E0053E413 /* PhotoTest.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -465,6 +476,7 @@
 				F613F9402ADE9D4700649BD8 /* GoogleMapsM4B */,
 				F613F9422ADE9D4700649BD8 /* GooglePlaces */,
 				F613F9452ADE9D5100649BD8 /* Alamofire */,
+				0767449C2AE9DD780053E413 /* AlamofireImage */,
 			);
 			productName = "MacroC-ClientPart";
 			productReference = F62B8A702ACED1B80077CA17 /* MacroC-ClientPart.app */;
@@ -497,6 +509,7 @@
 			packageReferences = (
 				F613F9392ADE9D4700649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */,
 				F613F9442ADE9D5100649BD8 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				0767449B2AE9DD780053E413 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = F62B8A712ACED1B80077CA17 /* Products */;
 			projectDirPath = "";
@@ -544,10 +557,12 @@
 				070F6BE32ADAC8B000328570 /* PopOverText.swift in Sources */,
 				F62B8A742ACED1B80077CA17 /* MacroC_ClientPartApp.swift in Sources */,
 				F62B8ACF2ACED8550077CA17 /* MapViewSearchBar.swift in Sources */,
+				076744962AE779AD0053E413 /* ApiTestBox.swift in Sources */,
 				F62B8A9F2ACED4830077CA17 /* ArtistPageView.swift in Sources */,
 				F62B8AE52ACED9690077CA17 /* Busking.swift in Sources */,
 				F62B8AAC2ACED5260077CA17 /* ArtistProfileSettingView.swift in Sources */,
 				F62B8AE32ACED95B0077CA17 /* Artist.swift in Sources */,
+				076744982AE7B05E0053E413 /* PhotoTest.swift in Sources */,
 				0707172F2AD9428D00B72319 /* ProfileSettingViewModel.swift in Sources */,
 				070717352AD942E300B72319 /* UIScreen.swift in Sources */,
 				F62B8A972ACED4070077CA17 /* LoginView.swift in Sources */,
@@ -565,6 +580,7 @@
 				07FBF28B2ACFF90B004EF174 /* SignUpView.swift in Sources */,
 				070717382AD9430A00B72319 /* AppleAuth.swift in Sources */,
 				F62B8AE12ACED9500077CA17 /* User.swift in Sources */,
+				076744942AE76A440053E413 /* ApiTest.swift in Sources */,
 				F62B8ABB2ACED6410077CA17 /* ArtistInfoModalView.swift in Sources */,
 				F62B8AC02ACED6F30077CA17 /* AddBuskingMapView.swift in Sources */,
 				F62B8AE92ACED9890077CA17 /* DummyData.swift in Sources */,
@@ -838,6 +854,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0767449B2AE9DD780053E413 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.0;
+			};
+		};
 		F613F9392ADE9D4700649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/YAtechnologies/GoogleMaps-SP";
@@ -857,6 +881,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0767449C2AE9DD780053E413 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0767449B2AE9DD780053E413 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
+		};
 		F613F93A2ADE9D4700649BD8 /* GoogleMaps */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F613F9392ADE9D4700649BD8 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;

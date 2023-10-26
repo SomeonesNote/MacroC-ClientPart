@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Artist: Identifiable ,Codable {
+struct Artist: Identifiable, Codable {
     
     var id: Int
     var stageName : String

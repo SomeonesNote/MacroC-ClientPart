@@ -221,8 +221,7 @@ struct CropView: View {
                 }).onChanged({ value in
                     let translation = value.translation
                     offset = CGSize(width: translation.width+lastStoredOffset.width, height: translation.height+lastStoredOffset.width)
-                    print("offset ooooo")
-                    print(offset)
+                    print("CropView.translation.offset : \(offset)")
                 })
         )
         .gesture(
@@ -233,8 +232,7 @@ struct CropView: View {
                     let updatedScale = value + lastScale
                     //limiting Beyond 1
                     scale = (updatedScale < 1 ? 1 : updatedScale)
-                    print(scale)
-                    print("above is scale")
+                    print("CropView.translation.scale : \(scale)")
                 }).onEnded({ valuea in
                     withAnimation(.easeInOut(duration: 0.02)){
                         if scale < 1 {

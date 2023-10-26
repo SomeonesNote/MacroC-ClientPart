@@ -10,10 +10,12 @@ import CoreLocation
 
 class MapBuskingModalViewModel: ObservableObject {
     @Published var isClickedLike: Bool = false
+    @Published var artist: Artist
     @Published var busking: Busking
     @Published var addressString: String = ""
 
-    init(busking: Busking) {
+    init(artist: Artist, busking: Busking) {
+        self.artist = artist
         self.busking = busking
         reverseGeo(busking: busking)
     }

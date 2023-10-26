@@ -152,7 +152,7 @@ struct KeychainItem {
         do {
             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").deleteItem()
         } catch {
-            print("Unable to delete userIdentifier from keychain")
+            print("Keychain.deleteUserIdentifierFromKeychain.error : Unable to delete userIdentifier from keychain")
         }
     }
 }

@@ -12,7 +12,14 @@ import GooglePlaces
 class MapViewModel: ObservableObject {
     @Published var text: String = ""
     @Published var popModal: Bool = false
+    
+    @Published var selectedArtist: Artist? = nil
     @Published var selectedBusking: Busking? = nil
+    
+    @Published var buskingStartTime: Date = Date()
+    @Published var buskingEndTime: Date = Date()
+    @Published var BuskingInfo: String = ""
+    
     @Published var address: String = "Enter the place."
     @Published var showSearchbar: Bool = false
     @Published var showAutocompleteModal: Bool = false
@@ -21,7 +28,6 @@ class MapViewModel: ObservableObject {
     @Published var results: [GMSAutocompletePrediction] = []
     
     
-    let buskings: [Busking] = dummyBuskingNow
     private var fetcher: GMSAutocompleteFetcher
     private var coordinator: Coordinator
     
@@ -43,7 +49,7 @@ class MapViewModel: ObservableObject {
         let placesClient = GMSPlacesClient.shared()
         placesClient.lookUpPlaceID(placeID) { (place, error) in
             if let error = error {
-                print("Error: \(error.localizedDescription)")
+                print("MapViewModel.getPlaceCoordinate.error: \(error.localizedDescription)")
                 return
             }
             if let place = place {
@@ -61,7 +67,45 @@ class MapViewModel: ObservableObject {
         }
         
         func didFailAutocompleteWithError(_ error: Error) {
-            print("Error: \(error.localizedDescription)")
+            print("MapViewModel.getPlaceCoordinate.error: \(error.localizedDescription)")
         }
+    }
+    
+    func formatDate() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy년 M월 d일"
+        if let busking = selectedBusking?.BuskingStartTime {
+            return formatter.string(from: busking)
+        }
+        return ""
+    }
+
+    
+    func formatStartTime() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "a h시 mm분"
+        if let busking = selectedBusking?.BuskingStartTime{
+            return formatter.string(from: busking)
+        }
+        return ""
+    }
+    
+    func formatEndTime() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "h시 mm분"
+        if let busking = selectedBusking?.BuskingEndTime{
+            return formatter.string(from: busking)
+        }
+        return ""
+    }
+    
+    func makeBuskingTime() -> String{
+        let startTime = formatStartTime()
+        let endTime = formatEndTime()
+        
+        return "\(startTime) ~ \(endTime)"
     }
 }

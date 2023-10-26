@@ -12,7 +12,7 @@ struct UserPageView: View {
     
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
-    @ObservedObject var viewModel: UserPageViewModel
+    @ObservedObject var viewModel = UserPageViewModel()
     
     //MARK: -2.BODY
     var body: some View {
@@ -28,7 +28,7 @@ struct UserPageView: View {
             if viewModel.isEditName || viewModel.isEditInfo {
                 Color.black.opacity(0.1)
                     .onTapGesture {
-                        //                        viewModel.isEditSocial = false
+            //                        viewModel.isEditSocial = false
                         viewModel.isEditName = false
                         viewModel.isEditInfo = false
                     }
@@ -60,7 +60,9 @@ struct UserPageView: View {
             ToolbarItem(placement: .topBarTrailing) { firstToolbarItem.opacity(viewModel.isEditName || viewModel.isEditInfo ? 0 : 1) }
             ToolbarItem(placement: .topBarTrailing) { secondToolbarItem.opacity(viewModel.isEditName || viewModel.isEditInfo ? 0 : 1) }
         }
+//        .photosPicker(isPresented: $viewModel.popImagePicker, selection: $viewModel.selectedItem)
         .cropImagePicker(show: $viewModel.popImagePicker, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
+        
         .onChange(of: viewModel.selectedItem) { newItem in
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
@@ -73,12 +75,8 @@ struct UserPageView: View {
                 viewModel.copppedImageData = data
                 viewModel.croppedImage = uiImage
                 viewModel.popImagePicker = false
-                awsService.patchcroppedImage = viewModel.croppedImage
             }
         }
-//        .onChange(of: viewModel.croppedImage) { newValue in
-//            awsService.croppedImage = newValue
-//        }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationTitle("")
     }
@@ -89,14 +87,14 @@ struct UserPageView: View {
 //MARK: -3.PREVIEW
 #Preview {
     NavigationView {
-        UserPageView(viewModel: UserPageViewModel(user: dummyUser))
+        UserPageView()
     }
 }
 
 //MARK: -4.EXTENSION
 extension UserPageView {
     var artistPageImage: some View {
-        AsyncImage(url: URL(string: viewModel.user.avatarUrl)) { image in
+        AsyncImage(url: URL(string: awsService.user.avatarUrl)) { image in
             image.resizable().aspectRatio(contentMode: .fit)
         } placeholder: {
             ProgressView()
@@ -135,41 +133,41 @@ extension UserPageView {
         }
     }
     
-    var pickedImage: some View {
-        Image(uiImage: viewModel.croppedImage!)
-            .resizable()
-            .scaledToFit()
-            .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
-        //            .overlay (
-        //                HStack(spacing: UIScreen.getWidth(10)){
-        //                    Button { } label: { linkButton(name: YouTubeLogo) }
-        //
-        //                    Button { } label: { linkButton(name: InstagramLogo) }
-        //
-        //                    Button { } label: { linkButton(name: SoundCloudLogo) }
-        //                }
-        //                    .frame(height: UIScreen.getHeight(25))
-        //                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
-        //                ,alignment: .bottomTrailing )
-            .overlay(alignment: .bottom) {
-                if viewModel.isEditMode {
-                    PhotosPicker(
-                        //TODO: 사진첩 접근해서 사진 받는 거 구현
-                        selection: $viewModel.selectedItem,
-                        matching: .images,
-                        photoLibrary: .shared()) {
-                            Image(systemName: "camera.circle.fill")
-                                .font(.custom40bold())
-                                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-                        }
+        var pickedImage: some View {
+            Image(uiImage: viewModel.croppedImage!)
+                .resizable()
+                .scaledToFit()
+                .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
+            //            .overlay (
+            //                HStack(spacing: UIScreen.getWidth(10)){
+            //                    Button { } label: { linkButton(name: YouTubeLogo) }
+            //
+            //                    Button { } label: { linkButton(name: InstagramLogo) }
+            //
+            //                    Button { } label: { linkButton(name: SoundCloudLogo) }
+            //                }
+            //                    .frame(height: UIScreen.getHeight(25))
+            //                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
+            //                ,alignment: .bottomTrailing )
+                .overlay(alignment: .bottom) {
+                    if viewModel.isEditMode {
+                        PhotosPicker(
+                            //TODO: 사진첩 접근해서 사진 받는 거 구현
+                            selection: $viewModel.selectedItem,
+                            matching: .images,
+                            photoLibrary: .shared()) {
+                                Image(systemName: "camera.circle.fill")
+                                    .font(.custom40bold())
+                                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                            }
+                    }
                 }
-            }
-    }
+        }
     
     var userPageTitle: some View {
         return VStack{
             ZStack {
-                Text(viewModel.user.username)
+                Text(awsService.user.username)
                     .font(.custom40black())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -228,11 +226,13 @@ extension UserPageView {
         if viewModel.isEditMode {
             return AnyView(Button{
                 feedback.notificationOccurred(.success)
-                viewModel.isEditMode = false
-                //                viewModel.isEditSocial = false
-                viewModel.isEditName = false
-                viewModel.isEditInfo = false
+                                viewModel.isEditMode = false
+                                //                viewModel.isEditSocial = false
+                                viewModel.isEditName = false
+                                viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
+               
+                awsService.patchcroppedImage = viewModel.croppedImage
                 awsService.patchUserProfile()
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
@@ -378,7 +378,7 @@ extension UserPageView {
             //editInfoSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
-                                                //UserInfo 없애야하나;;;;
+                //UserInfo 없애야하나;;;;
                 //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {

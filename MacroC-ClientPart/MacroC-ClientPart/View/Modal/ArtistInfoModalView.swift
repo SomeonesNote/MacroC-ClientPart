@@ -20,18 +20,19 @@ struct ArtistInfoModalView: View {
             artistInfoImage
             buskingTime
             NavigationLink {
-                //                ArtistPageView(viewModel: ArtistPageViewModel(busker: viewModel.busking))
+                ArtistPageView(viewModel: ArtistPageViewModel(artist: viewModel.artist))
             } label: { sheetBoxText(text: "더보기").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)) }
-            Button { } label: { sheetBoxText(text: "찾아가기").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)) }
+            
+//            Button { } label: { sheetBoxText(text: "찾아가기").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)) }
         }.background(backgroundView())
     }
 }
 
 //MARK: -3.PREVIEW
-#Preview {
-    //    MapView()
-    ArtistInfoModalView(viewModel: ArtistInfoModalViewModel(busking: dummyArtist1))
-}
+//#Preview {
+//    //    MapView()
+//    ArtistInfoModalView(viewModel: ArtistInfoModalViewModel(busking: dummyArtist1))
+//}
 
 
 //MARK: -4. EXTENSION
@@ -46,7 +47,6 @@ extension ArtistInfoModalView {
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
         }
     }
-    
     var artistInfoToolbar: some View {
         HStack{
             Text(viewModel.artist.stageName)
@@ -56,7 +56,6 @@ extension ArtistInfoModalView {
             likeButton
         }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(15), bottom: UIScreen.getWidth(0), trailing: UIScreen.getWidth(15)))
     }
-    
     var artistInfoImage: some View {
         CircleBlur(image: viewModel.artist.artistImage, width: UIScreen.getWidth(120),strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
     }

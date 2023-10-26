@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "alamofireimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/AlamofireImage.git",
+      "state" : {
+        "revision" : "1eaf3b6c6882bed10f6e7b119665599dd2329aa1",
+        "version" : "4.3.0"
+      }
+    },
+    {
       "identity" : "googlemaps-sp",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/YAtechnologies/GoogleMaps-SP.git",

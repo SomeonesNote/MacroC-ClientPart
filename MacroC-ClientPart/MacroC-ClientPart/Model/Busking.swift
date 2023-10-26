@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import MapKit
 
-struct Busking:  Identifiable, Codable {
+struct Busking:  Identifiable, Codable , Hashable{
     var id : Int
     var BuskingStartTime : Date
     var BuskingEndTime : Date

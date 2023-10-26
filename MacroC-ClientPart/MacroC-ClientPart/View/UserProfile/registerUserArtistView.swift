@@ -77,7 +77,7 @@ struct RegisterUserArtistView: View {
                 viewModel.copppedImageData = data
                 viewModel.croppedImage = uiImage
                 viewModel.popImagePicker = false
-                awsService.croppedImage = viewModel.croppedImage
+                awsService.patchcroppedImage = viewModel.croppedImage
             }
         }
         .toolbarBackground(.hidden, for: .navigationBar)
@@ -239,16 +239,9 @@ extension RegisterUserArtistView {
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
-                awsService.user.artist?.stageName = EditUsername
-                awsService.user.artist?.genres = ""
-                awsService.user.artist?.artistInfo = EditUserInfo
-                awsService.postUserArtist{
-                    print("postUserArtist Success")
+                awsService.postUserArtist {
+                    print("registerUserArtist.success : \(awsService.user.artist.debugDescription)")
                 }
-                awsService.getUserProfile {
-                    print("postUserArtist Success")
-                }
-                print(awsService.user.artist.debugDescription)
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
             })

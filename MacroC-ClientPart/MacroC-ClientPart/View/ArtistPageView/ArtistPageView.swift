@@ -80,15 +80,11 @@ extension ArtistPageView {
         Button {
             if awsService.followingInt.contains(viewModel.artist.id) == false {
                 awsService.following(userid: awsService.user.id, artistid: viewModel.artist.id) { // 팔로우하는 함수
-                    awsService.getFollowingList(completion: {
-                        print("isfollow: \(isfollowing)")
-                    })
+                    awsService.getFollowingList(completion: { })
                 }
             } else {
                 awsService.unFollowing(userid: awsService.user.id, artistid: viewModel.artist.id) { // 언팔하는 함수
-                    awsService.getFollowingList(completion: {
-                        print("isfollow: \(isfollowing)")
-                    })
+                    awsService.getFollowingList(completion: { })
                 }
             }
         } label: {

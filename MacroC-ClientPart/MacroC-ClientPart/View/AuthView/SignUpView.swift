@@ -11,6 +11,7 @@ import PhotosUI
 struct SignUpView: View {
     
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel = LoginViewModel()
     
     //MARK: -2.BODY
@@ -19,15 +20,29 @@ struct SignUpView: View {
             Spacer()
             imagePicker
             Spacer()
-            nameTextField
-            infoTextField
+            emailTextField
+            passwordTextField
+            usernameTextField
             signUpbutton
                 .padding(.bottom, UIScreen.getHeight(40))
         }
         .cropImagePicker(show: $viewModel.popImagePicker, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
         .padding()
         .background(backgroundView().hideKeyboardWhenTappedAround())
-        
+        .onChange(of: viewModel.selectedItem) { newItem in
+            Task {
+                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                    viewModel.selectedPhotoData = data
+                }
+            }
+        }
+        .onChange(of: viewModel.selectedPhotoData) { newValue in
+            if let data = newValue, let uiImage = UIImage(data: data) {
+                viewModel.copppedImageData = data
+                viewModel.croppedImage = uiImage
+                viewModel.popImagePicker = false
+            }
+        }
     }
 }
 
@@ -71,10 +86,10 @@ extension SignUpView {
         }
     }
     
-    var nameTextField: some View {
+    var emailTextField: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
-                TextField("닉네임을 입력하세요", text: $viewModel.username)
+                TextField("E-mail을 입력하세요", text: $viewModel.email)
                     .font(.custom14semibold())
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)
@@ -114,10 +129,24 @@ extension SignUpView {
         }
     }
     
-    var infoTextField: some View {
+    var passwordTextField: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
-                TextField("상태메세지를 입력하세요", text: $viewModel.username)
+                TextField("Password를 입력하세요", text: $viewModel.password)
+                    .font(.custom14semibold())
+                    .padding(UIScreen.getWidth(13))
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(6)
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+            }
+            Text(" ").font(.custom14semibold())
+        }
+    }
+    
+    var usernameTextField: some View {
+        VStack {
+            HStack(spacing: UIScreen.getWidth(8)){
+                TextField("UserName을 입력하세요", text: $viewModel.username)
                     .font(.custom14semibold())
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)
@@ -130,7 +159,17 @@ extension SignUpView {
     
     var signUpbutton: some View {
         Button {
-            viewModel.signUp()
+            awsService.croppedImage = viewModel.croppedImage
+            awsService.user.email = viewModel.email
+            awsService.user.username = viewModel.username
+            awsService.user.password = viewModel.password
+            
+            awsService.postUserProfile {
+            }
+            
+            
+            
+            
         } label: {
             HStack{
                 Spacer()

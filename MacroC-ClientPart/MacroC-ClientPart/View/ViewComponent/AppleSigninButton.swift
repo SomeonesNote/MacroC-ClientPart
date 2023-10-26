@@ -39,25 +39,20 @@ struct AppleSigninButton : View{
                         let IdentityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)
                         let AuthorizationCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
                         
-                        print("UserIdentifier: \(UserIdentifier)")
-                        print("fullName: \(fullName)")
-                        print("name: \(name)")
-                        print("email: \(email)")
-                        print("IdentityToken: \(IdentityToken ?? "")")
-                        print("AuthorizationCode: \(AuthorizationCode)")
+                        print("AppleSigninButton.UserIdentifier : \(UserIdentifier)")
+                        print("AppleSigninButton.IdentityToken : \(IdentityToken ?? "")")
                         do {
                             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(UserIdentifier)
                             print("'\(UserIdentifier)' is saved on keychain")
                             userAuth.showLoginView = false
                         } catch {
-                            print("Unable to save userIdentifier to keychain.")
+                            print("AppleSigninButton.error : Unable to save userIdentifier to keychain.")
                         }
                     default:
                         break
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
-                    print("error")
+                    print("AppleSigninButton.error : \(error.localizedDescription)")
                 }
             }
         )

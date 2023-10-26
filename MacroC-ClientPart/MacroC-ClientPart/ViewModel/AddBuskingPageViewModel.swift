@@ -102,7 +102,7 @@ class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDele
     }
     
     func didFailAutocompleteWithError(_ error: Error) {
-        print("Error: \(error.localizedDescription)")
+        print("AddBuskingPageViewModel.didFailAutocompleteWithError.error: \(error.localizedDescription)")
     }
     
     func sourceTextHasChanged(_ newValue: String) {
@@ -113,7 +113,7 @@ class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDele
         let placesClient = GMSPlacesClient.shared()
         placesClient.lookUpPlaceID(placeID) { (place, error) in
             if let error = error {
-                print("Error: \(error.localizedDescription)")
+                print("AddBuskingPageViewModel.getPlaceCoordinate.error: \(error.localizedDescription)")
                 return
             }
             if let place = place {

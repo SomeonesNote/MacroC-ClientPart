@@ -13,6 +13,7 @@ struct BuskingListRow: View {
     //MARK: -1.PROPERTY
     @State private var addressString: String = ""
     var artist : Artist
+    var busking : Busking
     
     //MARK: -2.BODY
     var body: some View {
@@ -54,15 +55,15 @@ struct BuskingListRow: View {
                 .padding(0)
         }
         .onAppear {
-            reverseGeo(busking: artist.buskings?.last ?? dummyBusking1)
+            reverseGeo(busking: busking)
         }
     }
 }
 
 //MARK: -3.PREVIEW
-#Preview {
-    MainView(viewModel: MainViewModel())
-}
+//#Preview {
+//    MainView(viewModel: MainViewModel())
+//}
 
 //MARK: - 4.EXTENSION
 extension BuskingListRow {
@@ -83,31 +84,30 @@ extension BuskingListRow {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "yyyy년 M월 d일"
-        if let busking = artist.buskings?.last?.BuskingStartTime {
-            return formatter.string(from: busking)
-        }
-        return ""
+//        let busking = busking.BuskingStartTime {
+        return formatter.string(from: busking.BuskingStartTime)
+//        }
+//        return ""
     }
-    
     
     func formatStartTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "a h시 mm분"
-        if let busking = artist.buskings?.last?.BuskingStartTime{
-            return formatter.string(from: busking)
-        }
-        return ""
+//        if let busking = artist.buskings?.last?.BuskingStartTime{
+        return formatter.string(from: busking.BuskingStartTime)
+//        }
+//        return ""
     }
     
     func formatEndTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "h시 mm분"
-        if let busking = artist.buskings?.last?.BuskingEndTime{
-            return formatter.string(from: busking)
-        }
-        return ""
+//        if let busking = artist.buskings?.last?.BuskingEndTime{
+        return formatter.string(from: busking.BuskingEndTime)
+//        }
+//        return ""
     }
     
 }

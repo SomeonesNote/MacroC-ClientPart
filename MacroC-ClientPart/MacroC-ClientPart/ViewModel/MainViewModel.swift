@@ -9,7 +9,9 @@ import Foundation
 
 class MainViewModel: ObservableObject {
     @Published var popBuskingModal: Bool = false
-    @Published var selectedBusking: Busking = dummyBusking1
-    @Published var user : User = dummyUser
-    
+    @Published var selectedBusking: Busking = Busking()
+    @Published var selectedArtist: Artist = Artist()
+    @Published var following: [Artist] = []
+    @Published var nowBusking: [Busking] = []
+
 }

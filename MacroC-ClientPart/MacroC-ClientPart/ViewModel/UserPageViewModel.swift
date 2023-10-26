@@ -8,13 +8,15 @@ import SwiftUI
 import PhotosUI
 
 class UserPageViewModel: ObservableObject {
-    @Published var user: User
     @Published var isEditMode: Bool = false
+  
+    //포토피커 이미지 크롭
+    @Published var popImagePicker: Bool = false
     @Published var selectedItem: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data?
-    @Published var popImagePicker: Bool = false
     @Published var copppedImageData: Data?
     @Published var croppedImage: UIImage?
+    
     @Published var isLoading: Bool = false
     
     @Published var EditUsername: String = "User"
@@ -28,9 +30,6 @@ class UserPageViewModel: ObservableObject {
     @Published var nameSaveOKModal: Bool = false
     @Published var infoSaveOKModal: Bool = false
 
-    init(user: User) {
-        self.user = user
-    }
     
     func toggleEditMode() {
         isEditMode.toggle()

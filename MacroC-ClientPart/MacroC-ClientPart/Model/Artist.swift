@@ -18,16 +18,18 @@ struct Artist: Identifiable, Codable {
     var members : [Member]?
     var buskings : [Busking]?
     
-//    var youtube: String
-//    var instagram: String
-//    var soundcloud: String
-//    let genre : String
+    var youtubeURL: String?
+    var instagramURL: String?
+    var soundcloudURL: String?
     
     init(id: Int = 0,
          stageName: String = "",
          artistInfo: String = "",
          artistImage: String = "",
          genres: String = "",
+         youtubeURL: String = "",
+         instagramURL: String = "",
+         soundcloudURL: String = "",
          members: [Member] = [],
          buskings: [Busking] = []
     ) {
@@ -38,17 +40,20 @@ struct Artist: Identifiable, Codable {
         self.genres = genres
         self.members = members
         self.buskings = buskings
+        self.youtubeURL = youtubeURL
+        self.instagramURL = instagramURL
+        self.soundcloudURL = soundcloudURL
     }
 }
 
-extension Artist {
-    init(from artist: Artist) {
-        self.id = artist.id
-        self.artistInfo = artist.artistInfo
-        self.stageName = artist.stageName
-        self.artistImage = artist.artistImage
-        self.genres = artist.genres
-        self.members = artist.members
-        self.buskings = artist.buskings
-    }
-}
+//extension Artist {
+//    init(from artist: Artist) {
+//        self.id = artist.id
+//        self.artistInfo = artist.artistInfo
+//        self.stageName = artist.stageName
+//        self.artistImage = artist.artistImage
+//        self.genres = artist.genres
+//        self.members = artist.members
+//        self.buskings = artist.buskings
+//    }
+//}

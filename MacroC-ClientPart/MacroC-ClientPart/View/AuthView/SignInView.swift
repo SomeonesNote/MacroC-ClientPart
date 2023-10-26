@@ -76,7 +76,7 @@ extension SignInView {
     
     var signInbutton: some View {
         Button {
-            awsService.testSignIn()
+            awsService.SignIn()
         } label: {
             HStack{
                 Spacer()

@@ -1,58 +1,32 @@
 //
-//  SignUpProfileSettingView.swift
-//  MacroC-ClientPart
+// SignUpProfileSettingView.swift
+// MacroC-ClientPart
 //
-//  Created by Kimjaekyeong on 2023/10/06.
+// Created by Kimjaekyeong on 2023/10/06.
 //
-
 import SwiftUI
 import PhotosUI
-
 struct SignUpView: View {
-    
-    //MARK: -1.PROPERTY
-    @EnvironmentObject var awsService: AwsService
-    @ObservedObject var viewModel = LoginViewModel()
-    
-    //MARK: -2.BODY
+    //MARK: - 1.PROPERTY
+    @ObservedObject var viewModel = SignUpViewModel()
+    //MARK: - 2.BODY
     var body: some View {
         VStack(spacing: UIScreen.getWidth(6)) {
             Spacer()
             imagePicker
             Spacer()
-            emailTextField
-            passwordTextField
-            usernameTextField
+            nameTextField
+            infoTextField
+            passWordField
             signUpbutton
                 .padding(.bottom, UIScreen.getHeight(40))
         }
         .cropImagePicker(show: $viewModel.popImagePicker, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
         .padding()
         .background(backgroundView().hideKeyboardWhenTappedAround())
-        .onChange(of: viewModel.selectedItem) { newItem in
-            Task {
-                if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                    viewModel.selectedPhotoData = data
-                }
-            }
-        }
-        .onChange(of: viewModel.selectedPhotoData) { newValue in
-            if let data = newValue, let uiImage = UIImage(data: data) {
-                viewModel.copppedImageData = data
-                viewModel.croppedImage = uiImage
-                viewModel.popImagePicker = false
-            }
-        }
     }
 }
-
-//MARK: -3.PREVIEW
-#Preview {
-    SignUpView()
-}
-
-//MARK: -4.EXTENSION
-
+//MARK: - 3 .EXTENSION
 extension SignUpView {
     var imagePicker: some View {
         Button {
@@ -85,11 +59,10 @@ extension SignUpView {
             }
         }
     }
-    
-    var emailTextField: some View {
+    var nameTextField: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
-                TextField("E-mail을 입력하세요", text: $viewModel.email)
+                TextField("닉네임을 입력하세요", text: $viewModel.username)
                     .font(.custom14semibold())
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)
@@ -128,11 +101,10 @@ extension SignUpView {
             }.padding(.leading, UIScreen.getWidth(5))
         }
     }
-    
-    var passwordTextField: some View {
+    var infoTextField: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
-                TextField("Password를 입력하세요", text: $viewModel.password)
+                TextField("이메일을 입력하세요", text: $viewModel.email)
                     .font(.custom14semibold())
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)
@@ -142,11 +114,10 @@ extension SignUpView {
             Text(" ").font(.custom14semibold())
         }
     }
-    
-    var usernameTextField: some View {
+    var passWordField: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
-                TextField("UserName을 입력하세요", text: $viewModel.username)
+                TextField("비밀번호를 입력하세요", text: $viewModel.password)
                     .font(.custom14semibold())
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)
@@ -156,20 +127,9 @@ extension SignUpView {
             Text(" ").font(.custom14semibold())
         }
     }
-    
     var signUpbutton: some View {
         Button {
-            awsService.croppedImage = viewModel.croppedImage
-            awsService.user.email = viewModel.email
-            awsService.user.username = viewModel.username
-            awsService.user.password = viewModel.password
-            
-            awsService.postUserProfile {
-            }
-            
-            
-            
-            
+            viewModel.signUp()
         } label: {
             HStack{
                 Spacer()
@@ -177,11 +137,9 @@ extension SignUpView {
                 Spacer()
             }
             .padding(UIScreen.getWidth(15))
-            .background(viewModel.username.isEmpty ?  Color.gray.opacity(0.3) : Color(appIndigo))
+            .background(viewModel.username.isEmpty ? Color.gray.opacity(0.3) : Color(appIndigo))
             .cornerRadius(6)
             .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
         }.disabled(viewModel.username.isEmpty)
-        
     }
 }
-

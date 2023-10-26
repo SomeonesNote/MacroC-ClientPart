@@ -1,15 +1,14 @@
 //
-//  LoginViewModel.swift
-//  MacroC-ClientPart
+// LoginViewModel.swift
+// MacroC-ClientPart
 //
-//  Created by Kimjaekyeong on 2023/10/05.
+// Created by Kimjaekyeong on 2023/10/05.
 //
-
 import Alamofire
 import PhotosUI
 import SwiftUI
 
-class LoginViewModel: ObservableObject {
+class SignUpViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var username: String = ""
     @Published var password: String = ""
@@ -17,23 +16,15 @@ class LoginViewModel: ObservableObject {
     @Published var isSingedIn: Bool = false
     @Published var accessToken: String? = KeychainItem.currentUserIdentifier
     @Published var user: User?
-    
-    @Published var selectedPhotoData: Data?
-    @Published var copppedImageData: Data?
-    @Published var selectedItem: PhotosPickerItem? = nil
-    @Published var croppedImage: UIImage?
-   
     @Published var isLoading: Bool = false
     @Published var popImagePicker: Bool = false
+    @Published var croppedImage: UIImage?
     @Published var usernameStatus: UsernameStatus = .empty // 중복확인
-    
     enum UsernameStatus {
         case empty
         case duplicated
         case available
     }
-
-    
     func signUp() {
         let parameters: [String: String] = [
             "email": email,
@@ -45,7 +36,7 @@ class LoginViewModel: ObservableObject {
                 if let imageData = self.croppedImage?.jpegData(compressionQuality: 0.5) {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
-                else if let defaultImageData = UIImage(named: "defaultImage")?.jpegData(compressionQuality: 0.5) {
+                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 0.5) {
                     multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
                 for (key, value) in parameters {
@@ -65,3 +56,11 @@ class LoginViewModel: ObservableObject {
         }
     }
 }
+
+
+
+
+
+
+
+

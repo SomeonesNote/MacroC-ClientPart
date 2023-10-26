@@ -1,20 +1,15 @@
 //
-//  AWSservice.swift
-//  MacroC-ClientPart
+// AWSservice.swift
+// MacroC-ClientPart
 //
-//  Created by Kimdohyun on 10/19/23.
+// Created by Kimdohyun on 10/19/23.
 //
-
 import SwiftUI
 import Alamofire
-import PhotosUI
-
 struct TokenResponse : Codable {
     let accessToken : String
 }
-
 class AwsService : ObservableObject {
-    
     @Published var user : User = User()
     @Published var addBusking : Busking = Busking()
     @Published var targetBusking : Busking = Busking()
@@ -22,18 +17,20 @@ class AwsService : ObservableObject {
     @Published var following : [Artist] = [] // 유저가 팔로우한 리스트
     @Published var followingInt: [Int] = []
     @Published var allAtrist : [Artist] = [] // 모든 아티스트 리스트
+    @Published var croppedImage: UIImage?            //이거 아티스트이미지랑 유저이미지 분리할 필요가 없는지????
+    @Published var patchcroppedImage: UIImage?
     @Published var nowBuskingArtist : [Artist] = [] // 맵뷰 그리기 위해서 필요한 리스트
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
     @Published var isLoading: Bool = false
     @Published var isCreatUserArtist: Bool = UserDefaults.standard.bool(forKey: "isCreatUserArtist")
     @Published var isSignIn : Bool = UserDefaults.standard.bool(forKey: "isSignIn") // 테스트 SignIn 테스트 유저 토큰 발행용
     @Published var usernameStatus: UsernameStatus = .empty
-    
     enum UsernameStatus {
         case empty
         case duplicated
         case available
     }
+    
     
     //Get Profile //배치완료
     func getUserProfile(completion: @escaping () -> Void) {
@@ -58,44 +55,8 @@ class AwsService : ObservableObject {
                 completion()
             }
     }
-    
-    
     //Add UserProfile
-//    func postUserProfile(completion: @escaping () -> Void) {
-//        let parameters: [String: String] = [
-//            "email" : self.user.email,
-//            "username" : self.user.username,
-//            "password" : self.user.password ]
-//        
-//        if !user.email.isEmpty && !user.username.isEmpty && !user.password.isEmpty {
-//            AF.upload(multipartFormData: { multipartFormData in
-//                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
-//                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-//                }
-//                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-//                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-//                }
-//                for (key, value) in parameters {
-//                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
-//                }
-//            }, to: "http://localhost:3000/auth/signup-with-image", method: .post)
-//            .responseDecodable(of: User.self) { response in
-//                switch response.result {
-//                case .success:
-//                    print("Signed up successfully!")
-//                    self.user = User()
-//                    //                    self.isPostProfile = true
-//                case .failure(let error):
-//                    print("Error : \(error.localizedDescription)")
-//                    //                    self.isPostProfile = false
-//                }
-//                completion()
-//            }
-//        }
-//    }
-    
-    //Login for get Token //배치완료
-    func testSignIn() {
+    func postUserProfile(completion: @escaping () -> Void) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
@@ -104,7 +65,6 @@ class AwsService : ObservableObject {
             "email" : self.user.email,
             "username" : self.user.username,
             "password" : self.user.password ]
-        
         if !user.email.isEmpty && !user.username.isEmpty && !user.password.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
                 if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) { // 화질관련문제가 생기면 Png로 바꾸기
@@ -122,22 +82,20 @@ class AwsService : ObservableObject {
                 case .success:
                     print("postUserProfile.success")
                     self.user = User()
-                    //                    self.isPostProfile = true
+                    //          self.isPostProfile = true
                 case .failure(let error):
                     print("postUserProfile.error : \(error.localizedDescription)")
-                    //                    self.isPostProfile = false
+                    //          self.isPostProfile = false
                 }
                 completion()
             }
         }
     }
-    
     //Login for get Token //배치완료
-    func testSignIn() {
+    func SignIn() {
         let parameters: [String : String] = [
             "email": self.user.email,
             "password": self.user.password ]
-        
         AF.request("http://localhost:3000/auth/signin", method: .post, parameters: parameters)
             .responseDecodable(of: TokenResponse.self) { response in
                 switch response.result {
@@ -157,21 +115,18 @@ class AwsService : ObservableObject {
                 }
             }
     }
-    
     //Edit UserProfile
     func patchUserProfile() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        let userid : Int = self.user.id
         let parameters: [String: String] = [
             "username" : self.user.username,
         ]
-        
         if !user.username.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
+                if let imageData = self.patchcroppedImage?.jpegData(compressionQuality: 1) {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
                 else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
@@ -180,14 +135,13 @@ class AwsService : ObservableObject {
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
-            }, to: "http://localhost:3000/auth/\(userid)", method: .patch)
+            }, to: "http://localhost:3000/auth/\(self.user.id)", method: .patch)
             .responseDecodable(of: User.self, decoder: decoder) { response in
                 switch response.result {
                 case .success(let patchData):
                     self.user = patchData
                     print("patchUserProfile.success : \(patchData)")
                 case .failure(let error):
-
                     print("patchUserProfile.error : \(error.localizedDescription)")
                 }
             }
@@ -202,7 +156,7 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success :
                     self.getFollowingList {
-                    
+                        
                         print("following.success")
                     }
                 case .failure(let error) :
@@ -274,7 +228,10 @@ class AwsService : ObservableObject {
         let parameters: [String: String] = [
             "stageName" : self.user.artist?.stageName ?? "",
             "genres" : self.user.artist?.genres ?? "",
-            "artistInfo" : self.user.artist?.artistInfo ?? ""
+            "artistInfo" : self.user.artist?.artistInfo ?? "",
+            "youtubeURL" : self.user.artist?.youtubeURL ?? "",
+            "instagramURL" : self.user.artist?.instagramURL ?? "",
+            "soundcloudURL" : self.user.artist?.soundcloudURL ?? ""
         ]
         
         if ((user.artist?.stageName.isEmpty) == nil) && ((user.artist?.genres.isEmpty) == nil) && ((user.artist?.artistInfo.isEmpty) == nil) {

@@ -48,54 +48,57 @@ class AwsService : ObservableObject {
                     if userData.artist == nil {
                         self.user.artist = Artist(id: 0, stageName: "", artistInfo: "", genres: "", members: [], buskings: [])
                     }
-                    print("getUserProfile.user : \(self.user)")
+                    print("Get User Profile Success!")
                 case .failure(let error) :
-                    print("getUserProfile.error : \(error.localizedDescription)")
+                    print("Error : \(error.localizedDescription)")
                 }
                 completion()
             }
     }
-    //Add UserProfile
-    func postUserProfile(completion: @escaping () -> Void) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        let parameters: [String: String] = [
-            "email" : self.user.email,
-            "username" : self.user.username,
-            "password" : self.user.password ]
-        if !user.email.isEmpty && !user.username.isEmpty && !user.password.isEmpty {
-            AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) { // 화질관련문제가 생기면 Png로 바꾸기
-                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
-                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
-                for (key, value) in parameters {
-                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
-                }
-            }, to: "http://localhost:3000/auth/signup-with-image", method: .post)
-            .responseDecodable(of: User.self, decoder: decoder) { response in
-                switch response.result {
-                case .success:
-                    print("postUserProfile.success")
-                    self.user = User()
-                    //          self.isPostProfile = true
-                case .failure(let error):
-                    print("postUserProfile.error : \(error.localizedDescription)")
-                    //          self.isPostProfile = false
-                }
-                completion()
-            }
-        }
-    }
+    
+    //Add UserProfile //사용 안함 (SignUp 에서 다 처리함)
+//    func postUserProfile(completion: @escaping () -> Void) {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+//        let decoder = JSONDecoder()
+//        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+//        let parameters: [String: String] = [
+//            "email" : self.user.email,
+//            "username" : self.user.username,
+//            "password" : self.user.password ]
+//        if !user.email.isEmpty && !user.username.isEmpty && !user.password.isEmpty {
+//            AF.upload(multipartFormData: { multipartFormData in
+//                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) { // 화질관련문제가 생기면 Png로 바꾸기
+//                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                }
+//                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+//                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                }
+//                for (key, value) in parameters {
+//                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
+//                }
+//            }, to: "http://localhost:3000/auth/signup-with-image", method: .post)
+//            .responseDecodable(of: User.self, decoder: decoder) { response in
+//                switch response.result {
+//                case .success:
+//                    print("SignUp Success!")
+//                    self.user = User()
+//                    //          self.isPostProfile = true
+//                case .failure(let error):
+//                    print("postUserProfile.error : \(error.localizedDescription)")
+//                    //          self.isPostProfile = false
+//                }
+//                completion()
+//            }
+//        }
+//    }
+    
     //Login for get Token //배치완료
     func SignIn() {
         let parameters: [String : String] = [
             "email": self.user.email,
-            "password": self.user.password ]
+            "password": self.user.password
+        ]
         AF.request("http://localhost:3000/auth/signin", method: .post, parameters: parameters)
             .responseDecodable(of: TokenResponse.self) { response in
                 switch response.result {
@@ -108,13 +111,13 @@ class AwsService : ObservableObject {
                     }
                     self.isSignIn = true
                     UserDefaults.standard.set(true ,forKey: "isSignIn")
-                    print("testSignIn.success")
-                    print("testSignIn.UserDefaults.standard.bool(forKey: isSignIn) : \(UserDefaults.standard.bool(forKey: "isSignIn"))")
+                    print("SignIn Success!")
                 case .failure(let error):
-                    print("testSignIn.error: \(error.localizedDescription)")
+                    print("Error: \(error.localizedDescription)")
                 }
             }
     }
+    
     //Edit UserProfile
     func patchUserProfile() {
         let dateFormatter = DateFormatter()
@@ -140,9 +143,9 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let patchData):
                     self.user = patchData
-                    print("patchUserProfile.success : \(patchData)")
+                    print("User Profile Update Success!")
                 case .failure(let error):
-                    print("patchUserProfile.error : \(error.localizedDescription)")
+                    print("Error : \(error.localizedDescription)")
                 }
             }
         }
@@ -156,7 +159,6 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success :
                     self.getFollowingList {
-                        
                         print("following.success")
                     }
                 case .failure(let error) :
@@ -215,14 +217,14 @@ class AwsService : ObservableObject {
                     self.isSignIn = false
                     UserDefaults.standard.set(false, forKey: "isSignIn")
                     try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
-                    print("deleteUser.success!")
+                    print("DeleteUser.success!")
                 case .failure(let error) :
-                    print("deleteUser.error : \(error.localizedDescription)")
+                    print("Error : \(error.localizedDescription)")
                 }
             }
     }
     
-    //Add User Artist ////
+    //Add User Artist //
     func postUserArtist(completion: @escaping () -> Void) {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
         let parameters: [String: String] = [
@@ -252,7 +254,7 @@ class AwsService : ObservableObject {
                     self.isCreatUserArtist = true
                     UserDefaults.standard.set(true ,forKey: "isCreatUserArtist")
                     self.getUserProfile {
-                        print("postUserArtist.success")
+                    print("postUserArtist.success")
                     }
                 case .failure(let error):
                     print("postUserArtist.error : \(error.localizedDescription)")
@@ -262,7 +264,7 @@ class AwsService : ObservableObject {
         }
     }
     
-    //Get UserArtistProfilfe // 일단 지금 안쓸듯
+    //Get User Artist Profilfe // 일단 지금 안쓸듯
     func getUserArtistProfile(completion: @escaping () -> Void) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -279,6 +281,61 @@ class AwsService : ObservableObject {
                     print("getUserArtistProfile.error : \(error)")
                 }
                 completion()
+            }
+    }
+    
+    //Patch User Artist
+    func patchUserArtistProfile(completion: @escaping () -> Void) {
+        let artistid : Int = self.user.artist?.id ?? 0
+        let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
+        let parameters: [String: String] = [
+            "stageName" : self.user.artist?.stageName ?? "",
+            "genres" : self.user.artist?.genres ?? "",
+            "artistInfo" : self.user.artist?.artistInfo ?? "",
+            "youtubeURL" : self.user.artist?.youtubeURL ?? "",
+            "instagramURL" : self.user.artist?.instagramURL ?? "",
+            "soundcloudURL" : self.user.artist?.soundcloudURL ?? ""
+        ]
+        
+        if ((user.artist?.stageName.isEmpty) == nil) && ((user.artist?.genres.isEmpty) == nil) && ((user.artist?.artistInfo.isEmpty) == nil) {
+            AF.upload(multipartFormData: { multipartFormData in
+                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
+                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+                }
+                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+                }
+                for (key, value) in parameters {
+                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
+                }
+            }, to: "http://localhost:3000/artist/update/\(artistid)", method: .patch, headers: headers)
+            .response { response in
+                switch response.result {
+                case .success:
+                    self.getUserProfile {
+                        print("PatchUserArtist.success")
+                    }
+                case .failure(let error):
+                    print("postUserArtist.error : \(error.localizedDescription)")
+                }
+            }
+            completion()
+        }
+    }
+    
+    //Delete User Artist
+    func deleteUserArtist() {
+        let artistid : Int = self.user.artist?.id ?? 0
+        let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
+        AF.request("http://localhost:3000/artist/\(artistid)", method: .delete, headers: headers)
+            .validate()
+            .response { response in
+                switch response.result {
+                case .success :
+                    print("User Artist Delete Success!")
+                case .failure(let error) :
+                    print("Error : \(error)")
+                }
             }
     }
     

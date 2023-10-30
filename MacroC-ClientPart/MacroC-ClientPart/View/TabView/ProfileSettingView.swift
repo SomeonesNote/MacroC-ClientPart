@@ -111,7 +111,7 @@ extension ProfileSettingView {
     
     var artistAccount: some View {
         VStack(spacing: 0) {
-            if awsService.user.artist?.stageName != "" {
+            if  awsService.isCreatUserArtist {
                 Button {
                     viewModel.popArtistProfile = true
                 } label: {

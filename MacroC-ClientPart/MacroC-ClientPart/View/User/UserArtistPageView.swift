@@ -80,10 +80,6 @@ struct UserArtistPageView: View {
                 viewModel.popImagePicker = false
             }
         }
-//        .onAppear {
-//            EditUsername = awsService.user.artist?.stageName ?? ""
-//            EditUserInfo = awsService.user.artist?.artistInfo ?? ""
-//        }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationTitle("")
     }
@@ -112,14 +108,15 @@ extension UserArtistPageView {
         .overlay (
             HStack(spacing: UIScreen.getWidth(10)){
                 Button {
-                    UIApplication.shared.open(URL(string: emptyText)!)
+                    UIApplication.shared.open(URL(string: emptyText)!)// TODO: 값 집어넣어야
                 } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                 
                 Button {
-                    UIApplication.shared.open(URL(string: emptyText)!)
+                    UIApplication.shared.open(URL(string: emptyText)!)// TODO: 값 집어넣어야
                 } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                 
-                Button { } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                Button { } label: { linkButton(name: SoundCloudLogo)// TODO: 값 집어넣어야
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                 if viewModel.isEditMode == true {
                     Button { viewModel.isEditSocial = true } label: {
                         Image(systemName: "pencil.circle.fill")
@@ -152,11 +149,26 @@ extension UserArtistPageView {
             .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
             .overlay (
                 HStack(spacing: UIScreen.getWidth(10)){
-                    Button { } label: { linkButton(name: YouTubeLogo) }
+                    Button { 
+                        //TODO: 딥링크 구현
+                    } label: { linkButton(name: YouTubeLogo) }
                     
-                    Button { } label: { linkButton(name: InstagramLogo) }
+                    Button {
+                        //TODO: 딥링크 구현
+                    } label: { linkButton(name: InstagramLogo) }
                     
-                    Button { } label: { linkButton(name: SoundCloudLogo) }
+                    Button {
+                        //TODO: 딥링크 구현
+                    } label: { linkButton(name: SoundCloudLogo) }
+                    
+                    if viewModel.isEditMode == true {
+                        Button { viewModel.isEditSocial = true } label: {
+                            Image(systemName: "pencil.circle.fill")
+                                .font(.custom20semibold())
+                                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                        }
+                    }
+
                 }
                     .frame(height: UIScreen.getHeight(25))
                     .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
@@ -224,13 +236,12 @@ extension UserArtistPageView {
         }
     }
     
+    //Cancle Button
     var firstToolbarItem: some View {
         if viewModel.isEditMode {
             return AnyView(Button {
                 viewModel.isEditMode = false
                 // 선택한 사진들 취소하는 함수들
-                viewModel.selectedItem = nil
-                viewModel.selectedPhotoData = nil
                 viewModel.croppedImage = nil
                 
                 viewModel.isEditSocial = false
@@ -244,16 +255,27 @@ extension UserArtistPageView {
         }
     }
     
+    
+    //Save Button
     var secondToolbarItem: some View {
         if viewModel.isEditMode {
             return AnyView(Button{
-                feedback.notificationOccurred(.success)
-                viewModel.isEditMode = false
-                viewModel.isEditSocial = false
-                viewModel.isEditName = false
-                viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
-//                awsService.// 이거 유저아티스트 내용 변경하는거 없네;;;
+                awsService.croppedImage = viewModel.croppedImage
+                
+                awsService.patchUserArtistProfile {
+                    feedback.notificationOccurred(.success)
+                    viewModel.isEditMode = false
+                    viewModel.isEditSocial = false
+                    viewModel.isEditName = false
+                    viewModel.isEditInfo = false
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                        awsService.getUserProfile {
+                            
+                        }
+                    }
+                }
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
             })
@@ -276,7 +298,7 @@ extension UserArtistPageView {
                 Text("Youtube")
                     .font(.custom14semibold())
             }
-            TextField("", text: $emptyText)
+            TextField("", text: $viewModel.youtubeURL)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -289,7 +311,7 @@ extension UserArtistPageView {
                 Text("Instagram")
                     .font(.custom14semibold())
             }
-            TextField("", text: $emptyText)
+            TextField("", text: $viewModel.instagramURL)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -302,23 +324,28 @@ extension UserArtistPageView {
                 Text("SoundCloud")
                     .font(.custom14semibold())
             }
-            TextField("", text: $emptyText)
+            TextField("", text: $viewModel.soundcloudURL)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
+            
             //SocialEditSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
-                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
-                feedback.notificationOccurred(.success)
-                withAnimation(.smooth(duration: 0.5)) {
-                    viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        viewModel.socialSaveOKModal = false
-                        viewModel.isEditSocial = false
+                awsService.user.artist?.youtubeURL = viewModel.youtubeURL
+                awsService.user.artist?.instagramURL = viewModel.instagramURL
+                awsService.user.artist?.soundcloudURL = viewModel.soundcloudURL
+                
+                    feedback.notificationOccurred(.success)
+                    withAnimation(.smooth(duration: 0.5)) {
+                        viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            viewModel.socialSaveOKModal = false
+                            viewModel.isEditSocial = false
+                        }
                     }
-                }
+            
             } label: {
                 HStack {
                     Spacer()
@@ -354,15 +381,15 @@ extension UserArtistPageView {
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.artist?.stageName = EditUsername // awsService에 값 할당
-                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
-                feedback.notificationOccurred(.success)
-                withAnimation(.smooth(duration: 0.5)) {
-                    viewModel.nameSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        viewModel.nameSaveOKModal = false
-                        viewModel.isEditName = false
+                
+                    feedback.notificationOccurred(.success)
+                    withAnimation(.smooth(duration: 0.5)) {
+                        viewModel.nameSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            viewModel.nameSaveOKModal = false
+                            viewModel.isEditName = false
+                        }
                     }
-                }
             } label: {
                 HStack {
                     Spacer()
@@ -399,16 +426,16 @@ extension UserArtistPageView {
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.artist?.artistInfo = EditUserInfo
-                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
-                feedback.notificationOccurred(.success)
-                withAnimation(.smooth(duration: 0.5)) {
-                    viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        viewModel.infoSaveOKModal = false
-                        viewModel.isEditInfo = false
+                
+                    feedback.notificationOccurred(.success)
+                    withAnimation(.smooth(duration: 0.5)) {
+                        viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            viewModel.infoSaveOKModal = false
+                            viewModel.isEditInfo = false
+                        }
                     }
-                }
-            } label: {
+                } label: {
                 HStack {
                     Spacer()
                     Text("Save")

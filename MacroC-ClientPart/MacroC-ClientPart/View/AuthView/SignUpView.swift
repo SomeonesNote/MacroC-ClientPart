@@ -9,6 +9,7 @@ import PhotosUI
 struct SignUpView: View {
     //MARK: - 1.PROPERTY
     @ObservedObject var viewModel = SignUpViewModel()
+    
     //MARK: - 2.BODY
     var body: some View {
         VStack(spacing: UIScreen.getWidth(6)) {

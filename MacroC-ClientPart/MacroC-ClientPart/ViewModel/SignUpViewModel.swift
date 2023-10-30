@@ -12,6 +12,7 @@ class SignUpViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var username: String = ""
     @Published var password: String = ""
+    
     @Published var isSignednUp: Bool = false
     @Published var isSingedIn: Bool = false
     @Published var accessToken: String? = KeychainItem.currentUserIdentifier
@@ -20,11 +21,13 @@ class SignUpViewModel: ObservableObject {
     @Published var popImagePicker: Bool = false
     @Published var croppedImage: UIImage?
     @Published var usernameStatus: UsernameStatus = .empty // 중복확인
+    
     enum UsernameStatus {
         case empty
         case duplicated
         case available
     }
+    
     func signUp() {
         let parameters: [String: String] = [
             "email": email,
@@ -33,10 +36,10 @@ class SignUpViewModel: ObservableObject {
         ]
         if !email.isEmpty && !username.isEmpty && !password.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.croppedImage?.jpegData(compressionQuality: 0.5) {
+                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
-                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 0.5) {
+                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
                     multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
                 for (key, value) in parameters {

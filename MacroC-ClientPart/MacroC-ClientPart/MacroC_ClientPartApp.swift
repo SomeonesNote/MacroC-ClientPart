@@ -8,12 +8,22 @@
 import SwiftUI
 import GoogleMaps
 import GooglePlaces
+import FirebaseCore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+    return true
+  }
+}
 
 @main
 struct MacroC_ClientPartApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate //firebase
     
     let APIKey = "AIzaSyDF3d8OqWRipyjxQh7C2HF6KHn-C3YhSt8"
-    @StateObject private var userAuth = AppleAuth()
+//    @StateObject private var userAuth = AppleAuth()
     @StateObject private var awsService = AwsService()
     
     init() {
@@ -28,14 +38,7 @@ struct MacroC_ClientPartApp: App {
             } else {
                 SignInView().environmentObject(awsService)
             }
+//            LoginView() .environmentObject(awsService)
         }
-        
-//          WindowGroup {
-//              if userAuth.showLoginView {
-//                  SignInView() .environmentObject(userAuth)
-//              } else {
-//                  ContentView() .environmentObject(userAuth)
-//              }
-//          }
       }
   }

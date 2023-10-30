@@ -9,7 +9,6 @@ import SwiftUI
 import PhotosUI
 
 class UserArtistPageViewModel: ObservableObject {
-    @EnvironmentObject var awsService: AwsService
     
     @Published var isEditMode: Bool = true
     @Published var selectedItem: PhotosPickerItem? = nil
@@ -19,7 +18,7 @@ class UserArtistPageViewModel: ObservableObject {
     @Published var croppedImage: UIImage?
     @Published var isLoading: Bool = false
     
-   
+    
     //ModalButton
     @Published var socialSaveOKModal: Bool = false
     @Published var nameSaveOKModal: Bool = false
@@ -28,21 +27,31 @@ class UserArtistPageViewModel: ObservableObject {
     @Published var isEditSocial: Bool = false
     @Published var isEditName: Bool = false
     @Published var isEditInfo: Bool = false
-
     
-    func toggleEditMode() {
-        isEditMode.toggle()
+    @Published var youtubeURL: String
+    @Published var instagramURL: String
+    @Published var soundcloudURL: String
+    
+    init(youtubeURL: String = "" , instagramURL: String = "" , soundcloudURL: String = "") {
+        self.youtubeURL = youtubeURL
+        self.instagramURL = instagramURL
+        self.soundcloudURL = soundcloudURL
     }
-
-    func cancelEditMode() {
-        isEditMode = false
-        selectedItem = nil
-        selectedPhotoData = nil
-        croppedImage = nil
-    }
-
-    func saveEditMode() {
-        isEditMode = false
-        //TODO: 세이브하는 거 구현
-    }
+    
+//    
+//    func toggleEditMode() {
+//        isEditMode.toggle()
+//    }
+//    
+//    func cancelEditMode() {
+//        isEditMode = false
+//        selectedItem = nil
+//        selectedPhotoData = nil
+//        croppedImage = nil
+//    }
+//    
+//    func saveEditMode() {
+//        isEditMode = false
+//        //TODO: 세이브하는 거 구현
+//    }
 }

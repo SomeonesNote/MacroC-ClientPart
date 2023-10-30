@@ -13,4 +13,4 @@ class ProfileSettingViewModel: ObservableObject {
     @Published var isArtistAccount = true
     @Published var popArtistProfile: Bool = false
     
-}
+    }

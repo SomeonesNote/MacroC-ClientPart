@@ -17,7 +17,7 @@ class AwsService : ObservableObject {
     @Published var following : [Artist] = [] // 유저가 팔로우한 리스트
     @Published var followingInt: [Int] = []
     @Published var allAtrist : [Artist] = [] // 모든 아티스트 리스트
-    @Published var croppedImage: UIImage?            //이거 아티스트이미지랑 유저이미지 분리할 필요가 없는지????
+    @Published var croppedImage: UIImage?
     @Published var patchcroppedImage: UIImage?
     @Published var nowBuskingArtist : [Artist] = [] // 맵뷰 그리기 위해서 필요한 리스트
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
@@ -48,6 +48,7 @@ class AwsService : ObservableObject {
                     if userData.artist == nil {
                         self.user.artist = Artist(id: 0, stageName: "", artistInfo: "", genres: "", members: [], buskings: [])
                     }
+                    print(self.user)
                     print("Get User Profile Success!")
                 case .failure(let error) :
                     print("Error : \(error.localizedDescription)")
@@ -55,43 +56,6 @@ class AwsService : ObservableObject {
                 completion()
             }
     }
-    
-    //Add UserProfile //사용 안함 (SignUp 에서 다 처리함)
-//    func postUserProfile(completion: @escaping () -> Void) {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-//        let decoder = JSONDecoder()
-//        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-//        let parameters: [String: String] = [
-//            "email" : self.user.email,
-//            "username" : self.user.username,
-//            "password" : self.user.password ]
-//        if !user.email.isEmpty && !user.username.isEmpty && !user.password.isEmpty {
-//            AF.upload(multipartFormData: { multipartFormData in
-//                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) { // 화질관련문제가 생기면 Png로 바꾸기
-//                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-//                }
-//                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-//                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-//                }
-//                for (key, value) in parameters {
-//                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
-//                }
-//            }, to: "http://localhost:3000/auth/signup-with-image", method: .post)
-//            .responseDecodable(of: User.self, decoder: decoder) { response in
-//                switch response.result {
-//                case .success:
-//                    print("SignUp Success!")
-//                    self.user = User()
-//                    //          self.isPostProfile = true
-//                case .failure(let error):
-//                    print("postUserProfile.error : \(error.localizedDescription)")
-//                    //          self.isPostProfile = false
-//                }
-//                completion()
-//            }
-//        }
-//    }
     
     //Login for get Token //배치완료
     func SignIn() {
@@ -236,7 +200,7 @@ class AwsService : ObservableObject {
             "soundcloudURL" : self.user.artist?.soundcloudURL ?? ""
         ]
         
-        if ((user.artist?.stageName.isEmpty) == nil) && ((user.artist?.genres.isEmpty) == nil) && ((user.artist?.artistInfo.isEmpty) == nil) {
+        if ((user.artist?.stageName.isEmpty) == nil) /*&& ((user.artist?.genres.isEmpty) == nil)*/ && ((user.artist?.artistInfo.isEmpty) == nil) {
             AF.upload(multipartFormData: { multipartFormData in
                 if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
@@ -251,10 +215,9 @@ class AwsService : ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
-                    self.isCreatUserArtist = true
-                    UserDefaults.standard.set(true ,forKey: "isCreatUserArtist")
                     self.getUserProfile {
-                    print("postUserArtist.success")
+                        self.isCreatUserArtist = true
+                        UserDefaults.standard.set(true ,forKey: "isCreatUserArtist")
                     }
                 case .failure(let error):
                     print("postUserArtist.error : \(error.localizedDescription)")
@@ -312,9 +275,7 @@ class AwsService : ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
-                    self.getUserProfile {
                         print("PatchUserArtist.success")
-                    }
                 case .failure(let error):
                     print("postUserArtist.error : \(error.localizedDescription)")
                 }
@@ -332,9 +293,13 @@ class AwsService : ObservableObject {
             .response { response in
                 switch response.result {
                 case .success :
-                    print("User Artist Delete Success!")
+                    self.getUserProfile {
+                        self.isCreatUserArtist = false
+                        UserDefaults.standard.set(false ,forKey: "isCreatUserArtist")
+                        print("UserDefaults.standard.bool : \( UserDefaults.standard.bool(forKey: "isCreatUserArtist"))")
+                    }
                 case .failure(let error) :
-                    print("Error : \(error)")
+                    print("deleteUserArtist.error : \(error)")
                 }
             }
     }

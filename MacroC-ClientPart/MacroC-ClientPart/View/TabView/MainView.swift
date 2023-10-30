@@ -44,7 +44,7 @@ extension MainView {
         return VStack {
             HStack {
                 roundedBoxText(text: "My Artist")
-                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+//                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 Spacer()
                 NavigationLink {
                     ArtistListView().toolbarBackground(.hidden, for: .navigationBar)
@@ -93,8 +93,8 @@ extension MainView {
     var BuskingInfoSection: some View {
         return VStack {
             HStack {
-                roundedBoxText(text: "Busking Info")
-                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                roundedBoxText(text: "Upcomming Busking")
+//                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 Spacer()
             }.padding(UIScreen.getWidth(20))
             

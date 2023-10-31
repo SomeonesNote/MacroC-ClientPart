@@ -11,7 +11,7 @@ struct ArtistProfileSettingView: View {
     
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService : AwsService
-    @ObservedObject var viewModel = UserArtistProfileSettingViewModel()
+    @StateObject var viewModel = UserArtistProfileSettingViewModel()
     @Environment(\.dismiss) var dismiss
     
     //MARK: -2.BODY

@@ -13,6 +13,7 @@ struct UserArtistPageView: View {
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel = UserArtistPageViewModel()
+    
     @State var emptyText: String = ""
     
     @State var EditUsername: String = ""
@@ -20,7 +21,7 @@ struct UserArtistPageView: View {
     
     //MARK: -2.BODY
     var body: some View {
-        ZStack {
+            ZStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: UIScreen.getWidth(5)) {
                     if viewModel.croppedImage != nil { pickedImage }
@@ -108,15 +109,16 @@ extension UserArtistPageView {
         .overlay (
             HStack(spacing: UIScreen.getWidth(10)){
                 Button {
-                    UIApplication.shared.open(URL(string: emptyText)!)// TODO: 값 집어넣어야
+//                    UIApplication.shared.open(URL(string: emptyText)!)// TODO: 값 집어넣어야
                 } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                 
                 Button {
-                    UIApplication.shared.open(URL(string: emptyText)!)// TODO: 값 집어넣어야
+//                    UIApplication.shared.open(URL(string: emptyText)!)// TODO: 값 집어넣어야
                 } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                 
-                Button { } label: { linkButton(name: SoundCloudLogo)// TODO: 값 집어넣어야
-                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                Button {
+//                    UIApplication.shared.open(URL(string: emptyText)!)// TODO: 값 집어넣어야
+                } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                 if viewModel.isEditMode == true {
                     Button { viewModel.isEditSocial = true } label: {
                         Image(systemName: "pencil.circle.fill")
@@ -125,10 +127,9 @@ extension UserArtistPageView {
                     }
                 }
             }
-                .frame(height: UIScreen.getHeight(25))
-                .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
-            ,alignment: .bottomTrailing )
-        .overlay(alignment: .bottom) {
+            .frame(height: UIScreen.getHeight(25))
+            .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15))), alignment: .bottomTrailing )
+            .overlay(alignment: .bottom) {
             if viewModel.isEditMode {
                 Button{
                     viewModel.popImagePicker = true
@@ -170,10 +171,9 @@ extension UserArtistPageView {
                     }
 
                 }
-                    .frame(height: UIScreen.getHeight(25))
-                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
-                ,alignment: .bottomTrailing )
-            .overlay(alignment: .bottom) {
+                .frame(height: UIScreen.getHeight(25))
+                .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15))), alignment: .bottomTrailing )
+                .overlay(alignment: .bottom) {
                 if viewModel.isEditMode {
                     PhotosPicker(
                         //TODO: 사진첩 접근해서 사진 받는 거 구현
@@ -261,21 +261,24 @@ extension UserArtistPageView {
         if viewModel.isEditMode {
             return AnyView(Button{
                 //TODO: 세이브하는 거 구현
-                awsService.croppedImage = viewModel.croppedImage
+                awsService.artistPatchcroppedImage = viewModel.croppedImage
                 
                 awsService.patchUserArtistProfile {
-                    feedback.notificationOccurred(.success)
-                    viewModel.isEditMode = false
-                    viewModel.isEditSocial = false
-                    viewModel.isEditName = false
-                    viewModel.isEditInfo = false
+                    print("awsService.patchUserArtistProfile is over")
+                }
+                    
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                         awsService.getUserProfile {
-                            
+                            feedback.notificationOccurred(.success)
+                          
+                            viewModel.isEditSocial = false
+                            viewModel.isEditName = false
+                            viewModel.isEditInfo = false
                         }
                     }
-                }
+                viewModel.isEditMode = false
+                
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
             })
@@ -336,15 +339,15 @@ extension UserArtistPageView {
                 awsService.user.artist?.youtubeURL = viewModel.youtubeURL
                 awsService.user.artist?.instagramURL = viewModel.instagramURL
                 awsService.user.artist?.soundcloudURL = viewModel.soundcloudURL
-                
-                    feedback.notificationOccurred(.success)
-                    withAnimation(.smooth(duration: 0.5)) {
-                        viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            viewModel.socialSaveOKModal = false
-                            viewModel.isEditSocial = false
-                        }
-                    }
+                viewModel.isEditSocial = false
+//                    feedback.notificationOccurred(.success)
+//                    withAnimation(.smooth(duration: 0.5)) {
+//                        viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+//                            viewModel.socialSaveOKModal = false
+//                            viewModel.isEditSocial = false
+//                        }
+//                    }
             
             } label: {
                 HStack {

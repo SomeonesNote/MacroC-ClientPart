@@ -11,7 +11,7 @@ struct ProfileSettingView: View {
     
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
-    @ObservedObject var viewModel = ProfileSettingViewModel()
+    @StateObject var viewModel = ProfileSettingViewModel()
     
 //    var artistProfileImage: UIImage = UIImage(resource: AsyncImage(url: URL(string: AwsService().userArtist.artistImage)))
     

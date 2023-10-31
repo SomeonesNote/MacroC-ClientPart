@@ -19,6 +19,7 @@ class AwsService : ObservableObject {
     @Published var allAtrist : [Artist] = [] // 모든 아티스트 리스트
     @Published var croppedImage: UIImage?
     @Published var patchcroppedImage: UIImage?
+    @Published var artistPatchcroppedImage: UIImage?
     @Published var nowBuskingArtist : [Artist] = [] // 맵뷰 그리기 위해서 필요한 리스트
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
     @Published var isLoading: Bool = false
@@ -46,7 +47,7 @@ class AwsService : ObservableObject {
                 case .success(let userData) :
                     self.user = userData
                     if userData.artist == nil {
-                        self.user.artist = Artist(id: 0, stageName: "", artistInfo: "", genres: "", members: [], buskings: [])
+                        self.user.artist = Artist()
                     }
                     print(self.user)
                     print("Get User Profile Success!")
@@ -260,9 +261,9 @@ class AwsService : ObservableObject {
             "soundcloudURL" : self.user.artist?.soundcloudURL ?? ""
         ]
         
-        if ((user.artist?.stageName.isEmpty) == nil) && ((user.artist?.genres.isEmpty) == nil) && ((user.artist?.artistInfo.isEmpty) == nil) {
+//        if !user.artist?.stageName.isEmpty || !user.artist?.artistInfo.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
+                if let imageData = self.artistPatchcroppedImage?.jpegData(compressionQuality: 1) {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
                 else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
@@ -282,7 +283,6 @@ class AwsService : ObservableObject {
             }
             completion()
         }
-    }
     
     //Delete User Artist
     func deleteUserArtist() {

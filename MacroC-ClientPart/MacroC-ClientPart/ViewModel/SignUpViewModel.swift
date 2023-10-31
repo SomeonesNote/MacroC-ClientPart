@@ -9,13 +9,20 @@ import PhotosUI
 import SwiftUI
 
 class SignUpViewModel: ObservableObject {
+    
+    var awsService: AwsService
+       
+       init(awsService: AwsService) {
+           self.awsService = awsService
+       }
+    
     @Published var email: String = ""
     @Published var username: String = ""
     @Published var password: String = ""
     
     @Published var isSignednUp: Bool = false
     @Published var isSingedIn: Bool = false
-    @Published var accessToken: String? = KeychainItem.currentUserIdentifier
+//    @Published var accessToken: String? = KeychainItem.currentUserIdentifier
     @Published var user: User?
     @Published var isLoading: Bool = false
     @Published var popImagePicker: Bool = false
@@ -29,12 +36,16 @@ class SignUpViewModel: ObservableObject {
     }
     
     func signUp() {
+        let token : String? = KeychainItem.currentFirebaseToken
+        let headers: HTTPHeaders = [.authorization(bearerToken: token ?? "")]
+        
         let parameters: [String: String] = [
-            "email": email,
             "username": username,
-            "password": password,
+            "uid": KeychainItem.currentFuid
         ]
-        if !email.isEmpty && !username.isEmpty && !password.isEmpty {
+        
+        let _ = print(parameters)
+        if !username.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
                 if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
@@ -45,12 +56,21 @@ class SignUpViewModel: ObservableObject {
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
-            }, to: "http://localhost:3000/auth/signup-with-image", method: .post)
-            .response { response in
+
+            }, to: "http://localhost:3000/auth/signup-with-image", method: .post, headers: headers)
+            .responseDecodable(of: TokenResponse.self) { response in
                 switch response.result {
-                case .success:
+                case .success(let token):
                     print("Success")
-                    self.isSignednUp = true
+                    print(token.accessToken)
+                    do {
+                        try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
+                    } catch {
+                        print("tokenResponse on Keychain is fail")
+                    }
+                    print(AwsService().isSignUp)
+                    self.awsService.isSignUp = true
+                    print(AwsService().isSignUp)
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
                     self.isSignednUp = false

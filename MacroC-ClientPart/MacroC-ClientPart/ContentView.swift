@@ -34,9 +34,11 @@ struct ContentView: View {
                 }
         }
         .onAppear {
-            awsService.getUserProfile { //유저프로필 가져오기
-                awsService.getFollowingList {}}//팔로우 리스트 가져오기
-            awsService.getAllArtistList{}
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                awsService.getUserProfile { //유저프로필 가져오기
+                    awsService.getFollowingList {}}//팔로우 리스트 가져오기
+                awsService.getAllArtistList{}
+            }
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance

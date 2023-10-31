@@ -6,9 +6,11 @@
 //
 import SwiftUI
 import Alamofire
+
 struct TokenResponse : Codable {
     let accessToken : String
 }
+
 class AwsService : ObservableObject {
     @Published var user : User = User()
     @Published var addBusking : Busking = Busking()
@@ -24,7 +26,12 @@ class AwsService : ObservableObject {
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
     @Published var isLoading: Bool = false
     @Published var isCreatUserArtist: Bool = UserDefaults.standard.bool(forKey: "isCreatUserArtist")
+    
+    
     @Published var isSignIn : Bool = UserDefaults.standard.bool(forKey: "isSignIn") // 테스트 SignIn 테스트 유저 토큰 발행용
+    @Published var isSignUp : Bool =  UserDefaults.standard.bool(forKey: "isSignup")// 서버에서 받아온 커런트 토큰이 없으면 true 있으면 false
+    
+    
     @Published var usernameStatus: UsernameStatus = .empty
     enum UsernameStatus {
         case empty
@@ -52,7 +59,7 @@ class AwsService : ObservableObject {
                     print(self.user)
                     print("Get User Profile Success!")
                 case .failure(let error) :
-                    print("Error : \(error.localizedDescription)")
+                    print("getUserProfile.error : \(error.localizedDescription)")
                 }
                 completion()
             }
@@ -60,25 +67,20 @@ class AwsService : ObservableObject {
     
     //Login for get Token //배치완료
     func SignIn() {
+        let uid = KeychainItem.currentFuid
         let parameters: [String : String] = [
-            "email": self.user.email,
-            "password": self.user.password
+            "uid" : "\(uid)"
         ]
-        AF.request("http://localhost:3000/auth/signin", method: .post, parameters: parameters)
-            .responseDecodable(of: TokenResponse.self) { response in
+        AF.request("http://localhost:3000/auth/isSignUp", method: .post, parameters: parameters)
+            .responseDecodable(of: Bool.self) { response in
                 switch response.result {
-                case .success(let tokenResponse):
-                    self.accesseToken = tokenResponse.accessToken
-                    do {
-                        try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(tokenResponse.accessToken) //키체인에 토큰 등록
-                    } catch {
-                        print("testSignIn.Error saving token to keychain: \(error.localizedDescription)")
-                    }
-                    self.isSignIn = true
-                    UserDefaults.standard.set(true ,forKey: "isSignIn")
-                    print("SignIn Success!")
-                case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
+                case .success(let bool) :
+                    
+                    UserDefaults.standard.set(bool, forKey: "isSignup")
+                    self.isSignUp = bool
+                    print(self.isSignUp)
+                case .failure(let error) :
+                    print("unfollowing.error : \(error.localizedDescription)")
                 }
             }
     }
@@ -174,15 +176,22 @@ class AwsService : ObservableObject {
     
     //Delete User Acount //배치완료
     func deleteUser() {
-        AF.request("http://localhost:3000/auth/\(self.user.id)", method: .delete)
+        let userid : Int = self.user.id
+        AF.request("http://localhost:3000/auth/\(userid)", method: .delete)
             .validate()
             .response { response in
                 switch response.result {
                 case .success :
                     self.isSignIn = false
                     UserDefaults.standard.set(false, forKey: "isSignIn")
-                    try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
+                    UserDefaults.standard.set(false, forKey: "isSignup")
+                    KeychainItem.deleteFirebaseTokenFromKeychain()
+                    KeychainItem.deleteFuidFromKeychain()
+                    KeychainItem.deleteUserIdentifierFromKeychain()
+                    KeychainItem.deleteTokenResponseFromKeychain()
+                    //TODO: 파이어베이스에 콘솔에 삭제요청하기!!!
                     print("DeleteUser.success!")
+                    
                 case .failure(let error) :
                     print("Error : \(error.localizedDescription)")
                 }

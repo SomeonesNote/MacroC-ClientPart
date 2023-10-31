@@ -4,6 +4,85 @@
 ////
 ////  Created by Kimdohyun on 2023/10/05.
 ////
+//
+//import SwiftUI
+//
+//struct LoginView: View {
+//
+//    //MARK: -1.PROPERTY
+//    @StateObject var viewModel = LoginViewModel()
+//
+//    //MARK: -2.BODY
+//    var body: some View {
+//
+//            VStack(alignment: .center) {
+//                Spacer()
+//                Spacer()
+//                textFieldList
+//                signInbutton
+//                AppleSigninButton()
+//                Spacer()
+//            }
+//            .padding()
+//            .background(backgroundView().hideKeyboardWhenTappedAround())
+//    }
+//}
+//
+//
+////MARK: -3.PREVIEW
+//#Preview {
+//    LoginView()
+//}
+//
+////MARK: -4.EXTENSION
+//extension LoginView {
+//    var textFieldList: some View {
+//        VStack(spacing: 5){
+//            TextField("Email", text: $viewModel.email)
+//                .padding(13)
+//                .background(.ultraThinMaterial)
+//                .cornerRadius(6)
+//
+//            TextField("Password", text: $viewModel.password)
+//                .padding(13)
+//                .background(.ultraThinMaterial)
+//                .cornerRadius(6)
+//        }
+//    }
+//
+////    var signInbutton: some View {
+////        Button {
+//////            viewModel.()
+////        } label: {
+////            HStack{
+////                Spacer()
+////                Text("Sign In").fontWeight(.semibold)
+////                Spacer()
+////            }
+////            .padding()
+////            .background(.ultraThinMaterial)
+////            .cornerRadius(6)
+////
+////        }.padding(.top, 30)
+////    }
+//    var signInbutton: some View {
+//        Button {
+////            viewModel.signIn()
+//        } label: {
+//            HStack{
+//                Spacer()
+//                Text("Sign In").fontWeight(.semibold)
+//                Spacer()
+//            }
+//            .padding()
+//            .background(.ultraThinMaterial)
+//            .background(viewModel.email.isEmpty || viewModel.password.isEmpty ?  Color.black : Color.blue.opacity(0.7))
+//            .cornerRadius(6)
+//        }.padding(.top, 30)
+//            .disabled(viewModel.email.isEmpty || viewModel.password.isEmpty)
+//
+//    }
+//}
 import SwiftUI
 import Firebase
 import FirebaseAuth
@@ -11,15 +90,20 @@ import FirebaseOAuthUI
 import AuthenticationServices
 
 struct LoginView: View {
+
+    
+    @EnvironmentObject var awsService : AwsService
     @State private var isLoggedin: Bool = false
-    @State private var userEmail: String = ""
+    @State private var userUID: String = ""
     @State private var showLoginUI: Bool = false
     
     @StateObject var loginData = LoginViewModel()
+    
+    
 
     var body: some View {
         VStack {
-            Text(isLoggedin ? "Logged in: \(userEmail)" : "Not Logged in")
+            Text(isLoggedin ? "Logged in: \(userUID)" : "Not Logged in")
             Button(action: handleLoginLogout) {
                 Text(isLoggedin ? "Log Out" : "Log In")
             }
@@ -30,6 +114,7 @@ struct LoginView: View {
                 request.nonce = sha256(loginData.nonce)
                
             } onCompletion: { (result) in
+                
 //                getting error or success
                 switch result {
                 case .success(let user):
@@ -40,6 +125,14 @@ struct LoginView: View {
                     }
                     loginData.authenticate(credential: credential)
                     print(String(describing: credential.authorizationCode))
+                    let userIdentifier = credential.user
+                    do {
+                        try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(userIdentifier)
+                        awsService.isSignIn = true
+                        awsService.SignIn()
+                    } catch {
+                        print("userIdentifier is not saved")
+                    }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
@@ -52,7 +145,14 @@ struct LoginView: View {
         .sheet(isPresented: $showLoginUI) {
             FirebaseLoginViewControllerWrapper()
         }
-        .onAppear(perform: checkLoginStatus)
+        .onAppear {
+//            print("isLoggedin")
+//            print(isLoggedin)
+            checkLoginStatus()
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                print(isLoggedin)
+//            }
+        }
     }
 
     func handleLoginLogout() {
@@ -60,7 +160,7 @@ struct LoginView: View {
             do {
                 try Auth.auth().signOut()
                 isLoggedin = false
-                userEmail = ""
+                userUID = ""
             } catch {
                 print(error.localizedDescription)
             }
@@ -68,12 +168,10 @@ struct LoginView: View {
             showLoginUI = true
         }
     }
-
     func checkLoginStatus() {
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if let user = user {
                 self.isLoggedin = true
-                self.userEmail = user.email ?? "No Email"
             } else {
                 self.isLoggedin = false
             }
@@ -106,9 +204,9 @@ struct FirebaseLoginViewControllerWrapper: UIViewControllerRepresentable {
     }
 }
 
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-    }
-}
+//
+//struct LoginView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LoginView()
+//    }
+//}

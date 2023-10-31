@@ -8,17 +8,26 @@ import SwiftUI
 import PhotosUI
 struct SignUpView: View {
     //MARK: - 1.PROPERTY
-    @ObservedObject var viewModel = SignUpViewModel()
     
+    
+    @EnvironmentObject var awsService : AwsService //TODO: 테스트용으로 넣은거임 다시 지워야함
+    
+    @ObservedObject var viewModel = SignUpViewModel(awsService: AwsService())
     //MARK: - 2.BODY
     var body: some View {
         VStack(spacing: UIScreen.getWidth(6)) {
             Spacer()
+            Button {
+                awsService.isSignIn = false
+            } label: {
+                Text("dsfafadsf")
+            }
+
             imagePicker
             Spacer()
             nameTextField
-            infoTextField
-            passWordField
+//            infoTextField
+//            passWordField
             signUpbutton
                 .padding(.bottom, UIScreen.getHeight(40))
         }
@@ -102,32 +111,32 @@ extension SignUpView {
             }.padding(.leading, UIScreen.getWidth(5))
         }
     }
-    var infoTextField: some View {
-        VStack {
-            HStack(spacing: UIScreen.getWidth(8)){
-                TextField("이메일을 입력하세요", text: $viewModel.email)
-                    .font(.custom14semibold())
-                    .padding(UIScreen.getWidth(13))
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(6)
-                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-            }
-            Text(" ").font(.custom14semibold())
-        }
-    }
-    var passWordField: some View {
-        VStack {
-            HStack(spacing: UIScreen.getWidth(8)){
-                TextField("비밀번호를 입력하세요", text: $viewModel.password)
-                    .font(.custom14semibold())
-                    .padding(UIScreen.getWidth(13))
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(6)
-                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-            }
-            Text(" ").font(.custom14semibold())
-        }
-    }
+//    var infoTextField: some View {
+//        VStack {
+//            HStack(spacing: UIScreen.getWidth(8)){
+//                TextField("이메일을 입력하세요", text: $viewModel.email)
+//                    .font(.custom14semibold())
+//                    .padding(UIScreen.getWidth(13))
+//                    .background(.ultraThinMaterial)
+//                    .cornerRadius(6)
+//                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+//            }
+//            Text(" ").font(.custom14semibold())
+//        }
+//    }
+//    var passWordField: some View {
+//        VStack {
+//            HStack(spacing: UIScreen.getWidth(8)){
+//                TextField("비밀번호를 입력하세요", text: $viewModel.password)
+//                    .font(.custom14semibold())
+//                    .padding(UIScreen.getWidth(13))
+//                    .background(.ultraThinMaterial)
+//                    .cornerRadius(6)
+//                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+//            }
+//            Text(" ").font(.custom14semibold())
+//        }
+//    }
     var signUpbutton: some View {
         Button {
             viewModel.signUp()

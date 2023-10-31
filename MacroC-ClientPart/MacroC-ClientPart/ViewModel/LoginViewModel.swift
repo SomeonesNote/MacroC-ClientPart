@@ -13,10 +13,19 @@ import Firebase
 class LoginViewModel: ObservableObject {
     @Published var nonce = ""
     @AppStorage("log_status") var log_Status = false
-    var token : String = ""
+    var firebaseToken : String = ""
     
     func authenticate(credential: ASAuthorizationAppleIDCredential){
         // getting token ...
+        
+        let userIdentifier = credential.user
+        do {
+            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(userIdentifier)
+            print("'\(userIdentifier)' is saved on keychain")
+        } catch {
+            print("LoginViewModel.authenticate.error : Unable to save uid to keychain.")
+        }
+        
         guard let token = credential.identityToken else {
             print("Error with Firebase and getting token")
             return
@@ -32,24 +41,41 @@ class LoginViewModel: ObservableObject {
                                                           idToken: tokenString,
                                                           rawNonce: nonce)
         
+        //MARK: - 파이어베이스에서 던져주는 UID 가져오기
         Auth.auth().signIn(with: firebaseCredential) { (result, err) in
             if let error = err {
                 print(error.localizedDescription)
                 return
             }
+            if let fuid = result?.user.uid {
+                print(fuid)
+                do {
+                    try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "fuid").saveItem(fuid)
+                    print("'\(fuid)' is saved on keychain")
+                    AwsService().isSignIn = true
+                } catch {
+                    print("LoginViewModel.authenticate.error : Unable to save uid to keychain.")
+                }
+            }
             
+            //MARK: - 파이어베이스에서 토큰을 가져오기
             Auth.auth().currentUser?.getIDToken(completion: { token, error in
                 if let error = error {
                     print(error.localizedDescription)
                 } else if let token = token {
                     print("token: \(token)")// Firebase token
-                    self.token = token
+                    self.firebaseToken = token
+                    do {
+                        try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "firebaseToken").saveItem(self.firebaseToken)
+                        print("'\(self.firebaseToken)' is saved on keychain")
+                    } catch {
+                        print("LoginViewModel.authenticate.error : Unable to save uid to keychain.")
+                    }
                 }
             })
             
             func verify() {
-                let token = self.token
-                
+                let token = self.firebaseToken
             }
             
             print("Logged in Successfully")

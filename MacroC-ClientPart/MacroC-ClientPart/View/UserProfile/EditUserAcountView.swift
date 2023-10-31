@@ -43,12 +43,11 @@ struct EditUserAcountView: View {
             }.padding(.top, UIScreen.getHeight(100))
                 .alert(isPresented: $showDeleteAlert) {
                     Alert(title: Text(""), message: Text("Are you sure you want to delete your account?"), primaryButton: .destructive(Text("Delete"), action: {
+                        
                         awsService.deleteUser() // 서버에서 유저 지워버리기
                         awsService.isSignIn = false
-                        UserDefaults.standard.set(false, forKey: "isSignIn")
-                        try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
                         print("탈퇴완료")
-                        showDeleteAlert = true
+                        showDeleteAlert = false
                     }), secondaryButton: .cancel(Text("Cancle")))
                 }
         }

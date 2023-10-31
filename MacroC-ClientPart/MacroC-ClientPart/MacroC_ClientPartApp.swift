@@ -11,11 +11,11 @@ import GooglePlaces
 import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
 }
 
 @main
@@ -23,8 +23,8 @@ struct MacroC_ClientPartApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate //firebase
     
     let APIKey = "AIzaSyDF3d8OqWRipyjxQh7C2HF6KHn-C3YhSt8"
-//    @StateObject private var userAuth = AppleAuth()
     @StateObject private var awsService = AwsService()
+    
     
     init() {
         GMSServices.provideAPIKey(APIKey)
@@ -33,12 +33,14 @@ struct MacroC_ClientPartApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if awsService.isSignIn {
+            
+            if awsService.isSignIn && awsService.isSignUp {
                 ContentView().environmentObject(awsService)
+            } else if awsService.isSignIn {
+                SignUpView().environmentObject(awsService)
             } else {
-                SignInView().environmentObject(awsService)
+                LoginView().environmentObject(awsService)
             }
-//            LoginView() .environmentObject(awsService)
         }
-      }
-  }
+    }
+}

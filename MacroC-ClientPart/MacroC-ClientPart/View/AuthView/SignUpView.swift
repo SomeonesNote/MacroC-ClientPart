@@ -8,11 +8,8 @@ import SwiftUI
 import PhotosUI
 struct SignUpView: View {
     //MARK: - 1.PROPERTY
-    
-    
     @EnvironmentObject var awsService : AwsService //TODO: 테스트용으로 넣은거임 다시 지워야함
     
-    @ObservedObject var viewModel = SignUpViewModel(awsService: AwsService())
     //MARK: - 2.BODY
     var body: some View {
         VStack(spacing: UIScreen.getWidth(6)) {
@@ -31,7 +28,7 @@ struct SignUpView: View {
             signUpbutton
                 .padding(.bottom, UIScreen.getHeight(40))
         }
-        .cropImagePicker(show: $viewModel.popImagePicker, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
+        .cropImagePicker(show: $awsService.popImagePicker, croppedImage: $awsService.croppedImage, isLoding: $awsService.isLoading)
         .padding()
         .background(backgroundView().hideKeyboardWhenTappedAround())
     }
@@ -40,10 +37,10 @@ struct SignUpView: View {
 extension SignUpView {
     var imagePicker: some View {
         Button {
-            viewModel.popImagePicker = true
+            awsService.popImagePicker = true
         } label: {
-            if viewModel.croppedImage != nil {
-                Image(uiImage: viewModel.croppedImage!)
+            if awsService.croppedImage != nil {
+                Image(uiImage: awsService.croppedImage!)
                     .resizable()
                     .scaledToFit()
                     .clipShape(Circle())
@@ -72,7 +69,7 @@ extension SignUpView {
     var nameTextField: some View {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
-                TextField("닉네임을 입력하세요", text: $viewModel.username)
+                TextField("닉네임을 입력하세요", text: $awsService.user.username)
                     .font(.custom14semibold())
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)
@@ -90,7 +87,7 @@ extension SignUpView {
                 }
             }
             HStack {
-                switch viewModel.usernameStatus {
+                switch awsService.usernameStatus {
                 case .empty:
                     Text("사용 가능한 닉네임입니다.") // 아무 메시지도 표시하지 않음
                         .font(.custom10bold())
@@ -139,7 +136,7 @@ extension SignUpView {
 //    }
     var signUpbutton: some View {
         Button {
-            viewModel.signUp()
+            awsService.signUp()
         } label: {
             HStack{
                 Spacer()
@@ -147,9 +144,9 @@ extension SignUpView {
                 Spacer()
             }
             .padding(UIScreen.getWidth(15))
-            .background(viewModel.username.isEmpty ? Color.gray.opacity(0.3) : Color(appIndigo))
+            .background(awsService.user.username.isEmpty ? Color.gray.opacity(0.3) : Color(appIndigo))
             .cornerRadius(6)
             .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-        }.disabled(viewModel.username.isEmpty)
+        }.disabled(awsService.user.username.isEmpty)
     }
 }

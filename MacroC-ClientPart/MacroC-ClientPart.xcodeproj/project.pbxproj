@@ -248,9 +248,9 @@
 		07038C812ADCC0B5002445DD /* AuthView */ = {
 			isa = PBXGroup;
 			children = (
-				0707172A2AD9412700B72319 /* SignInView.swift */,
-				07FBF28A2ACFF90B004EF174 /* SignUpView.swift */,
 				F62B8A962ACED4070077CA17 /* LoginView.swift */,
+				07FBF28A2ACFF90B004EF174 /* SignUpView.swift */,
+				0707172A2AD9412700B72319 /* SignInView.swift */,
 			);
 			path = AuthView;
 			sourceTree = "<group>";

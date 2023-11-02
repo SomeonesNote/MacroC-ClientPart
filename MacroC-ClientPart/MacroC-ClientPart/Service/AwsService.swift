@@ -20,16 +20,15 @@ class AwsService : ObservableObject {
     @Published var followingInt: [Int] = []
     @Published var allAtrist : [Artist] = [] // 모든 아티스트 리스트
     @Published var croppedImage: UIImage?
+    @Published var popImagePicker : Bool = false
     @Published var patchcroppedImage: UIImage?
     @Published var artistPatchcroppedImage: UIImage?
     @Published var nowBuskingArtist : [Artist] = [] // 맵뷰 그리기 위해서 필요한 리스트
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
     @Published var isLoading: Bool = false
     @Published var isCreatUserArtist: Bool = UserDefaults.standard.bool(forKey: "isCreatUserArtist")
-    
-    
     @Published var isSignIn : Bool = UserDefaults.standard.bool(forKey: "isSignIn") // 테스트 SignIn 테스트 유저 토큰 발행용
-    @Published var isSignUp : Bool =  UserDefaults.standard.bool(forKey: "isSignup")// 서버에서 받아온 커런트 토큰이 없으면 true 있으면 false
+    @Published var isSignUp : Bool = UserDefaults.standard.bool(forKey: "isSignup")// 서버에서 받아온 커런트 토큰이 없으면 true 있으면 false
     
     
     @Published var usernameStatus: UsernameStatus = .empty
@@ -37,6 +36,48 @@ class AwsService : ObservableObject {
         case empty
         case duplicated
         case available
+    }
+    
+    func signUp() {
+        let token : String? = KeychainItem.currentFirebaseToken
+        let headers: HTTPHeaders = [.authorization(bearerToken: token ?? "")]
+        
+        let parameters: [String: String] = [
+            "username": self.user.username,
+            "uid": KeychainItem.currentFuid
+        ]
+
+        if !self.user.username.isEmpty {
+            AF.upload(multipartFormData: { multipartFormData in
+                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
+                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+                }
+                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+                }
+                for (key, value) in parameters {
+                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
+                }
+
+            }, to: "http://localhost:3000/auth/signup-with-image", method: .post, headers: headers)
+            .responseDecodable(of: TokenResponse.self) { response in
+                switch response.result {
+                case .success(let token):
+                    print("Success")
+                    print(token.accessToken)
+                    do {
+                        try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
+                    } catch {
+                        print("tokenResponse on Keychain is fail")
+                    }
+                    print(AwsService().isSignUp)
+                    self.isSignUp = true
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                    self.isSignUp = false
+                }
+            }
+        }
     }
     
     

@@ -21,26 +21,27 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct MacroC_ClientPartApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate //firebase
-    
-    let APIKey = "AIzaSyDF3d8OqWRipyjxQh7C2HF6KHn-C3YhSt8"
     @StateObject private var awsService = AwsService()
     
-    
+    let APIKey = "AIzaSyDF3d8OqWRipyjxQh7C2HF6KHn-C3YhSt8"
+   
     init() {
         GMSServices.provideAPIKey(APIKey)
         GMSPlacesClient.provideAPIKey(APIKey)
     }
-    
     var body: some Scene {
         WindowGroup {
             
             if awsService.isSignIn && awsService.isSignUp {
                 ContentView().environmentObject(awsService)
+                
             } else if awsService.isSignIn {
                 SignUpView().environmentObject(awsService)
+                
             } else {
                 LoginView().environmentObject(awsService)
             }
+            
         }
     }
 }

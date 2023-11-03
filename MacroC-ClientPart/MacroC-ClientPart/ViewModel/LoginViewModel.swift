@@ -48,11 +48,12 @@ class LoginViewModel: ObservableObject {
                 return
             }
             if let fuid = result?.user.uid {
-                print(fuid)
+                print("LoginViewModel.authenticate.fuid : \(fuid)")
                 do {
                     try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "fuid").saveItem(fuid)
-                    print("'\(fuid)' is saved on keychain")
+                    print("LoginViewModel.authenticate : '\(fuid)' is saved on keychain")
                     AwsService().isSignIn = true
+                    UserDefaults.standard.set(true ,forKey: "isSignIn")
                 } catch {
                     print("LoginViewModel.authenticate.error : Unable to save uid to keychain.")
                 }
@@ -67,7 +68,8 @@ class LoginViewModel: ObservableObject {
                     self.firebaseToken = token
                     do {
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "firebaseToken").saveItem(self.firebaseToken)
-                        print("'\(self.firebaseToken)' is saved on keychain")
+                        print("LoginViewModel.authenticate.firebaseToken : '\(self.firebaseToken)' is saved on keychain")
+                        AwsService().checkSignUp()
                     } catch {
                         print("LoginViewModel.authenticate.error : Unable to save uid to keychain.")
                     }

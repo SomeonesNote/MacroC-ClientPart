@@ -15,7 +15,6 @@ struct LoginView: View {
 
     @EnvironmentObject var awsService : AwsService
     @StateObject var loginData = LoginViewModel()
-    
     @State private var isLoggedin: Bool = false
     @State private var userUID: String = ""
     @State private var showLoginUI: Bool = false
@@ -27,14 +26,11 @@ struct LoginView: View {
                 Text(isLoggedin ? "Log Out" : "Log In")
             }
             SignInWithAppleButton{ (request) in
-                //requesting parameters from apple login
                 loginData.nonce = randomNonceString()
                 request.requestedScopes = [.email, .fullName]
                 request.nonce = sha256(loginData.nonce)
                
             } onCompletion: { (result) in
-                
-//                getting error or success
                 switch result {
                 case .success(let user):
                     print("success")
@@ -48,7 +44,7 @@ struct LoginView: View {
                     do {
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(userIdentifier)
                         awsService.isSignIn = true
-                        awsService.SignIn()
+                       
                     } catch {
                         print("userIdentifier is not saved")
                     }
@@ -65,12 +61,7 @@ struct LoginView: View {
             FirebaseLoginViewControllerWrapper()
         }
         .onAppear {
-//            print("isLoggedin")
-//            print(isLoggedin)
             checkLoginStatus()
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                print(isLoggedin)
-//            }
         }
     }
 

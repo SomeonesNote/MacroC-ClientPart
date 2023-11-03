@@ -12,12 +12,7 @@ struct UserArtistPageView: View {
     
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
-    @ObservedObject var viewModel = UserArtistPageViewModel()
-    
-    @State var emptyText: String = ""
-    
-    @State var EditUsername: String = ""
-    @State var EditUserInfo: String = ""
+    @StateObject var viewModel = UserArtistPageViewModel()
     
     //MARK: -2.BODY
     var body: some View {
@@ -27,7 +22,7 @@ struct UserArtistPageView: View {
                     if viewModel.croppedImage != nil { pickedImage }
                     else { artistPageImage }
                     artistPageTitle
-                    artistPageFollowButton
+//                    artistPageFollowButton
                     Spacer()
                 }
             }.blur(radius: viewModel.isEditSocial || viewModel.isEditName || viewModel.isEditInfo ? 15 : 0)
@@ -98,7 +93,6 @@ struct UserArtistPageView: View {
 //MARK: -4.EXTENSION
 extension UserArtistPageView {
     var artistPageImage: some View {
-        //        Image(viewModel.userArtist.artistimage)
         AsyncImage(url: URL(string: awsService.user.artist?.artistImage ?? "")) { image in
             image.resizable().aspectRatio(contentMode: .fit)
         } placeholder: {
@@ -108,17 +102,23 @@ extension UserArtistPageView {
         .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
         .overlay (
             HStack(spacing: UIScreen.getWidth(10)){
-                Button {
-//                    UIApplication.shared.open(URL(string: emptyText)!)// TODO: 값 집어넣어야
-                } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                if awsService.user.artist?.youtubeURL != "" {
+                    Button {
+                        UIApplication.shared.open(URL(string: (awsService.user.artist?.youtubeURL)!)!)// TODO: 값 집어넣어야
+                    } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                }
+                if awsService.user.artist?.instagramURL != "" {
+                    Button {
+                        UIApplication.shared.open(URL(string: (awsService.user.artist?.instagramURL)!)!)// TODO: 값 집어넣어야
+                    } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                }
                 
-                Button {
-//                    UIApplication.shared.open(URL(string: emptyText)!)// TODO: 값 집어넣어야
-                } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
-                
-                Button {
-//                    UIApplication.shared.open(URL(string: emptyText)!)// TODO: 값 집어넣어야
-                } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                if awsService.user.artist?.soundcloudURL != "" {
+                    Button {
+                        UIApplication.shared.open(URL(string: (awsService.user.artist?.soundcloudURL)!)!)// TODO: 값 집어넣어야
+                    } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                }
+               
                 if viewModel.isEditMode == true {
                     Button { viewModel.isEditSocial = true } label: {
                         Image(systemName: "pencil.circle.fill")
@@ -150,18 +150,23 @@ extension UserArtistPageView {
             .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
             .overlay (
                 HStack(spacing: UIScreen.getWidth(10)){
-                    Button { 
-                        //TODO: 딥링크 구현
-                    } label: { linkButton(name: YouTubeLogo) }
+                    if awsService.user.artist?.youtubeURL != "" {
+                        Button {
+                            UIApplication.shared.open(URL(string: (awsService.user.artist?.youtubeURL)!)!)// TODO: 값 집어넣어야
+                        } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                    }
+                    if awsService.user.artist?.instagramURL != "" {
+                        Button {
+                            UIApplication.shared.open(URL(string: (awsService.user.artist?.instagramURL)!)!)// TODO: 값 집어넣어야
+                        } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                    }
                     
-                    Button {
-                        //TODO: 딥링크 구현
-                    } label: { linkButton(name: InstagramLogo) }
-                    
-                    Button {
-                        //TODO: 딥링크 구현
-                    } label: { linkButton(name: SoundCloudLogo) }
-                    
+                    if awsService.user.artist?.soundcloudURL != "" {
+                        Button {
+                            UIApplication.shared.open(URL(string: (awsService.user.artist?.soundcloudURL)!)!)// TODO: 값 집어넣어야
+                        } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                    }
+                   
                     if viewModel.isEditMode == true {
                         Button { viewModel.isEditSocial = true } label: {
                             Image(systemName: "pencil.circle.fill")
@@ -169,7 +174,6 @@ extension UserArtistPageView {
                                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                         }
                     }
-
                 }
                 .frame(height: UIScreen.getHeight(25))
                 .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15))), alignment: .bottomTrailing )
@@ -191,7 +195,7 @@ extension UserArtistPageView {
     var artistPageTitle: some View {
         return VStack{
             ZStack {
-                Text(awsService.user.artist?.stageName ?? "")
+                Text(awsService.user.artist?.stageName ?? "Artist Name")
                     .font(.custom40black())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -208,7 +212,7 @@ extension UserArtistPageView {
                 }
             }
             ZStack {
-                Text(awsService.user.artist?.artistInfo ?? "")
+                Text(awsService.user.artist?.artistInfo ?? "Insert artist infomation")
                     .font(.custom13heavy())
                 if viewModel.isEditMode == true {
                     HStack {
@@ -260,25 +264,27 @@ extension UserArtistPageView {
     var secondToolbarItem: some View {
         if viewModel.isEditMode {
             return AnyView(Button{
+               
+                viewModel.isEditMode = false
+                viewModel.isEditSocial = false
+                viewModel.isEditName = false
+                viewModel.isEditInfo = false
                 //TODO: 세이브하는 거 구현
-                awsService.artistPatchcroppedImage = viewModel.croppedImage
                 
-                awsService.patchUserArtistProfile {
-                    print("awsService.patchUserArtistProfile is over")
+                if viewModel.croppedImage != nil {
+                    awsService.artistPatchcroppedImage = viewModel.croppedImage
                 }
-                    
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                awsService.patchUserArtistProfile {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         awsService.getUserProfile {
                             feedback.notificationOccurred(.success)
-                          
-                            viewModel.isEditSocial = false
-                            viewModel.isEditName = false
-                            viewModel.isEditInfo = false
+                            awsService.getAllArtistList {
+                                awsService.getFollowingList {
+                                }
+                            }
                         }
                     }
-                viewModel.isEditMode = false
-                
+                }
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
             })
@@ -301,7 +307,7 @@ extension UserArtistPageView {
                 Text("Youtube")
                     .font(.custom14semibold())
             }
-            TextField("", text: $viewModel.youtubeURL)
+            TextField(awsService.user.artist?.youtubeURL ?? "Insert Youtube URL", text: $viewModel.youtubeURL)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -314,7 +320,7 @@ extension UserArtistPageView {
                 Text("Instagram")
                     .font(.custom14semibold())
             }
-            TextField("", text: $viewModel.instagramURL)
+            TextField(awsService.user.artist?.instagramURL ?? "Insert Instagram URL", text: $viewModel.instagramURL)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -327,7 +333,7 @@ extension UserArtistPageView {
                 Text("SoundCloud")
                     .font(.custom14semibold())
             }
-            TextField("", text: $viewModel.soundcloudURL)
+            TextField(awsService.user.artist?.soundcloudURL ?? "Insert Soundcloud URL", text: $viewModel.soundcloudURL)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -373,9 +379,9 @@ extension UserArtistPageView {
                     .scaledToFit()
                     .frame(width: UIScreen.getWidth(20))
                     .padding(.leading, UIScreen.getWidth(3))
-                Text("User Name").font(.custom14semibold())
+                Text("Artist name").font(.custom14semibold())
             }
-            TextField("", text: $EditUsername)
+            TextField(awsService.user.artist?.stageName ?? "Insert artist name", text: $viewModel.editUsername)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -383,7 +389,7 @@ extension UserArtistPageView {
             //editNameSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
-                awsService.user.artist?.stageName = EditUsername // awsService에 값 할당
+                awsService.user.artist?.stageName = viewModel.editUsername // awsService에 값 할당
                 
                     feedback.notificationOccurred(.success)
                     withAnimation(.smooth(duration: 0.5)) {
@@ -418,9 +424,9 @@ extension UserArtistPageView {
                     .scaledToFit()
                     .frame(width: UIScreen.getWidth(20))
                     .padding(.leading, UIScreen.getWidth(3))
-                Text("User Info").font(.custom14semibold())
+                Text("Artist Info").font(.custom14semibold())
             }
-            TextField("", text: $EditUserInfo)
+            TextField(awsService.user.artist?.artistInfo ?? "Insert artist Info", text: $viewModel.editUserInfo)
                 .font(.custom10semibold())
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
@@ -428,7 +434,7 @@ extension UserArtistPageView {
             //editInfoSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
-                awsService.user.artist?.artistInfo = EditUserInfo
+                awsService.user.artist?.artistInfo = viewModel.editUserInfo
                 
                     feedback.notificationOccurred(.success)
                     withAnimation(.smooth(duration: 0.5)) {

@@ -9,7 +9,7 @@ import SwiftUI
 
 class ArtistPageViewModel: ObservableObject {
     @Published var artist: Artist
-
+    @Published var isfollowing: Bool = false
     init(artist: Artist) {
         self.artist = artist
     }

@@ -32,6 +32,9 @@ class UserArtistPageViewModel: ObservableObject {
     @Published var instagramURL: String
     @Published var soundcloudURL: String
     
+    @Published var editUsername: String = ""
+    @Published var editUserInfo: String = ""
+    
     init(youtubeURL: String = "" , instagramURL: String = "" , soundcloudURL: String = "") {
         self.youtubeURL = youtubeURL
         self.instagramURL = instagramURL

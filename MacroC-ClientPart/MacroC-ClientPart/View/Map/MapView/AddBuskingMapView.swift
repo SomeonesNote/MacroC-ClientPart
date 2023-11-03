@@ -86,9 +86,10 @@ struct AddBuskingMapView: UIViewRepresentable {
                 marker.map = mapView
                 self.marker = marker
 
-                
-                let markerImage = UIImageView(image: UIImage(named: parent.awsService.user.artist?.artistImage ?? ""))
+//                let markerImage = UIImageView(image: UIImage(named: parent.awsService.user.artist?.artistImage ?? ""))
 //                let markerImage = UIImageView(image: UII)
+                let markerImage = UIImageView()
+                if let url = URL(string: parent.awsService.user.artist?.artistImage ?? "") { markerImage.af.setImage(withURL: url) }
                 let customMarker = UIImageView(image: UIImage(named: "markerpin"))
                 
                 customMarker.addSubview(markerImage)

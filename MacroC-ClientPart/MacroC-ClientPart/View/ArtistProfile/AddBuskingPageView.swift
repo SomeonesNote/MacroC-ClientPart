@@ -11,7 +11,9 @@ import GoogleMaps
 struct AddBuskingPageView: View {
     
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService : AwsService
     @StateObject var viewModel = AddBuskingPageViewModel()
+    
     @State var showPopover: Bool = false
     @Environment(\.dismiss) var dismiss
     
@@ -101,7 +103,7 @@ extension AddBuskingPageView {
         }.padding(.top, UIScreen.getHeight(20))
     }
     
-    var datePickerView: some View {
+    var datePickerView: some View { //TODO: - 버스킹 스타트 타임이랑 엔드타임 날짜 맞추기
         VStack(spacing: UIScreen.getWidth(5)) {
             DatePicker(selection: $viewModel.startTime, displayedComponents: .date) {
                 Text("공연 날짜")
@@ -140,13 +142,22 @@ extension AddBuskingPageView {
             
         }
         .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(15), bottom: UIScreen.getWidth(15), trailing: UIScreen.getWidth(15)))
-        .background(Material.ultraThin.opacity(0.3))
+        .background(Material.ultraThin.opacity(0.5))
         .shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5))
         .cornerRadius(10)
     }
     
+    //
     var registerButton: some View {
         Button{
+            awsService.addBusking.BuskingStartTime = viewModel.startTime
+            awsService.addBusking.BuskingEndTime = viewModel.endTime
+            awsService.addBusking.latitude = viewModel.selectedCoordinate?.latitude ?? 0.0 //TODO: 이거 값 없을떄 버튼 디스에이블로 잡기
+            awsService.addBusking.longitude = viewModel.selectedCoordinate?.longitude ?? 0.0
+            awsService.addBusking.BuskingInfo = "dd"
+            
+            
+            awsService.postBusking()
             withAnimation(.easeIn(duration: 0.4)) {
                 showPopover = true
                 feedback.notificationOccurred(.success)

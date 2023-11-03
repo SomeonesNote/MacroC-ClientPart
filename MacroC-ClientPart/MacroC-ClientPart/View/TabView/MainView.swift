@@ -44,7 +44,7 @@ extension MainView {
         return VStack {
             HStack {
                 roundedBoxText(text: "My Artist")
-//                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 Spacer()
                 NavigationLink {
                     ArtistListView().toolbarBackground(.hidden, for: .navigationBar)
@@ -94,7 +94,7 @@ extension MainView {
         return VStack {
             HStack {
                 roundedBoxText(text: "Upcomming Busking")
-//                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 Spacer()
             }.padding(UIScreen.getWidth(20))
             
@@ -102,7 +102,7 @@ extension MainView {
                 if myArtistBusking.isEmpty {
                     HStack(alignment: .center, spacing: UIScreen.getWidth(8)) {
                         Spacer()
-                        Image(systemName: "plus.circle.fill").font(.custom20semibold())
+                        Image(systemName: "exclamationmark.circle.fill").font(.custom20semibold())
                         Text("지금은 공연이 예정된 아티스트가 없어요!")
                             .font(.custom13bold())
                             .fontWidth(.expanded)

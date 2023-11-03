@@ -1,20 +1,20 @@
-//
+
 //  DummyData.swift
 //  MacroC-ClientPart
 //
 //  Created by Kimdohyun on 2023/10/05.
-//
+
 
 import Foundation
 
 //DummyUser
-let dummyUser = User(id: 1, username: "User", email: "user1@google.com", password: "user1.pw", avatarUrl: "User", artist: dummyUserArtist)
+let dummyUser = User(id: 1, username: "User", email: "user1@google.com", avatarUrl: "User", artist: dummyUserArtist)
 
 //DummyUserArtist
 let dummyUserArtist = Artist(id: 1, stageName: "UserArtist", artistInfo: "안녕하세요 아이유입니다", artistImage: "UserArtist", genres: "Sing", members: [], buskings: [])
 
 //Blank User
-let blankUser = User(id: 0, username: "Name", email: "", password: "", avatarUrl: "UserBlank", artist: blankArtist)
+let blankUser = User(id: 0, username: "Name", email: "", avatarUrl: "UserBlank", artist: blankArtist)
 
 //Blank Artist
 let blankArtist = Artist(id: 0, stageName: "Name", artistInfo: "Artist Information", artistImage: "UserBlank", genres: "", members: [], buskings: [])

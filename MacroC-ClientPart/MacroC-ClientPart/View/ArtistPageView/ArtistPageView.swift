@@ -11,8 +11,8 @@ struct ArtistPageView: View {
     
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
-    @ObservedObject var viewModel: ArtistPageViewModel
-    @State var isfollowing: Bool = false
+    @StateObject var viewModel: ArtistPageViewModel
+    
     
     //MARK: -2.BODY
     var body: some View {
@@ -32,7 +32,7 @@ struct ArtistPageView: View {
         .ignoresSafeArea()
         .toolbarBackground(.hidden, for: .navigationBar)
         .onAppear{
-            isfollowing = awsService.followingInt.contains(viewModel.artist.id)
+            viewModel.isfollowing = awsService.followingInt.contains(viewModel.artist.id)
         }
     }
 }
@@ -48,21 +48,29 @@ extension ArtistPageView {
         }
         .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth)
         .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
-        //            .overlay (
-        //                HStack(spacing: UIScreen.getWidth(10)){
-        //                    Button {
-        //                        UIApplication.shared.open(URL(string: viewModel.artist.youtube)!)
-        //                    } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
-        //
-        //                    Button {
-        //                        UIApplication.shared.open(URL(string: viewModel.artist.instagram)!)
-        //                    } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
-        //
-        //                    Button { } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
-        //                }
-        //                    .frame(height: UIScreen.getHeight(25))
-        //                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
-        //                ,alignment: .bottomTrailing )
+                    .overlay (
+                        HStack(spacing: UIScreen.getWidth(10)){
+                            if viewModel.artist.youtubeURL != "" {
+                                Button {
+                                    UIApplication.shared.open(URL(string: (viewModel.artist.youtubeURL)!)!)
+                                } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                            }
+                            
+                            if viewModel.artist.instagramURL != "" {
+                                Button {
+                                    UIApplication.shared.open(URL(string: viewModel.artist.instagramURL!)!)
+                                } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                            }
+                            
+                            if viewModel.artist.soundcloudURL != "" {
+                                Button {
+                                    UIApplication.shared.open(URL(string: viewModel.artist.instagramURL!)!)
+                                } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
+                            }
+                        }
+                            .frame(height: UIScreen.getHeight(25))
+                            .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15)))
+                        ,alignment: .bottomTrailing )
     }
     
     var artistPageTitle: some View {
@@ -88,7 +96,7 @@ extension ArtistPageView {
                 }
             }
         } label: {
-            Text(isfollowing ? "Unfollow" : "Follow")
+            Text(viewModel.isfollowing ? "Unfollow" : "Follow")
                 .font(.custom21black())
                 .padding(.init(top: UIScreen.getHeight(7), leading: UIScreen.getHeight(30), bottom: UIScreen.getHeight(7), trailing: UIScreen.getHeight(30)))
                 .background{ Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(2)) }

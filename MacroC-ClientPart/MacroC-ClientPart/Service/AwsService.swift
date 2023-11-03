@@ -27,6 +27,7 @@ class AwsService : ObservableObject {
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
     @Published var isLoading: Bool = false
     @Published var isCreatUserArtist: Bool = UserDefaults.standard.bool(forKey: "isCreatUserArtist")
+    
     @Published var isSignIn : Bool = UserDefaults.standard.bool(forKey: "isSignIn") // 테스트 SignIn 테스트 유저 토큰 발행용
     @Published var isSignUp : Bool = UserDefaults.standard.bool(forKey: "isSignup")// 서버에서 받아온 커런트 토큰이 없으면 true 있으면 false
     
@@ -40,13 +41,14 @@ class AwsService : ObservableObject {
     
     func signUp() {
         let token : String? = KeychainItem.currentFirebaseToken
+        //        let token : String? = accesseToken
         let headers: HTTPHeaders = [.authorization(bearerToken: token ?? "")]
         
         let parameters: [String: String] = [
             "username": self.user.username,
             "uid": KeychainItem.currentFuid
         ]
-
+        
         if !self.user.username.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
                 if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
@@ -58,20 +60,29 @@ class AwsService : ObservableObject {
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
-
             }, to: "http://localhost:3000/auth/signup-with-image", method: .post, headers: headers)
             .responseDecodable(of: TokenResponse.self) { response in
                 switch response.result {
                 case .success(let token):
-                    print("Success")
+                    print("signUp.Success")
                     print(token.accessToken)
                     do {
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
+                        self.accesseToken = token.accessToken
+                        print("awsService.accessToken : \(self.accesseToken)")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.getUserProfile { //유저프로필 가져오기
+                                self.getFollowingList {}}//팔로우 리스트 가져오기
+                            self.getAllArtistList{}
+                            self.isCreatUserArtist = false
+                            UserDefaults.standard.set(false ,forKey: "isCreatUserArtist")
+                        }
                     } catch {
                         print("tokenResponse on Keychain is fail")
                     }
-                    print(AwsService().isSignUp)
                     self.isSignUp = true
+                    UserDefaults.standard.set(true, forKey: "isSignup")
+                    print("awsService.isSignUp : \(self.isSignUp)")
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
                     self.isSignUp = false
@@ -94,11 +105,13 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let userData) :
                     self.user = userData
+                    if userData.email == nil {
+                        self.user.email = ""
+                    }
                     if userData.artist == nil {
                         self.user.artist = Artist()
                     }
                     print(self.user)
-                    print("Get User Profile Success!")
                 case .failure(let error) :
                     print("getUserProfile.error : \(error.localizedDescription)")
                 }
@@ -107,7 +120,7 @@ class AwsService : ObservableObject {
     }
     
     //Login for get Token //배치완료
-    func SignIn() {
+    func checkSignUp() {
         let uid = KeychainItem.currentFuid
         let parameters: [String : String] = [
             "uid" : "\(uid)"
@@ -116,14 +129,44 @@ class AwsService : ObservableObject {
             .responseDecodable(of: Bool.self) { response in
                 switch response.result {
                 case .success(let bool) :
-                    
+                    if bool == true {
+                        self.tokenReresponse()
+                    }
                     UserDefaults.standard.set(bool, forKey: "isSignup")
                     self.isSignUp = bool
-                    print(self.isSignUp)
+                    print("checkSignUp : \(self.isSignUp)")
                 case .failure(let error) :
-                    print("unfollowing.error : \(error.localizedDescription)")
+                    print("checkSignIn.error : \(error.localizedDescription)")
                 }
             }
+    }
+    
+    func tokenReresponse() { //MARK: - 이미 계쩡이 있는 유저가 로그인할 떄 + 유저 프로파일 받아오는 함수
+        let token : String? = KeychainItem.currentFirebaseToken
+        let headers: HTTPHeaders = [.authorization(bearerToken: token ?? "")]
+        let parameters: [String: String] = [
+            "uid": KeychainItem.currentFuid
+        ]
+        AF.request("http://localhost:3000/auth/signin", method: .post, parameters: parameters, headers: headers)
+            .responseDecodable(of: TokenResponse.self) { response in
+            switch response.result {
+            case .success(let token):
+                print("tokenReresponse : \(token.accessToken)")
+                do {
+                    try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
+                } catch {
+                    print("tokenResponse on Keychain is fail")
+                }
+                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                 self.getUserProfile { //유저프로필 가져오기
+                                     self.getFollowingList {}}//팔로우 리스트 가져오기
+                                 self.getAllArtistList{}
+                             }
+                         
+            case .failure(let error):
+                print("tokenReresponse.Error: \(error.localizedDescription)")
+            }
+        }
     }
     
     //Edit UserProfile
@@ -311,28 +354,28 @@ class AwsService : ObservableObject {
             "soundcloudURL" : self.user.artist?.soundcloudURL ?? ""
         ]
         
-//        if !user.artist?.stageName.isEmpty || !user.artist?.artistInfo.isEmpty {
-            AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.artistPatchcroppedImage?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
-                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
-                for (key, value) in parameters {
-                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
-                }
-            }, to: "http://localhost:3000/artist/update/\(artistid)", method: .patch, headers: headers)
-            .response { response in
-                switch response.result {
-                case .success:
-                        print("PatchUserArtist.success")
-                case .failure(let error):
-                    print("postUserArtist.error : \(error.localizedDescription)")
-                }
+        //        if !user.artist?.stageName.isEmpty || !user.artist?.artistInfo.isEmpty {
+        AF.upload(multipartFormData: { multipartFormData in
+            if let imageData = self.artistPatchcroppedImage?.jpegData(compressionQuality: 1) {
+                multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
             }
-            completion()
+            else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+                multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+            }
+            for (key, value) in parameters {
+                multipartFormData.append(value.data(using: .utf8)!, withName: key)
+            }
+        }, to: "http://localhost:3000/artist/update/\(artistid)", method: .patch, headers: headers)
+        .response { response in
+            switch response.result {
+            case .success:
+                print("PatchUserArtist.success")
+            case .failure(let error):
+                print("postUserArtist.error : \(error.localizedDescription)")
+            }
         }
+        completion()
+    }
     
     //Delete User Artist
     func deleteUserArtist() {
@@ -356,11 +399,12 @@ class AwsService : ObservableObject {
     
     //Get All Artist List //배치완료
     func getAllArtistList(completion: @escaping () -> Void) {
+        let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        AF.request("http://localhost:3000/artist/All", method: .get)
+        AF.request("http://localhost:3000/artist/All", method: .get, headers: headers)
             .validate()
             .responseDecodable(of: [Artist].self,decoder: decoder) { response in
                 switch response.result {
@@ -390,6 +434,8 @@ class AwsService : ObservableObject {
         let parameters: [String: Any] = [
             "BuskingStartTime" : buskingStartTimeString,
             "BuskingEndTime" : buskingEndTimeString,
+//            "BuskingStartTime" : self.addBusking.BuskingStartTime,
+//            "BuskingEndTime" : self.addBusking.BuskingEndTime,
             "BuskingInfo" : self.addBusking.BuskingInfo,
             "longitudde" : self.addBusking.longitude,
             "latitude" : self.addBusking.latitude
@@ -397,11 +443,13 @@ class AwsService : ObservableObject {
         
         AF.request("http://localhost:3000/busking/register/\(artistid)", method: .post, parameters: parameters, headers: headers)
             .validate()
-            .responseDecodable(of: Busking.self ,decoder: decoder) { response in
+            .response { response in
                 switch response.result {
                 case .success :
                     print("postBusking.success")
                 case .failure(let error) :
+                    print("StartTime : \(buskingStartTimeString)")
+                    print("StartTime : \(buskingEndTimeString)")
                     print("postBusking.error : \(error.localizedDescription)")
                 }
             }

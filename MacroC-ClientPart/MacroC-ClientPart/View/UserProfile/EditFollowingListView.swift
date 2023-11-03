@@ -43,6 +43,14 @@ struct EditFollowingListView: View {
                             }
                         }
                     } .scaleEffect(0.8)
+                        .alert(isPresented: $deleteAlert) {
+                            Alert(title: Text(""), message: Text("Do you want to unfollow?"), primaryButton: .destructive(Text("Unfollow"), action: {
+                                //TODO: 팔로우 리스트에서 삭제
+                                awsService.unFollowing(userid: awsService.user.id, artistid: i.id) { // 언팔하는 함수
+                                    awsService.getFollowingList(completion: { })
+                                }
+                            }), secondaryButton: .cancel(Text("Cancle")))
+                        }
                 }
             }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
         }.background(backgroundView().ignoresSafeArea()).navigationTitle("")
@@ -55,11 +63,14 @@ struct EditFollowingListView: View {
                     }
                 }
             }
-            .alert(isPresented: $deleteAlert) {
-                Alert(title: Text(""), message: Text("Do you want to unfollow?"), primaryButton: .destructive(Text("Unfollow"), action: {
-                    //TODO: 팔로우 리스트에서 삭제
-                }), secondaryButton: .cancel(Text("Cancle")))
-            }
+//            .alert(isPresented: $deleteAlert) {
+//                Alert(title: Text(""), message: Text("Do you want to unfollow?"), primaryButton: .destructive(Text("Unfollow"), action: {
+//                    //TODO: 팔로우 리스트에서 삭제
+//                    awsService.unFollowing(userid: awsService.user.id, artistid: i.id) { // 언팔하는 함수
+//                        awsService.getFollowingList(completion: { })
+//                    }
+//                }), secondaryButton: .cancel(Text("Cancle")))
+//            }
             .toolbarBackground(.hidden, for: .navigationBar)
     }
 }

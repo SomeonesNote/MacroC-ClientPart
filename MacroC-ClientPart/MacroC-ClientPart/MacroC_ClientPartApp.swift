@@ -35,7 +35,7 @@ struct MacroC_ClientPartApp: App {
             if awsService.isSignIn && awsService.isSignUp {
                 ContentView().environmentObject(awsService)
                 
-            } else if awsService.isSignIn {
+            } else if awsService.isSignIn && !awsService.isSignUp {
                 SignUpView().environmentObject(awsService)
                 
             } else {

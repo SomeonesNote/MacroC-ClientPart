@@ -12,13 +12,15 @@ import CoreLocation
 
 
 class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, GMSAutocompleteFetcherDelegate {
-//    @Published var userArtist: Artist = (AwsService().user.artist? ?? <#default value#>)
+    //    @Published var userArtist: Artist = (AwsService().user.artist? ?? )
     @Published var markerAdressString: String = "address"
     @Published var startTime = Date()
     @Published var endTime = Date()
     @Published var query: String = ""
     @Published var results: [GMSAutocompletePrediction] = []
     @Published var selectedCoordinate: CLLocationCoordinate2D?
+    @Published var latitude : Double = 0.0
+    @Published var longitude : Double = 0.0
     
     private var fetcher: GMSAutocompleteFetcher
     @Published var locationManager: CLLocationManager
@@ -34,68 +36,74 @@ class AddBuskingPageViewModel: NSObject, ObservableObject, CLLocationManagerDele
         self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
     }
-    final class Coordinator: NSObject, CLLocationManagerDelegate, GMSMapViewDelegate {
-        var mapView: GMSMapView?
-        var marker: GMSMarker?
-        var parent: AddBuskingMapView
-        let locationManager = CLLocationManager()
-        var debounceTimer: Timer?
-        
-        init(_ parent: AddBuskingMapView) {
-            self.parent = parent
-            super.init()
-            locationManager.delegate = self
-        }
-        
-        func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-            marker?.position = mapView.camera.target
-            
-            debounceTimer?.invalidate()
-            debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.reverseGeo(busking: position.target)
-                }
-            }
-        }
-        
-        func startLocationUpdates() {
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
-        }
-        
-        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            if let location = locations.last {
-                mapView?.animate(toLocation: location.coordinate)
-            }
-            locationManager.stopUpdatingLocation()
-        }
-        
-        func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-            switch manager.authorizationStatus {
-            case .authorizedWhenInUse, .authorizedAlways:
-                if CLLocationManager.locationServicesEnabled() {
-                    locationManager.startUpdatingLocation()
-                }
-            default:
-                
-                break
-            }
-        }
-        
-        
-        func reverseGeo(busking: CLLocationCoordinate2D) {
-            let geocoder = CLGeocoder()
-            let location = CLLocation(latitude: busking.latitude, longitude: busking.longitude)
-            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
-                if let placemark = placemarks?.first {
-                    let district = placemark.locality ?? ""
-                    let street = placemark.thoroughfare ?? ""
-                    let buildingNumber = placemark.subThoroughfare ?? ""
-                    self.parent.viewModel.markerAdressString = "\(district) \(street) \(buildingNumber)"
-                }
-            }
-        }
-    }
+//    final class Coordinator: NSObject, CLLocationManagerDelegate, GMSMapViewDelegate {
+//        var mapView: GMSMapView?
+//        var marker: GMSMarker?
+//        var parent: AddBuskingMapView
+//        let locationManager = CLLocationManager()
+//        var debounceTimer: Timer?
+//
+//        init(_ parent: AddBuskingMapView) {
+//            self.parent = parent
+//            super.init()
+//            locationManager.delegate = self
+//        }
+//
+//        func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+//            marker?.position = position.target
+//            debounceTimer?.invalidate()
+//            debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
+//                DispatchQueue.main.async {
+//                    self?.reverseGeo(busking: position.target)
+//                }
+//            }
+//        }
+//
+//        func startLocationUpdates() {
+//            locationManager.requestWhenInUseAuthorization()
+//            locationManager.startUpdatingLocation()
+//        }
+//
+//        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//            if let location = locations.last {
+//                mapView?.animate(toLocation: location.coordinate)
+//            }
+//            locationManager.stopUpdatingLocation()
+//        }
+//
+//        func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//            switch manager.authorizationStatus {
+//            case .authorizedWhenInUse, .authorizedAlways:
+//                if CLLocationManager.locationServicesEnabled() {
+//                    locationManager.startUpdatingLocation()
+//                }
+//            default:
+//                break
+//            }
+//        }
+//
+//
+//        func reverseGeo(busking: CLLocationCoordinate2D) {
+//            let geocoder = CLGeocoder()
+//            let location = CLLocation(latitude: busking.latitude, longitude: busking.longitude)
+//
+//            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+//                if let placemark = placemarks?.first {
+//                    let district = placemark.locality ?? ""
+//                    let street = placemark.thoroughfare ?? ""
+//                    let buildingNumber = placemark.subThoroughfare ?? ""
+//                    let dd = placemark.location?.coordinate.latitude ?? 0.0
+//                    let ee = placemark.location?.coordinate.longitude ?? 0.0
+//
+//                    self.parent.viewModel.markerAdressString = "\(district) \(street) \(buildingNumber)"
+//                    self.parent.viewModel.latitude = dd
+//                    self.parent.viewModel.longitude = ee
+//                }
+//            }
+//        }
+//    }
+//
+    
     
     func didAutocomplete(with predictions: [GMSAutocompletePrediction]) {
         self.results = predictions

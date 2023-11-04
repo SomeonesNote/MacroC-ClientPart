@@ -38,22 +38,22 @@ struct MapBuskingModalView: View {
 //MARK: -4.EXTENSION
 extension MapBuskingModalView {
     var buskingInfoToolbar: some View {
-        HStack(spacing: UIScreen.getWidth(2)){
+        HStack(spacing: UIScreen.getWidth(10)){
             buskingInfoImage.shadow(color: .black.opacity(0.2),radius: UIScreen.getWidth(5))
             Text(viewModel.artist.stageName)
                 .font(.custom22black())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             Spacer()
-            Button{
-                viewModel.toggleLike()
-                feedback.notificationOccurred(.success)
-            } label: {
-                Image(systemName: viewModel.isClickedLike ? "heart.fill" : "heart")
-                    .foregroundStyle(viewModel.isClickedLike ? Color(appRed) : Color.white)
-                    .font(.custom22light())
-                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-            }
-        }.padding(.init(top: UIScreen.getWidth(40), leading: UIScreen.getWidth(5), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(15)))
+//            Button{
+//                viewModel.toggleLike()
+//                feedback.notificationOccurred(.success)
+//            } label: {
+//                Image(systemName: viewModel.isClickedLike ? "heart.fill" : "heart")
+//                    .foregroundStyle(viewModel.isClickedLike ? Color(appRed) : Color.white)
+//                    .font(.custom22light())
+//                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+//            }
+        }.padding(.init(top: UIScreen.getWidth(40), leading: UIScreen.getWidth(15), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(15)))
     }
 
     var buskingInfoImage: some View {

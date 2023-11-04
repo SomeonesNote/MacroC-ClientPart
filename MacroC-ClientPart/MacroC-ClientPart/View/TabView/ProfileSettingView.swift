@@ -13,8 +13,6 @@ struct ProfileSettingView: View {
     @EnvironmentObject var awsService: AwsService
     @StateObject var viewModel = ProfileSettingViewModel()
     
-//    var artistProfileImage: UIImage = UIImage(resource: AsyncImage(url: URL(string: AwsService().userArtist.artistImage)))
-    
     //MARK: -2.BODY
     var body: some View {
         NavigationView {

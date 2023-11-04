@@ -60,6 +60,8 @@
 		071BFF122AEE5975004BDD00 /* FirebaseStorageUI in Frameworks */ = {isa = PBXBuildFile; productRef = 071BFF112AEE5975004BDD00 /* FirebaseStorageUI */; };
 		071BFF142AEE5A1E004BDD00 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BFF132AEE5A1E004BDD00 /* LoginViewModel.swift */; };
 		071BFF182AEE5D92004BDD00 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 071BFF172AEE5D92004BDD00 /* GoogleService-Info.plist */; };
+		071BFF1A2AF4CF33004BDD00 /* MyBuskingSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BFF192AF4CF33004BDD00 /* MyBuskingSettingView.swift */; };
+		071BFF1C2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BFF1B2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift */; };
 		073B651E2AEBAB350035E3EC /* RegisterUserArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073B651D2AEBAB350035E3EC /* RegisterUserArtistViewModel.swift */; };
 		076744922AE574910053E413 /* AwsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076744912AE574910053E413 /* AwsService.swift */; };
 		07FBF2882ACF5223004EF174 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */; };
@@ -138,6 +140,8 @@
 		070F6BE62ADB1BCD00328570 /* mainpageTitleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainpageTitleModifier.swift; sourceTree = "<group>"; };
 		071BFF132AEE5A1E004BDD00 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		071BFF172AEE5D92004BDD00 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		071BFF192AF4CF33004BDD00 /* MyBuskingSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBuskingSettingView.swift; sourceTree = "<group>"; };
+		071BFF1B2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBuskingSettingViewModel.swift; sourceTree = "<group>"; };
 		073B651D2AEBAB350035E3EC /* RegisterUserArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserArtistViewModel.swift; sourceTree = "<group>"; };
 		076744912AE574910053E413 /* AwsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwsService.swift; sourceTree = "<group>"; };
 		07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -404,6 +408,7 @@
 				0707172C2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift */,
 				0707172E2AD9428D00B72319 /* ProfileSettingViewModel.swift */,
 				073B651D2AEBAB350035E3EC /* RegisterUserArtistViewModel.swift */,
+				071BFF1B2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -453,6 +458,7 @@
 				F62B8AC22ACED78C0077CA17 /* EditFanView.swift */,
 				F62B8AAF2ACED5590077CA17 /* EditDonationView.swift */,
 				F62B8AB12ACED5710077CA17 /* EditArtistAcountView.swift */,
+				071BFF192AF4CF33004BDD00 /* MyBuskingSettingView.swift */,
 			);
 			name = ArtistProfile;
 			path = User;
@@ -599,6 +605,7 @@
 				F62B8AA22ACED4980077CA17 /* ProfileSettingView.swift in Sources */,
 				F62B8AB52ACED5AD0077CA17 /* GoogleMapView.swift in Sources */,
 				F62B8A9B2ACED41F0077CA17 /* MapView.swift in Sources */,
+				071BFF1A2AF4CF33004BDD00 /* MyBuskingSettingView.swift in Sources */,
 				07038C882ADCEE83002445DD /* RegisterUserArtistView.swift in Sources */,
 				F62B8AE72ACED9760077CA17 /* Member.swift in Sources */,
 				0707173E2AD9FA7D00B72319 /* CircleBlur.swift in Sources */,
@@ -610,6 +617,7 @@
 				F62B8AE52ACED9690077CA17 /* Busking.swift in Sources */,
 				F62B8AAC2ACED5260077CA17 /* ArtistProfileSettingView.swift in Sources */,
 				F62B8AE32ACED95B0077CA17 /* Artist.swift in Sources */,
+				071BFF1C2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift in Sources */,
 				0707172F2AD9428D00B72319 /* ProfileSettingViewModel.swift in Sources */,
 				070717352AD942E300B72319 /* UIScreen.swift in Sources */,
 				F62B8A972ACED4070077CA17 /* LoginView.swift in Sources */,

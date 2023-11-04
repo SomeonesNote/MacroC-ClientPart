@@ -12,10 +12,9 @@ struct MainView: View{
     //MARK: - 1.PROPERTY
     @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel = MainViewModel()
-    var myArtistBusking : [Artist] {
-        return awsService.following.filter { $0.buskings != nil && !$0.buskings!.isEmpty }
-    }
-    
+//    var myArtistBusking : [Artist] {
+//        return awsService.following.filter { $0.buskings != nil && !$0.buskings!.isEmpty }
+//    }
     
     //MARK: - 2.BODY
     var body: some View {
@@ -32,6 +31,7 @@ struct MainView: View{
         }
     }
 }
+
 //MARK: - 3.PREVIEW
 //#Preview {
 //    MainView()
@@ -99,7 +99,7 @@ extension MainView {
             }.padding(UIScreen.getWidth(20))
             
             VStack(spacing: UIScreen.getWidth(15)) {
-                if myArtistBusking.isEmpty {
+                if awsService.myArtistBuskingList.isEmpty {
                     HStack(alignment: .center, spacing: UIScreen.getWidth(8)) {
                         Spacer()
                         Image(systemName: "exclamationmark.circle.fill").font(.custom20semibold())
@@ -120,7 +120,7 @@ extension MainView {
                 } else {
                     ScrollView(.vertical, showsIndicators: true) {
                         VStack(spacing: 20) {
-                            ForEach(myArtistBusking, id: \.id) { artist in
+                            ForEach(awsService.myArtistBuskingList, id: \.id) { artist in
                                 ForEach(artist.buskings!, id: \.id) { busking in
                                     BuskingListRow(artist: artist, busking: busking)
                                         .onTapGesture {

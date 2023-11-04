@@ -27,7 +27,6 @@ struct EditFollowingListView: View {
                         ArtistPageView(viewModel: ArtistPageViewModel(artist: i))
                     } label: {
                         ProfileRectangle(image: i.artistImage, name: i.stageName)
-                        
                     }
                     .overlay(alignment: .topTrailing) {
                         if isEditMode {
@@ -63,14 +62,6 @@ struct EditFollowingListView: View {
                     }
                 }
             }
-//            .alert(isPresented: $deleteAlert) {
-//                Alert(title: Text(""), message: Text("Do you want to unfollow?"), primaryButton: .destructive(Text("Unfollow"), action: {
-//                    //TODO: 팔로우 리스트에서 삭제
-//                    awsService.unFollowing(userid: awsService.user.id, artistid: i.id) { // 언팔하는 함수
-//                        awsService.getFollowingList(completion: { })
-//                    }
-//                }), secondaryButton: .cancel(Text("Cancle")))
-//            }
             .toolbarBackground(.hidden, for: .navigationBar)
     }
 }

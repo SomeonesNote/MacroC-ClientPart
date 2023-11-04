@@ -116,6 +116,14 @@ extension ArtistProfileSettingView {
             //            .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             //            }
             //
+            NavigationLink {
+                MyBuskingSettingView()
+            } label: {
+                Text("공연 관리")
+                    .font(.custom13bold())
+                    .padding(UIScreen.getWidth(20))
+                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+            }
         }
     }
     

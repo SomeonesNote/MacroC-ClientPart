@@ -48,7 +48,6 @@ class LoginViewModel: ObservableObject {
                 return
             }
             if let fuid = result?.user.uid {
-                print("LoginViewModel.authenticate.fuid : \(fuid)")
                 do {
                     try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "fuid").saveItem(fuid)
                     print("LoginViewModel.authenticate : '\(fuid)' is saved on keychain")
@@ -79,9 +78,7 @@ class LoginViewModel: ObservableObject {
             func verify() {
                 let token = self.firebaseToken
             }
-            
             print("Logged in Successfully")
-            print("tokenString: \(tokenString)")
             //directing to home page
             withAnimation(.easeInOut){
                 self.log_Status = true

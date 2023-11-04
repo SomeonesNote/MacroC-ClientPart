@@ -12,7 +12,7 @@ struct AddBuskingPageView: View {
     
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService : AwsService
-    @StateObject var viewModel = AddBuskingPageViewModel()
+    @ObservedObject var viewModel = AddBuskingPageViewModel()
     
     @State var showPopover: Bool = false
     @Environment(\.dismiss) var dismiss
@@ -33,7 +33,6 @@ struct AddBuskingPageView: View {
                 }
                 .padding(.horizontal)
                 .ignoresSafeArea(.keyboard)
-                
             }
             .hideKeyboardWhenTappedAround()
             .background(backgroundView().ignoresSafeArea())
@@ -141,6 +140,9 @@ extension AddBuskingPageView {
             }
             
         }
+        .onChange(of: viewModel.startTime) {newValue in
+            viewModel.endTime = newValue
+        }
         .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(15), bottom: UIScreen.getWidth(15), trailing: UIScreen.getWidth(15)))
         .background(Material.ultraThin.opacity(0.5))
         .shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5))
@@ -150,10 +152,11 @@ extension AddBuskingPageView {
     //
     var registerButton: some View {
         Button{
+            
             awsService.addBusking.BuskingStartTime = viewModel.startTime
             awsService.addBusking.BuskingEndTime = viewModel.endTime
-            awsService.addBusking.latitude = viewModel.selectedCoordinate?.latitude ?? 0.0 //TODO: 이거 값 없을떄 버튼 디스에이블로 잡기
-            awsService.addBusking.longitude = viewModel.selectedCoordinate?.longitude ?? 0.0
+            awsService.addBusking.latitude = viewModel.latitude //TODO: 이거 값 없을떄 버튼 디스에이블로 잡기
+            awsService.addBusking.longitude = viewModel.longitude
             awsService.addBusking.BuskingInfo = "dd"
             
             
@@ -168,9 +171,6 @@ extension AddBuskingPageView {
                 }
             }
             dismiss()
-            print("공연 장소: \(viewModel.markerAdressString)")
-            print("공연 시작: \(viewModel.startTime)")
-            print("공연 종료: \(viewModel.endTime)")
         } label: {
             HStack{
                 Spacer()

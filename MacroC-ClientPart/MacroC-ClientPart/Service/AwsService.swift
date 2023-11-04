@@ -16,6 +16,7 @@ class AwsService : ObservableObject {
     @Published var addBusking : Busking = Busking()
     @Published var targetBusking : Busking = Busking()
     @Published var myBuskingList : [Busking] = []
+    @Published var myArtistBuskingList : [Artist] = []
     @Published var following : [Artist] = [] // 유저가 팔로우한 리스트
     @Published var followingInt: [Int] = []
     @Published var allAtrist : [Artist] = [] // 모든 아티스트 리스트
@@ -29,7 +30,7 @@ class AwsService : ObservableObject {
     @Published var isCreatUserArtist: Bool = UserDefaults.standard.bool(forKey: "isCreatUserArtist")
     
     @Published var isSignIn : Bool = UserDefaults.standard.bool(forKey: "isSignIn") // 테스트 SignIn 테스트 유저 토큰 발행용
-    @Published var isSignUp : Bool = UserDefaults.standard.bool(forKey: "isSignup")// 서버에서 받아온 커런트 토큰이 없으면 true 있으면 false
+    @Published var isSignUp : Bool = UserDefaults.standard.bool(forKey: "isSignup") // 서버에서 받아온 커런트 토큰이 없으면 true 있으면 false
     
     
     @Published var usernameStatus: UsernameStatus = .empty
@@ -73,7 +74,9 @@ class AwsService : ObservableObject {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.getUserProfile { //유저프로필 가져오기
                                 self.getFollowingList {}}//팔로우 리스트 가져오기
-                            self.getAllArtistList{}
+                            self.getAllArtistList{
+                                self.getMyBuskingList()
+                            }
                             self.isCreatUserArtist = false
                             UserDefaults.standard.set(false ,forKey: "isCreatUserArtist")
                         }
@@ -130,7 +133,11 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let bool) :
                     if bool == true {
-                        self.tokenReresponse()
+                        self.tokenReresponse{
+                                    self.getUserProfile { //유저프로필 가져오기
+                                        self.getFollowingList {}}//팔로우 리스트 가져오기
+                                    self.getAllArtistList{}
+                        }
                     }
                     UserDefaults.standard.set(bool, forKey: "isSignup")
                     self.isSignUp = bool
@@ -141,7 +148,7 @@ class AwsService : ObservableObject {
             }
     }
     
-    func tokenReresponse() { //MARK: - 이미 계쩡이 있는 유저가 로그인할 떄 + 유저 프로파일 받아오는 함수
+    func tokenReresponse(completion: @escaping () -> Void)  { //MARK: - 이미 계쩡이 있는 유저가 로그인할 떄 + 유저 프로파일 받아오는 함수
         let token : String? = KeychainItem.currentFirebaseToken
         let headers: HTTPHeaders = [.authorization(bearerToken: token ?? "")]
         let parameters: [String: String] = [
@@ -154,18 +161,23 @@ class AwsService : ObservableObject {
                 print("tokenReresponse : \(token.accessToken)")
                 do {
                     try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
+                    
                 } catch {
                     print("tokenResponse on Keychain is fail")
                 }
                              DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                  self.getUserProfile { //유저프로필 가져오기
                                      self.getFollowingList {}}//팔로우 리스트 가져오기
-                                 self.getAllArtistList{}
+                                 self.getAllArtistList{
+                                     self.getMyBuskingList()
+                                     self.getMyArtistBuskingList()
+                                 }
                              }
                          
             case .failure(let error):
                 print("tokenReresponse.Error: \(error.localizedDescription)")
             }
+                completion()
         }
     }
     
@@ -210,6 +222,8 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success :
                     self.getFollowingList {
+                        self.getMyArtistBuskingList()
+                        self.getMyBuskingList()
                         print("following.success")
                     }
                 case .failure(let error) :
@@ -232,6 +246,8 @@ class AwsService : ObservableObject {
                 case .success(let followingData) :
                     self.following = followingData
                     self.followingInt = self.following.map {$0.id}
+                    self.getMyArtistBuskingList()
+                    self.getMyBuskingList()
                     print("getFollowingList.followingData : \(self.following)")
                     print("getFollowingList.followingInt : \(self.followingInt)")
                 case .failure(let error) :
@@ -388,6 +404,8 @@ class AwsService : ObservableObject {
                 case .success :
                     self.getUserProfile {
                         self.isCreatUserArtist = false
+                        self.getMyArtistBuskingList()
+                        self.getMyBuskingList()
                         UserDefaults.standard.set(false ,forKey: "isCreatUserArtist")
                         print("UserDefaults.standard.bool : \( UserDefaults.standard.bool(forKey: "isCreatUserArtist"))")
                     }
@@ -434,10 +452,8 @@ class AwsService : ObservableObject {
         let parameters: [String: Any] = [
             "BuskingStartTime" : buskingStartTimeString,
             "BuskingEndTime" : buskingEndTimeString,
-//            "BuskingStartTime" : self.addBusking.BuskingStartTime,
-//            "BuskingEndTime" : self.addBusking.BuskingEndTime,
             "BuskingInfo" : self.addBusking.BuskingInfo,
-            "longitudde" : self.addBusking.longitude,
+            "longitude" : self.addBusking.longitude,
             "latitude" : self.addBusking.latitude
         ]
         
@@ -446,10 +462,16 @@ class AwsService : ObservableObject {
             .response { response in
                 switch response.result {
                 case .success :
-                    print("postBusking.success")
+                    self.getAllArtistList(completion: {
+                        self.getMyBuskingList()
+                        self.getMyArtistBuskingList()
+                        print("postBusking.success")
+                        print(parameters)
+                    }) 
                 case .failure(let error) :
                     print("StartTime : \(buskingStartTimeString)")
                     print("StartTime : \(buskingEndTimeString)")
+                    print("header:\(headers)")
                     print("postBusking.error : \(error.localizedDescription)")
                 }
             }
@@ -470,12 +492,13 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let myBuskingData) :
                     self.myBuskingList = myBuskingData
+                    self.getMyArtistBuskingList()
                     print("getMyBuskingList.success : \(myBuskingData)")
                 case .failure(let error) :
                     print("getMyBuskingList.error : \(error.localizedDescription)")
                 }
             }
-    }
+        }
     
     // 버스킹 아이디로 버스킹 가져오기 - 어디서 어떻게 써야할지 모르겠음(테이블이 만들어져있어서 우선 만들어 놓음)
     func getTargetBusking(tarGetBusking: Int) {
@@ -499,20 +522,33 @@ class AwsService : ObservableObject {
     }
     
     //Delete Busking - 리스트 어레이에 인덱스번호를 인자로 받아서 id값을 사용함 - 아직 사용안됨!!
-    func deleteBusking(at index: Int) {
-        guard index >= 0 && index < myBuskingList.count else {
-            print("Invalid index")
-            return }
+    func deleteBusking(buskingId: Int, completion: @escaping () -> Void) {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
-        AF.request("http://localhost:3000/busking/\(self.myBuskingList[index].id)", method: .delete, headers: headers)
+        AF.request("http://localhost:3000/busking/\(buskingId)", method: .delete, headers: headers)
             .validate()
             .response { response in
                 switch response.result {
                 case .success :
-                    print("deleteBusking.success")
+                    self.getMyBuskingList()
+                    self.getUserProfile {
+                        self.getAllArtistList {
+                            self.getFollowingList {
+                                self.getMyArtistBuskingList()
+                                print("deleteBusking.success")
+                            }
+                        }
+                    }
                 case .failure(let error) :
+                    print("ServerToken: \(headers)")
                     print("deleteBusking.error : \(error.localizedDescription)")
                 }
+                completion()
             }
+    }
+    
+    func getMyArtistBuskingList() {
+        let followingList = self.following
+        let buskingList = followingList.filter { $0.buskings != nil && !$0.buskings!.isEmpty }
+        self.myArtistBuskingList = buskingList
     }
 }

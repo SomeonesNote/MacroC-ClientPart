@@ -23,7 +23,6 @@ struct EditUserAcountView: View {
                     awsService.isSignIn = false //로그인뷰로 돌아가기
                     awsService.isSignUp = false //이즈사인업 제거
                     UserDefaults.standard.set(false, forKey: "isSignIn")
-                    UserDefaults.standard.set(false, forKey: "isSignup")
                     try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
                     
                 } label: {

@@ -86,8 +86,6 @@ struct AddBuskingMapView: UIViewRepresentable {
                 marker.map = mapView
                 self.marker = marker
 
-//                let markerImage = UIImageView(image: UIImage(named: parent.awsService.user.artist?.artistImage ?? ""))
-//                let markerImage = UIImageView(image: UII)
                 let markerImage = UIImageView()
                 if let url = URL(string: parent.awsService.user.artist?.artistImage ?? "") { markerImage.af.setImage(withURL: url) }
                 let customMarker = UIImageView(image: UIImage(named: "markerpin"))
@@ -113,9 +111,6 @@ struct AddBuskingMapView: UIViewRepresentable {
             } else {
                 self.marker?.position = mapView.camera.target
             }
-            
-            
-            
         }
         
         func reverseGeo(busking: CLLocationCoordinate2D) {
@@ -126,7 +121,12 @@ struct AddBuskingMapView: UIViewRepresentable {
                     let district = placemark.locality ?? ""
                     let street = placemark.thoroughfare ?? ""
                     let buildingNumber = placemark.subThoroughfare ?? ""
+                    let latitude = placemark.location?.coordinate.latitude ?? 0.0
+                    let longitude = placemark.location?.coordinate.longitude ?? 0.0
+                    
                     self.parent.viewModel.markerAdressString = "\(district) \(street) \(buildingNumber)"
+                    self.parent.viewModel.latitude = latitude
+                    self.parent.viewModel.longitude = longitude
                 }
             }
         }

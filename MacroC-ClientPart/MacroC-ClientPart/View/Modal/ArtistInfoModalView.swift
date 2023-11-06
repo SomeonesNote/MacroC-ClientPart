@@ -50,7 +50,7 @@ extension ArtistInfoModalView {
     var artistInfoToolbar: some View {
         HStack{
             Text(viewModel.artist.stageName)
-                .font(.custom22black())
+                .font(.custom24black())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             Spacer()
             likeButton

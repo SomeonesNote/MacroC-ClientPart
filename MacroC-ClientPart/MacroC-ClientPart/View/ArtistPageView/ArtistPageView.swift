@@ -40,7 +40,6 @@ struct ArtistPageView: View {
 //MARK: -4.EXTENSION
 extension ArtistPageView {
     var artistPageImage: some View {
-        //        Image(viewModel.artist.artistImage)
         AsyncImage(url: URL(string: viewModel.artist.artistImage)) { image in
             image.resizable().aspectRatio(contentMode: .fit)
         } placeholder: {

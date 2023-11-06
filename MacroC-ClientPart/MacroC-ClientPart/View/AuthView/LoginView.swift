@@ -33,18 +33,18 @@ struct LoginView: View {
             } onCompletion: { (result) in
                 switch result {
                 case .success(let user):
-                    print("success")
                     guard let credential = user.credential as?  ASAuthorizationAppleIDCredential else {
                         print("Error with Firebase")
                         return
                     }
                     loginData.authenticate(credential: credential)
-                    print(String(describing: credential.authorizationCode))
+                    print(String(describing: credential.authorizationCode)) // MARK: 2
                     let userIdentifier = credential.user
                     do {
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(userIdentifier)
                         awsService.isSignIn = true
-                       
+                        print("awsService.isSignIn : \(awsService.isSignIn)") //MARK: 3
+                        awsService.checkSignUp()
                     } catch {
                         print("userIdentifier is not saved")
                     }

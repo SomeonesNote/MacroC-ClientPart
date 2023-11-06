@@ -17,7 +17,7 @@ struct ContentView: View {
         TabView {
             MainView()
                 .tabItem {
-                    Image(systemName: "person.3.fill")
+                    Image(systemName: "music.note.list")
                     Text("Main")
                 }
             
@@ -32,17 +32,18 @@ struct ContentView: View {
                     Image(systemName: "person.crop.circle")
                     Text("Profile")
                 }
-        }
-        .onAppear {
+        }.onAppear {
+            awsService.accesseToken = KeychainItem.currentTokenResponse
             if awsService.isSignUp {
                     awsService.getUserProfile { //유저프로필 가져오기
                         awsService.getFollowingList {}}//팔로우 리스트 가져오기
                     awsService.getAllArtistList{}
             }
+            print(awsService.accesseToken)
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        }// 탭이 이동할 때 탭바의 백그라운드가 씹히는 것을 막는 위해 추가
+        }
     }
 }
 

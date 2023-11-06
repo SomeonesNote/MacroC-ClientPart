@@ -180,7 +180,7 @@ extension AddBuskingPageView {
             .padding(UIScreen.getWidth(15))
             .background(LinearGradient(colors: [.appBlue2.opacity(0.2), .appIndigo2.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing))
             .cornerRadius(6)
-            .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+            .shadow(color: .white.opacity(0.1),radius: UIScreen.getHeight(5))
         }
     }
 }

@@ -24,7 +24,7 @@ struct MacroC_ClientPartApp: App {
     @StateObject private var awsService = AwsService()
     
     let APIKey = "AIzaSyDF3d8OqWRipyjxQh7C2HF6KHn-C3YhSt8"
-   
+    
     init() {
         GMSServices.provideAPIKey(APIKey)
         GMSPlacesClient.provideAPIKey(APIKey)

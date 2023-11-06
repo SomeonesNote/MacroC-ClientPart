@@ -135,7 +135,7 @@ extension ArtistProfileSettingView {
                     .font(.custom13bold())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                 
-            })
+            }) .tint(.cyan.opacity(0.2))
         }.padding(.init(top: UIScreen.getWidth(15), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(15), trailing: UIScreen.getWidth(20)))
     }
     

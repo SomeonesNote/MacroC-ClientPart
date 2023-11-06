@@ -51,7 +51,7 @@ class RegisterUserArtistViewModel: ObservableObject {
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
-            }, to: "http://localhost:3000/artist-POST/create", method: .post, headers: headers)
+            }, to: "https://macro-app.fly.dev/artist-POST/create", method: .post, headers: headers)
             .response { response in
                 switch response.result {
                 case .success:

@@ -21,7 +21,7 @@ class LoginViewModel: ObservableObject {
         let userIdentifier = credential.user
         do {
             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(userIdentifier)
-            print("'\(userIdentifier)' is saved on keychain")
+            print("'\(userIdentifier)' is saved on keychain") // MARK: 1
         } catch {
             print("LoginViewModel.authenticate.error : Unable to save uid to keychain.")
         }
@@ -50,8 +50,8 @@ class LoginViewModel: ObservableObject {
             if let fuid = result?.user.uid {
                 do {
                     try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "fuid").saveItem(fuid)
-                    print("LoginViewModel.authenticate : '\(fuid)' is saved on keychain")
-                    AwsService().isSignIn = true
+                    print("LoginViewModel.authenticate : '\(fuid)' is saved on keychain") //MARK: 4
+                    AwsService().isSignIn = true //
                     UserDefaults.standard.set(true ,forKey: "isSignIn")
                 } catch {
                     print("LoginViewModel.authenticate.error : Unable to save uid to keychain.")
@@ -63,12 +63,12 @@ class LoginViewModel: ObservableObject {
                 if let error = error {
                     print(error.localizedDescription)
                 } else if let token = token {
-                    print("token: \(token)")// Firebase token
+                    print(" Auth.auth().currentUser?.getIDToken : \(token)")// Firebase token //MARK: 6
                     self.firebaseToken = token
                     do {
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "firebaseToken").saveItem(self.firebaseToken)
-                        print("LoginViewModel.authenticate.firebaseToken : '\(self.firebaseToken)' is saved on keychain")
-                        AwsService().checkSignUp()
+                        print("LoginViewModel.authenticate.firebaseToken : '\(self.firebaseToken)' is saved on keychain") //MARK: 7
+                        AwsService().checkSignUp() //
                     } catch {
                         print("LoginViewModel.authenticate.error : Unable to save uid to keychain.")
                     }
@@ -78,7 +78,7 @@ class LoginViewModel: ObservableObject {
             func verify() {
                 let token = self.firebaseToken
             }
-            print("Logged in Successfully")
+            print("Logged in Successfully") // MARK: 5
             //directing to home page
             withAnimation(.easeInOut){
                 self.log_Status = true

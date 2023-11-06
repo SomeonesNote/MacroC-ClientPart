@@ -153,17 +153,17 @@ extension RegisterUserArtistView {
     
     var registerButton: some View {
         Button {
-            viewModel.postUserArtist {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    awsService.getUserProfile { //유저프로필 가져오기
-                        if awsService.user.artist?.stageName != "" {
-                            awsService.isCreatUserArtist = true
-                            UserDefaults.standard.set(true ,forKey: "isCreatUserArtist")
-                        }
-                        dismiss()}
-                    awsService.getAllArtistList{}
+                viewModel.postUserArtist {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        awsService.getUserProfile { //유저프로필 가져오기
+                            if awsService.user.artist?.stageName != "" {
+                                awsService.isCreatUserArtist = true
+                                UserDefaults.standard.set(true ,forKey: "isCreatUserArtist")
+                            }
+                            dismiss()}
+                        awsService.getAllArtistList{}
+                    }
                 }
-            }
         } label: {
             HStack{
                 Spacer()

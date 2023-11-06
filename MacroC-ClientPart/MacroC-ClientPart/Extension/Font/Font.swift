@@ -105,6 +105,14 @@ extension Font {
         return Font.custom("Pretendard-Black", fixedSize: 22 * setFontSize())
     }
     
+    static func custom24black() -> Font {
+        return Font.custom("Pretendard-Black", fixedSize: 24 * setFontSize())
+    }
+    
+    static func custom26black() -> Font {
+        return Font.custom("Pretendard-Black", fixedSize: 26 * setFontSize())
+    }
+    
     static func custom40black() -> Font {
         return Font.custom("Pretendard-Black", fixedSize: 40 * setFontSize())
     }

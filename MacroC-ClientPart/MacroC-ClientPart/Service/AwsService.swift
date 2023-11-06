@@ -18,7 +18,7 @@ class AwsService : ObservableObject {
     @Published var myBuskingList : [Busking] = []
     @Published var myArtistBuskingList : [Artist] = []
     @Published var following : [Artist] = [] // 유저가 팔로우한 리스트
-    @Published var followingInt: [Int] = []
+    @Published var followingInt : [Int] = []
     @Published var allAtrist : [Artist] = [] // 모든 아티스트 리스트
     @Published var croppedImage: UIImage?
     @Published var popImagePicker : Bool = false
@@ -32,6 +32,9 @@ class AwsService : ObservableObject {
     @Published var isSignIn : Bool = UserDefaults.standard.bool(forKey: "isSignIn") // 테스트 SignIn 테스트 유저 토큰 발행용
     @Published var isSignUp : Bool = UserDefaults.standard.bool(forKey: "isSignup") // 서버에서 받아온 커런트 토큰이 없으면 true 있으면 false
     
+//    let serverURL: String = "http://localhost:3000"
+    let serverURL: String = "https://macro-app.fly.dev"
+    
     
     @Published var usernameStatus: UsernameStatus = .empty
     enum UsernameStatus {
@@ -42,12 +45,13 @@ class AwsService : ObservableObject {
     
     func signUp() {
         let token : String? = KeychainItem.currentFirebaseToken
+        let uid : String = KeychainItem.currentFuid
         //        let token : String? = accesseToken
         let headers: HTTPHeaders = [.authorization(bearerToken: token ?? "")]
         
         let parameters: [String: String] = [
             "username": self.user.username,
-            "uid": KeychainItem.currentFuid
+            "uid": uid
         ]
         
         if !self.user.username.isEmpty {
@@ -61,7 +65,7 @@ class AwsService : ObservableObject {
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
-            }, to: "http://localhost:3000/auth/signup-with-image", method: .post, headers: headers)
+            }, to: "https://macro-app.fly.dev/auth/signup-with-image", method: .post, headers: headers)
             .responseDecodable(of: TokenResponse.self) { response in
                 switch response.result {
                 case .success(let token):
@@ -87,7 +91,7 @@ class AwsService : ObservableObject {
                     UserDefaults.standard.set(true, forKey: "isSignup")
                     print("awsService.isSignUp : \(self.isSignUp)")
                 case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
+                    print("awsService.isSignUp.Error: \(error.localizedDescription)")
                     self.isSignUp = false
                 }
             }
@@ -102,7 +106,7 @@ class AwsService : ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        AF.request("http://localhost:3000/auth/profile", method: .post, headers: headers)
+        AF.request("\(serverURL)/auth/profile", method: .post, headers: headers)
             .validate()
             .responseDecodable(of: User.self, decoder: decoder) { response in
                 switch response.result {
@@ -128,7 +132,7 @@ class AwsService : ObservableObject {
         let parameters: [String : String] = [
             "uid" : "\(uid)"
         ]
-        AF.request("http://localhost:3000/auth/isSignUp", method: .post, parameters: parameters)
+        AF.request("\(serverURL)/auth/isSignUp", method: .post, parameters: parameters)
             .responseDecodable(of: Bool.self) { response in
                 switch response.result {
                 case .success(let bool) :
@@ -141,7 +145,7 @@ class AwsService : ObservableObject {
                     }
                     UserDefaults.standard.set(bool, forKey: "isSignup")
                     self.isSignUp = bool
-                    print("checkSignUp : \(self.isSignUp)")
+                    print("checkSignUp : \(self.isSignUp)") //MARK: 8
                 case .failure(let error) :
                     print("checkSignIn.error : \(error.localizedDescription)")
                 }
@@ -154,7 +158,7 @@ class AwsService : ObservableObject {
         let parameters: [String: String] = [
             "uid": KeychainItem.currentFuid
         ]
-        AF.request("http://localhost:3000/auth/signin", method: .post, parameters: parameters, headers: headers)
+        AF.request("\(serverURL)/auth/signin", method: .post, parameters: parameters, headers: headers)
             .responseDecodable(of: TokenResponse.self) { response in
             switch response.result {
             case .success(let token):
@@ -201,7 +205,7 @@ class AwsService : ObservableObject {
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
-            }, to: "http://localhost:3000/auth/\(self.user.id)", method: .patch)
+            }, to: "\(serverURL)/auth/\(self.user.id)", method: .patch)
             .responseDecodable(of: User.self, decoder: decoder) { response in
                 switch response.result {
                 case .success(let patchData):
@@ -216,7 +220,7 @@ class AwsService : ObservableObject {
     
     //Follow //배치완료
     func following(userid: Int, artistid : Int, completion: @escaping () -> Void) {
-        AF.request("http://localhost:3000/user-following/\(userid)/follow/\(artistid)", method: .post)
+        AF.request("\(serverURL)/user-following/\(userid)/follow/\(artistid)", method: .post)
             .validate()
             .response { response in
                 switch response.result {
@@ -239,7 +243,7 @@ class AwsService : ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        AF.request("http://localhost:3000/user-following/\(self.user.id)/following", method: .get)
+        AF.request("\(serverURL)/user-following/\(self.user.id)/following", method: .get)
             .validate()
             .responseDecodable(of: [Artist].self, decoder: decoder) { response in
                 switch response.result {
@@ -259,7 +263,7 @@ class AwsService : ObservableObject {
     
     //UnFollow //배치완료
     func unFollowing(userid: Int, artistid : Int, completion: @escaping () -> Void) {
-        AF.request("http://localhost:3000/user-following/\(userid)/unfollow/\(artistid)", method: .delete)
+        AF.request("\(serverURL)/user-following/\(userid)/unfollow/\(artistid)", method: .delete)
             .validate()
             .response { response in
                 switch response.result {
@@ -277,12 +281,13 @@ class AwsService : ObservableObject {
     //Delete User Acount //배치완료
     func deleteUser() {
         let userid : Int = self.user.id
-        AF.request("http://localhost:3000/auth/\(userid)", method: .delete)
+        AF.request("\(serverURL)/auth/\(userid)", method: .delete)
             .validate()
             .response { response in
                 switch response.result {
                 case .success :
                     self.isSignIn = false
+                    // 서버랑 클라이언트에서 지우는 코드들
                     UserDefaults.standard.set(false, forKey: "isSignIn")
                     UserDefaults.standard.set(false, forKey: "isSignup")
                     KeychainItem.deleteFirebaseTokenFromKeychain()
@@ -292,50 +297,58 @@ class AwsService : ObservableObject {
                     //TODO: 파이어베이스에 콘솔에 삭제요청하기!!!
                     print("DeleteUser.success!")
                     
+                    // 파이어베이스에다가 지우라고 하는 코드들
+                    
+                    
                 case .failure(let error) :
                     print("Error : \(error.localizedDescription)")
                 }
             }
-    }
-    
-    //Add User Artist //
-    func postUserArtist(completion: @escaping () -> Void) {
-        let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
-        let parameters: [String: String] = [
-            "stageName" : self.user.artist?.stageName ?? "",
-            "genres" : self.user.artist?.genres ?? "",
-            "artistInfo" : self.user.artist?.artistInfo ?? "",
-            "youtubeURL" : self.user.artist?.youtubeURL ?? "",
-            "instagramURL" : self.user.artist?.instagramURL ?? "",
-            "soundcloudURL" : self.user.artist?.soundcloudURL ?? ""
-        ]
-        
-        if ((user.artist?.stageName.isEmpty) == nil) /*&& ((user.artist?.genres.isEmpty) == nil)*/ && ((user.artist?.artistInfo.isEmpty) == nil) {
-            AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
-                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
-                for (key, value) in parameters {
-                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
-                }
-            }, to: "http://localhost:3000/artist-POST/create", method: .post, headers: headers)
-            .response { response in
-                switch response.result {
-                case .success:
-                    self.getUserProfile {
-                        self.isCreatUserArtist = true
-                        UserDefaults.standard.set(true ,forKey: "isCreatUserArtist")
-                    }
-                case .failure(let error):
-                    print("postUserArtist.error : \(error.localizedDescription)")
-                }
-            }
-            completion()
         }
-    }
+    
+//    //Add User Artist //
+//    func postUserArtist(completion: @escaping () -> Void) {
+//        let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
+//        let parameters: [String: String] = [
+//            "stageName" : self.user.artist?.stageName ?? "",
+//            "genres" : self.user.artist?.genres ?? "",
+//            "artistInfo" : self.user.artist?.artistInfo ?? "",
+//            "youtubeURL" : self.user.artist?.youtubeURL ?? "",
+//            "instagramURL" : self.user.artist?.instagramURL ?? "",
+//            "soundcloudURL" : self.user.artist?.soundcloudURL ?? ""
+//        ]
+//        
+//        let _ = print(parameters)
+//        let _ = print(headers)
+//        
+////        if ((user.artist?.stageName.isEmpty) == nil) /*&& ((user.artist?.genres.isEmpty) == nil)*/ && ((user.artist?.artistInfo.isEmpty) == nil) {
+//            AF.upload(multipartFormData: { multipartFormData in
+//                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
+//                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                }
+//                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+//                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                }
+//                for (key, value) in parameters {
+//                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
+//                }
+//            }, to: "https://macro-app.fly.dev/artist-POST/create", method: .post, headers: headers)
+//            .response { response in
+//                switch response.result {
+//                case .success:
+//                    self.getUserProfile {
+//                        self.isCreatUserArtist = true
+//                        UserDefaults.standard.set(true ,forKey: "isCreatUserArtist")
+//                        print(parameters)
+//                    }
+//                case .failure(let error):
+//                    print("postUserArtist.error : \(error.localizedDescription)")
+//                    print(parameters)
+//                    debugPrint(error)
+//                }
+//            }
+//            completion()
+//    }
     
     //Get User Artist Profilfe // 일단 지금 안쓸듯
     func getUserArtistProfile(completion: @escaping () -> Void) {
@@ -343,7 +356,7 @@ class AwsService : ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        AF.request("http://localhost:3000/artist/\(self.user.id)", method: .get)
+        AF.request("\(serverURL)/artist/\(self.user.id)", method: .get)
             .validate()
             .responseDecodable(of: Artist.self, decoder: decoder) { response in
                 switch response.result {
@@ -381,7 +394,7 @@ class AwsService : ObservableObject {
             for (key, value) in parameters {
                 multipartFormData.append(value.data(using: .utf8)!, withName: key)
             }
-        }, to: "http://localhost:3000/artist/update/\(artistid)", method: .patch, headers: headers)
+        }, to: "\(serverURL)/artist/update/\(artistid)", method: .patch, headers: headers)
         .response { response in
             switch response.result {
             case .success:
@@ -397,7 +410,7 @@ class AwsService : ObservableObject {
     func deleteUserArtist() {
         let artistid : Int = self.user.artist?.id ?? 0
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
-        AF.request("http://localhost:3000/artist/\(artistid)", method: .delete, headers: headers)
+        AF.request("\(serverURL)/artist/\(artistid)", method: .delete, headers: headers)
             .validate()
             .response { response in
                 switch response.result {
@@ -422,7 +435,7 @@ class AwsService : ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        AF.request("http://localhost:3000/artist/All", method: .get, headers: headers)
+        AF.request("\(serverURL)/artist/All", method: .get, headers: headers)
             .validate()
             .responseDecodable(of: [Artist].self,decoder: decoder) { response in
                 switch response.result {
@@ -457,7 +470,7 @@ class AwsService : ObservableObject {
             "latitude" : self.addBusking.latitude
         ]
         
-        AF.request("http://localhost:3000/busking/register/\(artistid)", method: .post, parameters: parameters, headers: headers)
+        AF.request("\(serverURL)/busking/register/\(artistid)", method: .post, parameters: parameters, headers: headers)
             .validate()
             .response { response in
                 switch response.result {
@@ -486,7 +499,7 @@ class AwsService : ObservableObject {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
-        AF.request("http://localhost:3000/busking/getAll/\(artistid)", method: .get, headers: headers)
+        AF.request("\(serverURL)/busking/getAll/\(artistid)", method: .get, headers: headers)
             .validate()
             .responseDecodable(of: [Busking].self, decoder: decoder) { response in
                 switch response.result {
@@ -508,7 +521,7 @@ class AwsService : ObservableObject {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
-        AF.request("http://localhost:3000/busking/\(tarGetBusking)", method: .get, headers: headers)
+        AF.request("\(serverURL)/busking/\(tarGetBusking)", method: .get, headers: headers)
             .validate()
             .responseDecodable(of: Busking.self, decoder: decoder) { response in
                 switch response.result {
@@ -524,7 +537,7 @@ class AwsService : ObservableObject {
     //Delete Busking - 리스트 어레이에 인덱스번호를 인자로 받아서 id값을 사용함 - 아직 사용안됨!!
     func deleteBusking(buskingId: Int, completion: @escaping () -> Void) {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
-        AF.request("http://localhost:3000/busking/\(buskingId)", method: .delete, headers: headers)
+        AF.request("\(serverURL)/busking/\(buskingId)", method: .delete, headers: headers)
             .validate()
             .response { response in
                 switch response.result {

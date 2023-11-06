@@ -12,9 +12,6 @@ struct MainView: View{
     //MARK: - 1.PROPERTY
     @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel = MainViewModel()
-//    var myArtistBusking : [Artist] {
-//        return awsService.following.filter { $0.buskings != nil && !$0.buskings!.isEmpty }
-//    }
     
     //MARK: - 2.BODY
     var body: some View {

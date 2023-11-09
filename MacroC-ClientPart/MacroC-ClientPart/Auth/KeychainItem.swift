@@ -57,10 +57,10 @@ struct KeychainItem {
         
         // Parse the password string from the query result.
         guard let existingItem = queryResult as? [String: AnyObject],
-            let passwordData = existingItem[kSecValueData as String] as? Data,
-            let password = String(data: passwordData, encoding: String.Encoding.utf8)
-            else {
-                throw KeychainError.unexpectedPasswordData
+              let passwordData = existingItem[kSecValueData as String] as? Data,
+              let password = String(data: passwordData, encoding: String.Encoding.utf8)
+        else {
+            throw KeychainError.unexpectedPasswordData
         }
         
         return password
@@ -130,12 +130,24 @@ struct KeychainItem {
      For the purpose of this demo app, the user identifier will be stored in the device keychain.
      You should store the user identifier in your account management system.
      */
-    static var currentUserIdentifier: String { //애플에서 받아오는 유저아이덴티파이어
+    
+    
+    //MARK: - CURRENT TOKENS
+    static var currentUserIdentifier: String { //애플에서 받아오는 UserIdentifier
         do {
             let storedIdentifier = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").readItem()
             return storedIdentifier
         } catch {
             return "currentUserIdentifier error!"
+        }
+    }
+    
+    static var currentAuthorizationCode: String { //애플에서 AuthorizationCode
+        do {
+            let storedauthorizationCode = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "authorizationCode").readItem()
+            return storedauthorizationCode
+        } catch {
+            return "currentauthorizationCode error!"
         }
     }
     
@@ -148,7 +160,7 @@ struct KeychainItem {
         }
     }
     
-    static var currentFirebaseToken: String { // 파이어베이스에서 받아오는 토큰
+    static var currentFirebaseToken: String { // 파이어베이스에서 받아오는 FirebaseToken
         do {
             let storedToken = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "firebaseToken").readItem()
             return storedToken
@@ -157,7 +169,7 @@ struct KeychainItem {
         }
     }
     
-    static var currentTokenResponse: String { //서버에서 받아오는 토큰 // 이값으로 통신하면 됨 // 통신용 헤더
+    static var currentTokenResponse: String { //서버에서 받아오는 AccessToken
         do {
             let storedTokenResponse = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").readItem()
             return storedTokenResponse
@@ -166,7 +178,18 @@ struct KeychainItem {
         }
     }
     
-    static func deleteFirebaseTokenFromKeychain() { //
+    static var currentRefreshToken: String { //애플에서 받아오는 RefreshToken
+        do {
+            let storedRefresh = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "refreshToken").readItem()
+            return storedRefresh
+        } catch {
+            return "currentRefresh error!"
+        }
+    }
+    
+    
+    //MARK: - DELETE TOKEN FUNCTION
+    static func deleteFirebaseTokenFromKeychain() { // FirebaseToken 지우기
         do {
             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "firebaseToken").deleteItem()
         } catch {
@@ -174,29 +197,28 @@ struct KeychainItem {
         }
     }
     
-    static func deleteFuidFromKeychain() { //
+    static func deleteFuidFromKeychain() { // FUID 지우기
         do {
             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "fuid").deleteItem()
         } catch {
             print("Keychain.deleteUserIdentifierFromKeychain.error : Unable to delete fuid from keychain")
         }
     }
-
-    //서버에서 받아오는 토큰 // 이값으로 통신하면 됨 // 통신용 헤더
-        static func deleteTokenResponseFromKeychain() { //
-            do {
-                try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
-            } catch {
-                print("Keychain.deleteTokenResponseFromKeychain.error : Unable to delete fuid from keychain")
-            }
-        }
     
-    static func deleteUserIdentifierFromKeychain() { //
+    static func deleteTokenResponseFromKeychain() { // 서버 통신용 AccseeToken 지우기
+        do {
+            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
+        } catch {
+            print("Keychain.deleteTokenResponseFromKeychain.error : Unable to delete fuid from keychain")
+        }
+    }
+    
+    static func deleteUserIdentifierFromKeychain() { // Apple UserIdentifier 지우기
         do {
             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").deleteItem()
         } catch {
             print("Keychain.deleteUserIdentifierFromKeychain.error : Unable to delete userIdentifier from keychain")
         }
     }
-
+    
 }

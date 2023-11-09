@@ -35,9 +35,6 @@ struct UserPageView: View {
             if viewModel.isEditName {
                 editNameSheet
             }
-//            if viewModel.isEditInfo {
-//                editInfoSheet
-//            }
             if viewModel.nameSaveOKModal {
                 PopOverText(text: "저장되었습니다")
             }

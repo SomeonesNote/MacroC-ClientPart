@@ -14,7 +14,7 @@ import AuthenticationServices
 struct LoginView: View {
 
     @EnvironmentObject var awsService : AwsService
-    @StateObject var loginData = LoginViewModel()
+    @StateObject var viewModel = LoginViewModel()
     @State private var isLoggedin: Bool = false
     @State private var userUID: String = ""
     @State private var showLoginUI: Bool = false
@@ -26,9 +26,9 @@ struct LoginView: View {
                 Text(isLoggedin ? "Log Out" : "Log In")
             }
             SignInWithAppleButton{ (request) in
-                loginData.nonce = randomNonceString()
+                viewModel.nonce = randomNonceString()
                 request.requestedScopes = [.email, .fullName]
-                request.nonce = sha256(loginData.nonce)
+                request.nonce = sha256(viewModel.nonce)
                
             } onCompletion: { (result) in
                 switch result {
@@ -37,14 +37,17 @@ struct LoginView: View {
                         print("Error with Firebase")
                         return
                     }
-                    loginData.authenticate(credential: credential)
-                    print(String(describing: credential.authorizationCode)) // MARK: 2
+                    viewModel.authenticate(credential: credential) {
+                        
+                        awsService.checkSignUp()
+                    }
                     let userIdentifier = credential.user
                     do {
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(userIdentifier)
                         awsService.isSignIn = true
-                        print("awsService.isSignIn : \(awsService.isSignIn)") //MARK: 3
-                        awsService.checkSignUp()
+                        UserDefaults.standard.set(true, forKey: "isSignIn")
+                        print("3.awsService.isSignIn : \(awsService.isSignIn)") //MARK: 3
+                        
                     } catch {
                         print("userIdentifier is not saved")
                     }
@@ -114,9 +117,4 @@ struct FirebaseLoginViewControllerWrapper: UIViewControllerRepresentable {
     }
 }
 
-//
-//struct LoginView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LoginView()
-//    }
-//}
+

@@ -16,13 +16,12 @@ struct UserArtistPageView: View {
     
     //MARK: -2.BODY
     var body: some View {
-            ZStack {
+        ZStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: UIScreen.getWidth(5)) {
                     if viewModel.croppedImage != nil { pickedImage }
                     else { artistPageImage }
                     artistPageTitle
-//                    artistPageFollowButton
                     Spacer()
                 }
             }.blur(radius: viewModel.isEditSocial || viewModel.isEditName || viewModel.isEditInfo ? 15 : 0)
@@ -118,7 +117,7 @@ extension UserArtistPageView {
                         UIApplication.shared.open(URL(string: (awsService.user.artist?.soundcloudURL)!)!)// TODO: 값 집어넣어야
                     } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                 }
-               
+                
                 if viewModel.isEditMode == true {
                     Button { viewModel.isEditSocial = true } label: {
                         Image(systemName: "pencil.circle.fill")
@@ -127,9 +126,9 @@ extension UserArtistPageView {
                     }
                 }
             }
-            .frame(height: UIScreen.getHeight(25))
-            .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15))), alignment: .bottomTrailing )
-            .overlay(alignment: .bottom) {
+                .frame(height: UIScreen.getHeight(25))
+                .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15))), alignment: .bottomTrailing )
+        .overlay(alignment: .bottom) {
             if viewModel.isEditMode {
                 Button{
                     viewModel.popImagePicker = true
@@ -166,7 +165,7 @@ extension UserArtistPageView {
                             UIApplication.shared.open(URL(string: (awsService.user.artist?.soundcloudURL)!)!)// TODO: 값 집어넣어야
                         } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                     }
-                   
+                    
                     if viewModel.isEditMode == true {
                         Button { viewModel.isEditSocial = true } label: {
                             Image(systemName: "pencil.circle.fill")
@@ -175,9 +174,9 @@ extension UserArtistPageView {
                         }
                     }
                 }
-                .frame(height: UIScreen.getHeight(25))
-                .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15))), alignment: .bottomTrailing )
-                .overlay(alignment: .bottom) {
+                    .frame(height: UIScreen.getHeight(25))
+                    .padding(.init(top: 0, leading: 0, bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(15))), alignment: .bottomTrailing )
+            .overlay(alignment: .bottom) {
                 if viewModel.isEditMode {
                     PhotosPicker(
                         //TODO: 사진첩 접근해서 사진 받는 거 구현
@@ -264,7 +263,7 @@ extension UserArtistPageView {
     var secondToolbarItem: some View {
         if viewModel.isEditMode {
             return AnyView(Button{
-               
+                
                 viewModel.isEditMode = false
                 viewModel.isEditSocial = false
                 viewModel.isEditName = false
@@ -275,15 +274,7 @@ extension UserArtistPageView {
                     awsService.artistPatchcroppedImage = viewModel.croppedImage
                 }
                 awsService.patchUserArtistProfile {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        awsService.getUserProfile {
-                            feedback.notificationOccurred(.success)
-                            awsService.getAllArtistList {
-                                awsService.getFollowingList {
-                                }
-                            }
-                        }
-                    }
+                    feedback.notificationOccurred(.success)
                 }
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
@@ -346,15 +337,15 @@ extension UserArtistPageView {
                 awsService.user.artist?.instagramURL = viewModel.instagramURL
                 awsService.user.artist?.soundcloudURL = viewModel.soundcloudURL
                 viewModel.isEditSocial = false
-//                    feedback.notificationOccurred(.success)
-//                    withAnimation(.smooth(duration: 0.5)) {
-//                        viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-//                            viewModel.socialSaveOKModal = false
-//                            viewModel.isEditSocial = false
-//                        }
-//                    }
-            
+                //                    feedback.notificationOccurred(.success)
+                //                    withAnimation(.smooth(duration: 0.5)) {
+                //                        viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                //                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                //                            viewModel.socialSaveOKModal = false
+                //                            viewModel.isEditSocial = false
+                //                        }
+                //                    }
+                
             } label: {
                 HStack {
                     Spacer()
@@ -391,14 +382,14 @@ extension UserArtistPageView {
                 //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.artist?.stageName = viewModel.editUsername // awsService에 값 할당
                 
-                    feedback.notificationOccurred(.success)
-                    withAnimation(.smooth(duration: 0.5)) {
-                        viewModel.nameSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            viewModel.nameSaveOKModal = false
-                            viewModel.isEditName = false
-                        }
+                feedback.notificationOccurred(.success)
+                withAnimation(.smooth(duration: 0.5)) {
+                    viewModel.nameSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        viewModel.nameSaveOKModal = false
+                        viewModel.isEditName = false
                     }
+                }
             } label: {
                 HStack {
                     Spacer()
@@ -436,15 +427,15 @@ extension UserArtistPageView {
                 //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.artist?.artistInfo = viewModel.editUserInfo
                 
-                    feedback.notificationOccurred(.success)
-                    withAnimation(.smooth(duration: 0.5)) {
-                        viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            viewModel.infoSaveOKModal = false
-                            viewModel.isEditInfo = false
-                        }
+                feedback.notificationOccurred(.success)
+                withAnimation(.smooth(duration: 0.5)) {
+                    viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        viewModel.infoSaveOKModal = false
+                        viewModel.isEditInfo = false
                     }
-                } label: {
+                }
+            } label: {
                 HStack {
                     Spacer()
                     Text("Save")

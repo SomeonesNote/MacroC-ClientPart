@@ -70,7 +70,7 @@ extension SignUpView {
         VStack {
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("닉네임을 입력하세요", text: $awsService.user.username)
-                    .font(.custom14semibold())
+                    .font(.custom12semibold())
                     .padding(UIScreen.getWidth(13))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)

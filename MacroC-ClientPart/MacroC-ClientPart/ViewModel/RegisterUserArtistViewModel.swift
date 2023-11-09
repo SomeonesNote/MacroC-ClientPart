@@ -29,6 +29,9 @@ class RegisterUserArtistViewModel: ObservableObject {
     @Published var instagramURL: String = ""
     @Published var soundcloudURL: String = ""
     
+//    let serverURL: String = "http://localhost:3000"
+    let serverURL: String = "https://macro-app.fly.dev"
+    
     func postUserArtist(completion: @escaping () -> Void) {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
         let parameters: [String: String] = [
@@ -51,7 +54,7 @@ class RegisterUserArtistViewModel: ObservableObject {
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
-            }, to: "https://macro-app.fly.dev/artist-POST/create", method: .post, headers: headers)
+            }, to: "\(serverURL)/artist-POST/create", method: .post, headers: headers)
             .response { response in
                 switch response.result {
                 case .success:

@@ -16,9 +16,6 @@ struct GoogleMapView: UIViewRepresentable {
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
     @ObservedObject var viewModel: MapViewModel
-    var myArtistBusking : [Artist] {
-        return awsService.allAtrist.filter { $0.buskings != nil && !$0.buskings!.isEmpty }
-    }
     
     func makeUIView(context: Context) -> GMSMapView {
         let camera = GMSCameraPosition.camera(withLatitude: context.coordinator.locationManager.location?.coordinate.latitude ?? 0, longitude: context.coordinator.locationManager.location?.coordinate.longitude ?? 0, zoom: 18.0)
@@ -34,7 +31,7 @@ struct GoogleMapView: UIViewRepresentable {
         context.coordinator.mapView = view
         context.coordinator.startLocationUpdates()
         
-        for artist in myArtistBusking {
+        for artist in awsService.allBusking {
             for busking in artist.buskings! {
                 let markerImage = UIImageView()
                 if let url = URL(string: artist.artistImage) { markerImage.af.setImage(withURL: url) }

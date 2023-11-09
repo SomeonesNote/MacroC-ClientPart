@@ -108,7 +108,6 @@
 		F62B8AE52ACED9690077CA17 /* Busking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE42ACED9690077CA17 /* Busking.swift */; };
 		F62B8AE72ACED9760077CA17 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE62ACED9760077CA17 /* Member.swift */; };
 		F62B8AE92ACED9890077CA17 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE82ACED9890077CA17 /* DummyData.swift */; };
-		F62B8AEB2ACED9950077CA17 /* Apitest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AEA2ACED9950077CA17 /* Apitest.swift */; };
 		F62B8AED2ACED9BA0077CA17 /* dropShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AEC2ACED9BA0077CA17 /* dropShadowModifier.swift */; };
 		F62B8AEF2ACED9CC0077CA17 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AEE2ACED9CC0077CA17 /* Components.swift */; };
 /* End PBXBuildFile section */
@@ -191,7 +190,6 @@
 		F62B8AE42ACED9690077CA17 /* Busking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Busking.swift; sourceTree = "<group>"; };
 		F62B8AE62ACED9760077CA17 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		F62B8AE82ACED9890077CA17 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
-		F62B8AEA2ACED9950077CA17 /* Apitest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apitest.swift; sourceTree = "<group>"; };
 		F62B8AEC2ACED9BA0077CA17 /* dropShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dropShadowModifier.swift; sourceTree = "<group>"; };
 		F62B8AEE2ACED9CC0077CA17 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -421,7 +419,6 @@
 				F62B8AE42ACED9690077CA17 /* Busking.swift */,
 				F62B8AE62ACED9760077CA17 /* Member.swift */,
 				F62B8AE82ACED9890077CA17 /* DummyData.swift */,
-				F62B8AEA2ACED9950077CA17 /* Apitest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -624,7 +621,6 @@
 				F62B8ADD2ACED9220077CA17 /* AddBuskingPageViewModel.swift in Sources */,
 				07038C842ADCC422002445DD /* UserPageViewModel.swift in Sources */,
 				070F6BE72ADB1BCD00328570 /* mainpageTitleModifier.swift in Sources */,
-				F62B8AEB2ACED9950077CA17 /* Apitest.swift in Sources */,
 				F62B8AD52ACED8C10077CA17 /* MapViewMedel.swift in Sources */,
 				07038C862ADCC535002445DD /* UserPageView.swift in Sources */,
 				F62B8AEF2ACED9CC0077CA17 /* Components.swift in Sources */,

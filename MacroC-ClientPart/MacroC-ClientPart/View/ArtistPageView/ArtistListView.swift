@@ -28,6 +28,7 @@ struct ArtistListView: View {
                 }
             }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
         }.background(backgroundView().ignoresSafeArea()).navigationTitle("")
+           
     }
 }
 

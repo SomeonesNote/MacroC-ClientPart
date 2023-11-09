@@ -12,18 +12,18 @@ struct MyBuskingSettingView: View {
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
     @StateObject var viewModel = MyBuskingSettingViewModel()
-
+    
     
     //MARK: -2.BODY
     var body: some View {
-        VStack {
-            HStack {
-                roundedBoxText(text: "My Busking List")
-                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                Spacer()
-                
-            }.padding(UIScreen.getWidth(20)).background(.clear)
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: UIScreen.getWidth(15)) {
+                HStack {
+                    roundedBoxText(text: "My Busking List")
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                    Spacer()
+                    
+                }.padding(UIScreen.getWidth(20)).background(.clear)
                 if awsService.myBuskingList.isEmpty {
                     HStack(alignment: .center, spacing: UIScreen.getWidth(8)) {
                         Spacer()
@@ -43,8 +43,8 @@ struct MyBuskingSettingView: View {
                                 .padding(0)
                         }
                 } else {
-                    ScrollView(.vertical, showsIndicators: true) {
-                        VStack(spacing: 20) {
+                 
+                        VStack(spacing: UIScreen.getWidth(20)) {
                             ForEach(awsService.myBuskingList, id: \.id) { busking in
                                 BuskingListRow(artist: awsService.user.artist!, busking: busking)
                                     .onTapGesture {
@@ -76,34 +76,32 @@ struct MyBuskingSettingView: View {
                                             awsService.deleteBusking(buskingId: busking.id) {
                                                 awsService.getMyBuskingList()
                                             }
-                                    }), secondaryButton: .cancel(Text("Cancle")))
-                                }
+                                        }), secondaryButton: .cancel(Text("Cancle")))
+                                    }
                             }
                         }
                     }
+                    
+                }
+                Spacer()
+            }
+        
+        .padding(.init(top: UIScreen.getHeight(80), leading: UIScreen.getWidth(5), bottom: 0, trailing:  UIScreen.getWidth(5)))
+        .navigationTitle("")
+        .background(backgroundView())
+        .ignoresSafeArea(.all)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    viewModel.isEditMode.toggle()
+                } label: {
+                    toolbarButtonLabel(buttonLabel: viewModel.isEditMode ? "Done" : "Edit")
                 }
             }
-            Spacer()
         }
-        .padding(.init(top: UIScreen.getHeight(80), leading: UIScreen.getWidth(5), bottom: UIScreen.getHeight(120), trailing:  UIScreen.getWidth(5)))
-            .navigationTitle("")
-            .background(backgroundView())
-            .ignoresSafeArea(.all)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        viewModel.isEditMode.toggle()
-                    } label: {
-                        toolbarButtonLabel(buttonLabel: viewModel.isEditMode ? "Done" : "Edit")
-                }
-            }
+        .onAppear{
+            awsService.getMyBuskingList()
         }
-//            .onAppear{
-//                awsService.getMyBuskingList()
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                    myBuskings = awsService.myBuskingList
-//                }
-//            }
     }
 }
 

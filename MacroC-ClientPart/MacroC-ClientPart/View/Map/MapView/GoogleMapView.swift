@@ -84,7 +84,6 @@ struct GoogleMapView: UIViewRepresentable {
             uiView.camera = camera
             uiView.animate(toZoom: 15)
         }
-        
         context.coordinator.previousCoordinate = viewModel.selectedCoordinate
     }
     

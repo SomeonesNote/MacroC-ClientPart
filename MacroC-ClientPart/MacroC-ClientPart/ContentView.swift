@@ -17,7 +17,7 @@ struct ContentView: View {
         ZStack{
             if awsService.user.username == "" {
                 backgroundView()
-                ProgressView().scaleEffect(1.5)
+                ProgressView()
             } else {
                 TabView(selection: $selection){
                     MainView()

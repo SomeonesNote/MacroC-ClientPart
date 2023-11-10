@@ -13,6 +13,7 @@ struct ArtistProfileSettingView: View {
     @EnvironmentObject var awsService : AwsService
     @StateObject var viewModel = UserArtistProfileSettingViewModel()
     @Environment(\.dismiss) var dismiss
+    @Binding var onDismiss: Bool
     
     //MARK: -2.BODY
     var body: some View {
@@ -53,9 +54,9 @@ struct ArtistProfileSettingView: View {
 }
 
 //MARK: -3.PREVIEW
-#Preview {
-    ArtistProfileSettingView()
-}
+//#Preview {
+//    ArtistProfileSettingView()
+//}
 
 //MARK: -4.EXTENSION
 
@@ -152,7 +153,7 @@ extension ArtistProfileSettingView {
             }
             
             NavigationLink {
-                EditArtistAcountView()
+                EditArtistAcountView(onDismiss: $onDismiss)
             } label: {
                 Text("아티스트 계정 관리")
                     .font(.custom13bold())

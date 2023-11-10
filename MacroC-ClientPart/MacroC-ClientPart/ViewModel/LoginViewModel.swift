@@ -97,7 +97,7 @@ class LoginViewModel: ObservableObject {
                 .responseString { response in
                     switch response.result {
                     case .success(let refreshToken):
-                        print("LoginViewModel.refreshToken : \(refreshToken)")
+                        print("7.LoginViewModel.refreshToken : \(refreshToken)")
                         do {
                             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "refreshToken").saveItem(refreshToken)
                         } catch {

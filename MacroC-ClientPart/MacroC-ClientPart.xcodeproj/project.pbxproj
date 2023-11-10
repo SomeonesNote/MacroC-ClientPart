@@ -63,6 +63,8 @@
 		071BFF1A2AF4CF33004BDD00 /* MyBuskingSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BFF192AF4CF33004BDD00 /* MyBuskingSettingView.swift */; };
 		071BFF1C2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BFF1B2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift */; };
 		073B651E2AEBAB350035E3EC /* RegisterUserArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073B651D2AEBAB350035E3EC /* RegisterUserArtistViewModel.swift */; };
+		074C58AF2AFCC7BE0019B6C8 /* ReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C58AE2AFCC7BE0019B6C8 /* ReportPage.swift */; };
+		074C58B12AFCD0DC0019B6C8 /* EditBlockListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C58B02AFCD0DC0019B6C8 /* EditBlockListView.swift */; };
 		076744922AE574910053E413 /* AwsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076744912AE574910053E413 /* AwsService.swift */; };
 		07FBF2882ACF5223004EF174 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */; };
 		07FBF28B2ACFF90B004EF174 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpView.swift */; };
@@ -142,6 +144,8 @@
 		071BFF192AF4CF33004BDD00 /* MyBuskingSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBuskingSettingView.swift; sourceTree = "<group>"; };
 		071BFF1B2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBuskingSettingViewModel.swift; sourceTree = "<group>"; };
 		073B651D2AEBAB350035E3EC /* RegisterUserArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserArtistViewModel.swift; sourceTree = "<group>"; };
+		074C58AE2AFCC7BE0019B6C8 /* ReportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPage.swift; sourceTree = "<group>"; };
+		074C58B02AFCD0DC0019B6C8 /* EditBlockListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBlockListView.swift; sourceTree = "<group>"; };
 		076744912AE574910053E413 /* AwsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwsService.swift; sourceTree = "<group>"; };
 		07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		07FBF2892ACFD143004EF174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -279,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				F62B8AB82ACED5E30077CA17 /* MapBuskingModalView.swift */,
+				074C58AE2AFCC7BE0019B6C8 /* ReportPage.swift */,
 				F62B8ABA2ACED6410077CA17 /* ArtistInfoModalView.swift */,
 			);
 			path = Modal;
@@ -442,6 +447,7 @@
 				F62B8AA52ACED4CB0077CA17 /* DonationListView.swift */,
 				F62B8AA72ACED4E30077CA17 /* EditUserAcountView.swift */,
 				07038C872ADCEE83002445DD /* RegisterUserArtistView.swift */,
+				074C58B02AFCD0DC0019B6C8 /* EditBlockListView.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -643,6 +649,7 @@
 				070F6BDD2ADA135B00328570 /* BackgroundView.swift in Sources */,
 				0707172D2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift in Sources */,
 				F62B8AB22ACED5710077CA17 /* EditArtistAcountView.swift in Sources */,
+				074C58AF2AFCC7BE0019B6C8 /* ReportPage.swift in Sources */,
 				0707172B2AD9412700B72319 /* SignInView.swift in Sources */,
 				F62B8AED2ACED9BA0077CA17 /* dropShadowModifier.swift in Sources */,
 				F62B8AA62ACED4CB0077CA17 /* DonationListView.swift in Sources */,
@@ -660,6 +667,7 @@
 				F62B8ADF2ACED9380077CA17 /* UserArtistPageViewModel.swift in Sources */,
 				F62B8ADB2ACED90B0077CA17 /* ArtistInfoModalViewModel.swift in Sources */,
 				F62B8AD92ACED8EF0077CA17 /* MapBuskingModalViewModel.swift in Sources */,
+				074C58B12AFCD0DC0019B6C8 /* EditBlockListView.swift in Sources */,
 				07FD2BE62AD32D4B0030865A /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

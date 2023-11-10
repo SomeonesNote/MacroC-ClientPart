@@ -39,8 +39,8 @@ class AwsService : ObservableObject {
     //    let serverURL: String = "http://localhost:3000"
     let serverURL: String = "https://macro-app.fly.dev"
     
-    
-    
+    @Published var reportText: String = ""
+    @Published var blockingList : [Artist] = [] // 유저가 차단한 리스트
     
     @Published var usernameStatus: UsernameStatus = .empty
     enum UsernameStatus {
@@ -121,6 +121,11 @@ class AwsService : ObservableObject {
                     print(self.user)
                 case .failure(let error) :
                     print("#getUserProfile.error : \(error.localizedDescription)")
+                    if error.responseCode == 401 {
+                        self.tokenReresponse {
+                            
+                        }
+                    }
                     debugPrint(error)
                 }
                 completion()
@@ -163,11 +168,13 @@ class AwsService : ObservableObject {
                 case .success(let token):
                     print("#tokenReresponse : \(token.accessToken)")
                     do {
+                        self.accesseToken = token.accessToken
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
                         print("tokenResponse : \(token.accessToken) is saved on Keychain")
                     } catch {
                         print("#tokenResponse on Keychain is fail")
                     }
+                    
                         self.getUserProfile { //유저프로필 가져오기
                             self.getFollowingList {}}//팔로우 리스트 가져오기
                             self.getMyBuskingList()
@@ -537,7 +544,7 @@ class AwsService : ObservableObject {
     //Delete Busking - 리스트 어레이에 인덱스번호를 인자로 받아서 id값을 사용함 - 아직 사용안됨!!
     func deleteBusking(buskingId: Int, completion: @escaping () -> Void) {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
-        AF.request("\(serverURL)/busking/\(buskingId)", method: .delete, headers: headers)
+        AF.request("\(serverURL)/busking/\(self.user.artist?.id ?? 0)/\(buskingId)", method: .delete, headers: headers)
             .validate()
             .response { response in
                 switch response.result {
@@ -574,4 +581,76 @@ class AwsService : ObservableObject {
         print("##allBusking : \(self.allBusking)")
         completion()
     }
+    
+    //아티스트 차단
+    func blockingArtist(artistId : Int, completion: @escaping () -> Void) {
+        AF.request("\(serverURL)/blocking/\(self.user.id)/blockArtist/\(artistId)", method: .post)
+          .validate()
+          .response { response in
+            switch response.result {
+            case.success:
+              print("Block Success")
+            case .failure(let error):
+              print("Blocking fail Error \(error)")
+            }
+          }
+        completion()
+      }
+    
+    //신고하기
+    func reporting(artistId : Int,completion: @escaping () -> Void) {
+       let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
+       let parameters: [String: Any] = [
+         "userId" : self.user.id,
+         "artistId" : artistId,
+         "reporting" : self.reportText
+       ]
+       AF.request("\(serverURL)/reporting/send", method: .post, parameters: parameters, headers: headers)
+         .validate()
+         .response { response in
+           switch response.result {
+           case .success :
+               self.blockingArtist(artistId: artistId) {}
+             print("Reporting Success")
+           case .failure(let error):
+             print("Reporting fail Error : \(error)")
+           }
+         }
+        completion()
+     }
+    
+    //차단해제
+    func unblockingArtist(artistId : Int, completion: @escaping () -> Void) {
+        AF.request("\(serverURL)/blocking/\(self.user.id)/unblockArtist/\(artistId)", method: .delete)
+          .validate()
+          .response { response in
+            switch response.result {
+            case .success:
+              print("Unblock Artist Success")
+            case .failure(let error):
+              print("Unblock Artist fail Error : \(error)")
+            }
+            completion()
+          }
+      }
+    
+    //차단아티스트 리스트 불러오기
+      func getBlockArtist(completion: @escaping () -> Void) {
+          let dateFormatter = DateFormatter()
+          dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+          let decoder = JSONDecoder()
+          decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        AF.request("\(serverURL)/blocking/\(self.user.id)/blockedArtists", method: .get)
+          .validate()
+          .responseDecodable(of: [Artist].self, decoder: decoder) { response in
+            switch response.result {
+            case .success(let reData):
+              self.blockingList = reData
+              print("Get Block Artist Success")
+            case .failure(let error):
+              print("Get Block Artist fail Error : \(error)")
+            }
+          }
+          completion()
+      }
 }

@@ -27,17 +27,19 @@ struct MapView: View {
                         .overlay(alignment: .top) {
                             MapViewSearchBar(viewModel: viewModel)
                                 .padding(UIScreen.getWidth(4))
-                        }
+                    }
                 } else {
-                    ProgressView()
+                    backgroundView()
                         .onAppear {
                             awsService.getAllArtistBuskingList{
-                                
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.3){
                                     print(awsService.allBusking)
                                     mapViewOn = true }
                             }
                         }
+                        .overlay{
+                            ProgressView()
+                    }
                 }
             }
             .background(backgroundView())
@@ -47,9 +49,9 @@ struct MapView: View {
                     .presentationDetents([.height(UIScreen.getHeight(380))])
                     .presentationDragIndicator(.visible)
             }
-            .onDisappear {
-                mapViewOn = false
-            }
+        }
+        .onDisappear {
+            mapViewOn = false
         }
     }
 }

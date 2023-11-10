@@ -10,8 +10,12 @@ import SwiftUI
 struct MapBuskingModalView: View {
 
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService : AwsService
     @ObservedObject var viewModel: MapBuskingModalViewModel
+    
     @State var showPopover: Bool = false
+    @State var showReport: Bool = false
+   
 
     //MARK: -2.BODY
     var body: some View {
@@ -26,7 +30,13 @@ struct MapBuskingModalView: View {
             if showPopover { PopOverText() } }
         .onChange(of: showPopover) { newValue in
             withAnimation { showPopover = newValue }
-        }.background(backgroundView())
+        }
+        .background(backgroundView())
+        .sheet(isPresented: $showReport, onDismiss: onDismiss){
+            ReportPage(artistID: viewModel.artist.id)
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
+        }
     }
 }
 
@@ -44,15 +54,14 @@ extension MapBuskingModalView {
                 .font(.custom24black())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             Spacer()
-//            Button{
-//                viewModel.toggleLike()
+            Button{
+               showReport = true
 //                feedback.notificationOccurred(.success)
-//            } label: {
-//                Image(systemName: viewModel.isClickedLike ? "heart.fill" : "heart")
-//                    .foregroundStyle(viewModel.isClickedLike ? Color(appRed) : Color.white)
-//                    .font(.custom22light())
-//                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-//            }
+            } label: {
+                Image(systemName: "light.beacon.max.fill")
+                    .font(.custom16bold())
+                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+            }
         }.padding(.init(top: UIScreen.getWidth(40), leading: UIScreen.getWidth(7), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(15)))
     }
 
@@ -135,5 +144,9 @@ extension MapBuskingModalView {
                     .foregroundStyle(LinearGradient(colors: [.white, .white, .appSky.opacity(0.6), .white, .appSky.opacity(0.6), .white], startPoint: .topLeading, endPoint: .bottomTrailing))
             }
             .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(8), bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(8)))
+    }
+    
+    func onDismiss() {
+        showReport = false
     }
 }

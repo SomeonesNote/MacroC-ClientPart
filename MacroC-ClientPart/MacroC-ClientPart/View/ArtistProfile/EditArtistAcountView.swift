@@ -11,6 +11,7 @@ struct EditArtistAcountView: View {
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
     @State var showDeleteAlert: Bool = false
+    @Binding var onDismiss: Bool
     
     //MARK: -2.BODY
     var body: some View {
@@ -34,6 +35,7 @@ struct EditArtistAcountView: View {
                         print("탈퇴 완료")
                         awsService.deleteUserArtist()
                         showDeleteAlert = false
+                        onDismiss = false
                     }), secondaryButton: .cancel(Text("Cancle")))
                 }
         }
@@ -41,6 +43,6 @@ struct EditArtistAcountView: View {
 }
 
 //MARK: -3.PREVIEW
-#Preview {
-    EditArtistAcountView()
-}
+//#Preview {
+//    EditArtistAcountView()
+//}

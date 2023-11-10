@@ -13,6 +13,7 @@ struct ProfileSettingView: View {
     @EnvironmentObject var awsService: AwsService
     @StateObject var viewModel = ProfileSettingViewModel()
     
+    
     //MARK: -2.BODY
     var body: some View {
         NavigationView {
@@ -23,6 +24,7 @@ struct ProfileSettingView: View {
                 profileSetting
                 artistSetting
 //                donationList
+                blockartistSetting
                 
                 customDivider()
                 notificationSetting
@@ -35,7 +37,7 @@ struct ProfileSettingView: View {
                 Spacer()
             }.background(backgroundView().ignoresSafeArea())
                 .navigationTitle("")
-        }.fullScreenCover(isPresented: $viewModel.popArtistProfile) {ArtistProfileSettingView()}
+        }.fullScreenCover(isPresented: $viewModel.popArtistProfile) {ArtistProfileSettingView(onDismiss: $viewModel.popArtistProfile)}
     }
 }
 
@@ -140,4 +142,15 @@ extension ProfileSettingView {
                 .padding(UIScreen.getWidth(20))
         }
     }
+    
+    var blockartistSetting: some View {
+        NavigationLink {
+          EditBlockListView() // TODO: 차단리스트 받아와서 연결하기
+        } label: {
+          Text("차단 관리")
+            .font(.custom13bold())
+            .padding(UIScreen.getWidth(20))
+            .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+        }
+      }
 }

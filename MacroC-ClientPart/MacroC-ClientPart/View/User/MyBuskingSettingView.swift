@@ -77,11 +77,10 @@ struct MyBuskingSettingView: View {
                                                 awsService.getMyBuskingList()
                                             }
                                         }), secondaryButton: .cancel(Text("Cancle")))
-                                    }
+                                }
                             }
                         }
                     }
-                    
                 }
                 Spacer()
             }

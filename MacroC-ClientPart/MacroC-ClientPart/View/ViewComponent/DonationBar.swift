@@ -28,6 +28,6 @@ struct DonationBar: View {
 }
 
 //MARK: -2.PREVIEW
-#Preview {
-    ArtistProfileSettingView()
-}
+//#Preview {
+//    ArtistProfileSettingView()
+//}

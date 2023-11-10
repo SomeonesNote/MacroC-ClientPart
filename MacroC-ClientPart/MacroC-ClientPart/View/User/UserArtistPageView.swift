@@ -75,6 +75,12 @@ struct UserArtistPageView: View {
                 viewModel.popImagePicker = false
             }
         }
+        .onAppear {
+            viewModel.youtubeURL = awsService.user.artist?.youtubeURL ?? ""
+            viewModel.instagramURL = awsService.user.artist?.instagramURL ?? ""
+            viewModel.soundcloudURL = awsService.user.artist?.soundcloudURL ?? ""
+            viewModel.editUsername = awsService.user.username
+        }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationTitle("")
     }
@@ -251,7 +257,7 @@ extension UserArtistPageView {
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
             } label: {
-                toolbarButtonLabel(buttonLabel: "Cancle").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
+                toolbarButtonLabel(buttonLabel: "Cancle").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(8))
             })
         } else {
             return AnyView(EmptyView())
@@ -277,7 +283,7 @@ extension UserArtistPageView {
                     feedback.notificationOccurred(.success)
                 }
             } label: {
-                toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.5),radius: UIScreen.getWidth(8))
+                toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(8))
             })
         } else {
             return AnyView(Button{

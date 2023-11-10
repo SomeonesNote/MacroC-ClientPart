@@ -22,7 +22,6 @@
 		070658FD2ADE6AED00FD1B00 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		070658FF2ADE6AED00FD1B00 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		070659012ADE6AED00FD1B00 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		0707172B2AD9412700B72319 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172A2AD9412700B72319 /* SignInView.swift */; };
 		0707172D2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172C2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift */; };
 		0707172F2AD9428D00B72319 /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172E2AD9428D00B72319 /* ProfileSettingViewModel.swift */; };
 		070717312AD942BD00B72319 /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717302AD942BD00B72319 /* KeychainItem.swift */; };
@@ -66,7 +65,6 @@
 		074C58AF2AFCC7BE0019B6C8 /* ReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C58AE2AFCC7BE0019B6C8 /* ReportPage.swift */; };
 		074C58B12AFCD0DC0019B6C8 /* EditBlockListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C58B02AFCD0DC0019B6C8 /* EditBlockListView.swift */; };
 		076744922AE574910053E413 /* AwsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076744912AE574910053E413 /* AwsService.swift */; };
-		07FBF2882ACF5223004EF174 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */; };
 		07FBF28B2ACFF90B004EF174 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpView.swift */; };
 		07FD2BE62AD32D4B0030865A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD2BE52AD32D4B0030865A /* MainViewModel.swift */; };
 		F62B8A742ACED1B80077CA17 /* MacroC_ClientPartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */; };
@@ -109,7 +107,6 @@
 		F62B8AE32ACED95B0077CA17 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE22ACED95B0077CA17 /* Artist.swift */; };
 		F62B8AE52ACED9690077CA17 /* Busking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE42ACED9690077CA17 /* Busking.swift */; };
 		F62B8AE72ACED9760077CA17 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE62ACED9760077CA17 /* Member.swift */; };
-		F62B8AE92ACED9890077CA17 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE82ACED9890077CA17 /* DummyData.swift */; };
 		F62B8AED2ACED9BA0077CA17 /* dropShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AEC2ACED9BA0077CA17 /* dropShadowModifier.swift */; };
 		F62B8AEF2ACED9CC0077CA17 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AEE2ACED9CC0077CA17 /* Components.swift */; };
 /* End PBXBuildFile section */
@@ -125,7 +122,6 @@
 		07038C832ADCC422002445DD /* UserPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageViewModel.swift; sourceTree = "<group>"; };
 		07038C852ADCC535002445DD /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
 		07038C872ADCEE83002445DD /* RegisterUserArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserArtistView.swift; sourceTree = "<group>"; };
-		0707172A2AD9412700B72319 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		0707172C2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArtistProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		0707172E2AD9428D00B72319 /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		070717302AD942BD00B72319 /* KeychainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
@@ -147,7 +143,6 @@
 		074C58AE2AFCC7BE0019B6C8 /* ReportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPage.swift; sourceTree = "<group>"; };
 		074C58B02AFCD0DC0019B6C8 /* EditBlockListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBlockListView.swift; sourceTree = "<group>"; };
 		076744912AE574910053E413 /* AwsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwsService.swift; sourceTree = "<group>"; };
-		07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		07FBF2892ACFD143004EF174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07FBF28A2ACFF90B004EF174 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		07FD2BE52AD32D4B0030865A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -193,7 +188,6 @@
 		F62B8AE22ACED95B0077CA17 /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		F62B8AE42ACED9690077CA17 /* Busking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Busking.swift; sourceTree = "<group>"; };
 		F62B8AE62ACED9760077CA17 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
-		F62B8AE82ACED9890077CA17 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		F62B8AEC2ACED9BA0077CA17 /* dropShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dropShadowModifier.swift; sourceTree = "<group>"; };
 		F62B8AEE2ACED9CC0077CA17 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -256,7 +250,6 @@
 			children = (
 				F62B8A962ACED4070077CA17 /* LoginView.swift */,
 				07FBF28A2ACFF90B004EF174 /* SignUpView.swift */,
-				0707172A2AD9412700B72319 /* SignInView.swift */,
 			);
 			path = AuthView;
 			sourceTree = "<group>";
@@ -399,7 +392,6 @@
 			isa = PBXGroup;
 			children = (
 				071BFF132AEE5A1E004BDD00 /* LoginViewModel.swift */,
-				07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */,
 				07FD2BE52AD32D4B0030865A /* MainViewModel.swift */,
 				F62B8AD42ACED8C10077CA17 /* MapViewMedel.swift */,
 				F62B8AD62ACED8D80077CA17 /* ArtistPageViewModel.swift */,
@@ -423,7 +415,6 @@
 				F62B8AE22ACED95B0077CA17 /* Artist.swift */,
 				F62B8AE42ACED9690077CA17 /* Busking.swift */,
 				F62B8AE62ACED9760077CA17 /* Member.swift */,
-				F62B8AE82ACED9890077CA17 /* DummyData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -601,7 +592,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07FBF2882ACF5223004EF174 /* SignUpViewModel.swift in Sources */,
 				F62B8AA42ACED4B10077CA17 /* EditFollowingListView.swift in Sources */,
 				F62B8A762ACED1B80077CA17 /* ContentView.swift in Sources */,
 				F62B8ABD2ACED6590077CA17 /* GooglePlacesSearch.swift in Sources */,
@@ -639,7 +629,6 @@
 				F62B8AE12ACED9500077CA17 /* User.swift in Sources */,
 				F62B8ABB2ACED6410077CA17 /* ArtistInfoModalView.swift in Sources */,
 				F62B8AC02ACED6F30077CA17 /* AddBuskingMapView.swift in Sources */,
-				F62B8AE92ACED9890077CA17 /* DummyData.swift in Sources */,
 				F62B8ACD2ACED8410077CA17 /* DonationBar.swift in Sources */,
 				070F6BE12ADA3B8A00328570 /* ArtistListView.swift in Sources */,
 				076744922AE574910053E413 /* AwsService.swift in Sources */,
@@ -650,7 +639,6 @@
 				0707172D2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift in Sources */,
 				F62B8AB22ACED5710077CA17 /* EditArtistAcountView.swift in Sources */,
 				074C58AF2AFCC7BE0019B6C8 /* ReportPage.swift in Sources */,
-				0707172B2AD9412700B72319 /* SignInView.swift in Sources */,
 				F62B8AED2ACED9BA0077CA17 /* dropShadowModifier.swift in Sources */,
 				F62B8AA62ACED4CB0077CA17 /* DonationListView.swift in Sources */,
 				070717402ADA0CC100B72319 /* BackroundStar.swift in Sources */,

@@ -33,7 +33,6 @@ struct MapView: View {
                         .onAppear {
                             awsService.getAllArtistBuskingList{
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.3){
-                                    print(awsService.allBusking)
                                     mapViewOn = true }
                             }
                         }

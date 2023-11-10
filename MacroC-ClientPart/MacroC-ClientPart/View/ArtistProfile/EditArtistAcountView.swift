@@ -18,7 +18,6 @@ struct EditArtistAcountView: View {
         ZStack(alignment: .topLeading) {
             backgroundView().ignoresSafeArea()
             VStack(alignment: .leading) {
-                //탈퇴
                 Button {
                     showDeleteAlert = true
                 } label: {
@@ -32,7 +31,6 @@ struct EditArtistAcountView: View {
             }.padding(.top, UIScreen.getHeight(100))
                 .alert(isPresented: $showDeleteAlert) {
                     Alert(title: Text(""), message: Text("Are you sure you want to delete your account?"), primaryButton: .destructive(Text("Delete"), action: {
-                        print("탈퇴 완료")
                         awsService.deleteUserArtist()
                         showDeleteAlert = false
                         onDismiss = false
@@ -41,8 +39,3 @@ struct EditArtistAcountView: View {
         }
     }
 }
-
-//MARK: -3.PREVIEW
-//#Preview {
-//    EditArtistAcountView()
-//}

@@ -50,8 +50,3 @@ struct CropedGoogleMapView: UIViewRepresentable {
     func updateUIView(_ uiView: GMSMapView, context: Context) {}
 
 }
-
-//MARK: -3.PREVIEW
-//#Preview {
-//    CropedGoogleMapView(busking: dummyBusking4)
-//}

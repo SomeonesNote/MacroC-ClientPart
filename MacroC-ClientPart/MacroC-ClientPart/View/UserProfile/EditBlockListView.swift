@@ -32,7 +32,6 @@ struct EditBlockListView: View {
                         .overlay(alignment: .topTrailing) {
                             if isEditMode {
                                 Button {
-                                    //TODO: 팔로우리스트에서 지우기
                                     deleteAlert = true
                                 } label: {
                                     Image(systemName: "xmark.circle.fill")
@@ -45,9 +44,8 @@ struct EditBlockListView: View {
                         } .scaleEffect(0.8)
                             .alert(isPresented: $deleteAlert) {
                                 Alert(title: Text(""), message: Text("Do you want to unBlock?"), primaryButton: .destructive(Text("UnBlock"), action: {
-                                    //TODO: 팔로우 리스트에서 삭제
                                     isLoading = true
-                                    awsService.unblockingArtist(artistId: i.id) { // 언팔하는 함수
+                                    awsService.unblockingArtist(artistId: i.id) {
                                         awsService.getBlockArtist{
                                             isLoading = false
                                             dismiss()
@@ -91,4 +89,3 @@ struct EditBlockListView: View {
         EditBlockListView()
     }
 }
-//MARK: -4.EXTENSION

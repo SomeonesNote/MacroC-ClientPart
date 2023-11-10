@@ -46,8 +46,6 @@ struct LoginView: View {
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(userIdentifier)
                         awsService.isSignIn = true
                         UserDefaults.standard.set(true, forKey: "isSignIn")
-                        print("3.awsService.isSignIn : \(awsService.isSignIn)") //MARK: 3
-                        
                     } catch {
                         print("userIdentifier is not saved")
                     }
@@ -97,23 +95,19 @@ struct FirebaseLoginViewControllerWrapper: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> UINavigationController {
         guard let authUI = FUIAuth.defaultAuthUI() else {
-            // Handle the error
-            return UINavigationController() // Return a dummy navigation controller instead
+            return UINavigationController()
         }
 
-        // Only setting up Apple ID provider
         let providers: [FUIAuthProvider] = [
             FUIOAuth.appleAuthProvider()
         ]
         authUI.providers = providers
 
-        // Customize the UI
         let authViewController = authUI.authViewController()
         return authViewController
     }
 
     func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        // Nothing to update
     }
 }
 

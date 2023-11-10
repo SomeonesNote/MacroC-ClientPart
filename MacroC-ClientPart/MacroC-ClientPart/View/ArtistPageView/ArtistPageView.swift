@@ -96,11 +96,6 @@ struct ArtistPageView: View {
         }
         .confirmationDialog("Report", isPresented: $clickedReport) {
             Button(role: .destructive) {
-//                isLoading = true
-//                awsService.reporting(artistId: viewModel.artist.id) {
-//                    isLoading = false
-//                    dismiss()
-//                }
                 showReport = true
             } label: {
                 Text("Report")
@@ -179,13 +174,13 @@ extension ArtistPageView {
         Button {
             isLoading = true
             if awsService.followingInt.contains(viewModel.artist.id) == false {
-                awsService.following(userid: awsService.user.id, artistid: viewModel.artist.id) { // 팔로우하는 함수
+                awsService.following(userid: awsService.user.id, artistid: viewModel.artist.id) {
                     awsService.getFollowingList(completion: {
                         isLoading = false
                     })
                 }
             } else {
-                awsService.unFollowing(userid: awsService.user.id, artistid: viewModel.artist.id) { // 언팔하는 함수
+                awsService.unFollowing(userid: awsService.user.id, artistid: viewModel.artist.id) {
                     awsService.getFollowingList(completion: { 
                         isLoading = false
                     })

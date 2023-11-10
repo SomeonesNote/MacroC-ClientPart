@@ -16,7 +16,6 @@ struct ProfileRectangle: View {
     //MARK: -2.BODY
     var body: some View {
         VStack(spacing: 0){
-//            Image(image)
             AsyncImage(url: URL(string: image)){ image in
                 image.resizable().aspectRatio(contentMode: .fit)
             } placeholder: {
@@ -45,8 +44,3 @@ struct ProfileRectangle: View {
         }
     }
 }
-
-//MARK: -1.PREVIEW
-//#Preview {
-//    MainView()
-//}

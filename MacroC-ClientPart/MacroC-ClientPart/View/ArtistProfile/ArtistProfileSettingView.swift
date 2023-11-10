@@ -53,12 +53,7 @@ struct ArtistProfileSettingView: View {
     }
 }
 
-//MARK: -3.PREVIEW
-//#Preview {
-//    ArtistProfileSettingView()
-//}
-
-//MARK: -4.EXTENSION
+//MARK: -3.EXTENSION
 
 extension ArtistProfileSettingView {
     var profileSection: some View {
@@ -90,8 +85,6 @@ extension ArtistProfileSettingView {
                     .padding(UIScreen.getWidth(20))
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
-            //            Button {
-            //                viewModel.popAddBusking = true
             NavigationLink {
                 AddBuskingPageView(viewModel: AddBuskingPageViewModel())
             } label: {
@@ -100,23 +93,6 @@ extension ArtistProfileSettingView {
                     .padding(UIScreen.getWidth(20))
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
-            //            NavigationLink {
-            //                EditFanView()
-            //            } label: {
-            //                Text("팬 관리")
-            //                    .font(.custom15bold())
-            //                    .padding(UIScreen.getWidth(20))
-            //                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-            //            }
-            //            NavigationLink {
-            //                EditDonationView()
-            //            } label: {
-            //                Text("후원 관리")
-            //                    .font(.custom14bold())
-            //                    .padding(UIScreen.getWidth(20))
-            //            .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-            //            }
-            //
             NavigationLink {
                 MyBuskingSettingView()
             } label: {

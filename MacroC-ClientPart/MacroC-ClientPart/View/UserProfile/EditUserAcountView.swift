@@ -18,11 +18,10 @@ struct EditUserAcountView: View {
         ZStack(alignment: .topLeading) {
             backgroundView().ignoresSafeArea()
             VStack(alignment: .leading) {
-                //로그아웃
                 Button {
-                    KeychainItem.deleteUserIdentifierFromKeychain() //키체인에서 UserIdentifier 제거
-                    awsService.isSignIn = false //로그인뷰로 돌아가기
-                    awsService.isSignUp = false //이즈사인업 제거
+                    KeychainItem.deleteUserIdentifierFromKeychain()
+                    awsService.isSignIn = false
+                    awsService.isSignUp = false
                     UserDefaults.standard.set(false, forKey: "isSignIn")
                     try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
                     
@@ -32,7 +31,7 @@ struct EditUserAcountView: View {
                         .padding(UIScreen.getWidth(20))
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
-                //탈퇴
+
                 Button {
                    showDeleteAlert = true
                 } label: {
@@ -52,11 +51,11 @@ struct EditUserAcountView: View {
                             print("appleRevokeIsSuccess")
                         }
                         
-                        awsService.deleteUser() // 서버에서 유저 지워버리기
+                        awsService.deleteUser()
                         showDeleteAlert = false
-                        KeychainItem.deleteUserIdentifierFromKeychain() //키체인에서 UserIdentifier 제거
-                        awsService.isSignIn = false //로그인뷰로 돌아가기
-                        awsService.isSignUp = false //이즈사인업 제거
+                        KeychainItem.deleteUserIdentifierFromKeychain()
+                        awsService.isSignIn = false
+                        awsService.isSignUp = false
                         awsService.isCreatUserArtist = false
                         UserDefaults.standard.set(false, forKey: "isSignIn")
                         UserDefaults.standard.set(false, forKey: "isSignup")
@@ -67,7 +66,3 @@ struct EditUserAcountView: View {
         }
     }
 }
-
-//#Preview {
-//    EditUserAcountView(userAuth: aws)
-//}

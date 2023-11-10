@@ -20,9 +20,8 @@ struct AddBuskingPageView: View {
     //MARK: -2.BODY
     var body: some View {
         ZStack {
-            ScrollView { // 키보드 뷰 밀림때문에 넣음
+            ScrollView {
                 VStack(spacing: UIScreen.getWidth(18)) {
-                    //                    topbar
                     locationHeader
                     map
                     timeHeader
@@ -102,7 +101,7 @@ extension AddBuskingPageView {
         }.padding(.top, UIScreen.getHeight(20))
     }
     
-    var datePickerView: some View { //TODO: - 버스킹 스타트 타임이랑 엔드타임 날짜 맞추기
+    var datePickerView: some View {
         VStack(spacing: UIScreen.getWidth(5)) {
             DatePicker(selection: $viewModel.startTime, displayedComponents: .date) {
                 Text("공연 날짜")
@@ -155,7 +154,7 @@ extension AddBuskingPageView {
             
             awsService.addBusking.BuskingStartTime = viewModel.startTime
             awsService.addBusking.BuskingEndTime = viewModel.endTime
-            awsService.addBusking.latitude = viewModel.latitude //TODO: 이거 값 없을떄 버튼 디스에이블로 잡기
+            awsService.addBusking.latitude = viewModel.latitude
             awsService.addBusking.longitude = viewModel.longitude
             awsService.addBusking.BuskingInfo = "dd"
             

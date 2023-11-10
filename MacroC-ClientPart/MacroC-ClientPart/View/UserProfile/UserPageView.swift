@@ -68,16 +68,7 @@ struct UserPageView: View {
     }
 }
 
-
-
-////MARK: -3.PREVIEW
-//#Preview {
-//    NavigationView {
-//        UserPageView()
-//    }
-//}
-
-//MARK: -4.EXTENSION
+//MARK: -3.EXTENSION
 extension UserPageView {
     var artistPageImage: some View {
         AsyncImage(url: URL(string: awsService.user.avatarUrl)) { image in
@@ -92,7 +83,6 @@ extension UserPageView {
                 Button{
                     viewModel.popImagePicker = true
                 } label: {
-                    //TODO: 사진첩 접근해서 사진 받는 거 구현
                     Image(systemName: "camera.circle.fill")
                         .font(.custom40bold())
                         .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
@@ -109,7 +99,6 @@ extension UserPageView {
             .overlay(alignment: .bottom) {
                 if viewModel.isEditMode {
                     PhotosPicker(
-                        //TODO: 사진첩 접근해서 사진 받는 거 구현
                         selection: $viewModel.selectedItem,
                         matching: .images,
                         photoLibrary: .shared()) {
@@ -140,21 +129,6 @@ extension UserPageView {
                     }
                 }
             }
-            //            ZStack {
-            //                Text(viewModel.EditUserInfo)
-            //                    .font(.custom13heavy())
-            //                if viewModel.isEditMode == true {
-            //                    HStack {
-            //                        Spacer()
-            //                        Button { viewModel.isEditInfo = true } label: {
-            //                            Image(systemName: "pencil.circle.fill")
-            //                                .font(.custom20semibold())
-            //                                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-            //                                .padding(.horizontal)
-            //                        }
-            //                    }
-            //                }
-            //            }
         }.padding(.bottom, UIScreen.getHeight(20))
     }
     
@@ -162,7 +136,6 @@ extension UserPageView {
         if viewModel.isEditMode {
             return AnyView(Button {
                 viewModel.isEditMode = false
-                // 선택한 사진들 취소하는 함수들
                 viewModel.croppedImage = nil
                 
                 viewModel.isEditName = false
@@ -182,7 +155,6 @@ extension UserPageView {
                 viewModel.isEditMode = false
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
-                //TODO: 세이브하는 거 구현
                 
                 if viewModel.croppedImage != nil {
                     awsService.patchcroppedImage = viewModel.croppedImage
@@ -217,15 +189,11 @@ extension UserPageView {
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
             
-            //editNameSheet Button
             Button {
-                //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.username = viewModel.EditUsername
-                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
                 feedback.notificationOccurred(.success)
                 viewModel.nameSaveOKModal = true
                 withAnimation(.smooth(duration: 0.5)) {
-                    // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         viewModel.nameSaveOKModal = false
                         viewModel.isEditName = false
@@ -247,49 +215,4 @@ extension UserPageView {
         .presentationDetents([.height(UIScreen.getHeight(150))])
         .presentationDragIndicator(.visible)
     }
-    
-    //    var editInfoSheet: some View {
-    //        VStack(alignment: .leading, spacing: UIScreen.getWidth(10)) {
-    //            HStack {
-    //                Image(systemName: "info.circle.fill")
-    //                    .resizable()
-    //                    .scaledToFit()
-    //                    .frame(width: UIScreen.getWidth(20))
-    //                    .padding(.leading, UIScreen.getWidth(3))
-    //                Text("User Info").font(.custom14semibold())
-    //            }
-    //            TextField("", text: $viewModel.EditUserInfo)
-    //                .font(.custom10semibold())
-    //                .padding(UIScreen.getWidth(12))
-    //                .background(.ultraThinMaterial)
-    //                .cornerRadius(6)
-    //            //editInfoSheet Button
-    //            Button {
-    //                //TODO: 서버에 올리는 함수 구현하기
-    //                //UserInfo 없애야하나;;;;
-    //                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
-    //                feedback.notificationOccurred(.success)
-    //                withAnimation(.smooth(duration: 0.5)) {
-    //                    viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-    //                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-    //                        viewModel.infoSaveOKModal = false
-    //                        viewModel.isEditInfo = false
-    //                    }
-    //                }
-    //            } label: {
-    //                HStack {
-    //                    Spacer()
-    //                    Text("Save")
-    //                    Spacer()
-    //                }
-    //                .font(.custom14semibold())
-    //                .padding(UIScreen.getWidth(14))
-    //                .background(LinearGradient(colors: [.appSky ,.appIndigo1, .appIndigo2], startPoint: .topLeading, endPoint: .bottomTrailing))
-    //                .cornerRadius(6)
-    //            }
-    //        }
-    //        .padding(.horizontal, UIScreen.getWidth(10))
-    //        .presentationDetents([.height(UIScreen.getHeight(150))])
-    //        .presentationDragIndicator(.visible)
-    //    }
 }

@@ -23,7 +23,6 @@ struct ReportPage: View {
                 Spacer()
                 HStack {
                     Text("Report")
-                    //                    .foregroundColor(.appRed)
                         .font(.custom21black())
                         .padding(.horizontal)
                         .padding(.vertical, 3)
@@ -51,7 +50,6 @@ struct ReportPage: View {
                     }
                     Spacer()
                 }
-                
                 
                 TextEditor(text: $text)
                     .frame(height: UIScreen.getHeight(230), alignment: .topLeading)
@@ -99,7 +97,3 @@ struct ReportPage: View {
     }
 }
 
-////MARK: -3.PREVIEW
-//#Preview {
-//    ReportPage()
-//}

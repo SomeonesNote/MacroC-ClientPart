@@ -20,7 +20,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct MacroC_ClientPartApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate //firebase
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var awsService = AwsService()
     
     let APIKey = "AIzaSyDF3d8OqWRipyjxQh7C2HF6KHn-C3YhSt8"

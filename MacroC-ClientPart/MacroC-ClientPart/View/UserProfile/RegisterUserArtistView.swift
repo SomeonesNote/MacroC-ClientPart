@@ -19,7 +19,6 @@ struct RegisterUserArtistView: View {
         ZStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: UIScreen.getWidth(5)) {
-                    //                imagePicker
                     imagePickerView
                     Spacer()
                     nameTextField
@@ -72,7 +71,6 @@ extension RegisterUserArtistView {
                 Button{
                     viewModel.popImagePicker = true
                 } label: {
-                    //TODO: 사진첩 접근해서 사진 받는 거 구현
                     Image(systemName: "camera.circle.fill")
                         .font(.custom40bold())
                         .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))

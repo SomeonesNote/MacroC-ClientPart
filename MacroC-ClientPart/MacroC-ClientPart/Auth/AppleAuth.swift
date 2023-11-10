@@ -12,7 +12,6 @@ class AppleAuth: ObservableObject {
     @Published var showLoginView: Bool = false
     
     init() {
-        // Apple ID 자격 증명 상태 확인
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { [weak self] (credentialState, error) in
             switch credentialState {

@@ -9,10 +9,6 @@ import Foundation
 
 class UserArtistProfileSettingViewModel: ObservableObject {
     
-//    @Published var selectedBusking: Busking = dummyBusking1
-//    @Published var userArtist: Artist = dummyUserArtist
-    
-//    @Published var isShowArtistProfile: Bool = false
     @Published var popAddBusking: Bool = false
     @Published var switchNotiToggle: Bool = false
     

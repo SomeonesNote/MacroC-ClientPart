@@ -33,7 +33,6 @@ struct UserArtistPageView: View {
                         viewModel.isEditInfo = false
                     }
             }
-            //수정시트 모달
             if viewModel.isEditSocial {
                 editSocialSheet
             }
@@ -43,7 +42,6 @@ struct UserArtistPageView: View {
             if viewModel.isEditInfo {
                 editInfoSheet
             }
-            //저장완료 알림 모달
             if viewModel.socialSaveOKModal {
                 PopOverText(text: "저장되었습니다")
             }
@@ -87,15 +85,7 @@ struct UserArtistPageView: View {
 }
 
 
-
-//MARK: -3.PREVIEW
-//#Preview {
-//    NavigationView {
-//        UserArtistPageView(viewModel: UserArtistPageViewModel(userArtist: dummyUserArtist))
-//    }
-//}
-
-//MARK: -4.EXTENSION
+//MARK: -3.EXTENSION
 extension UserArtistPageView {
     var artistPageImage: some View {
         AsyncImage(url: URL(string: awsService.user.artist?.artistImage ?? "")) { image in
@@ -109,18 +99,18 @@ extension UserArtistPageView {
             HStack(spacing: UIScreen.getWidth(10)){
                 if awsService.user.artist?.youtubeURL != "" {
                     Button {
-                        UIApplication.shared.open(URL(string: (awsService.user.artist?.youtubeURL)!)!)// TODO: 값 집어넣어야
+                        UIApplication.shared.open(URL(string: (awsService.user.artist?.youtubeURL)!)!)
                     } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                 }
                 if awsService.user.artist?.instagramURL != "" {
                     Button {
-                        UIApplication.shared.open(URL(string: (awsService.user.artist?.instagramURL)!)!)// TODO: 값 집어넣어야
+                        UIApplication.shared.open(URL(string: (awsService.user.artist?.instagramURL)!)!)
                     } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                 }
                 
                 if awsService.user.artist?.soundcloudURL != "" {
                     Button {
-                        UIApplication.shared.open(URL(string: (awsService.user.artist?.soundcloudURL)!)!)// TODO: 값 집어넣어야
+                        UIApplication.shared.open(URL(string: (awsService.user.artist?.soundcloudURL)!)!)
                     } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                 }
                 
@@ -139,7 +129,6 @@ extension UserArtistPageView {
                 Button{
                     viewModel.popImagePicker = true
                 } label: {
-                    //TODO: 사진첩 접근해서 사진 받는 거 구현
                     Image(systemName: "camera.circle.fill")
                         .font(.custom40bold())
                         .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
@@ -157,18 +146,18 @@ extension UserArtistPageView {
                 HStack(spacing: UIScreen.getWidth(10)){
                     if awsService.user.artist?.youtubeURL != "" {
                         Button {
-                            UIApplication.shared.open(URL(string: (awsService.user.artist?.youtubeURL)!)!)// TODO: 값 집어넣어야
+                            UIApplication.shared.open(URL(string: (awsService.user.artist?.youtubeURL)!)!)
                         } label: { linkButton(name: YouTubeLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                     }
                     if awsService.user.artist?.instagramURL != "" {
                         Button {
-                            UIApplication.shared.open(URL(string: (awsService.user.artist?.instagramURL)!)!)// TODO: 값 집어넣어야
+                            UIApplication.shared.open(URL(string: (awsService.user.artist?.instagramURL)!)!)
                         } label: { linkButton(name: InstagramLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                     }
                     
                     if awsService.user.artist?.soundcloudURL != "" {
                         Button {
-                            UIApplication.shared.open(URL(string: (awsService.user.artist?.soundcloudURL)!)!)// TODO: 값 집어넣어야
+                            UIApplication.shared.open(URL(string: (awsService.user.artist?.soundcloudURL)!)!)
                         } label: { linkButton(name: SoundCloudLogo).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5)) }
                     }
                     
@@ -185,7 +174,6 @@ extension UserArtistPageView {
             .overlay(alignment: .bottom) {
                 if viewModel.isEditMode {
                     PhotosPicker(
-                        //TODO: 사진첩 접근해서 사진 받는 거 구현
                         selection: $viewModel.selectedItem,
                         matching: .images,
                         photoLibrary: .shared()) {
@@ -245,12 +233,10 @@ extension UserArtistPageView {
         }
     }
     
-    //Cancle Button
     var firstToolbarItem: some View {
         if viewModel.isEditMode {
             return AnyView(Button {
                 viewModel.isEditMode = false
-                // 선택한 사진들 취소하는 함수들
                 viewModel.croppedImage = nil
                 
                 viewModel.isEditSocial = false
@@ -264,8 +250,6 @@ extension UserArtistPageView {
         }
     }
     
-    
-    //Save Button
     var secondToolbarItem: some View {
         if viewModel.isEditMode {
             return AnyView(Button{
@@ -274,7 +258,6 @@ extension UserArtistPageView {
                 viewModel.isEditSocial = false
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
-                //TODO: 세이브하는 거 구현
                 
                 if viewModel.croppedImage != nil {
                     awsService.artistPatchcroppedImage = viewModel.croppedImage
@@ -336,21 +319,12 @@ extension UserArtistPageView {
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
             
-            //SocialEditSheet Button
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.artist?.youtubeURL = viewModel.youtubeURL
                 awsService.user.artist?.instagramURL = viewModel.instagramURL
                 awsService.user.artist?.soundcloudURL = viewModel.soundcloudURL
                 viewModel.isEditSocial = false
-                //                    feedback.notificationOccurred(.success)
-                //                    withAnimation(.smooth(duration: 0.5)) {
-                //                        viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                //                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                //                            viewModel.socialSaveOKModal = false
-                //                            viewModel.isEditSocial = false
-                //                        }
-                //                    }
                 
             } label: {
                 HStack {
@@ -383,14 +357,12 @@ extension UserArtistPageView {
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
-            //editNameSheet Button
             Button {
-                //TODO: 서버에 올리는 함수 구현하기
-                awsService.user.artist?.stageName = viewModel.editUsername // awsService에 값 할당
+                awsService.user.artist?.stageName = viewModel.editUsername
                 
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {
-                    viewModel.nameSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                    viewModel.nameSaveOKModal = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         viewModel.nameSaveOKModal = false
                         viewModel.isEditName = false
@@ -428,14 +400,12 @@ extension UserArtistPageView {
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
-            //editInfoSheet Button
             Button {
-                //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.artist?.artistInfo = viewModel.editUserInfo
                 
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {
-                    viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
+                    viewModel.infoSaveOKModal = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         viewModel.infoSaveOKModal = false
                         viewModel.isEditInfo = false

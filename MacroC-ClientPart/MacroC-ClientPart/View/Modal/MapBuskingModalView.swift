@@ -40,11 +40,6 @@ struct MapBuskingModalView: View {
     }
 }
 
-//MARK: -3.PREVIEW
-//#Preview {
-//    MainView()
-//}
-
 //MARK: -4.EXTENSION
 extension MapBuskingModalView {
     var buskingInfoToolbar: some View {
@@ -56,7 +51,6 @@ extension MapBuskingModalView {
             Spacer()
             Button{
                showReport = true
-//                feedback.notificationOccurred(.success)
             } label: {
                 Image(systemName: "light.beacon.max.fill")
                     .font(.custom13bold())
@@ -75,7 +69,7 @@ extension MapBuskingModalView {
     var buskingTime: some View {
         HStack {
             VStack(spacing: UIScreen.getHeight(3)) {
-                Text(viewModel.formatDate()) //TODO: 시간모델
+                Text(viewModel.formatDate())
                     .font(.custom13heavy())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     .padding(.horizontal, UIScreen.getWidth(30))

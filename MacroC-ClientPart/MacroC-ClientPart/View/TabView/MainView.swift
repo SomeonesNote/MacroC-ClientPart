@@ -29,12 +29,7 @@ struct MainView: View{
     }
 }
 
-//MARK: - 3.PREVIEW
-//#Preview {
-//    MainView()
-//}
-
-//MARK: - 4.EXTENSION
+//MARK: - 3.EXTENSION
 extension MainView {
     
     var MyartistSection: some View {

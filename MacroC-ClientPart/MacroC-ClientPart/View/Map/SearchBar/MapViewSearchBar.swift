@@ -51,6 +51,5 @@ struct MapViewSearchBar: View {
 }
 
 #Preview {
-//    GooglePlaceSearchBar(viewModel: MapViewModel())
     MapView(viewModel: MapViewModel())
 }

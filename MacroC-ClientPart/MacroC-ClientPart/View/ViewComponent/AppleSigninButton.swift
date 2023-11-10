@@ -31,16 +31,12 @@ struct AppleSigninButton : View{
                     
                     switch authResults.credential{
                     case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                        // 계정 정보 가져오기
                         let UserIdentifier = appleIDCredential.user
                         let fullName = appleIDCredential.fullName
                         let name =  (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
                         let email = appleIDCredential.email
                         let IdentityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)
                         let AuthorizationCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
-                        
-                        print("AppleSigninButton.UserIdentifier : \(UserIdentifier)")
-                        print("AppleSigninButton.IdentityToken : \(IdentityToken ?? "")")
                         do {
                             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(UserIdentifier)
                             print("'\(UserIdentifier)' is saved on keychain")

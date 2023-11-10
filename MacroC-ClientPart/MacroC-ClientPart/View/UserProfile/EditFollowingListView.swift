@@ -31,7 +31,6 @@ struct EditFollowingListView: View {
                     .overlay(alignment: .topTrailing) {
                         if isEditMode {
                             Button {
-                                //TODO: 팔로우리스트에서 지우기
                                 deleteAlert = true
                             } label: {
                                 Image(systemName: "xmark.circle.fill")
@@ -44,8 +43,7 @@ struct EditFollowingListView: View {
                     } .scaleEffect(0.8)
                         .alert(isPresented: $deleteAlert) {
                             Alert(title: Text(""), message: Text("Do you want to unfollow?"), primaryButton: .destructive(Text("Unfollow"), action: {
-                                //TODO: 팔로우 리스트에서 삭제
-                                awsService.unFollowing(userid: awsService.user.id, artistid: i.id) { // 언팔하는 함수
+                                awsService.unFollowing(userid: awsService.user.id, artistid: i.id) {
                                     awsService.getFollowingList(completion: { })
                                 }
                             }), secondaryButton: .cancel(Text("Cancle")))
@@ -73,6 +71,3 @@ struct EditFollowingListView: View {
         EditFollowingListView()
     }
 }
-
-//MARK: -4.EXTENSION
-

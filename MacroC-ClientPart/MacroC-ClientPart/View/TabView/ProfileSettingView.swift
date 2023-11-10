@@ -24,7 +24,6 @@ struct ProfileSettingView: View {
                 customDivider()
                 profileSetting
                 artistSetting
-                //                donationList
                 blockartistSetting
                 
                 customDivider()
@@ -81,7 +80,7 @@ extension ProfileSettingView {
     
     var artistSetting: some View {
         NavigationLink {
-            EditFollowingListView() // TODO: 팔로잉 연결하기
+            EditFollowingListView()
         } label: {
             Text("아티스트 관리")
                 .font(.custom13bold())
@@ -90,18 +89,6 @@ extension ProfileSettingView {
         }
     }
     
-    //    var donationList: some View {
-    //        NavigationLink {
-    ////            DonationListView()
-    //            ApiTest()
-    //        } label: {
-    //            Text("후원 목록")
-    //                .font(.custom13bold())
-    //                .padding(UIScreen.getWidth(20))
-    //                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-    //        }
-    //    }
-    
     var notificationSetting: some View {
         Toggle(isOn: $viewModel.switchNotiToggle, label: {
             Text("알림 설정")
@@ -109,7 +96,6 @@ extension ProfileSettingView {
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
         }).padding(.init(top: UIScreen.getWidth(15), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(15), trailing: UIScreen.getWidth(20)))
             .tint(.cyan.opacity(0.2))
-        
     }
     
     var artistAccount: some View {
@@ -124,9 +110,6 @@ extension ProfileSettingView {
                         .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                 }
             } else {
-                //                NavigationLink {
-                //                    RegisterUserArtistView()
-                //                } label: {
                 Button {
                     popArtistRegisterPage = true
                 } label: {
@@ -151,7 +134,7 @@ extension ProfileSettingView {
     
     var blockartistSetting: some View {
         NavigationLink {
-            EditBlockListView() // TODO: 차단리스트 받아와서 연결하기
+            EditBlockListView()
         } label: {
             Text("차단 관리")
                 .font(.custom13bold())

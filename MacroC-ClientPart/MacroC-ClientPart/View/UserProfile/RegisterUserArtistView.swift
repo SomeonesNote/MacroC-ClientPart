@@ -12,35 +12,86 @@ struct RegisterUserArtistView: View {
     //MARK: - 1.PROPERTY
     @EnvironmentObject var awsService : AwsService
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel = RegisterUserArtistViewModel()
+    @StateObject var viewModel = RegisterUserArtistViewModel()
+    @State var isLoading: Bool = false
     //MARK: - 2.BODY
     var body: some View {
-        ScrollView {
-            VStack(spacing: UIScreen.getWidth(6)) {
-                Spacer()
-                imagePicker
-                Spacer()
-                nameTextField
-                infoTextField
-                Spacer()
-                customDivider()
-                Spacer()
-                youtubeTextField
-                instagramTextField
-                soundcloudTextField
-                Spacer()
-                registerButton
+        ZStack {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: UIScreen.getWidth(5)) {
+                    //                imagePicker
+                    imagePickerView
+                    Spacer()
+                    nameTextField
+                    infoTextField
+                    Spacer()
+                    customDivider()
+                    Spacer()
+                    youtubeTextField
+                    instagramTextField
+                    soundcloudTextField
+                    Spacer()
+                    registerButton
+                    Spacer()
+                }
+            }
+            if isLoading {
+                ProgressView()
             }
         }
-        .cropImagePicker(show: $viewModel.popImagePicker, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
-        .padding(.horizontal, 6)
-        .toolbarBackground(.hidden, for: .navigationBar)
         .background(backgroundView())
         .hideKeyboardWhenTappedAround()
+        .ignoresSafeArea()
+        .cropImagePicker(show: $viewModel.popImagePicker, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
+        .onChange(of: viewModel.selectedItem) { newItem in
+            Task {
+                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                    viewModel.selectedPhotoData = data
+                }
+            }
+        }
+        .onChange(of: viewModel.selectedPhotoData) { newValue in
+            if let data = newValue, let uiImage = UIImage(data: data) {
+                viewModel.copppedImageData = data
+                viewModel.croppedImage = uiImage
+                viewModel.popImagePicker = false
+            }
+        }
     }
 }
 //MARK: - 3 .EXTENSION
 extension RegisterUserArtistView {
+    
+    var imagePickerView: some View {
+        Image(uiImage: viewModel.croppedImage ?? UIImage(named: "UserBlank")!)
+            .resizable()
+            .scaledToFit()
+            .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth)
+            .mask(LinearGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black, Color.clear]), startPoint: .top, endPoint: .bottom))
+            .overlay(alignment: .bottom) {
+                Button{
+                    viewModel.popImagePicker = true
+                } label: {
+                    //TODO: 사진첩 접근해서 사진 받는 거 구현
+                    Image(systemName: "camera.circle.fill")
+                        .font(.custom40bold())
+                        .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                }
+            }
+            .overlay(alignment: .topLeading) {
+                Button {
+                    viewModel.copppedImageData = nil
+                    viewModel.croppedImage = nil
+                    viewModel.popImagePicker = false
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.custom20bold())
+                        .padding(.init(top: UIScreen.getWidth(45), leading: UIScreen.getWidth(25), bottom: 0, trailing: 0))
+                }
+            }
+    }
+    
     var imagePicker: some View {
         Button {
             viewModel.popImagePicker = true
@@ -73,97 +124,99 @@ extension RegisterUserArtistView {
         }
     }
     var nameTextField: some View {
-        VStack(alignment: .leading,spacing: 4) {
-            Text("Nickname") .font(.custom13semibold())
+        VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
+            Text("Nickname") .font(.custom12semibold()).padding(.leading, UIScreen.getWidth(4))
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("닉네임을 입력하세요", text: $viewModel.artistName)
-                    .font(.custom14semibold())
-                    .padding(UIScreen.getWidth(12))
+                    .font(.custom12semibold())
+                    .padding(UIScreen.getWidth(11))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
             }
-        }
+        }.padding(UIScreen.getWidth(5))
     }
     
     var infoTextField: some View {
-        VStack(alignment: .leading,spacing: 4) {
-            Text("Your Info") .font(.custom13semibold())
+        VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
+            Text("Your Info") .font(.custom12semibold()).padding(.leading, UIScreen.getWidth(4))
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("Information을 입력하세요", text: $viewModel.artistInfo)
-                    .font(.custom14semibold())
-                    .padding(UIScreen.getWidth(12))
+                    .font(.custom12semibold())
+                    .padding(UIScreen.getWidth(11))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
             }
-        }
+        }.padding(UIScreen.getWidth(5))
     }
     
     var youtubeTextField: some View {
-        VStack(alignment: .leading,spacing: 4) {
+        VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
             HStack {
-                linkButton(name: YouTubeLogo).frame(width: 25)
-                Text("Youtube") .font(.custom13semibold())
+                linkButton(name: YouTubeLogo).frame(width: UIScreen.getWidth(22)).padding(.leading, UIScreen.getWidth(4))
+                Text("Youtube") .font(.custom12semibold())
             }
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("Youtube 계정을 입력하세요", text: $viewModel.youtubeURL)
-                    .font(.custom14semibold())
-                    .padding(UIScreen.getWidth(12))
+                    .font(.custom12semibold())
+                    .padding(UIScreen.getWidth(11))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
             }
-        }
+        }.padding(UIScreen.getWidth(5))
     }
     
     var instagramTextField: some View {
-        VStack(alignment: .leading,spacing: 4) {
+        VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
             HStack {
-                linkButton(name:InstagramLogo).frame(width: 25)
-                Text("Instagram") .font(.custom13semibold())
+                linkButton(name:InstagramLogo).frame(width: UIScreen.getWidth(22)).padding(.leading, UIScreen.getWidth(4))
+                Text("Instagram") .font(.custom12semibold())
             }
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("Instagram 계정을 입력하세요", text: $viewModel.instagramURL)
-                    .font(.custom14semibold())
-                    .padding(UIScreen.getWidth(12))
+                    .font(.custom12semibold())
+                    .padding(UIScreen.getWidth(11))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
             }
-        }
+        }.padding(UIScreen.getWidth(5))
     }
     
     var soundcloudTextField: some View {
-        VStack(alignment: .leading,spacing: 4) {
+        VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
             HStack {
-                linkButton(name:SoundCloudLogo).frame(width: 25)
-                Text("SoundCloud") .font(.custom13semibold())
+                linkButton(name:SoundCloudLogo).frame(width: UIScreen.getWidth(22)).padding(.leading, UIScreen.getWidth(4))
+                Text("SoundCloud") .font(.custom12semibold())
             }
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("Sound Cloud 계정을 입력하세요", text: $viewModel.soundcloudURL)
-                    .font(.custom14semibold())
-                    .padding(UIScreen.getWidth(12))
+                    .font(.custom12semibold())
+                    .padding(UIScreen.getWidth(11))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
             }
-        }
+        }.padding(UIScreen.getWidth(5))
     }
     
     var registerButton: some View {
         Button {
-                viewModel.postUserArtist {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        awsService.getUserProfile { //유저프로필 가져오기
-                            if awsService.user.artist?.stageName != "" {
-                                awsService.isCreatUserArtist = true
-                                UserDefaults.standard.set(true ,forKey: "isCreatUserArtist")
-                            }
-                            dismiss()}
-                        awsService.getAllArtistList{}
-                    }
-                }
+            isLoading = true
+            awsService.artistCropedImage = viewModel.croppedImage
+            awsService.user.artist?.stageName = viewModel.artistName
+            awsService.user.artist?.genres = viewModel.genres
+            awsService.user.artist?.artistInfo = viewModel.artistInfo
+            awsService.user.artist?.youtubeURL = viewModel.youtubeURL
+            awsService.user.artist?.instagramURL = viewModel.instagramURL
+            awsService.user.artist?.soundcloudURL = viewModel.soundcloudURL
+            
+            awsService.postUserArtist {
+                    isLoading = false
+                    dismiss()
+            }
         } label: {
             HStack{
                 Spacer()
@@ -174,7 +227,8 @@ extension RegisterUserArtistView {
             .background(viewModel.artistName.isEmpty || viewModel.artistInfo.isEmpty ? Color.gray.opacity(0.3) : Color(appIndigo))
             .cornerRadius(6)
             .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-        }.disabled(viewModel.artistName.isEmpty || viewModel.artistInfo.isEmpty)
+        }.disabled(viewModel.artistName.isEmpty || viewModel.artistInfo.isEmpty).padding(UIScreen.getWidth(5))
+        
     }
 }
 

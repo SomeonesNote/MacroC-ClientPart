@@ -64,6 +64,7 @@ struct ReportPage: View {
                     awsService.reporting(artistId: artistID) {
                         awsService.getAllArtistList {
                             awsService.getFollowingList {
+                                
                                 isLoading = false
                                 dismiss()
                             }

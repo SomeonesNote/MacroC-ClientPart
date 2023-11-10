@@ -59,7 +59,7 @@ extension MapBuskingModalView {
 //                feedback.notificationOccurred(.success)
             } label: {
                 Image(systemName: "light.beacon.max.fill")
-                    .font(.custom16bold())
+                    .font(.custom13bold())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
         }.padding(.init(top: UIScreen.getWidth(40), leading: UIScreen.getWidth(7), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(15)))

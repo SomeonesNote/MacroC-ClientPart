@@ -26,6 +26,7 @@ class AwsService : ObservableObject {
     @Published var croppedImage: UIImage?
     @Published var popImagePicker : Bool = false
     @Published var patchcroppedImage: UIImage?
+    @Published var artistCropedImage: UIImage?
     @Published var artistPatchcroppedImage: UIImage?
     
     @Published var nowBuskingArtist : [Artist] = [] // 맵뷰 그리기 위해서 필요한 리스트
@@ -308,49 +309,45 @@ class AwsService : ObservableObject {
             }
     }
     
-    //    //Add User Artist //
-    //    func postUserArtist(completion: @escaping () -> Void) {
-    //        let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
-    //        let parameters: [String: String] = [
-    //            "stageName" : self.user.artist?.stageName ?? "",
-    //            "genres" : self.user.artist?.genres ?? "",
-    //            "artistInfo" : self.user.artist?.artistInfo ?? "",
-    //            "youtubeURL" : self.user.artist?.youtubeURL ?? "",
-    //            "instagramURL" : self.user.artist?.instagramURL ?? "",
-    //            "soundcloudURL" : self.user.artist?.soundcloudURL ?? ""
-    //        ]
-    //
-    //        let _ = print(parameters)
-    //        let _ = print(headers)
-    //
-    ////        if ((user.artist?.stageName.isEmpty) == nil) /*&& ((user.artist?.genres.isEmpty) == nil)*/ && ((user.artist?.artistInfo.isEmpty) == nil) {
-    //            AF.upload(multipartFormData: { multipartFormData in
-    //                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
-    //                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-    //                }
-    //                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-    //                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-    //                }
-    //                for (key, value) in parameters {
-    //                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
-    //                }
-    //            }, to: "https://macro-app.fly.dev/artist-POST/create", method: .post, headers: headers)
-    //            .response { response in
-    //                switch response.result {
-    //                case .success:
-    //                    self.getUserProfile {
-    //                        self.isCreatUserArtist = true
-    //                        UserDefaults.standard.set(true ,forKey: "isCreatUserArtist")
-    //                        print(parameters)
-    //                    }
-    //                case .failure(let error):
-    //                    print("postUserArtist.error : \(error.localizedDescription)")
-    //                    print(parameters)
-    //                    debugPrint(error)
-    //                }
-    //            }
-    //            completion()
-    //    }
+        //Add User Artist //
+        func postUserArtist(completion: @escaping () -> Void) {
+            let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
+            let parameters: [String: String] = [
+                "stageName" : self.user.artist?.stageName ?? "",
+                "genres" : self.user.artist?.genres ?? "",
+                "artistInfo" : self.user.artist?.artistInfo ?? "",
+                "youtubeURL" : self.user.artist?.youtubeURL ?? "",
+                "instagramURL" : self.user.artist?.instagramURL ?? "",
+                "soundcloudURL" : self.user.artist?.soundcloudURL ?? ""
+            ]
+        
+                AF.upload(multipartFormData: { multipartFormData in
+                    if let imageData = self.artistCropedImage?.jpegData(compressionQuality: 1) {
+                        multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+                    }
+                    else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+                        multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+                    }
+                    for (key, value) in parameters {
+                        multipartFormData.append(value.data(using: .utf8)!, withName: key)
+                    }
+                }, to: "https://macro-app.fly.dev/artist-POST/create", method: .post, headers: headers)
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        self.getUserProfile {
+                            self.getAllArtistList {
+                                print(parameters)
+                            }
+                        }
+                    case .failure(let error):
+                        print("postUserArtist.error : \(error.localizedDescription)")
+                        print(parameters)
+                        debugPrint(error)
+                    }
+                }
+                completion()
+        }
     
     //Get User Artist Profilfe // 일단 지금 안쓸듯
     func getUserArtistProfile(completion: @escaping () -> Void) {
@@ -575,9 +572,7 @@ class AwsService : ObservableObject {
     
     func getAllArtistBuskingList(completion: @escaping () -> Void) {
         let list = self.allAtrist.filter { $0.buskings != nil && !$0.buskings!.isEmpty }
-//        DispatchQueue.main.async {
             self.allBusking = list
-//           }
         print("##allBusking : \(self.allBusking)")
         completion()
     }

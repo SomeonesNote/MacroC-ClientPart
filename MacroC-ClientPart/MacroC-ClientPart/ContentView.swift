@@ -46,12 +46,13 @@ struct ContentView: View {
                 print(awsService.accesseToken)
                 print("^^accessToken^^")
                 if awsService.isSignUp {
+                    print("vv contentViewOnappear vv")
                     awsService.getUserProfile { //유저프로필 가져오기
                         awsService.getFollowingList {}}//팔로우 리스트 가져오기
-                    awsService.getAllArtistList {
-                        awsService.getMyBuskingList()
-                        awsService.getMyArtistBuskingList()
-                    }
+                    awsService.getAllArtistList { }
+                    awsService.getMyBuskingList()
+                    awsService.getMyArtistBuskingList()
+                    print("^^ contentViewOnappear ^^")
                 }
                 let tabBarAppearance = UITabBarAppearance()
                 tabBarAppearance.configureWithDefaultBackground()

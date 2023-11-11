@@ -226,7 +226,7 @@ extension UserPageView {
                 viewModel.nameSaveOKModal = true
                 withAnimation(.smooth(duration: 0.5)) {
                     // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
                         viewModel.nameSaveOKModal = false
                         viewModel.isEditName = false
                     }

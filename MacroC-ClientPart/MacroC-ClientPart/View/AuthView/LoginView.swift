@@ -38,8 +38,9 @@ struct LoginView: View {
                         return
                     }
                     viewModel.authenticate(credential: credential) {
-                        
+                        print("vvvv")
                         awsService.checkSignUp()
+                        print("^^^^")
                     }
                     let userIdentifier = credential.user
                     do {
@@ -47,7 +48,6 @@ struct LoginView: View {
                         awsService.isSignIn = true
                         UserDefaults.standard.set(true, forKey: "isSignIn")
                         print("3.awsService.isSignIn : \(awsService.isSignIn)") //MARK: 3
-                        
                     } catch {
                         print("userIdentifier is not saved")
                     }

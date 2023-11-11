@@ -66,6 +66,7 @@
 		074C58AF2AFCC7BE0019B6C8 /* ReportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C58AE2AFCC7BE0019B6C8 /* ReportPage.swift */; };
 		074C58B12AFCD0DC0019B6C8 /* EditBlockListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C58B02AFCD0DC0019B6C8 /* EditBlockListView.swift */; };
 		076744922AE574910053E413 /* AwsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076744912AE574910053E413 /* AwsService.swift */; };
+		07C96E782AFF3B6B0067D7D6 /* MapBuskingLow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C96E772AFF3B6B0067D7D6 /* MapBuskingLow.swift */; };
 		07FBF2882ACF5223004EF174 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */; };
 		07FBF28B2ACFF90B004EF174 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpView.swift */; };
 		07FD2BE62AD32D4B0030865A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD2BE52AD32D4B0030865A /* MainViewModel.swift */; };
@@ -147,6 +148,7 @@
 		074C58AE2AFCC7BE0019B6C8 /* ReportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPage.swift; sourceTree = "<group>"; };
 		074C58B02AFCD0DC0019B6C8 /* EditBlockListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBlockListView.swift; sourceTree = "<group>"; };
 		076744912AE574910053E413 /* AwsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwsService.swift; sourceTree = "<group>"; };
+		07C96E772AFF3B6B0067D7D6 /* MapBuskingLow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBuskingLow.swift; sourceTree = "<group>"; };
 		07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		07FBF2892ACFD143004EF174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07FBF28A2ACFF90B004EF174 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 				F62B8ACC2ACED8410077CA17 /* DonationBar.swift */,
 				0707173D2AD9FA7D00B72319 /* CircleBlur.swift */,
 				070F6BE22ADAC8B000328570 /* PopOverText.swift */,
+				07C96E772AFF3B6B0067D7D6 /* MapBuskingLow.swift */,
 			);
 			path = ViewComponent;
 			sourceTree = "<group>";
@@ -660,6 +663,7 @@
 				F62B8AB92ACED5E30077CA17 /* MapBuskingModalView.swift in Sources */,
 				070717312AD942BD00B72319 /* KeychainItem.swift in Sources */,
 				F62B8AC92ACED8110077CA17 /* ProfileRectangle.swift in Sources */,
+				07C96E782AFF3B6B0067D7D6 /* MapBuskingLow.swift in Sources */,
 				F62B8AAE2ACED53E0077CA17 /* AddBuskingPageView.swift in Sources */,
 				F62B8AC32ACED78C0077CA17 /* EditFanView.swift in Sources */,
 				070752A32AD75BA60090E11D /* AppleSigninButton.swift in Sources */,

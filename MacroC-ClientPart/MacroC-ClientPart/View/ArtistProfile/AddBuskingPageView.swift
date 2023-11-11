@@ -14,6 +14,7 @@ struct AddBuskingPageView: View {
     @EnvironmentObject var awsService : AwsService
     @ObservedObject var viewModel = AddBuskingPageViewModel()
     
+    @State var informationText: String = ""
     @State var showPopover: Bool = false
     @Environment(\.dismiss) var dismiss
     
@@ -23,16 +24,49 @@ struct AddBuskingPageView: View {
             ScrollView { // 키보드 뷰 밀림때문에 넣음
                 VStack(spacing: UIScreen.getWidth(18)) {
                     //                    topbar
+                    informationHeader
+                    TextField("Information", text: $informationText)
+                        .padding(UIScreen.getWidth(12))
+                        .background(.ultraThinMaterial)
+                        .padding(.horizontal, UIScreen.getHeight(5))
                     locationHeader
                     map
                     timeHeader
                     datePickerView
                     Spacer()
-                    registerButton
+                   
+//                    registerButton
                     Spacer()
                 }
                 .padding(.horizontal)
                 .ignoresSafeArea(.keyboard)
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        
+                        awsService.addBusking.BuskingStartTime = viewModel.startTime
+                        awsService.addBusking.BuskingEndTime = viewModel.endTime
+                        awsService.addBusking.latitude = viewModel.latitude //TODO: 이거 값 없을떄 버튼 디스에이블로 잡기
+                        awsService.addBusking.longitude = viewModel.longitude
+                        awsService.addBusking.BuskingInfo = "dd"
+                        
+                        
+                        awsService.postBusking()
+                        withAnimation(.easeIn(duration: 0.4)) {
+                            showPopover = true
+                            feedback.notificationOccurred(.success)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
+                                withAnimation(.easeOut(duration: 0.4)) {
+                                    showPopover = false
+                                }
+                            }
+                        }
+                        dismiss()
+                    } label: {
+                        toolbarButtonLabel(buttonLabel: "Register").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(8))
+                    }
+                }
             }
             .hideKeyboardWhenTappedAround()
             .background(backgroundView().ignoresSafeArea())
@@ -69,7 +103,7 @@ extension AddBuskingPageView {
     var locationHeader: some View {
         HStack {
             roundedBoxText(text: "Location").padding(.leading, UIScreen.getWidth(10))
-                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)).scaleEffect(0.9)
             Spacer()
         }
     }
@@ -77,7 +111,7 @@ extension AddBuskingPageView {
     var map: some View {
         ZStack(alignment: .top) {
             AddBuskingMapView(viewModel: viewModel)
-                .frame(height: UIScreen.getHeight(290))
+                .frame(height: UIScreen.getHeight(270))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(alignment: .bottom) {
                     Text(viewModel.markerAdressString)
@@ -97,7 +131,7 @@ extension AddBuskingPageView {
     var timeHeader: some View {
         HStack {
             roundedBoxText(text: "Time").padding(.leading, UIScreen.getWidth(10))
-                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)).scaleEffect(0.9)
             Spacer()
         }.padding(.top, UIScreen.getHeight(20))
     }
@@ -149,6 +183,14 @@ extension AddBuskingPageView {
         .cornerRadius(10)
     }
     
+    var informationHeader: some View {
+        HStack {
+            roundedBoxText(text: "Information").padding(.leading, UIScreen.getWidth(10))
+                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)).scaleEffect(0.9)
+            Spacer()
+        }
+    }
+    
     //
     var registerButton: some View {
         Button{
@@ -164,7 +206,7 @@ extension AddBuskingPageView {
             withAnimation(.easeIn(duration: 0.4)) {
                 showPopover = true
                 feedback.notificationOccurred(.success)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
                     withAnimation(.easeOut(duration: 0.4)) {
                         showPopover = false
                     }

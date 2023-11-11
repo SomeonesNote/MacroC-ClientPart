@@ -68,7 +68,7 @@ struct ContentView: View {
                 case 1 :
                     print("MapView : \(nowPage)")
                     awsService.getAllArtistList { }
-                    awsService.getAllArtistBuskingList{}
+                    awsService.getAllArtistBuskingList{ }
                 case 2 :
                     print("ProfileSettingView : \(nowPage)")
                     awsService.getUserProfile{}

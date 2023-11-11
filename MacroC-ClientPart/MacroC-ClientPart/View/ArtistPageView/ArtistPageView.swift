@@ -11,7 +11,8 @@ struct ArtistPageView: View {
     
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
-    @StateObject var viewModel: ArtistPageViewModel
+//    @StateObject var viewModel: ArtistPageViewModel
+    @ObservedObject var viewModel : ArtistPageViewModel
     @Environment(\.dismiss) var dismiss
     @State var clickedDdot: Bool = false
     @State var clickedReport: Bool = false

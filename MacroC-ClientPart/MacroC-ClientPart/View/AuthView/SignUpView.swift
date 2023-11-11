@@ -14,11 +14,6 @@ struct SignUpView: View {
     var body: some View {
         VStack(spacing: UIScreen.getWidth(6)) {
             Spacer()
-            Button {
-                awsService.isSignIn = false
-            } label: {
-                Text("dsfafadsf")
-            }
 
             imagePicker
             Spacer()
@@ -26,11 +21,19 @@ struct SignUpView: View {
 //            infoTextField
 //            passWordField
             signUpbutton
-                .padding(.bottom, UIScreen.getHeight(40))
+            Button {
+                awsService.isSignIn = false
+            } label: {
+                Text("Did you have account already?")
+                    .font(.custom10semibold()).foregroundStyle(Color.gray)
+                    .padding(10)
+            }
+            .padding(.bottom, UIScreen.getHeight(40))
         }
         .cropImagePicker(show: $awsService.popImagePicker, croppedImage: $awsService.croppedImage, isLoding: $awsService.isLoading)
         .padding()
         .background(backgroundView().hideKeyboardWhenTappedAround())
+       
     }
 }
 //MARK: - 3 .EXTENSION

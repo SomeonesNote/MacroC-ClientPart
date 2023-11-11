@@ -62,7 +62,7 @@ fileprivate struct CustomImagePicker<Content: View>: View {
                         if let imageData = try? await newValue.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
                             await MainActor.run(body: {
                                 selectedImage = image
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                     showCropView = true
                                     isLoading = false // 이미지 로드 완료
                                 }

@@ -11,6 +11,11 @@ import CoreLocation
 import CoreLocationUI
 
 
+struct MarkerData {
+    var artist: Artist
+    var busking: Busking
+}
+
 struct GoogleMapView: UIViewRepresentable {
     
     //MARK: -1.PROPERTY
@@ -18,6 +23,7 @@ struct GoogleMapView: UIViewRepresentable {
     @ObservedObject var viewModel: MapViewModel
     
     func makeUIView(context: Context) -> GMSMapView {
+        
         let camera = GMSCameraPosition.camera(withLatitude: context.coordinator.locationManager.location?.coordinate.latitude ?? 0, longitude: context.coordinator.locationManager.location?.coordinate.longitude ?? 0, zoom: 18.0)
         let view = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         
@@ -60,11 +66,8 @@ struct GoogleMapView: UIViewRepresentable {
                 marker.map = view
                 marker.iconView = customMarker
                 marker.isDraggable = false
-                marker.userData = artist
-               
-                viewModel.buskingStartTime = busking.BuskingStartTime
-                viewModel.buskingEndTime = busking.BuskingEndTime
-                viewModel.BuskingInfo = busking.BuskingInfo
+                let markerData = MarkerData(artist: artist, busking: busking)
+                marker.userData = markerData
             }
         }
         return view
@@ -122,8 +125,9 @@ struct GoogleMapView: UIViewRepresentable {
             viewModel.popModal = true
             
             
-            if let artist = marker.userData as? Artist {
-                viewModel.selectedArtist = artist
+            if let markerData = marker.userData as? MarkerData {
+                viewModel.selectedArtist = markerData.artist
+                viewModel.selectedBusking = markerData.busking
             }
             return true
         }

@@ -39,6 +39,10 @@ struct ReportPage: View {
                         Image(systemName: "pencil.circle.fill")
                             .font(.custom13semibold())
                             .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                        Text(" ")
+                            .font(.custom10semibold())
+                            .foregroundColor(.gray)
+                            .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     }
                     VStack(alignment: .leading) {
                         Text("Please enter the reason for reporting.")

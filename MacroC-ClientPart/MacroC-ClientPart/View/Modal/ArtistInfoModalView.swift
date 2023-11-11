@@ -14,17 +14,21 @@ struct ArtistInfoModalView: View {
     
     //MARK: -2.BODY
     var body: some View {
-        VStack(spacing: UIScreen.getHeight(15)) {
-            Spacer()
-            artistInfoToolbar
-            artistInfoImage
-            buskingTime
-            NavigationLink {
-                ArtistPageView(viewModel: ArtistPageViewModel(artist: viewModel.artist))
-            } label: { sheetBoxText(text: "더보기").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)) }
-            
-//            Button { } label: { sheetBoxText(text: "찾아가기").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)) }
-        }.background(backgroundView())
+        NavigationView {
+            VStack(spacing: UIScreen.getHeight(15)) {
+                artistInfoToolbar
+                Spacer()
+                artistInfoImage
+                Spacer()
+                
+                buskingTime
+                NavigationLink {
+                    ArtistPageView(viewModel: ArtistPageViewModel(artist: viewModel.artist))
+                } label: { sheetBoxText(text: "더보기").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)) }
+                Spacer()
+                //            Button { } label: { sheetBoxText(text: "찾아가기").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)) }
+            }.background(backgroundView())
+        }
     }
 }
 

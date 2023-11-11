@@ -20,37 +20,40 @@ struct MapView: View {
     //MARK: -2.BODY
     var body: some View {
         NavigationView {
-            ZStack(alignment: .top){
+            ZStack(alignment: .bottom){
                 if mapViewOn {
                     GoogleMapView(viewModel: viewModel)
                         .ignoresSafeArea(.all, edges: .top)
+                    
                         .overlay(alignment: .top) {
                             MapViewSearchBar(viewModel: viewModel)
                                 .padding(UIScreen.getWidth(4))
-                    }
+                        }
                 } else {
                     backgroundView()
-                        .onAppear {
-                            awsService.getAllArtistBuskingList{
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.3){
-                                    print(awsService.allBusking)
-                                    mapViewOn = true }
-                            }
-                        }
                         .overlay{
                             ProgressView()
-                    }
+                        }
                 }
+                if viewModel.popModal {
+                    MapBuskingLow(artist: viewModel.selectedArtist ?? Artist(), busking: viewModel.selectedBusking ?? Busking())
+                        .padding(4)
+                }
+            }
+            .onTapGesture {
+                viewModel.popModal = false
             }
             .background(backgroundView())
             .ignoresSafeArea(.keyboard)
-            .sheet(isPresented: $viewModel.popModal, onDismiss: {viewModel.popModal = false}) {
-                ArtistInfoModalView(viewModel: ArtistInfoModalViewModel(artist: viewModel.selectedArtist!, buskingStartTime: viewModel.buskingStartTime, buskingEndTime: viewModel.buskingEndTime))
-                    .presentationDetents([.height(UIScreen.getHeight(380))])
-                    .presentationDragIndicator(.visible)
-            }
+            .navigationTitle("")
+        }
+        .onAppear {
+            awsService.getAllArtistBuskingList{
+                print(awsService.allBusking)
+                mapViewOn = true }
         }
         .onDisappear {
+            viewModel.popModal = false
             mapViewOn = false
         }
     }

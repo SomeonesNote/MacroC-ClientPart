@@ -343,15 +343,6 @@ extension UserArtistPageView {
                 awsService.user.artist?.instagramURL = viewModel.instagramURL
                 awsService.user.artist?.soundcloudURL = viewModel.soundcloudURL
                 viewModel.isEditSocial = false
-                //                    feedback.notificationOccurred(.success)
-                //                    withAnimation(.smooth(duration: 0.5)) {
-                //                        viewModel.socialSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                //                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                //                            viewModel.socialSaveOKModal = false
-                //                            viewModel.isEditSocial = false
-                //                        }
-                //                    }
-                
             } label: {
                 HStack {
                     Spacer()
@@ -391,7 +382,7 @@ extension UserArtistPageView {
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {
                     viewModel.nameSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { //알림페이지떠있는 시간 1.5초
                         viewModel.nameSaveOKModal = false
                         viewModel.isEditName = false
                     }
@@ -436,7 +427,7 @@ extension UserArtistPageView {
                 feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {
                     viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
                         viewModel.infoSaveOKModal = false
                         viewModel.isEditInfo = false
                     }

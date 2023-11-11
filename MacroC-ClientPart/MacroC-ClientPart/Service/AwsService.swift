@@ -135,7 +135,7 @@ class AwsService : ObservableObject {
     
     //Login for get Token //배치완료
     func checkSignUp() {
-        let uid = KeychainItem.currentFuid //TODO: - 이거 지금 못가져오고 있음
+        let uid = KeychainItem.currentFuid 
         let parameters: [String : String] = [
             "uid" : "\(uid)"
         ]
@@ -468,6 +468,7 @@ class AwsService : ObservableObject {
         let parameters: [String: Any] = [
             "BuskingStartTime" : buskingStartTimeString,
             "BuskingEndTime" : buskingEndTimeString,
+            "stageName" : self.user.artist?.stageName ?? "",
             "BuskingInfo" : self.addBusking.BuskingInfo,
             "longitude" : self.addBusking.longitude,
             "latitude" : self.addBusking.latitude
@@ -585,6 +586,11 @@ class AwsService : ObservableObject {
             switch response.result {
             case.success:
               print("Block Success")
+                self.getAllArtistList {
+                    self.getFollowingList {
+                        
+                    }
+                }
             case .failure(let error):
               print("Blocking fail Error \(error)")
             }

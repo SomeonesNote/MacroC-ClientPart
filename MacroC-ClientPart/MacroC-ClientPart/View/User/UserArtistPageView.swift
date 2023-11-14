@@ -17,14 +17,15 @@ struct UserArtistPageView: View {
     //MARK: -2.BODY
     var body: some View {
         ZStack {
-            ScrollView(showsIndicators: false) {
+//            ScrollView(showsIndicators: false) {
                 VStack(spacing: UIScreen.getWidth(5)) {
                     if viewModel.croppedImage != nil { pickedImage }
                     else { artistPageImage }
                     artistPageTitle
                     Spacer()
                 }
-            }.blur(radius: viewModel.isEditSocial || viewModel.isEditName || viewModel.isEditInfo ? 15 : 0)
+//            }
+            .blur(radius: viewModel.isEditSocial || viewModel.isEditName || viewModel.isEditInfo ? 15 : 0)
             if viewModel.isEditSocial || viewModel.isEditName || viewModel.isEditInfo {
                 Color.black.opacity(0.1)
                     .onTapGesture {

@@ -22,12 +22,9 @@ struct BlockedArtistView: View {
         ZStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: UIScreen.getWidth(5)) {
-                    
                     artistPageImage
                         .scrollDisabled(true)
                     artistPageTitle
-                    
-                    artistPageFollowButton
                     
                     Spacer()
                 }
@@ -119,31 +116,5 @@ extension BlockedArtistView {
                 .font(.custom13heavy())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
         }.padding(.bottom, UIScreen.getHeight(20))
-    }
-    
-    var artistPageFollowButton: some View {
-        Button {
-            isLoading = true
-            if awsService.followingInt.contains(viewModel.artist.id) == false {
-                awsService.following(userid: awsService.user.id, artistid: viewModel.artist.id) { // 팔로우하는 함수
-                    awsService.getFollowingList(completion: {
-                        isLoading = false
-                    })
-                }
-            } else {
-                awsService.unFollowing(userid: awsService.user.id, artistid: viewModel.artist.id) { // 언팔하는 함수
-                    awsService.getFollowingList(completion: {
-                        isLoading = false
-                    })
-                }
-            }
-        } label: {
-            Text(viewModel.isfollowing ? "Unfollow" : "Follow")
-                .font(.custom21black())
-                .padding(.init(top: UIScreen.getHeight(7), leading: UIScreen.getHeight(30), bottom: UIScreen.getHeight(7), trailing: UIScreen.getHeight(30)))
-                .background{ Capsule().stroke(Color.white, lineWidth: UIScreen.getWidth(2)) }
-                .modifier(dropShadow())
-                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-        }
     }
 }

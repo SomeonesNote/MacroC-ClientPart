@@ -23,7 +23,6 @@ struct AddBuskingPageView: View {
         ZStack {
             ScrollView { // 키보드 뷰 밀림때문에 넣음
                 VStack(spacing: UIScreen.getWidth(16)) {
-                    Spacer()
                     informationHeader
                     informationTextField
                     locationHeader

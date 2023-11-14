@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 struct EditBlockListView: View {
     
     //MARK: -1.PROPERTY
@@ -18,9 +19,10 @@ struct EditBlockListView: View {
         repeating: GridItem(.flexible(), spacing: 0),
         count: 3
     )
+    
     //MARK: -2.BODY
     var body: some View {
-        ZStack{
+        ZStack {
             ScrollView(showsIndicators: false) {
                 HStack {
                     roundedBoxText(text: "Blocked Artist List")
@@ -28,41 +30,63 @@ struct EditBlockListView: View {
                     Spacer()
                 }
                 .padding(.init(top: UIScreen.getWidth(20), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(0), trailing: UIScreen.getWidth(20)))
-                LazyVGrid(columns: columns, spacing: 0) {
-                    ForEach(awsService.blockingList) { i in
-                        NavigationLink {
-                            BlockedArtistView(viewModel: BlockedArtistViewModel(artist: i))
-                        } label: {
-                            ProfileRectangle(image: i.artistImage, name: i.stageName)
+                
+                if awsService.blockingList.isEmpty {
+                    HStack(alignment: .center, spacing: UIScreen.getWidth(8)) {
+                        Spacer()
+                        Image(systemName: "face.smiling").font(.custom20semibold())
+                        Text("차단한 아티스트가 없어요 :)")
+                            .font(.custom13bold())
+                            .fontWidth(.expanded)
+                        Spacer()
+                    }.shadow(color: .black.opacity(0.2),radius: UIScreen.getHeight(5))
+                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        .frame(height: UIScreen.getHeight(160))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 30)
+                                .stroke(lineWidth: UIScreen.getWidth(1))
+                                .blur(radius: 2)
+                                .foregroundColor(Color.white.opacity(0.1))
+                                .padding(0)
                         }
-                        .overlay(alignment: .topTrailing) {
-                            if isEditMode {
-                                Button {
-                                    //TODO: 팔로우리스트에서 지우기
-                                    deleteAlert = true
-                                } label: {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .font(.custom25bold())
-                                        .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-                                        .foregroundStyle(Color.appBlue)
-                                        .padding(-UIScreen.getWidth(5))
-                                }
+                        .padding(UIScreen.getWidth(10))
+                } else {
+                    LazyVGrid(columns: columns, spacing: 0) {
+                        ForEach(awsService.blockingList) { i in
+                            NavigationLink {
+                                BlockedArtistView(viewModel: BlockedArtistViewModel(artist: i))
+                            } label: {
+                                ProfileRectangle(image: i.artistImage, name: i.stageName)
                             }
-                        } .scaleEffect(0.8)
-                            .alert(isPresented: $deleteAlert) {
-                                Alert(title: Text(""), message: Text("Do you want to unBlock?"), primaryButton: .destructive(Text("UnBlock"), action: {
-                                    //TODO: 팔로우 리스트에서 삭제
-                                    isLoading = true
-                                    awsService.unblockingArtist(artistId: i.id) { // 언팔하는 함수
-                                        awsService.getBlockArtist{
-                                            isLoading = false
-                                            dismiss()
-                                        }
+                            .overlay(alignment: .topTrailing) {
+                                if isEditMode {
+                                    Button {
+                                        deleteAlert = true
+                                    } label: {
+                                        Image(systemName: "xmark.circle.fill")
+                                            .font(.custom25bold())
+                                            .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                                            .foregroundStyle(Color.appBlue)
+                                            .padding(-UIScreen.getWidth(5))
                                     }
-                                }), secondaryButton: .cancel(Text("Cancle")))
-                            }
-                    }
-                }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
+                                }
+                            } .scaleEffect(0.8)
+                                .alert(isPresented: $deleteAlert) {
+                                    Alert(title: Text(""), message: Text("Do you want to unBlock?"), primaryButton: .destructive(Text("UnBlock"), action: {
+                                        //TODO: 팔로우 리스트에서 삭제
+                                        isLoading = true
+                                        awsService.unblockingArtist(artistId: i.id) { // 언팔하는 함수
+                                            awsService.getBlockArtist{
+                                                isLoading = false
+                                                dismiss()
+                                            }
+                                        }
+                                    }), secondaryButton: .cancel(Text("Cancle")))
+                                }
+                        }
+                    }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
+                }
+               
             }.blur(radius: isLoading ? 15 : 0)
             if isLoading {
                 Color.black.opacity(0.3)

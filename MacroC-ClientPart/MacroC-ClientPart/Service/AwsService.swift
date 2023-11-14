@@ -43,6 +43,8 @@ class AwsService : ObservableObject {
     @Published var reportText: String = ""
     @Published var blockingList : [Artist] = [] // 유저가 차단한 리스트
     
+    @Published var email : String = KeychainItem.currentEmail
+    
     @Published var usernameStatus: UsernameStatus = .empty
     enum UsernameStatus {
         case empty
@@ -51,32 +53,29 @@ class AwsService : ObservableObject {
     }
     
     func signUp() {
-        let token : String? = "" //TODO: -사인업 할 때 필요한 토큰값이 뭐지???
-//        let uid : String = KeychainItem.currentFuid
-        
+        let email : String = KeychainItem.currentEmail
         let uid : String = KeychainItem.currentUserIdentifier
-        let headers: HTTPHeaders = [.authorization(bearerToken: token ?? "")]
-        
         let parameters: [String: String] = [
             "username": self.user.username,
-            "uid": uid
+            "uid": uid,
+            "email": email
         ]
-        
-        if !self.user.username.isEmpty {
-            AF.upload(multipartFormData: { multipartFormData in
-                if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
-                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
-                for (key, value) in parameters {
-                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
-                }
-            }, to: "\(serverURL)/auth/signup-with-image", method: .post, headers: headers)
-            .responseDecodable(of: TokenResponse.self) { response in
-                switch response.result {
-                case .success(let token):
+        print(parameters)
+         if !self.user.username.isEmpty {
+             AF.upload(multipartFormData: { multipartFormData in
+                 if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
+                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+                 }
+                 else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+                     multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+                 }
+                 for (key, value) in parameters {
+                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
+                 }
+             }, to: "\(serverURL)/auth/signup-with-image", method: .post)
+             .responseDecodable(of: TokenResponse.self) { response in
+                 switch response.result {
+                 case .success(let token):
                     print("7.awsService.signUp.Success")
                     do {
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
@@ -136,11 +135,11 @@ class AwsService : ObservableObject {
     }
     
     //Login for get Token //배치완료
-    func checkSignUp() {
-        let uid = KeychainItem.currentUserIdentifier
+    func checkSignUp(uid: String, completion: @escaping () -> Void) {
         let parameters: [String : String] = [
             "uid" : "\(uid)"
         ]
+        print(parameters)
         AF.request("\(serverURL)/auth/isSignUp", method: .post, parameters: parameters)
             .responseDecodable(of: Bool.self) { response in
                 switch response.result {
@@ -157,7 +156,8 @@ class AwsService : ObservableObject {
                     print("7.checkSignUp.error : \(error.localizedDescription)")
                 }
             }
-    }
+        completion()
+        }
     
     func tokenReresponse(completion: @escaping () -> Void)  { //MARK: - 이미 계쩡이 있는 유저가 로그인할 떄 + 유저 프로파일 받아오는 함수
 //        let token : String? = KeychainItem.currentFirebaseToken
@@ -287,7 +287,8 @@ class AwsService : ObservableObject {
     //Delete User Acount //배치완료
     func deleteUser() {
         let userid : Int = self.user.id
-        AF.request("\(serverURL)/auth/\(userid)", method: .delete)
+        print("\(serverURL)/auth/\(self.user.id)")
+        AF.request("\(serverURL)/auth/\(self.user.id)", method: .delete)
             .validate()
             .response { response in
                 switch response.result {
@@ -296,20 +297,16 @@ class AwsService : ObservableObject {
                     // 서버랑 클라이언트에서 지우는 코드들
                     UserDefaults.standard.set(false, forKey: "isSignIn")
                     UserDefaults.standard.set(false, forKey: "isSignup")
-                
                     KeychainItem.deleteUserIdentifierFromKeychain()
                     KeychainItem.deleteTokenResponseFromKeychain()
-                    //TODO: 파이어베이스에 콘솔에 삭제요청하기!!!
                     print("#DeleteUser.success!")
                     
-                    // 파이어베이스에다가 지우라고 하는 코드들
-                    
-                    
                 case .failure(let error) :
-                    print("Error : \(error.localizedDescription)")
+                    print("deleteUser.error : \(error.localizedDescription)")
+                    debugPrint(error)
                 }
             }
-    }
+        }
     
         //Add User Artist //
         func postUserArtist(completion: @escaping () -> Void) {

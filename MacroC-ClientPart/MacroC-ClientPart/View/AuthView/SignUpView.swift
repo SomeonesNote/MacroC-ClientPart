@@ -18,8 +18,6 @@ struct SignUpView: View {
             imagePicker
             Spacer()
             nameTextField
-//            infoTextField
-//            passWordField
             signUpbutton
             Button {
                 awsService.isSignIn = false
@@ -33,7 +31,10 @@ struct SignUpView: View {
         .cropImagePicker(show: $awsService.popImagePicker, croppedImage: $awsService.croppedImage, isLoding: $awsService.isLoading)
         .padding()
         .background(backgroundView().hideKeyboardWhenTappedAround())
-       
+        .onDisappear {
+            awsService.croppedImage = nil
+            awsService.user.username = ""
+        }
     }
 }
 //MARK: - 3 .EXTENSION

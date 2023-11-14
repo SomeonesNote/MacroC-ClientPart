@@ -17,7 +17,7 @@ struct LoginTestView: View {
 
 struct AppleSigninButton : View{
     
-    @EnvironmentObject var userAuth: AppleAuth
+//    @EnvironmentObject var userAuth: AppleAuth
     
     var body: some View{
         SignInWithAppleButton(
@@ -44,7 +44,7 @@ struct AppleSigninButton : View{
                         do {
                             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(UserIdentifier)
                             print("'\(UserIdentifier)' is saved on keychain")
-                            userAuth.showLoginView = false
+//                            userAuth.showLoginView = false
                         } catch {
                             print("AppleSigninButton.error : Unable to save userIdentifier to keychain.")
                         }

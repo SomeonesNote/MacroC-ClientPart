@@ -46,7 +46,9 @@ struct ArtistPageView: View {
                             Text("Report")
                         }
                     }
+                    
                     customDivider()
+                    
                     Button {
                         clickedBlock = true
                     } label: {

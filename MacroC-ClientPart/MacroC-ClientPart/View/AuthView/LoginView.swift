@@ -6,115 +6,155 @@
 //
 
 import SwiftUI
-import Firebase
-import FirebaseAuth
-import FirebaseOAuthUI
+import Alamofire
 import AuthenticationServices
 
-struct LoginView: View {
+struct SignResponse : Codable {
+    var token : String
+    var retoken : String
+}
 
+
+struct LoginView: View {
+    
     @EnvironmentObject var awsService : AwsService
     @StateObject var viewModel = LoginViewModel()
     @State private var isLoggedin: Bool = false
     @State private var userUID: String = ""
-    @State private var showLoginUI: Bool = false
+    //    @State private var showLoginUI: Bool = false
+    let serverURL: String = "https://macro-app.fly.dev"
+    @State var serverToken: String = ""
+    @State var refreshToken: String = ""
+    
     
     var body: some View {
         VStack {
-            Text(isLoggedin ? "Logged in: \(userUID)" : "Not Logged in")
-            Button(action: handleLoginLogout) {
-                Text(isLoggedin ? "Log Out" : "Log In")
-            }
-            SignInWithAppleButton{ (request) in
-                viewModel.nonce = randomNonceString()
-                request.requestedScopes = [.email, .fullName]
-                request.nonce = sha256(viewModel.nonce)
-               
-            } onCompletion: { (result) in
-                switch result {
-                case .success(let user):
-                    guard let credential = user.credential as?  ASAuthorizationAppleIDCredential else {
-                        print("Error with Firebase")
-                        return
+            SignInWithAppleButton(
+                onRequest: { request in
+                    request.requestedScopes = [.fullName, .email]
+                },
+                onCompletion: { result in
+                    switch result {
+                    case .success(let authResults):
+                        switch authResults.credential {
+                        case let appleIDCredential as ASAuthorizationAppleIDCredential :
+                            let UID = appleIDCredential.user
+                            
+                            let email = appleIDCredential.email
+                            let AuthorizationCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
+                            do {
+                                sendAppleLoginRequest(userID: UID, email: email ?? "", identityToken: AuthorizationCode ?? "")
+                                try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(UID)
+                                
+                            } catch {
+                                print(error)
+                            }
+                        default:
+                            break
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
                     }
-                    viewModel.authenticate(credential: credential) {
-                        print("vvvv")
-                        awsService.checkSignUp()
-                        print("^^^^")
-                    }
-                    let userIdentifier = credential.user
-                    do {
-                        try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(userIdentifier)
-                        awsService.isSignIn = true
-                        UserDefaults.standard.set(true, forKey: "isSignIn")
-                        print("3.awsService.isSignIn : \(awsService.isSignIn)") //MARK: 3
-                    } catch {
-                        print("userIdentifier is not saved")
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
                 }
-            }
+            )
             .signInWithAppleButtonStyle(.white)
             .frame(height: UIScreen.getHeight(50))
             .clipShape(Capsule())
             .padding(.horizontal, 10)
         }
-        .sheet(isPresented: $showLoginUI) {
-            FirebaseLoginViewControllerWrapper()
-        }
-        .onAppear {
-            checkLoginStatus()
-        }
-    }
-
-    func handleLoginLogout() {
-        if isLoggedin {
-            do {
-                try Auth.auth().signOut()
-                isLoggedin = false
-                userUID = ""
-            } catch {
-                print(error.localizedDescription)
-            }
-        } else {
-            showLoginUI = true
-        }
-    }
-    func checkLoginStatus() {
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            if let user = user {
-                self.isLoggedin = true
-            } else {
-                self.isLoggedin = false
-            }
-        }
     }
 }
+//do {
+//    try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem()
+//    awsService.isSignIn = true
+//    UserDefaults.standard.set(true, forKey: "isSignIn")
+//    print("3.awsService.isSignIn : \(awsService.isSignIn)")
+//} catch {
+//    print("userIdentifier is not saved")
+//}
 
-struct FirebaseLoginViewControllerWrapper: UIViewControllerRepresentable {
-    typealias UIViewControllerType = UINavigationController
-
-    func makeUIViewController(context: Context) -> UINavigationController {
-        guard let authUI = FUIAuth.defaultAuthUI() else {
-            // Handle the error
-            return UINavigationController() // Return a dummy navigation controller instead
-        }
-
-        // Only setting up Apple ID provider
-        let providers: [FUIAuthProvider] = [
-            FUIOAuth.appleAuthProvider()
+extension LoginView {
+    func sendAppleLoginRequest(userID: String, email: String, identityToken: String) {
+        let _ = print("sendAppleLoginRequest은 여기서 터짐")
+//        let parameters: [String: Any] = [
+//            "userID" : userID,
+//            "email" : email,
+//            "identityToken" : identityToken
+//        ]
+        
+        AF.request("\(serverURL)/apple-auth/login", method: .get)
+            .validate()
+            .response /*Decodable(of: SignResponse.self)*/ { response in
+                switch response.result {
+                case .success(let reData):
+//                    do {
+//                        try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "ServerToken").saveItem(reData.token)
+//                        try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "RefreshToken").saveItem(reData.retoken)
+//                    } catch {
+//                        print("Token Response on Keychain is fail")
+//                    }
+                    
+//                    serverToken = reData.token
+//                    refreshToken = reData.retoken
+                    debugPrint(response)
+                    print(reData)
+                    debugPrint(reData)
+                    awsService.getUserProfile{ }
+                    awsService.isSignIn = true
+                    UserDefaults.standard.set(true, forKey: "isSignIn")
+                    print("Apple Login Success")
+                case .failure(let error):
+                    awsService.isSignIn = false
+                    UserDefaults.standard.set(false, forKey: "isSignIn")
+                    print("Error : \(error)")
+                }
+            }
+    }
+    
+    func sendAppleLoginRedirectRequest(userID: String, refreshToken: String) {
+        let _ = print("sendAppleLoginRedirectRequest은 여기서 터짐")
+        let parameters: [String: Any] = [
+            "userID": userID,
+            "refreshToken": refreshToken
         ]
-        authUI.providers = providers
-
-        // Customize the UI
-        let authViewController = authUI.authViewController()
-        return authViewController
-    }
-
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        // Nothing to update
+        
+        AF.request("\(serverURL)/apple-auth/callback", method: .post, parameters: parameters)
+            .response { response in
+                switch response.result {
+                case.success :
+                    print(response)
+                    
+                case.failure(let error) :
+                    print(error)
+                }
+            }
     }
 }
+
+//struct FirebaseLoginViewControllerWrapper: UIViewControllerRepresentable {
+//    typealias UIViewControllerType = UINavigationController
+//
+//    func makeUIViewController(context: Context) -> UINavigationController {
+//        guard let authUI = FUIAuth.defaultAuthUI() else {
+//            // Handle the error
+//            return UINavigationController() // Return a dummy navigation controller instead
+//        }
+//
+//        // Only setting up Apple ID provider
+//        let providers: [FUIAuthProvider] = [
+//            FUIOAuth.appleAuthProvider()
+//        ]
+//        authUI.providers = providers
+//
+//        // Customize the UI
+//        let authViewController = authUI.authViewController()
+//        return authViewController
+//    }
+//
+//    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
+//        // Nothing to update
+//    }
+//}
+
 
 

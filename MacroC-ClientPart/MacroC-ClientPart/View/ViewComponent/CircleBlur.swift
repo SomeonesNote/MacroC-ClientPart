@@ -13,6 +13,7 @@ struct CircleBlur: View {
     var width: CGFloat = UIScreen.getWidth(105)
     var strokeColor: Color = Color(appIndigo2)
     var shadowColor: Color = Color.black
+    var circleImageView: UIImageView? = nil
     
     //MARK: -2.BODY
     var body: some View {

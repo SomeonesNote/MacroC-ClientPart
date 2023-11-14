@@ -20,3 +20,11 @@ struct mainpageTitleModifier: ViewModifier {
     }
 }
 
+struct navigartionPrincipal: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.custom14semibold())
+            .shadow(color: .white.opacity(0.15) ,radius: 10, x: -5,y: -5)
+            .shadow(color: .black.opacity(0.35) ,radius: 10, x: 5,y: 5)
+    }
+}

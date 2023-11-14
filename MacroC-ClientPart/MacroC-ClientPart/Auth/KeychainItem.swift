@@ -151,24 +151,6 @@ struct KeychainItem {
         }
     }
     
-    static var currentFuid: String { // 파이어베이스에서 주는 UID
-        do {
-            let storedfuid = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "fuid").readItem()
-            return storedfuid
-        } catch {
-            return "currentFuid error!"
-        }
-    }
-    
-    static var currentFirebaseToken: String { // 파이어베이스에서 받아오는 FirebaseToken
-        do {
-            let storedToken = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "firebaseToken").readItem()
-            return storedToken
-        } catch {
-            return "currentFirebaseToken error!"
-        }
-    }
-    
     static var currentTokenResponse: String { //서버에서 받아오는 AccessToken
         do {
             let storedTokenResponse = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").readItem()
@@ -189,30 +171,6 @@ struct KeychainItem {
     
     
     //MARK: - DELETE TOKEN FUNCTION
-    static func deleteFirebaseTokenFromKeychain() { // FirebaseToken 지우기
-        do {
-            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "firebaseToken").deleteItem()
-        } catch {
-            print("Keychain.deleteUserIdentifierFromKeychain.error : Unable to delete firebaseToken from keychain")
-        }
-    }
-    
-    static func deleteFuidFromKeychain() { // FUID 지우기
-        do {
-            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "fuid").deleteItem()
-        } catch {
-            print("Keychain.deleteUserIdentifierFromKeychain.error : Unable to delete fuid from keychain")
-        }
-    }
-    
-    static func deleteTokenResponseFromKeychain() { // 서버 통신용 AccseeToken 지우기
-        do {
-            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
-        } catch {
-            print("Keychain.deleteTokenResponseFromKeychain.error : Unable to delete fuid from keychain")
-        }
-    }
-    
     static func deleteUserIdentifierFromKeychain() { // Apple UserIdentifier 지우기
         do {
             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").deleteItem()
@@ -221,4 +179,27 @@ struct KeychainItem {
         }
     }
     
+    static func deleteAuthorizationCodeFromKeychain() { // Apple UserIdentifier 지우기
+        do {
+            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "authorizationCode").deleteItem()
+        } catch {
+            print("Keychain.deleteUserIdentifierFromKeychain.error : Unable to delete authorizationCode from keychain")
+        }
+    }
+    
+    static func deleteTokenResponseFromKeychain() { // 서버 통신용 AccseeToken 지우기
+        do {
+            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
+        } catch {
+            print("Keychain.deleteTokenResponseFromKeychain.error : Unable to delete tokenResponse from keychain")
+        }
+    }
+  
+    static func deleteRefreshTokenFromKeychain() { // Apple UserIdentifier 지우기
+        do {
+            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "refreshToken").deleteItem()
+        } catch {
+            print("Keychain.deleteUserIdentifierFromKeychain.error : Unable to delete refreshToken from keychain")
+        }
+    }
 }

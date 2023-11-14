@@ -13,13 +13,11 @@ struct RegisterUserArtistView: View {
     @EnvironmentObject var awsService : AwsService
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel = RegisterUserArtistViewModel()
-    @State var isLoading: Bool = false
+    
     //MARK: - 2.BODY
     var body: some View {
         ZStack {
-            ScrollView(showsIndicators: false) {
                 VStack(spacing: UIScreen.getWidth(5)) {
-                    //                imagePicker
                     imagePickerView
                     Spacer()
                     nameTextField
@@ -31,11 +29,8 @@ struct RegisterUserArtistView: View {
                     instagramTextField
                     soundcloudTextField
                     Spacer()
-                    registerButton
-                    Spacer()
                 }
-            }
-            if isLoading {
+            if viewModel.isLoading {
                 ProgressView()
             }
         }
@@ -90,39 +85,29 @@ extension RegisterUserArtistView {
                         .padding(.init(top: UIScreen.getWidth(45), leading: UIScreen.getWidth(25), bottom: 0, trailing: 0))
                 }
             }
+            .overlay(alignment: .topTrailing) {
+                Button {
+                    viewModel.isLoading = true
+                    awsService.artistCropedImage = viewModel.croppedImage
+                    awsService.user.artist?.stageName = viewModel.artistName
+                    awsService.user.artist?.genres = viewModel.genres
+                    awsService.user.artist?.artistInfo = viewModel.artistInfo
+                    awsService.user.artist?.youtubeURL = viewModel.youtubeURL
+                    awsService.user.artist?.instagramURL = viewModel.instagramURL
+                    awsService.user.artist?.soundcloudURL = viewModel.soundcloudURL
+                    
+                    awsService.postUserArtist {
+                        viewModel.isLoading = false
+                        dismiss()
+                    }
+                } label: {
+                    toolbarButtonLabel(buttonLabel: "Register")
+                        .padding(.init(top: UIScreen.getWidth(45), leading: 0, bottom: 0, trailing:  UIScreen.getWidth(25)))
+                }
+                
+            }
     }
     
-    var imagePicker: some View {
-        Button {
-            viewModel.popImagePicker = true
-        } label: {
-            if viewModel.croppedImage != nil {
-                Image(uiImage: viewModel.croppedImage!)
-                    .resizable()
-                    .scaledToFit()
-                    .clipShape(Circle())
-                    .frame(width: UIScreen.getHeight(140))
-                    .mask(RadialGradient(gradient: Gradient(colors: [Color.black,Color.black,Color.black,Color.black,Color.black,Color.black, Color.clear]), center: .center,startRadius: 0, endRadius: UIScreen.getHeight(70)))
-                    .shadow(color: .white.opacity(0.4),radius: UIScreen.getHeight(5))
-                    .overlay {
-                        Circle()
-                            .stroke(lineWidth: UIScreen.getHeight(2))
-                            .blur(radius: UIScreen.getHeight(3))
-                            .foregroundColor(Color(appIndigo).opacity(0.6))
-                            .padding(0)
-                    }
-            } else {
-                Circle()
-                    .stroke(lineWidth: UIScreen.getHeight(3))
-                    .frame(width: UIScreen.getHeight(140))
-                    .overlay {
-                        Image(systemName: "photo.on.rectangle.angled")
-                            .foregroundColor(.white)
-                            .font(.custom34regular())
-                    }
-            }
-        }
-    }
     var nameTextField: some View {
         VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
             Text("Nickname") .font(.custom12semibold()).padding(.leading, UIScreen.getWidth(4))
@@ -200,35 +185,6 @@ extension RegisterUserArtistView {
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
             }
         }.padding(UIScreen.getWidth(5))
-    }
-    
-    var registerButton: some View {
-        Button {
-            isLoading = true
-            awsService.artistCropedImage = viewModel.croppedImage
-            awsService.user.artist?.stageName = viewModel.artistName
-            awsService.user.artist?.genres = viewModel.genres
-            awsService.user.artist?.artistInfo = viewModel.artistInfo
-            awsService.user.artist?.youtubeURL = viewModel.youtubeURL
-            awsService.user.artist?.instagramURL = viewModel.instagramURL
-            awsService.user.artist?.soundcloudURL = viewModel.soundcloudURL
-            
-            awsService.postUserArtist {
-                    isLoading = false
-                    dismiss()
-            }
-        } label: {
-            HStack{
-                Spacer()
-                Text("Register").font(.custom13bold())
-                Spacer()
-            }
-            .padding(UIScreen.getWidth(15))
-            .background(viewModel.artistName.isEmpty || viewModel.artistInfo.isEmpty ? Color.gray.opacity(0.3) : Color(appIndigo))
-            .cornerRadius(6)
-            .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-        }.disabled(viewModel.artistName.isEmpty || viewModel.artistInfo.isEmpty).padding(UIScreen.getWidth(5))
-        
     }
 }
 

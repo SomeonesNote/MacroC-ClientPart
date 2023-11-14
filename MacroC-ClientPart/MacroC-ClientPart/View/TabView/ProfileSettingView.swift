@@ -12,7 +12,7 @@ struct ProfileSettingView: View {
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
     @StateObject var viewModel = ProfileSettingViewModel()
-    @State var popArtistRegisterPage: Bool = false
+    
     
     
     //MARK: -2.BODY
@@ -24,7 +24,6 @@ struct ProfileSettingView: View {
                 customDivider()
                 profileSetting
                 artistSetting
-                //                donationList
                 blockartistSetting
                 
                 customDivider()
@@ -40,7 +39,7 @@ struct ProfileSettingView: View {
                 .navigationTitle("")
         }
         .fullScreenCover(isPresented: $viewModel.popArtistProfile) {ArtistProfileSettingView(onDismiss: $viewModel.popArtistProfile)}
-        .fullScreenCover(isPresented: $popArtistRegisterPage, onDismiss: onDismiss) { RegisterUserArtistView() }
+        .fullScreenCover(isPresented: $viewModel.popArtistRegisterPage, onDismiss: onDismiss) { RegisterUserArtistView() }
     }
 }
 
@@ -57,12 +56,7 @@ extension ProfileSettingView {
             VStack(alignment: .leading) {
                 Text(awsService.user.username)
                     .font(.custom20bold())
-                Text(" ")
-                    .font(.custom13semibold())
                     .padding(.bottom, UIScreen.getWidth(15))
-                HStack{
-                    DonationBar()
-                }
             }.padding(.top, UIScreen.getWidth(15)).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5))
             Spacer()
         }.padding(.init(top: UIScreen.getWidth(30), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(20)))
@@ -90,18 +84,6 @@ extension ProfileSettingView {
         }
     }
     
-    //    var donationList: some View {
-    //        NavigationLink {
-    ////            DonationListView()
-    //            ApiTest()
-    //        } label: {
-    //            Text("후원 목록")
-    //                .font(.custom13bold())
-    //                .padding(UIScreen.getWidth(20))
-    //                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-    //        }
-    //    }
-    
     var notificationSetting: some View {
         Toggle(isOn: $viewModel.switchNotiToggle, label: {
             Text("알림 설정")
@@ -124,11 +106,8 @@ extension ProfileSettingView {
                         .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                 }
             } else {
-                //                NavigationLink {
-                //                    RegisterUserArtistView()
-                //                } label: {
                 Button {
-                    popArtistRegisterPage = true
+                    viewModel.popArtistRegisterPage = true
                 } label: {
                     Text("아티스트 계정 등록")
                         .font(.custom13bold())
@@ -151,7 +130,7 @@ extension ProfileSettingView {
     
     var blockartistSetting: some View {
         NavigationLink {
-            EditBlockListView() // TODO: 차단리스트 받아와서 연결하기
+            EditBlockListView()
         } label: {
             Text("차단 관리")
                 .font(.custom13bold())
@@ -161,6 +140,6 @@ extension ProfileSettingView {
     }
     
     func onDismiss() {
-        popArtistRegisterPage = false
+        viewModel.popArtistRegisterPage = false
     }
 }

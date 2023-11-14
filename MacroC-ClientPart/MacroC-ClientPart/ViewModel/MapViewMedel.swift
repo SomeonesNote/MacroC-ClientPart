@@ -12,6 +12,7 @@ import GooglePlaces
 class MapViewModel: ObservableObject {
     @Published var text: String = ""
     @Published var popModal: Bool = false
+    @Published var mapViewOn: Bool = false
     
     @Published var selectedArtist: Artist? = nil
     @Published var selectedBusking: Busking? = nil

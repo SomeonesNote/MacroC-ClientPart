@@ -18,7 +18,6 @@ struct EditArtistAcountView: View {
         ZStack(alignment: .topLeading) {
             backgroundView().ignoresSafeArea()
             VStack(alignment: .leading) {
-                //탈퇴
                 Button {
                     showDeleteAlert = true
                 } label: {
@@ -29,7 +28,7 @@ struct EditArtistAcountView: View {
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 Spacer()
-            }.padding(.top, UIScreen.getHeight(100))
+            }.padding(.top, UIScreen.getHeight(120))
                 .alert(isPresented: $showDeleteAlert) {
                     Alert(title: Text(""), message: Text("Are you sure you want to delete your account?"), primaryButton: .destructive(Text("Delete"), action: {
                         print("탈퇴 완료")
@@ -38,6 +37,12 @@ struct EditArtistAcountView: View {
                         onDismiss = false
                     }), secondaryButton: .cancel(Text("Cancle")))
                 }
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Account Setting")
+                    .modifier(navigartionPrincipal())
+            }
         }
     }
 }

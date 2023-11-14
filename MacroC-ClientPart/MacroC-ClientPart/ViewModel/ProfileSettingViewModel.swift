@@ -12,5 +12,6 @@ class ProfileSettingViewModel: ObservableObject {
     @Published var switchNotiToggle = false
     @Published var isArtistAccount = true
     @Published var popArtistProfile: Bool = false
+    @Published var popArtistRegisterPage: Bool = false
     
     }

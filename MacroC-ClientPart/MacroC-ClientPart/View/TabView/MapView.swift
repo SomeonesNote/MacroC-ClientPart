@@ -13,15 +13,12 @@ struct MapView: View {
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
     @StateObject var viewModel = MapViewModel()
-    @State private var selectedCoordinate: CLLocationCoordinate2D?
-    @State private var mapViewOn: Bool = false
-    
     
     //MARK: -2.BODY
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom){
-                if mapViewOn {
+                if viewModel.mapViewOn {
                     GoogleMapView(viewModel: viewModel)
                         .ignoresSafeArea(.all, edges: .top)
                     
@@ -50,11 +47,11 @@ struct MapView: View {
         .onAppear {
             awsService.getAllArtistBuskingList{
                 print(awsService.allBusking)
-                mapViewOn = true }
+                viewModel.mapViewOn = true }
         }
         .onDisappear {
             viewModel.popModal = false
-            mapViewOn = false
+            viewModel.mapViewOn = false
         }
     }
 }

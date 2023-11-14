@@ -44,11 +44,17 @@ struct UserPageView: View {
         }
         .background(backgroundView())
         .ignoresSafeArea()
+        .cropImagePicker(show: $viewModel.popImagePicker, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) { firstToolbarItem.opacity(viewModel.isEditName || viewModel.isEditInfo ? 0 : 1) }
             ToolbarItem(placement: .topBarTrailing) { secondToolbarItem.opacity(viewModel.isEditName || viewModel.isEditInfo ? 0 : 1) }
         }
-        .cropImagePicker(show: $viewModel.popImagePicker, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
+        .onAppear {
+            if let url = URL(string: awsService.user.avatarUrl) {
+                loadImage(from: url)}
+            viewModel.EditUsername = awsService.user.username
+        }
+        
         .onChange(of: viewModel.selectedItem) { newItem in
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
@@ -92,7 +98,6 @@ extension UserPageView {
                 Button{
                     viewModel.popImagePicker = true
                 } label: {
-                    //TODO: 사진첩 접근해서 사진 받는 거 구현
                     Image(systemName: "camera.circle.fill")
                         .font(.custom40bold())
                         .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
@@ -116,10 +121,10 @@ extension UserPageView {
                             Image(systemName: "camera.circle.fill")
                                 .font(.custom40bold())
                                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-                    }
+                        }
                 }
             }
-        }
+    }
     
     var userPageTitle: some View {
         return VStack{
@@ -140,21 +145,6 @@ extension UserPageView {
                     }
                 }
             }
-            //            ZStack {
-            //                Text(viewModel.EditUserInfo)
-            //                    .font(.custom13heavy())
-            //                if viewModel.isEditMode == true {
-            //                    HStack {
-            //                        Spacer()
-            //                        Button { viewModel.isEditInfo = true } label: {
-            //                            Image(systemName: "pencil.circle.fill")
-            //                                .font(.custom20semibold())
-            //                                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-            //                                .padding(.horizontal)
-            //                        }
-            //                    }
-            //                }
-            //            }
         }.padding(.bottom, UIScreen.getHeight(20))
     }
     
@@ -162,9 +152,7 @@ extension UserPageView {
         if viewModel.isEditMode {
             return AnyView(Button {
                 viewModel.isEditMode = false
-                // 선택한 사진들 취소하는 함수들
                 viewModel.croppedImage = nil
-                
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
             } label: {
@@ -182,11 +170,8 @@ extension UserPageView {
                 viewModel.isEditMode = false
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
-                //TODO: 세이브하는 거 구현
                 
-                if viewModel.croppedImage != nil {
-                    awsService.patchcroppedImage = viewModel.croppedImage
-                }
+                awsService.patchcroppedImage = viewModel.croppedImage
                 awsService.patchUserProfile()
                 feedback.notificationOccurred(.success)
             } label: {
@@ -247,6 +232,17 @@ extension UserPageView {
         .presentationDetents([.height(UIScreen.getHeight(150))])
         .presentationDragIndicator(.visible)
     }
+    
+    func loadImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    viewModel.croppedImage = image
+                }
+            }
+        }.resume()
+    }
+    
     
     //    var editInfoSheet: some View {
     //        VStack(alignment: .leading, spacing: UIScreen.getWidth(10)) {

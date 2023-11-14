@@ -27,6 +27,10 @@ extension Font {
         return Font.custom("Pretendard-Regular", fixedSize: 14 * setFontSize())
     }
     
+    static func custom16regular() -> Font {
+        return Font.custom("Pretendard-Regular", fixedSize: 16 * setFontSize())
+    }
+    
     static func custom34regular() -> Font {
         return Font.custom("Pretendard-Regulard", fixedSize: 34 * setFontSize())
     }
@@ -47,6 +51,10 @@ extension Font {
     
     static func custom14semibold() -> Font {
         return Font.custom("Pretendard-SemiBold", fixedSize: 14 * setFontSize())
+    }
+    
+    static func custom16semibold() -> Font {
+        return Font.custom("Pretendard-SemiBold", fixedSize: 16 * setFontSize())
     }
     
     static func custom18semibold() -> Font {

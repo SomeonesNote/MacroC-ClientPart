@@ -17,10 +17,10 @@ struct AddBuskingSearchBar: View {
     var body: some View {
         VStack(spacing:0) {
             TextField("Search", text: $viewModel.query)
-                .font(.custom13regular())
-                .padding()
+                .font(.custom12regular())
+                .padding(UIScreen.getHeight(10))
                 .background(Color.black.opacity(0.7))
-                .cornerRadius(10, corners: viewModel.results.isEmpty ? [.allCorners] : [.topLeft, .topRight])
+                .cornerRadius(UIScreen.getHeight(10), corners: viewModel.results.isEmpty ? [.allCorners] : [.topLeft, .topRight])
                 .overlay(alignment: .trailing,content: {
                     Button{ viewModel.query = "" } label: {
                         Image(systemName: "multiply.circle.fill")

@@ -72,7 +72,6 @@ struct MyBuskingSettingView: View {
                                     }
                                     .alert(isPresented: $viewModel.deleteAlert) {
                                         Alert(title: Text(""), message: Text("Do you want to delete this busking?"), primaryButton: .destructive(Text("Delete"), action: {
-                                            //TODO: 팔로우 리스트에서 삭제
                                             awsService.deleteBusking(buskingId: busking.id) {
                                                 awsService.getMyBuskingList()
                                             }

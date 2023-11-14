@@ -18,8 +18,6 @@ class UserArtistPageViewModel: ObservableObject {
     @Published var croppedImage: UIImage?
     @Published var isLoading: Bool = false
     
-    
-    //ModalButton
     @Published var socialSaveOKModal: Bool = false
     @Published var nameSaveOKModal: Bool = false
     @Published var infoSaveOKModal: Bool = false
@@ -40,21 +38,4 @@ class UserArtistPageViewModel: ObservableObject {
         self.instagramURL = instagramURL
         self.soundcloudURL = soundcloudURL
     }
-    
-//    
-//    func toggleEditMode() {
-//        isEditMode.toggle()
-//    }
-//    
-//    func cancelEditMode() {
-//        isEditMode = false
-//        selectedItem = nil
-//        selectedPhotoData = nil
-//        croppedImage = nil
-//    }
-//    
-//    func saveEditMode() {
-//        isEditMode = false
-//        //TODO: 세이브하는 거 구현
-//    }
 }

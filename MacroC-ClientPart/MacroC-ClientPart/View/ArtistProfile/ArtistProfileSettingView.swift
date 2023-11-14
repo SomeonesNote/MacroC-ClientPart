@@ -68,12 +68,7 @@ extension ArtistProfileSettingView {
             VStack(alignment: .leading) {
                 Text(awsService.user.artist?.stageName ?? "")
                     .font(.custom20bold())
-                Text(awsService.user.artist?.artistInfo ?? "")
-                    .font(.custom13semibold())
                     .padding(.bottom, UIScreen.getWidth(15))
-                HStack{
-                    DonationBar()
-                }
             }.padding(.top, UIScreen.getWidth(15)).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5))
             Spacer()
         }
@@ -90,8 +85,6 @@ extension ArtistProfileSettingView {
                     .padding(UIScreen.getWidth(20))
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
-            //            Button {
-            //                viewModel.popAddBusking = true
             NavigationLink {
                 AddBuskingPageView(viewModel: AddBuskingPageViewModel())
             } label: {
@@ -100,23 +93,6 @@ extension ArtistProfileSettingView {
                     .padding(UIScreen.getWidth(20))
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
-            //            NavigationLink {
-            //                EditFanView()
-            //            } label: {
-            //                Text("팬 관리")
-            //                    .font(.custom15bold())
-            //                    .padding(UIScreen.getWidth(20))
-            //                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-            //            }
-            //            NavigationLink {
-            //                EditDonationView()
-            //            } label: {
-            //                Text("후원 관리")
-            //                    .font(.custom14bold())
-            //                    .padding(UIScreen.getWidth(20))
-            //            .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-            //            }
-            //
             NavigationLink {
                 MyBuskingSettingView()
             } label: {

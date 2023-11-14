@@ -51,8 +51,10 @@ class AwsService : ObservableObject {
     }
     
     func signUp() {
-        let token : String? = KeychainItem.currentFirebaseToken
-        let uid : String = KeychainItem.currentFuid
+        let token : String? = "" //TODO: -사인업 할 때 필요한 토큰값이 뭐지???
+//        let uid : String = KeychainItem.currentFuid
+        
+        let uid : String = KeychainItem.currentUserIdentifier
         let headers: HTTPHeaders = [.authorization(bearerToken: token ?? "")]
         
         let parameters: [String: String] = [
@@ -100,6 +102,7 @@ class AwsService : ObservableObject {
     }
     
     
+    
     //Get Profile //배치완료
     func getUserProfile(completion: @escaping () -> Void) {
         let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
@@ -124,7 +127,6 @@ class AwsService : ObservableObject {
                     print("#getUserProfile.error : \(error.localizedDescription)")
                     if error.responseCode == 401 {
                         self.tokenReresponse {
-                            
                         }
                     }
                     debugPrint(error)
@@ -135,7 +137,7 @@ class AwsService : ObservableObject {
     
     //Login for get Token //배치완료
     func checkSignUp() {
-        let uid = KeychainItem.currentFuid 
+        let uid = KeychainItem.currentUserIdentifier
         let parameters: [String : String] = [
             "uid" : "\(uid)"
         ]
@@ -158,10 +160,11 @@ class AwsService : ObservableObject {
     }
     
     func tokenReresponse(completion: @escaping () -> Void)  { //MARK: - 이미 계쩡이 있는 유저가 로그인할 떄 + 유저 프로파일 받아오는 함수
-        let token : String? = KeychainItem.currentFirebaseToken
+//        let token : String? = KeychainItem.currentFirebaseToken
+        let token : String? = "" //TODO: -사인업 할 때 필요한 토큰값이 뭐지???
         let headers: HTTPHeaders = [.authorization(bearerToken: token ?? "")]
         let parameters: [String: String] = [
-            "uid": KeychainItem.currentFuid
+            "uid": KeychainItem.currentUserIdentifier
         ]
         AF.request("\(serverURL)/auth/signin", method: .post, parameters: parameters, headers: headers)
             .responseDecodable(of: TokenResponse.self) { response in
@@ -293,8 +296,7 @@ class AwsService : ObservableObject {
                     // 서버랑 클라이언트에서 지우는 코드들
                     UserDefaults.standard.set(false, forKey: "isSignIn")
                     UserDefaults.standard.set(false, forKey: "isSignup")
-                    KeychainItem.deleteFirebaseTokenFromKeychain()
-                    KeychainItem.deleteFuidFromKeychain()
+                
                     KeychainItem.deleteUserIdentifierFromKeychain()
                     KeychainItem.deleteTokenResponseFromKeychain()
                     //TODO: 파이어베이스에 콘솔에 삭제요청하기!!!
@@ -573,7 +575,7 @@ class AwsService : ObservableObject {
     
     func getAllArtistBuskingList(completion: @escaping () -> Void) {
         let list = self.allAtrist.filter { $0.buskings != nil && !$0.buskings!.isEmpty }
-            self.allBusking = list
+        self.allBusking = list.shuffled()
         print("##allBusking : \(self.allBusking)")
         completion()
     }

@@ -22,20 +22,14 @@ struct AddBuskingPageView: View {
     var body: some View {
         ZStack {
             ScrollView { // 키보드 뷰 밀림때문에 넣음
-                VStack(spacing: UIScreen.getWidth(18)) {
-                    //                    topbar
+                VStack(spacing: UIScreen.getWidth(16)) {
+                    Spacer()
                     informationHeader
-                    TextField("Information", text: $informationText)
-                        .padding(UIScreen.getWidth(12))
-                        .background(.ultraThinMaterial)
-                        .padding(.horizontal, UIScreen.getHeight(5))
+                    informationTextField
                     locationHeader
                     map
                     timeHeader
                     datePickerView
-                    Spacer()
-                   
-//                    registerButton
                     Spacer()
                 }
                 .padding(.horizontal)
@@ -44,13 +38,11 @@ struct AddBuskingPageView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        
                         awsService.addBusking.BuskingStartTime = viewModel.startTime
                         awsService.addBusking.BuskingEndTime = viewModel.endTime
-                        awsService.addBusking.latitude = viewModel.latitude //TODO: 이거 값 없을떄 버튼 디스에이블로 잡기
+                        awsService.addBusking.latitude = viewModel.latitude
                         awsService.addBusking.longitude = viewModel.longitude
-                        awsService.addBusking.BuskingInfo = "dd"
-                        
+                        awsService.addBusking.BuskingInfo = informationText
                         
                         awsService.postBusking()
                         withAnimation(.easeIn(duration: 0.4)) {
@@ -86,18 +78,12 @@ struct AddBuskingPageView: View {
 //MARK: -4.EXTENSION
 extension AddBuskingPageView {
     
-    var topbar: some View {
-        HStack {
-            Button{
-                dismiss()
-            } label: {
-                Text("Cancle")
-                    .font(.custom14bold())
-                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-            }
-            Spacer()
-        }
-        .padding(.init(top: UIScreen.getWidth(0), leading: UIScreen.getWidth(8), bottom: UIScreen.getWidth(8), trailing: UIScreen.getWidth(8)))
+    var informationTextField: some View {
+        TextField("Information", text: $informationText)
+            .font(.custom12regular())
+            .padding(UIScreen.getHeight(10))
+            .background(Color.black.opacity(0.7))
+            .cornerRadius(UIScreen.getHeight(10))
     }
     
     var locationHeader: some View {

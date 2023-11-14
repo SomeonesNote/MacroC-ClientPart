@@ -21,6 +21,12 @@ struct EditFollowingListView: View {
     //MARK: -2.BODY
     var body: some View {
         ScrollView(showsIndicators: false) {
+            HStack {
+                roundedBoxText(text: "My Artist List")
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                Spacer()
+            }
+            .padding(.init(top: UIScreen.getWidth(20), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(0), trailing: UIScreen.getWidth(20)))
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(awsService.following) { i in
                     NavigationLink {
@@ -44,8 +50,7 @@ struct EditFollowingListView: View {
                     } .scaleEffect(0.8)
                         .alert(isPresented: $deleteAlert) {
                             Alert(title: Text(""), message: Text("Do you want to unfollow?"), primaryButton: .destructive(Text("Unfollow"), action: {
-                                //TODO: 팔로우 리스트에서 삭제
-                                awsService.unFollowing(userid: awsService.user.id, artistid: i.id) { // 언팔하는 함수
+                                awsService.unFollowing(userid: awsService.user.id, artistid: i.id) { 
                                     awsService.getFollowingList(completion: { })
                                 }
                             }), secondaryButton: .cancel(Text("Cancle")))

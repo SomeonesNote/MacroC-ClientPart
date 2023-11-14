@@ -18,6 +18,7 @@ class RegisterUserArtistViewModel: ObservableObject {
     @Published var copppedImageData: Data?
     @Published var croppedImage: UIImage? 
     @Published var isLoading: Bool = false
+
     
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
     

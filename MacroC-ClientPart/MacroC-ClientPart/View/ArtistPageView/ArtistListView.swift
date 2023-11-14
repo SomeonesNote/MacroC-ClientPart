@@ -18,8 +18,14 @@ struct ArtistListView: View {
     //MARK: -2.BODY
     var body: some View {
         ScrollView(showsIndicators: false) {
+            HStack {
+                roundedBoxText(text: "Artist List")
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                Spacer()
+            }
+                .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(0), trailing: UIScreen.getWidth(20)))
             LazyVGrid(columns: columns, spacing: 0) {
-                ForEach(awsService.allAtrist.shuffled()) { i in
+                ForEach(awsService.allAtrist) { i in
                     NavigationLink {
                         ArtistPageView(viewModel: ArtistPageViewModel(artist: i))
                     } label: {

@@ -76,10 +76,14 @@ struct UserArtistPageView: View {
             }
         }
         .onAppear {
+            if let urlString = awsService.user.artist?.artistImage, let url = URL(string: urlString) {
+                loadImage(from: url) }
             viewModel.youtubeURL = awsService.user.artist?.youtubeURL ?? ""
             viewModel.instagramURL = awsService.user.artist?.instagramURL ?? ""
             viewModel.soundcloudURL = awsService.user.artist?.soundcloudURL ?? ""
-            viewModel.editUsername = awsService.user.username
+            viewModel.editUsername = awsService.user.artist?.stageName ?? ""
+            viewModel.editUserInfo = awsService.user.artist?.artistInfo ?? ""
+            
         }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationTitle("")
@@ -250,9 +254,7 @@ extension UserArtistPageView {
         if viewModel.isEditMode {
             return AnyView(Button {
                 viewModel.isEditMode = false
-                // 선택한 사진들 취소하는 함수들
                 viewModel.croppedImage = nil
-                
                 viewModel.isEditSocial = false
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
@@ -269,16 +271,11 @@ extension UserArtistPageView {
     var secondToolbarItem: some View {
         if viewModel.isEditMode {
             return AnyView(Button{
-                
                 viewModel.isEditMode = false
                 viewModel.isEditSocial = false
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
-                //TODO: 세이브하는 거 구현
-                
-                if viewModel.croppedImage != nil {
-                    awsService.artistPatchcroppedImage = viewModel.croppedImage
-                }
+                awsService.artistPatchcroppedImage = viewModel.croppedImage
                 awsService.patchUserArtistProfile {
                     feedback.notificationOccurred(.success)
                 }
@@ -335,10 +332,7 @@ extension UserArtistPageView {
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
-            
-            //SocialEditSheet Button
             Button {
-                //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.artist?.youtubeURL = viewModel.youtubeURL
                 awsService.user.artist?.instagramURL = viewModel.instagramURL
                 awsService.user.artist?.soundcloudURL = viewModel.soundcloudURL
@@ -353,10 +347,8 @@ extension UserArtistPageView {
                 .padding(UIScreen.getWidth(14))
                 .background(LinearGradient(colors: [.appSky ,.appIndigo1, .appIndigo2], startPoint: .topLeading, endPoint: .bottomTrailing))
                 .cornerRadius(6)
-            }
-            .padding(.top, UIScreen.getWidth(26))
-        }
-        .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
+            }.padding(.top, UIScreen.getWidth(26))
+        }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
     }
     
     var editNameSheet: some View {
@@ -447,5 +439,15 @@ extension UserArtistPageView {
         .padding(.horizontal, UIScreen.getWidth(10))
         .presentationDetents([.height(UIScreen.getHeight(150))])
         .presentationDragIndicator(.visible)
+    }
+    
+    func loadImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    viewModel.croppedImage = image
+                }
+            }
+        }.resume()
     }
 }

@@ -15,10 +15,10 @@ struct ContentView: View {
     //MARK: -2.BODY
     var body: some View {
         ZStack{
-            if awsService.user.username == "" {
-                backgroundView()
-                ProgressView()
-            } else {
+//            if awsService.user.username == "" {
+//                backgroundView()
+//                ProgressView()
+//            } else {
                 TabView(selection: $selection){
                     MainView()
                         .tabItem {
@@ -37,7 +37,7 @@ struct ContentView: View {
                             Image(systemName: "person.crop.circle")
                             Text("Profile")
                         }  .tag(2)
-                }
+//                }
                 
             }
         }.ignoresSafeArea()

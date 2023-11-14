@@ -189,7 +189,7 @@ struct toolbarButtonLabel: View {
     var buttonLabel: String
     var body: some View {
         Text(buttonLabel)
-            .font(.custom16bold())
+            .font(.custom13bold())
             .modifier(dropShadow())
     }
 }

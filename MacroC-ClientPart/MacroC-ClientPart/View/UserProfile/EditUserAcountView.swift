@@ -18,21 +18,18 @@ struct EditUserAcountView: View {
         ZStack(alignment: .topLeading) {
             backgroundView().ignoresSafeArea()
             VStack(alignment: .leading) {
-                //로그아웃
                 Button {
-                    KeychainItem.deleteUserIdentifierFromKeychain() //키체인에서 UserIdentifier 제거
+                    KeychainItem.deleteUserIdentifierFromKeychain()
                     awsService.isSignIn = false //로그인뷰로 돌아가기
                     awsService.isSignUp = false //이즈사인업 제거
                     UserDefaults.standard.set(false, forKey: "isSignIn")
                     try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
-                    
                 } label: {
                     Text("로그아웃")
                         .font(.custom13bold())
                         .padding(UIScreen.getWidth(20))
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
-                //탈퇴
                 Button {
                    showDeleteAlert = true
                 } label: {
@@ -42,10 +39,11 @@ struct EditUserAcountView: View {
                         .padding(UIScreen.getWidth(20))
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
-            }.padding(.top, UIScreen.getHeight(100))
+            }.padding(.top, UIScreen.getHeight(120))
                 .alert(isPresented: $showDeleteAlert) {
                     Alert(title: Text(""), message: Text("Are you sure you want to delete your account?"), primaryButton: .destructive(Text("Delete"), action: {
-                        viewModel.deleteAccount()
+//                        viewModel.deleteAccount()
+                        //TODO: - DELETEACCOUNT FUNC
                         let clientToken = KeychainItem.currentTokenResponse
                         let token = KeychainItem.currentAuthorizationCode
                         viewModel.revokeAppleToken(refreshToken: KeychainItem.currentRefreshToken) {
@@ -64,6 +62,12 @@ struct EditUserAcountView: View {
                         try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").deleteItem()
                     }), secondaryButton: .cancel(Text("Cancle")))
                 }
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Account Setting")
+                    .modifier(navigartionPrincipal())
+            }
         }
     }
 }

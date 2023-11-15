@@ -84,7 +84,6 @@ struct UserArtistPageView: View {
             viewModel.soundcloudURL = awsService.user.artist?.soundcloudURL ?? ""
             viewModel.editUsername = awsService.user.artist?.stageName ?? ""
             viewModel.editUserInfo = awsService.user.artist?.artistInfo ?? ""
-            
         }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationTitle("")

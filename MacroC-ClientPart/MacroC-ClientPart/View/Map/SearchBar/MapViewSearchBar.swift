@@ -15,7 +15,7 @@ struct MapViewSearchBar: View {
         VStack(spacing:0) {
             TextField("Search", text: $viewModel.query)
                 .font(.custom13regular())
-                .padding()
+                .padding(UIScreen.getWidth(10))
                 .background(Color.black.opacity(0.7))
                 .cornerRadius(10, corners: viewModel.results.isEmpty ? [.allCorners] : [.topLeft, .topRight])
                 .overlay(alignment: .trailing,content: {
@@ -48,9 +48,4 @@ struct MapViewSearchBar: View {
         .frame(maxHeight: UIScreen.getWidth(274), alignment: .top)
         .cornerRadius(10)
     }
-}
-
-#Preview {
-//    GooglePlaceSearchBar(viewModel: MapViewModel())
-    MapView(viewModel: MapViewModel())
 }

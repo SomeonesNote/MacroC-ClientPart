@@ -54,8 +54,10 @@ extension ProfileSettingView {
         HStack(spacing: UIScreen.getWidth(20)) {
             CircleBlur(image: awsService.user.avatarUrl, width: 120)
             VStack(alignment: .leading) {
-                Text(awsService.user.username)
-                    .font(.custom20bold())
+                HStack{
+                    Image(systemName: "person.circle.fill").font(.custom18semibold())
+                    Text(awsService.user.username).font(.custom21black())
+                }
                     .padding(.bottom, UIScreen.getWidth(15))
             }.padding(.top, UIScreen.getWidth(15)).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5))
             Spacer()

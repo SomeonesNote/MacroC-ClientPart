@@ -34,19 +34,26 @@ struct LoginView: View {
         ZStack {
             VStack {
                 Spacer()
+                Spacer()
                 Image(AppLogo)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: UIScreen.getWidth(80))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 30)
-                            .stroke(lineWidth: UIScreen.getWidth(2))
-                            .frame(width: UIScreen.getWidth(180), height: UIScreen.getHeight(180))
-                            .blur(radius: 2)
-                            .foregroundColor(Color.white.opacity(0.1))
-                            .padding(0)
-                    }
+                    .frame(width: UIScreen.getWidth(100))
+//                    .overlay {
+//                        RoundedRectangle(cornerRadius: 30)
+//                            .stroke(lineWidth: UIScreen.getWidth(2))
+//                            .frame(width: UIScreen.getWidth(180), height: UIScreen.getHeight(180))
+//                            .blur(radius: 2)
+//                            .foregroundColor(Color.white.opacity(0.1))
+//                            .padding(0)
+//                    }
                     .shadow(color: Color.white.opacity(0.2) ,radius: UIScreen.getHeight(8))
+//                Text("Yonder").font(.custom32black()).shadow(color: Color.white.opacity(0.2) ,radius: UIScreen.getHeight(8))
+//                    .padding(.horizontal, 20)
+//                    .overlay {
+//                        Capsule().stroke(lineWidth: 5)
+//                    }
+//                    .padding(.top, UIScreen.getHeight(30))
                 Spacer()
                 SignInWithAppleButton(
                     onRequest: { request in
@@ -125,7 +132,8 @@ extension LoginView {
             "authCode": authCode ?? ""
         ]
         
-        AF.request("https://macro-app.fly.dev/apple-auth/callback", method: .post, parameters: parameters, headers: headers).response { response in
+        AF.request("https://macro-app.fly.dev/apple-auth/callback", method: .post, parameters: parameters, headers: headers)
+            .response { response in
             switch response.result {
             case.success :
                 

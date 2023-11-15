@@ -45,9 +45,8 @@ struct EditUserAcountView: View {
                         let clientToken = KeychainItem.currentTokenResponse
                         let token = KeychainItem.currentAuthorizationCode
                         print(KeychainItem.currentAuthorizationCode)
-//                        viewModel.revokeAppleToken(refreshToken: KeychainItem.currentAuthorizationCode) {
-//                          
-//                            }
+                        viewModel.revokeAppleToken(refreshToken: KeychainItem.currentAuthorizationCode) {
+                            }
                         awsService.deleteUser() // 서버에서 유저 지워버리기
                         showDeleteAlert = false
                         KeychainItem.deleteUserIdentifierFromKeychain() //키체인에서 UserIdentifier 제거

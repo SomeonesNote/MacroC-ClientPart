@@ -14,8 +14,6 @@ struct MapBuskingLow: View {
     @State private var addressString: String = ""
     var artist : Artist
     var busking : Busking
-    //    var buskingStartTime: Date
-    //    var buskingEndTime: Date
     
     //MARK: -2.BODY
     var body: some View {
@@ -29,7 +27,14 @@ struct MapBuskingLow: View {
                         .font(.custom22black())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                         .padding(.bottom, UIScreen.getHeight(4))
-                                    }
+                    Spacer()
+                    NavigationLink {
+                        ArtistPageView(viewModel: ArtistPageViewModel(artist: artist))
+                    } label: {
+                        Image(systemName: "chevron.forward.circle.fill").font(.custom20bold())
+                            .padding(15)
+                    }
+                }
                 HStack(spacing: UIScreen.getWidth(8)) {
                     Image(systemName: "calendar").font(.custom14semibold())
                     Text(formatDate()) .font(.custom13bold())
@@ -48,9 +53,7 @@ struct MapBuskingLow: View {
             }.frame(height: UIScreen.getHeight(130))
             Spacer()
         }
-        //        .background(RoundedRectangle(cornerRadius: 10).fill(LinearGradient(colors: [Color(appIndigo2), Color(appIndigo1)], startPoint: .bottomTrailing, endPoint: .topLeading)).opacity(0.8))
         .background(backgroundView())
-//            .opacity(0.9)
         .clipShape(RoundedRectangle(cornerRadius: 30))
         .frame(height: UIScreen.getHeight(130))
         .overlay {
@@ -59,14 +62,6 @@ struct MapBuskingLow: View {
                 .blur(radius: 2)
                 .foregroundColor(Color.white.opacity(0.3))
                 .padding(1)
-        }
-        .overlay(alignment:.topTrailing)  {
-            NavigationLink {
-                ArtistPageView(viewModel: ArtistPageViewModel(artist: artist))
-            } label: {
-                Image(systemName: "chevron.forward.circle.fill").font(.custom20bold())
-                    .padding(15)
-            }
         }
         .onAppear {
             reverseGeo(busking: busking)
@@ -98,30 +93,20 @@ extension MapBuskingLow {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "yyyy년 M월 d일"
-        //        let busking = busking.BuskingStartTime {
         return formatter.string(from: busking.BuskingStartTime)
-        //        }
-        //        return ""
     }
     
     func formatStartTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "a h시 mm분"
-        //        if let busking = artist.buskings?.last?.BuskingStartTime{
         return formatter.string(from: busking.BuskingStartTime)
-        //        }
-        //        return ""
     }
     
     func formatEndTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "h시 mm분"
-        //        if let busking = artist.buskings?.last?.BuskingEndTime{
         return formatter.string(from: busking.BuskingEndTime)
-        //        }
-        //        return ""
     }
-    
 }

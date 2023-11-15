@@ -131,6 +131,7 @@ extension UserPageView {
             ZStack {
                 Text(awsService.user.username)
                     .font(.custom40black())
+                    .underline()
                 if viewModel.isEditMode == true {
                     HStack {
                         Spacer()

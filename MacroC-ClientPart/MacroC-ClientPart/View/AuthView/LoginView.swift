@@ -37,35 +37,21 @@ struct LoginView: View {
             VStack {
                 Spacer()
                 Spacer()
-                Image(AppLogo)
+                Image("LogoPin")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: UIScreen.getWidth(100))
-//                    .overlay {
-//                        RoundedRectangle(cornerRadius: 30)
-//                            .stroke(lineWidth: UIScreen.getWidth(2))
-//                            .frame(width: UIScreen.getWidth(180), height: UIScreen.getHeight(180))
-//                            .blur(radius: 2)
-//                            .foregroundColor(Color.white.opacity(0.1))
-//                            .padding(0)
-//                    }
-                    .shadow(color: Color.white.opacity(0.2) ,radius: UIScreen.getHeight(8))
-//                Text("Yonder").font(.custom32black()).shadow(color: Color.white.opacity(0.2) ,radius: UIScreen.getHeight(8))
-//                    .padding(.horizontal, 20)
-//                    .overlay {
-//                        Capsule().stroke(lineWidth: 5)
-//                    }
-//                    .padding(.top, UIScreen.getHeight(30))
+                    .frame(width: UIScreen.getWidth(80))
+                    .shadow(color: Color.black.opacity(0.2) ,radius: UIScreen.getHeight(5))
                 Spacer()
                 SignInWithAppleButton(
                     onRequest: { request in
                         request.requestedScopes = [.fullName, .email]
-                     
                     },
                     onCompletion: { result in
-                        isLoggedin = true
+                       
                         switch result {
                         case .success(let authResults):
+                            isLoggedin = true
                             switch authResults.credential {
                             case let appleIDCredential as ASAuthorizationAppleIDCredential :
                                 let userId = appleIDCredential.user
@@ -100,7 +86,7 @@ struct LoginView: View {
                         }
                     }
                 )
-                .signInWithAppleButtonStyle(.black)
+                .signInWithAppleButtonStyle(.white)
                 .frame(height: UIScreen.getHeight(50))
                 .clipShape(Capsule())
                 .padding(.horizontal, 10)
@@ -110,7 +96,8 @@ struct LoginView: View {
                 ProgressView()
             }
         }
-        .background(backgroundView().ignoresSafeArea())
+//        .background(backgroundView().ignoresSafeArea())
+        .background(Color.white.ignoresSafeArea())
         .onDisappear {
             isLoggedin = false
         }

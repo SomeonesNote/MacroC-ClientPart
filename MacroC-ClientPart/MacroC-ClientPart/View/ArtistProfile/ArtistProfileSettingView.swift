@@ -38,9 +38,9 @@ struct ArtistProfileSettingView: View {
             .background(backgroundView().ignoresSafeArea())
             .overlay(alignment: .topLeading) {
                 Button { dismiss() } label: {
-                    Image(systemName: "xmark")
-                        .font(.custom16bold())
-                        .padding(.init(top: UIScreen.getWidth(0), leading: UIScreen.getWidth(25), bottom: UIScreen.getWidth(0), trailing: UIScreen.getWidth(0)))
+                    Image(systemName: "chevron.down")
+                        .font(.custom20semibold())
+                        .padding(.init(top: UIScreen.getWidth(20), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(0), trailing: UIScreen.getWidth(0)))
                 }
             }
             .navigationTitle("")
@@ -66,8 +66,11 @@ extension ArtistProfileSettingView {
             CircleBlur(image: awsService.user.artist?.artistImage ?? "", width: 120)
             
             VStack(alignment: .leading) {
-                Text(awsService.user.artist?.stageName ?? "")
-                    .font(.custom20bold())
+                HStack{
+                    Image(systemName: "person.circle.fill").font(.custom18semibold())
+                    Text(awsService.user.artist?.stageName ?? "").font(.custom21black())
+                }
+              
                     .padding(.bottom, UIScreen.getWidth(15))
             }.padding(.top, UIScreen.getWidth(15)).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5))
             Spacer()

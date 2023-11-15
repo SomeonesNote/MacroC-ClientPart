@@ -145,15 +145,17 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let bool) :
                     if bool == true {
-                            self.getUserProfile { //유저프로필 가져오기
-                                self.getFollowingList {}}//팔로우 리스트 가져오기
-                            self.getAllArtistList{}
-                            UserDefaults.standard.set(bool, forKey: "isSignup")
+//                            self.getUserProfile { //유저프로필 가져오기
+//                                self.getFollowingList {}}//팔로우 리스트 가져오기
+//                            self.getAllArtistList{}
+//                            UserDefaults.standard.set(bool, forKey: "isSignup")
+                        self.isSignUp = bool
+                        print("7.checkSignUp : \(self.isSignUp)") //MARK: 8
+                        completion()
                         }
-                    self.isSignUp = bool
-                    print("7.checkSignUp : \(self.isSignUp)") //MARK: 8
                 case .failure(let error) :
                     print("7.checkSignUp.error : \(error.localizedDescription)")
+                    completion()
                 }
             }
         completion()
@@ -286,9 +288,13 @@ class AwsService : ObservableObject {
     
     //Delete User Acount //배치완료
     func deleteUser() {
-        let userid : Int = self.user.id
-        print("\(serverURL)/auth/\(self.user.id)")
-        AF.request("\(serverURL)/auth/\(self.user.id)", method: .delete)
+        let reToken : String = KeychainItem.currentAppleRefreashToken
+        let parameters : [String : String] = [
+            "refresh_token" : reToken
+        ]
+//        let userid : Int = self.user.id
+//        print("\(serverURL)/auth/\(self.user.id)")
+        AF.request("\(serverURL)/auth/\(self.user.id)", method: .delete, parameters: parameters)
             .validate()
             .response { response in
                 switch response.result {
@@ -299,6 +305,7 @@ class AwsService : ObservableObject {
                     UserDefaults.standard.set(false, forKey: "isSignup")
                     KeychainItem.deleteUserIdentifierFromKeychain()
                     KeychainItem.deleteTokenResponseFromKeychain()
+                    KeychainItem.deleteAppleRefreashToken()
                     print("#DeleteUser.success!")
                     
                 case .failure(let error) :

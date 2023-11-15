@@ -14,8 +14,8 @@ struct SignResponse : Codable {
     var retoken : String
 }
 
-struct refreah : Codable {
-    var refreash : String
+struct appleRefreashToken : Codable {
+    var refreshToken : String
 }
 
 
@@ -27,7 +27,9 @@ struct LoginView: View {
     @State private var userUID: String = ""
     let serverURL: String = "https://macro-app.fly.dev"
     @State var serverToken: String = ""
-    @State var refreshToken: String = ""
+    @State var ReToken : String = KeychainItem.currentAppleRefreashToken
+//    @State var refreshToken: String = ""
+//    @State var reeData : String? = ""
     
     
     var body: some View {
@@ -68,23 +70,19 @@ struct LoginView: View {
                             case let appleIDCredential as ASAuthorizationAppleIDCredential :
                                 let userId = appleIDCredential.user
                                 let email = appleIDCredential.email
-                                let identityTokenData = appleIDCredential.identityToken
+//                                let identityTokenData = appleIDCredential.identityToken
                                 let authCodeData = appleIDCredential.authorizationCode
-                                let identityToken = String(data: identityTokenData ?? Data(), encoding: .utf8)
+//                                let identityToken = String(data: identityTokenData ?? Data(), encoding: .utf8)
                                 let authCode = String(data: authCodeData ?? Data(), encoding: .utf8)
                              
                                 print("userId : \(userId)")
                                 print("email : \(email ?? "")")
-                                print("identityToken : \(identityToken ?? "")")
+//                                print("identityToken : \(identityToken ?? "")")
                                 print("authcode : \(authCode ?? "")")
                                 
-                                awsService.email = email ?? ""
-                                try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "authorizationCode").saveItem(authCode ?? "")
-                                sendToServer(userId: userId, email: email, identityToken: identityToken, authCode: authCode) {
-                                    awsService.checkSignUp(uid: userId) {
-                                     
-                                    }
-                                }
+//                                awsService.email = email ?? ""
+//                                try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "authorizationCode").saveItem(authCode ?? "")
+                                appleLogin(authCode: authCode ?? "")
                                 
                                 do {
                                     try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "userIdentifier").saveItem(userId)
@@ -121,51 +119,32 @@ struct LoginView: View {
 
 extension LoginView {
     
-    func sendToServer(userId: String, email: String?, identityToken: String?, authCode: String?, completion: @escaping () -> Void) {
-        let headers: HTTPHeaders = [
-            "Accept": "application/json"
+    func appleLogin(authCode: String) {
+        let uid : String = KeychainItem.currentUserIdentifier
+        let parameters : [String : String] = [
+            "code" : authCode
         ]
-        let parameters: [String: Any] = [
-            "user_id": userId,
-            "email": email ?? "",
-            "id_token": identityToken ?? "",
-            "authCode": authCode ?? ""
-        ]
-        
-        AF.request("https://macro-app.fly.dev/apple-auth/callback", method: .post, parameters: parameters, headers: headers)
-            .response { response in
-            switch response.result {
-            case.success :
-                
-                print("AppleLogin Success!")
-                awsService.isSignIn = true
-                UserDefaults.standard.set(true, forKey: "isSignIn")
-                debugPrint(response)
-                getRefreshToken(authCode: authCode ?? "")
-                
-            case.failure(let error) :
-                print("AppleLogin.error : \(error)")
-                awsService.isSignIn = false
-                UserDefaults.standard.set(false, forKey: "isSignIn")
-            }
-        }
-        completion()
-    }
-    
-    func getRefreshToken(authCode: String) {
-        let url = "https://macro-app.fly.dev/apple-auth/refreshToken"
-        let header: HTTPHeaders = ["Content-Type": "application/x-www-form-urlencoded"]
-        let parameters: [String: String] = ["code": authCode]
-        print(parameters)
-        
-        AF.request(url, method: .get, parameters: parameters, headers: header)
+        AF.request("https://macro-app.fly.dev/apple-auth/refreshToken", method: .post, parameters: parameters)
         .validate()
-        .responseDecodable(of: refreah.self) { response in
+        .responseDecodable(of: appleRefreashToken.self) { response in
             switch response.result {
             case .success(let reData) :
-                print("getRefreshToken.Success")
-                print(reData)
+                self.ReToken = reData.refreshToken
+                do {
+                    try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "AppleRefreashToken").saveItem(reData.refreshToken)
+                } catch {
+                    print("Apple Refreash Token on Keychain is fail")
+                }
+                awsService.checkSignUp(uid: uid) {
+                }
+                awsService.isSignIn = true
+                UserDefaults.standard.set(true, forKey: "isSignIn")
+                print("getRefreshToken.Success \(reData)")
             case .failure(let error) :
+                if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
+                        print("Response String: \(responseString)")
+                    }
+                print("Error:\(parameters)")
                 print("getRefreshToken.error : \(error.localizedDescription)")
             }
         }

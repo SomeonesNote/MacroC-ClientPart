@@ -177,6 +177,15 @@ struct KeychainItem {
             return "currentEmail error!"
         }
     }
+    
+    static var currentAppleRefreashToken: String {
+        do {
+            let storedIdentifier = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "AppleRefreashToken").readItem()
+            return storedIdentifier
+        } catch {
+            return "currentAppleRefreashToken error!"
+        }
+    }
 
     
     
@@ -218,6 +227,14 @@ struct KeychainItem {
             try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "email").deleteItem()
         } catch {
             print("Keychain.emailFromKeychain.error : Unable to delete email from keychain")
+        }
+    }
+    
+    static func deleteAppleRefreashToken() {
+        do {
+            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "AppleRefreashToken").deleteItem()
+        } catch {
+            print("Keychain.deleteAppleRefreashTokenFromKeychain.error : Unable to delete AppleRefreashToken from keychain")
         }
     }
 }

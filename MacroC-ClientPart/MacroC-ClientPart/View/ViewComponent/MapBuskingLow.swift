@@ -28,7 +28,7 @@ struct MapBuskingLow: View {
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                         .padding(.bottom, UIScreen.getHeight(4))
                     Spacer()
-                        Image(systemName: "chevron.forward").font(.custom20semibold())
+                    Image(systemName: "chevron.forward").font(.custom20semibold())
                         .padding(.trailing, UIScreen.getHeight(8))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
@@ -64,11 +64,6 @@ struct MapBuskingLow: View {
         }
     }
 }
-
-//MARK: -3.PREVIEW
-//#Preview {
-//    MainView(viewModel: MainViewModel())
-//}
 
 //MARK: - 4.EXTENSION
 extension MapBuskingLow {

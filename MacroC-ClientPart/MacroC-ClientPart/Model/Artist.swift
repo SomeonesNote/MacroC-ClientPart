@@ -45,15 +45,3 @@ struct Artist: Identifiable, Codable {
         self.soundcloudURL = soundcloudURL
     }
 }
-
-//extension Artist {
-//    init(from artist: Artist) {
-//        self.id = artist.id
-//        self.artistInfo = artist.artistInfo
-//        self.stageName = artist.stageName
-//        self.artistImage = artist.artistImage
-//        self.genres = artist.genres
-//        self.members = artist.members
-//        self.buskings = artist.buskings
-//    }
-//}

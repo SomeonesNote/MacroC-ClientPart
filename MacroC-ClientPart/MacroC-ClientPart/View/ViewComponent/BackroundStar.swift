@@ -103,10 +103,3 @@ struct BackroundStar: View {
             }
     }
 }
-
-#Preview {
-    ZStack {
-        backgroundView()
-        BackroundStar()
-    }
-}

@@ -43,46 +43,46 @@ struct MyBuskingSettingView: View {
                                 .padding(0)
                         }
                 } else {
-                 
-                        VStack(spacing: UIScreen.getWidth(20)) {
-                            ForEach(awsService.myBuskingList, id: \.id) { busking in
-                                BuskingListRow(artist: awsService.user.artist!, busking: busking)
-                                    .onTapGesture {
-                                        viewModel.selectedArtist = awsService.user.artist!
-                                        viewModel.selectedBusking = busking
-                                        viewModel.popBuskingModal = true
-                                    }
-                                    .sheet(isPresented: $viewModel.popBuskingModal, onDismiss: {viewModel.popBuskingModal = false}) {
-                                        MapBuskingModalView(viewModel: MapBuskingModalViewModel(artist: awsService.user.artist!, busking: viewModel.selectedBusking))
-                                            .presentationDetents([.medium])
-                                            .presentationDragIndicator(.visible)
-                                    }
-                                    .overlay(alignment: .topTrailing) {
-                                        if viewModel.isEditMode {
-                                            Button {
-                                                viewModel.deleteAlert = true
-                                            } label: {
-                                                Image(systemName: "xmark.circle.fill")
-                                                    .font(.custom25bold())
-                                                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-                                                    .foregroundStyle(Color.appBlue)
-                                                    .padding(UIScreen.getWidth(5))
-                                            }
+                    
+                    VStack(spacing: UIScreen.getWidth(20)) {
+                        ForEach(awsService.myBuskingList, id: \.id) { busking in
+                            BuskingListRow(artist: awsService.user.artist!, busking: busking)
+                                .onTapGesture {
+                                    viewModel.selectedArtist = awsService.user.artist!
+                                    viewModel.selectedBusking = busking
+                                    viewModel.popBuskingModal = true
+                                }
+                                .sheet(isPresented: $viewModel.popBuskingModal, onDismiss: {viewModel.popBuskingModal = false}) {
+                                    MapBuskingModalView(viewModel: MapBuskingModalViewModel(artist: awsService.user.artist!, busking: viewModel.selectedBusking))
+                                        .presentationDetents([.medium])
+                                        .presentationDragIndicator(.visible)
+                                }
+                                .overlay(alignment: .topTrailing) {
+                                    if viewModel.isEditMode {
+                                        Button {
+                                            viewModel.deleteAlert = true
+                                        } label: {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .font(.custom25bold())
+                                                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                                                .foregroundStyle(Color.appBlue)
+                                                .padding(UIScreen.getWidth(5))
                                         }
                                     }
-                                    .alert(isPresented: $viewModel.deleteAlert) {
-                                        Alert(title: Text(""), message: Text("Do you want to delete this busking?"), primaryButton: .destructive(Text("Delete"), action: {
-                                            awsService.deleteBusking(buskingId: busking.id) {
-                                                awsService.getMyBuskingList()
-                                            }
-                                        }), secondaryButton: .cancel(Text("Cancle")))
                                 }
-                            }
+                                .alert(isPresented: $viewModel.deleteAlert) {
+                                    Alert(title: Text(""), message: Text("Do you want to delete this busking?"), primaryButton: .destructive(Text("Delete"), action: {
+                                        awsService.deleteBusking(buskingId: busking.id) {
+                                            awsService.getMyBuskingList()
+                                        }
+                                    }), secondaryButton: .cancel(Text("Cancle")))
+                                }
                         }
                     }
                 }
-                Spacer()
             }
+            Spacer()
+        }
         
         .padding(.init(top: UIScreen.getHeight(80), leading: UIScreen.getWidth(5), bottom: 0, trailing:  UIScreen.getWidth(5)))
         .navigationTitle("")

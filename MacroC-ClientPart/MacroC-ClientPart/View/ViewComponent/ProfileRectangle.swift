@@ -16,17 +16,16 @@ struct ProfileRectangle: View {
     //MARK: -2.BODY
     var body: some View {
         VStack(spacing: 0){
-//            Image(image)
             AsyncImage(url: URL(string: image)){ image in
                 image.resizable().aspectRatio(contentMode: .fit)
             } placeholder: {
                 ProgressView()
             }
-                .frame(width: UIScreen.getWidth(130), height: UIScreen.getHeight(130))
-                .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.clear,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,  Color.clear]), startPoint: .top, endPoint: .bottom))
-                .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,  Color.clear]), startPoint: .leading, endPoint: .trailing))
-                .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.clear,Color.gray,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black, Color.clear]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.clear,Color.gray,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black, Color.clear]), startPoint: .topTrailing, endPoint: .bottomLeading))
+            .frame(width: UIScreen.getWidth(130), height: UIScreen.getHeight(130))
+            .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.clear,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,  Color.clear]), startPoint: .top, endPoint: .bottom))
+            .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,  Color.clear]), startPoint: .leading, endPoint: .trailing))
+            .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.clear,Color.gray,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black, Color.clear]), startPoint: .topLeading, endPoint: .bottomTrailing))
+            .mask(LinearGradient(gradient: Gradient(colors: [Color.clear,Color.clear,Color.gray,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black,Color.black, Color.clear]), startPoint: .topTrailing, endPoint: .bottomLeading))
             Text(name)
                 .font(.custom13black())
                 .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
@@ -45,8 +44,3 @@ struct ProfileRectangle: View {
         }
     }
 }
-
-//MARK: -1.PREVIEW
-//#Preview {
-//    MainView()
-//}

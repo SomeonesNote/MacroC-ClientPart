@@ -25,29 +25,28 @@ struct ContentView: View {
                             Image(systemName: "music.note.list")
                             Text("Main")
                         }  .tag(0)
-                        
+                    
                     
                     MapView()
                         .tabItem {
                             Image(systemName: "map")
                             Text("Map")
                         }  .tag(1)
-                        
+                    
                     
                     ProfileSettingView()
                         .tabItem {
                             Image(systemName: "person.crop.circle")
                             Text("Profile")
                         }  .tag(2)
-                       
                 }
             }
         }.ignoresSafeArea()
             .onAppear {
                 awsService.accesseToken = KeychainItem.currentTokenResponse
                 if awsService.isSignUp {
-                    awsService.getUserProfile { //유저프로필 가져오기
-                        awsService.getFollowingList {}}//팔로우 리스트 가져오기
+                    awsService.getUserProfile {
+                        awsService.getFollowingList {}}
                     awsService.getAllArtistList { }
                     awsService.getMyBuskingList()
                     awsService.getMyArtistBuskingList()
@@ -59,26 +58,18 @@ struct ContentView: View {
             .onChange(of: selection) { nowPage in
                 switch nowPage {
                 case 0 :
-                    print("***MainView : \(nowPage)")
                     awsService.getUserProfile{
                         awsService.getFollowingList {}
                         awsService.getAllArtistList { }
                     }
                 case 1 :
-                    print("***MapView : \(nowPage)")
                     awsService.getAllArtistList { }
                     awsService.getAllArtistBuskingList{ }
                 case 2 :
-                    print("***ProfileSettingView : \(nowPage)")
                     awsService.getUserProfile{}
                 default :
                     break
                 }
             }
     }
-}
-
-//MARK: -3.PREVIEW
-#Preview {
-    ContentView()
 }

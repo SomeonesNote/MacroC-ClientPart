@@ -43,7 +43,7 @@ struct LoginView: View {
                         request.requestedScopes = [.fullName, .email]
                     },
                     onCompletion: { result in
-                       
+                        
                         switch result {
                         case .success(let authResults):
                             isLoggedin = true
@@ -53,10 +53,6 @@ struct LoginView: View {
                                 let email = appleIDCredential.email
                                 let authCodeData = appleIDCredential.authorizationCode
                                 let authCode = String(data: authCodeData ?? Data(), encoding: .utf8)
-                             
-                                print("userId : \(userId)")
-                                print("email : \(email ?? "")")
-                                print("authcode : \(authCode ?? "")")
                                 appleLogin(authCode: authCode ?? "")
                                 
                                 do {
@@ -100,27 +96,23 @@ extension LoginView {
             "code" : authCode
         ]
         AF.request("https://macro-app.fly.dev/apple-auth/refreshToken", method: .post, parameters: parameters)
-        .validate()
-        .responseDecodable(of: appleRefreashToken.self) { response in
-            switch response.result {
-            case .success(let reData) :
-                self.ReToken = reData.refreshToken
-                do {
-                    try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "AppleRefreashToken").saveItem(reData.refreshToken)
-                } catch {
-                    print("Apple Refreash Token on Keychain is fail")
-                }
-                awsService.checkSignUp(uid: uid) {
-                }
-                awsService.isSignIn = true
-                UserDefaults.standard.set(true, forKey: "isSignIn")
-                print("getRefreshToken.Success \(reData)")
-            case .failure(let error) :
-                if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
-                        print("Response String: \(responseString)")
+            .validate()
+            .responseDecodable(of: appleRefreashToken.self) { response in
+                switch response.result {
+                case .success(let reData) :
+                    self.ReToken = reData.refreshToken
+                    do {
+                        try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "AppleRefreashToken").saveItem(reData.refreshToken)
+                    } catch {
+                        print("Apple Refreash Token on Keychain is fail")
                     }
-                print("getRefreshToken.error : \(error.localizedDescription)")
+                    awsService.checkSignUp(uid: uid) {
+                    }
+                    awsService.isSignIn = true
+                    UserDefaults.standard.set(true, forKey: "isSignIn")
+                case .failure(let error) :
+                    print("getRefreshToken.error : \(error.localizedDescription)")
+                }
             }
-        }
     }
 }

@@ -32,8 +32,8 @@ struct MacroC_ClientPartApp: App {
             } else {
                 LoginView().environmentObject(awsService)
                     .onAppear {
-                       
-                }
+                        
+                    }
             }
         }
     }

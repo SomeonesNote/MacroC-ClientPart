@@ -36,15 +36,15 @@ struct MapViewSearchBar: View {
                         .onTapGesture {
                             viewModel.getPlaceCoordinate(placeID: result.placeID) { coordinate in
                                 viewModel.selectedCoordinate = coordinate
+                            }
                         }
-                    }
                 }
                 .scrollDisabled(true)
                 .listRowSeparatorTint(.white)
                 .listStyle(.plain)
             } else {
+            }
         }
-    }
         .frame(maxHeight: UIScreen.getWidth(274), alignment: .top)
         .cornerRadius(10)
     }

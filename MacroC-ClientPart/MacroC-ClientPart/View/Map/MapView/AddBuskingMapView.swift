@@ -21,12 +21,11 @@ struct AddBuskingMapView: UIViewRepresentable {
         let camera = GMSCameraPosition.camera(
             withLatitude: viewModel.locationManager.location?.coordinate.latitude ?? 0, longitude: viewModel.locationManager.location?.coordinate.longitude ?? 0,
             zoom: Float(17))
-        
-        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        mapView.delegate = context.coordinator
-        context.coordinator.mapView = mapView
-        mapView.setMinZoom(13, maxZoom: 19)
-        return mapView
+            let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+            mapView.delegate = context.coordinator
+            context.coordinator.mapView = mapView
+            mapView.setMinZoom(13, maxZoom: 19)
+            return mapView
     }
     
     func updateUIView(_ uiView: GMSMapView, context: Context) {
@@ -75,9 +74,10 @@ struct AddBuskingMapView: UIViewRepresentable {
                 if let currentLocation = parent.viewModel.locationManager.location?.coordinate {
                     let camera = GMSCameraPosition.camera(withLatitude: currentLocation.latitude, longitude: currentLocation.longitude, zoom: Float(17))
                     mapView.camera = camera
+                    
                     initialSetupDone = true
                 }
-            } // 로케이션매니저에서 값을 받은 이후에 다시 카메라위치설정
+            } 
             
             if self.marker == nil {
                 let marker = GMSMarker()
@@ -85,7 +85,7 @@ struct AddBuskingMapView: UIViewRepresentable {
                 
                 marker.map = mapView
                 self.marker = marker
-
+                
                 let markerImage = UIImageView()
                 if let url = URL(string: parent.awsService.user.artist?.artistImage ?? "") { markerImage.af.setImage(withURL: url) }
                 let customMarker = UIImageView(image: UIImage(named: "markerpin_blue"))
@@ -137,9 +137,3 @@ struct AddBuskingMapView: UIViewRepresentable {
         
     }
 }
-
-//MARK: -3.PREVIEW
-#Preview {
-    AddBuskingMapView(viewModel: AddBuskingPageViewModel())
-}
-

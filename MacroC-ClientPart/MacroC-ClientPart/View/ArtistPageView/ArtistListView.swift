@@ -38,10 +38,3 @@ struct ArtistListView: View {
     }
 }
 
-//MARK: -3.PREVIEW
-#Preview {
-    NavigationView {
-        ArtistListView()
-    }
-}
-

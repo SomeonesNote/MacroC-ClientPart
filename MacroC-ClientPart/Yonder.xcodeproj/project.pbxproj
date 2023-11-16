@@ -27,10 +27,8 @@
 		070717312AD942BD00B72319 /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717302AD942BD00B72319 /* KeychainItem.swift */; };
 		070717332AD942CE00B72319 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717322AD942CE00B72319 /* Font.swift */; };
 		070717352AD942E300B72319 /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717342AD942E300B72319 /* UIScreen.swift */; };
-		070717382AD9430A00B72319 /* AppleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717372AD9430A00B72319 /* AppleAuth.swift */; };
 		0707173E2AD9FA7D00B72319 /* CircleBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707173D2AD9FA7D00B72319 /* CircleBlur.swift */; };
 		070717402ADA0CC100B72319 /* BackroundStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707173F2ADA0CC100B72319 /* BackroundStar.swift */; };
-		070752A32AD75BA60090E11D /* AppleSigninButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070752A22AD75BA60090E11D /* AppleSigninButton.swift */; };
 		070F6BDD2ADA135B00328570 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BDC2ADA135B00328570 /* BackgroundView.swift */; };
 		070F6BE12ADA3B8A00328570 /* ArtistListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BE02ADA3B8A00328570 /* ArtistListView.swift */; };
 		070F6BE32ADAC8B000328570 /* PopOverText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F6BE22ADAC8B000328570 /* PopOverText.swift */; };
@@ -41,7 +39,6 @@
 		071BFE452AECBBE2004BDD00 /* GoogleMapsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 071BFE442AECBBE2004BDD00 /* GoogleMapsCore */; };
 		071BFE472AECBBE2004BDD00 /* GoogleMapsM4B in Frameworks */ = {isa = PBXBuildFile; productRef = 071BFE462AECBBE2004BDD00 /* GoogleMapsM4B */; };
 		071BFE492AECBBE2004BDD00 /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = 071BFE482AECBBE2004BDD00 /* GooglePlaces */; };
-		071BFF142AEE5A1E004BDD00 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BFF132AEE5A1E004BDD00 /* LoginViewModel.swift */; };
 		071BFF182AEE5D92004BDD00 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 071BFF172AEE5D92004BDD00 /* GoogleService-Info.plist */; };
 		071BFF1A2AF4CF33004BDD00 /* MyBuskingSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BFF192AF4CF33004BDD00 /* MyBuskingSettingView.swift */; };
 		071BFF1C2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BFF1B2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift */; };
@@ -67,11 +64,9 @@
 		F62B8A9F2ACED4830077CA17 /* ArtistPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A9E2ACED4830077CA17 /* ArtistPageView.swift */; };
 		F62B8AA22ACED4980077CA17 /* ProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA12ACED4980077CA17 /* ProfileSettingView.swift */; };
 		F62B8AA42ACED4B10077CA17 /* EditFollowingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA32ACED4B10077CA17 /* EditFollowingListView.swift */; };
-		F62B8AA62ACED4CB0077CA17 /* DonationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA52ACED4CB0077CA17 /* DonationListView.swift */; };
 		F62B8AA82ACED4E30077CA17 /* EditUserAcountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AA72ACED4E30077CA17 /* EditUserAcountView.swift */; };
 		F62B8AAC2ACED5260077CA17 /* ArtistProfileSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AAB2ACED5260077CA17 /* ArtistProfileSettingView.swift */; };
 		F62B8AAE2ACED53E0077CA17 /* AddBuskingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AAD2ACED53E0077CA17 /* AddBuskingPageView.swift */; };
-		F62B8AB02ACED5590077CA17 /* EditDonationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AAF2ACED5590077CA17 /* EditDonationView.swift */; };
 		F62B8AB22ACED5710077CA17 /* EditArtistAcountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AB12ACED5710077CA17 /* EditArtistAcountView.swift */; };
 		F62B8AB52ACED5AD0077CA17 /* GoogleMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AB42ACED5AD0077CA17 /* GoogleMapView.swift */; };
 		F62B8AB72ACED5C80077CA17 /* CropedGoogleMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AB62ACED5C80077CA17 /* CropedGoogleMapView.swift */; };
@@ -79,10 +74,8 @@
 		F62B8ABB2ACED6410077CA17 /* ArtistInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ABA2ACED6410077CA17 /* ArtistInfoModalView.swift */; };
 		F62B8ABD2ACED6590077CA17 /* GooglePlacesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ABC2ACED6590077CA17 /* GooglePlacesSearch.swift */; };
 		F62B8AC02ACED6F30077CA17 /* AddBuskingMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ABF2ACED6F30077CA17 /* AddBuskingMapView.swift */; };
-		F62B8AC32ACED78C0077CA17 /* EditFanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AC22ACED78C0077CA17 /* EditFanView.swift */; };
 		F62B8AC92ACED8110077CA17 /* ProfileRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AC82ACED8110077CA17 /* ProfileRectangle.swift */; };
 		F62B8ACB2ACED8270077CA17 /* BuskingListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ACA2ACED8270077CA17 /* BuskingListRow.swift */; };
-		F62B8ACD2ACED8410077CA17 /* DonationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ACC2ACED8410077CA17 /* DonationBar.swift */; };
 		F62B8ACF2ACED8550077CA17 /* MapViewSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8ACE2ACED8550077CA17 /* MapViewSearchBar.swift */; };
 		F62B8AD12ACED8690077CA17 /* AddBuskingSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AD02ACED8690077CA17 /* AddBuskingSearchBar.swift */; };
 		F62B8AD32ACED87C0077CA17 /* ImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AD22ACED87C0077CA17 /* ImageCropper.swift */; };
@@ -96,7 +89,6 @@
 		F62B8AE32ACED95B0077CA17 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE22ACED95B0077CA17 /* Artist.swift */; };
 		F62B8AE52ACED9690077CA17 /* Busking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE42ACED9690077CA17 /* Busking.swift */; };
 		F62B8AE72ACED9760077CA17 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE62ACED9760077CA17 /* Member.swift */; };
-		F62B8AE92ACED9890077CA17 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AE82ACED9890077CA17 /* DummyData.swift */; };
 		F62B8AED2ACED9BA0077CA17 /* dropShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AEC2ACED9BA0077CA17 /* dropShadowModifier.swift */; };
 		F62B8AEF2ACED9CC0077CA17 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8AEE2ACED9CC0077CA17 /* Components.swift */; };
 /* End PBXBuildFile section */
@@ -117,15 +109,12 @@
 		070717302AD942BD00B72319 /* KeychainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
 		070717322AD942CE00B72319 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		070717342AD942E300B72319 /* UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
-		070717372AD9430A00B72319 /* AppleAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuth.swift; sourceTree = "<group>"; };
 		0707173D2AD9FA7D00B72319 /* CircleBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleBlur.swift; sourceTree = "<group>"; };
 		0707173F2ADA0CC100B72319 /* BackroundStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackroundStar.swift; sourceTree = "<group>"; };
-		070752A22AD75BA60090E11D /* AppleSigninButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSigninButton.swift; sourceTree = "<group>"; };
 		070F6BDC2ADA135B00328570 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		070F6BE02ADA3B8A00328570 /* ArtistListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistListView.swift; sourceTree = "<group>"; };
 		070F6BE22ADAC8B000328570 /* PopOverText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverText.swift; sourceTree = "<group>"; };
 		070F6BE62ADB1BCD00328570 /* mainpageTitleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainpageTitleModifier.swift; sourceTree = "<group>"; };
-		071BFF132AEE5A1E004BDD00 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		071BFF172AEE5D92004BDD00 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		071BFF192AF4CF33004BDD00 /* MyBuskingSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBuskingSettingView.swift; sourceTree = "<group>"; };
 		071BFF1B2AF4D141004BDD00 /* MyBuskingSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBuskingSettingViewModel.swift; sourceTree = "<group>"; };
@@ -140,7 +129,7 @@
 		07FBF28A2ACFF90B004EF174 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		07FD2BE52AD32D4B0030865A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		07FD5D352B04DACC0029E58F /* KeyboardResponsiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponsiveModifier.swift; sourceTree = "<group>"; };
-		F62B8A702ACED1B80077CA17 /* MacroC-ClientPart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MacroC-ClientPart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F62B8A702ACED1B80077CA17 /* Yonder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yonder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroC_ClientPartApp.swift; sourceTree = "<group>"; };
 		F62B8A752ACED1B80077CA17 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F62B8A772ACED1B90077CA17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -153,11 +142,9 @@
 		F62B8A9E2ACED4830077CA17 /* ArtistPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistPageView.swift; sourceTree = "<group>"; };
 		F62B8AA12ACED4980077CA17 /* ProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingView.swift; sourceTree = "<group>"; };
 		F62B8AA32ACED4B10077CA17 /* EditFollowingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFollowingListView.swift; sourceTree = "<group>"; };
-		F62B8AA52ACED4CB0077CA17 /* DonationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationListView.swift; sourceTree = "<group>"; };
 		F62B8AA72ACED4E30077CA17 /* EditUserAcountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserAcountView.swift; sourceTree = "<group>"; };
 		F62B8AAB2ACED5260077CA17 /* ArtistProfileSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArtistProfileSettingView.swift; path = ../ArtistProfile/ArtistProfileSettingView.swift; sourceTree = "<group>"; };
 		F62B8AAD2ACED53E0077CA17 /* AddBuskingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddBuskingPageView.swift; path = ../ArtistProfile/AddBuskingPageView.swift; sourceTree = "<group>"; };
-		F62B8AAF2ACED5590077CA17 /* EditDonationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditDonationView.swift; path = ../ArtistProfile/EditDonationView.swift; sourceTree = "<group>"; };
 		F62B8AB12ACED5710077CA17 /* EditArtistAcountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditArtistAcountView.swift; path = ../ArtistProfile/EditArtistAcountView.swift; sourceTree = "<group>"; };
 		F62B8AB42ACED5AD0077CA17 /* GoogleMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapView.swift; sourceTree = "<group>"; };
 		F62B8AB62ACED5C80077CA17 /* CropedGoogleMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropedGoogleMapView.swift; sourceTree = "<group>"; };
@@ -165,10 +152,8 @@
 		F62B8ABA2ACED6410077CA17 /* ArtistInfoModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoModalView.swift; sourceTree = "<group>"; };
 		F62B8ABC2ACED6590077CA17 /* GooglePlacesSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesSearch.swift; sourceTree = "<group>"; };
 		F62B8ABF2ACED6F30077CA17 /* AddBuskingMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBuskingMapView.swift; sourceTree = "<group>"; };
-		F62B8AC22ACED78C0077CA17 /* EditFanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditFanView.swift; path = ../ArtistProfile/EditFanView.swift; sourceTree = "<group>"; };
 		F62B8AC82ACED8110077CA17 /* ProfileRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRectangle.swift; sourceTree = "<group>"; };
 		F62B8ACA2ACED8270077CA17 /* BuskingListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuskingListRow.swift; sourceTree = "<group>"; };
-		F62B8ACC2ACED8410077CA17 /* DonationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationBar.swift; sourceTree = "<group>"; };
 		F62B8ACE2ACED8550077CA17 /* MapViewSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewSearchBar.swift; sourceTree = "<group>"; };
 		F62B8AD02ACED8690077CA17 /* AddBuskingSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBuskingSearchBar.swift; sourceTree = "<group>"; };
 		F62B8AD22ACED87C0077CA17 /* ImageCropper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCropper.swift; sourceTree = "<group>"; };
@@ -182,7 +167,6 @@
 		F62B8AE22ACED95B0077CA17 /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		F62B8AE42ACED9690077CA17 /* Busking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Busking.swift; sourceTree = "<group>"; };
 		F62B8AE62ACED9760077CA17 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
-		F62B8AE82ACED9890077CA17 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		F62B8AEC2ACED9BA0077CA17 /* dropShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dropShadowModifier.swift; sourceTree = "<group>"; };
 		F62B8AEE2ACED9CC0077CA17 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -247,7 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				070717302AD942BD00B72319 /* KeychainItem.swift */,
-				070717372AD9430A00B72319 /* AppleAuth.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -321,7 +304,7 @@
 		F62B8A712ACED1B80077CA17 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F62B8A702ACED1B80077CA17 /* MacroC-ClientPart.app */,
+				F62B8A702ACED1B80077CA17 /* Yonder.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -372,7 +355,6 @@
 		F62B8A912ACED34E0077CA17 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				071BFF132AEE5A1E004BDD00 /* LoginViewModel.swift */,
 				07FD2BE52AD32D4B0030865A /* MainViewModel.swift */,
 				F62B8AD42ACED8C10077CA17 /* MapViewMedel.swift */,
 				F62B8AD62ACED8D80077CA17 /* ArtistPageViewModel.swift */,
@@ -397,7 +379,6 @@
 				F62B8AE22ACED95B0077CA17 /* Artist.swift */,
 				F62B8AE42ACED9690077CA17 /* Busking.swift */,
 				F62B8AE62ACED9760077CA17 /* Member.swift */,
-				F62B8AE82ACED9890077CA17 /* DummyData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -418,7 +399,6 @@
 			children = (
 				07038C852ADCC535002445DD /* UserPageView.swift */,
 				F62B8AA32ACED4B10077CA17 /* EditFollowingListView.swift */,
-				F62B8AA52ACED4CB0077CA17 /* DonationListView.swift */,
 				F62B8AA72ACED4E30077CA17 /* EditUserAcountView.swift */,
 				07038C872ADCEE83002445DD /* RegisterUserArtistView.swift */,
 				074C58B02AFCD0DC0019B6C8 /* EditBlockListView.swift */,
@@ -433,8 +413,6 @@
 				F62B8A9C2ACED46D0077CA17 /* UserArtistPageView.swift */,
 				F62B8AAB2ACED5260077CA17 /* ArtistProfileSettingView.swift */,
 				F62B8AAD2ACED53E0077CA17 /* AddBuskingPageView.swift */,
-				F62B8AC22ACED78C0077CA17 /* EditFanView.swift */,
-				F62B8AAF2ACED5590077CA17 /* EditDonationView.swift */,
 				F62B8AB12ACED5710077CA17 /* EditArtistAcountView.swift */,
 				071BFF192AF4CF33004BDD00 /* MyBuskingSettingView.swift */,
 			);
@@ -454,13 +432,11 @@
 		F62B8AC12ACED7140077CA17 /* ViewComponent */ = {
 			isa = PBXGroup;
 			children = (
-				070752A22AD75BA60090E11D /* AppleSigninButton.swift */,
 				070F6BDC2ADA135B00328570 /* BackgroundView.swift */,
 				F62B8AC82ACED8110077CA17 /* ProfileRectangle.swift */,
 				F62B8ACA2ACED8270077CA17 /* BuskingListRow.swift */,
 				0707173F2ADA0CC100B72319 /* BackroundStar.swift */,
 				F62B8AD22ACED87C0077CA17 /* ImageCropper.swift */,
-				F62B8ACC2ACED8410077CA17 /* DonationBar.swift */,
 				0707173D2AD9FA7D00B72319 /* CircleBlur.swift */,
 				070F6BE22ADAC8B000328570 /* PopOverText.swift */,
 				07C96E772AFF3B6B0067D7D6 /* MapBuskingLow.swift */,
@@ -471,9 +447,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F62B8A6F2ACED1B80077CA17 /* MacroC-ClientPart */ = {
+		F62B8A6F2ACED1B80077CA17 /* Yonder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F62B8A7F2ACED1B90077CA17 /* Build configuration list for PBXNativeTarget "MacroC-ClientPart" */;
+			buildConfigurationList = F62B8A7F2ACED1B90077CA17 /* Build configuration list for PBXNativeTarget "Yonder" */;
 			buildPhases = (
 				F62B8A6C2ACED1B80077CA17 /* Sources */,
 				F62B8A6D2ACED1B80077CA17 /* Frameworks */,
@@ -483,7 +459,7 @@
 			);
 			dependencies = (
 			);
-			name = "MacroC-ClientPart";
+			name = Yonder;
 			packageProductDependencies = (
 				071BFE3A2AECBA8C004BDD00 /* Alamofire */,
 				071BFE402AECBBE2004BDD00 /* GoogleMaps */,
@@ -494,7 +470,7 @@
 				072ABD3D2B022642007EDB86 /* AlamofireImage */,
 			);
 			productName = "MacroC-ClientPart";
-			productReference = F62B8A702ACED1B80077CA17 /* MacroC-ClientPart.app */;
+			productReference = F62B8A702ACED1B80077CA17 /* Yonder.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -512,7 +488,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F62B8A6B2ACED1B80077CA17 /* Build configuration list for PBXProject "MacroC-ClientPart" */;
+			buildConfigurationList = F62B8A6B2ACED1B80077CA17 /* Build configuration list for PBXProject "Yonder" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -530,7 +506,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F62B8A6F2ACED1B80077CA17 /* MacroC-ClientPart */,
+				F62B8A6F2ACED1B80077CA17 /* Yonder */,
 			);
 		};
 /* End PBXProject section */
@@ -590,20 +566,15 @@
 				07038C862ADCC535002445DD /* UserPageView.swift in Sources */,
 				F62B8AEF2ACED9CC0077CA17 /* Components.swift in Sources */,
 				070717332AD942CE00B72319 /* Font.swift in Sources */,
-				F62B8AB02ACED5590077CA17 /* EditDonationView.swift in Sources */,
 				07CD19CD2B008FFA00E29D9B /* BlockedArtistViewModel.swift in Sources */,
 				F62B8A992ACED4130077CA17 /* MainView.swift in Sources */,
 				F62B8AD12ACED8690077CA17 /* AddBuskingSearchBar.swift in Sources */,
 				07FBF28B2ACFF90B004EF174 /* SignUpView.swift in Sources */,
-				070717382AD9430A00B72319 /* AppleAuth.swift in Sources */,
 				F62B8AE12ACED9500077CA17 /* User.swift in Sources */,
 				F62B8ABB2ACED6410077CA17 /* ArtistInfoModalView.swift in Sources */,
 				F62B8AC02ACED6F30077CA17 /* AddBuskingMapView.swift in Sources */,
-				F62B8AE92ACED9890077CA17 /* DummyData.swift in Sources */,
-				F62B8ACD2ACED8410077CA17 /* DonationBar.swift in Sources */,
 				070F6BE12ADA3B8A00328570 /* ArtistListView.swift in Sources */,
 				076744922AE574910053E413 /* AwsService.swift in Sources */,
-				071BFF142AEE5A1E004BDD00 /* LoginViewModel.swift in Sources */,
 				F62B8AD32ACED87C0077CA17 /* ImageCropper.swift in Sources */,
 				F62B8AA82ACED4E30077CA17 /* EditUserAcountView.swift in Sources */,
 				070F6BDD2ADA135B00328570 /* BackgroundView.swift in Sources */,
@@ -611,7 +582,6 @@
 				F62B8AB22ACED5710077CA17 /* EditArtistAcountView.swift in Sources */,
 				074C58AF2AFCC7BE0019B6C8 /* ReportPage.swift in Sources */,
 				F62B8AED2ACED9BA0077CA17 /* dropShadowModifier.swift in Sources */,
-				F62B8AA62ACED4CB0077CA17 /* DonationListView.swift in Sources */,
 				070717402ADA0CC100B72319 /* BackroundStar.swift in Sources */,
 				07FD5D362B04DACC0029E58F /* KeyboardResponsiveModifier.swift in Sources */,
 				F62B8AB72ACED5C80077CA17 /* CropedGoogleMapView.swift in Sources */,
@@ -622,8 +592,6 @@
 				F62B8AC92ACED8110077CA17 /* ProfileRectangle.swift in Sources */,
 				07C96E782AFF3B6B0067D7D6 /* MapBuskingLow.swift in Sources */,
 				F62B8AAE2ACED53E0077CA17 /* AddBuskingPageView.swift in Sources */,
-				F62B8AC32ACED78C0077CA17 /* EditFanView.swift in Sources */,
-				070752A32AD75BA60090E11D /* AppleSigninButton.swift in Sources */,
 				F62B8AD72ACED8D80077CA17 /* ArtistPageViewModel.swift in Sources */,
 				F62B8ADF2ACED9380077CA17 /* UserArtistPageViewModel.swift in Sources */,
 				F62B8ADB2ACED90B0077CA17 /* ArtistInfoModalViewModel.swift in Sources */,
@@ -773,6 +741,8 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MacroC-ClientPart/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Yonder;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App needs your coordinate to show on the Map";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -819,6 +789,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MacroC-ClientPart/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Yonder;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App needs your coordinate to show on the Map";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -853,7 +825,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F62B8A6B2ACED1B80077CA17 /* Build configuration list for PBXProject "MacroC-ClientPart" */ = {
+		F62B8A6B2ACED1B80077CA17 /* Build configuration list for PBXProject "Yonder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F62B8A7D2ACED1B90077CA17 /* Debug */,
@@ -862,7 +834,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F62B8A7F2ACED1B90077CA17 /* Build configuration list for PBXNativeTarget "MacroC-ClientPart" */ = {
+		F62B8A7F2ACED1B90077CA17 /* Build configuration list for PBXNativeTarget "Yonder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F62B8A802ACED1B90077CA17 /* Debug */,

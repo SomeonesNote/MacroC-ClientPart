@@ -17,7 +17,6 @@ struct CircleBlur: View {
     
     //MARK: -2.BODY
     var body: some View {
-        //        Image(image)
         AsyncImage(url: URL(string: image)) { image in
             image.resizable().aspectRatio(contentMode: .fit)
         } placeholder: {
@@ -35,9 +34,4 @@ struct CircleBlur: View {
                 .padding(0)
         }
     }
-}
-
-//MARK: -3.PREVIEW
-#Preview {
-    ProfileSettingView()
 }

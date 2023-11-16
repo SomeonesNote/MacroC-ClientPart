@@ -51,7 +51,3 @@ struct CropedGoogleMapView: UIViewRepresentable {
 
 }
 
-//MARK: -3.PREVIEW
-//#Preview {
-//    CropedGoogleMapView(busking: dummyBusking4)
-//}

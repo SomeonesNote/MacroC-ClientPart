@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditArtistAcountView: View {
+    
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
     @State var showDeleteAlert: Bool = false
@@ -45,8 +46,3 @@ struct EditArtistAcountView: View {
         }
     }
 }
-
-//MARK: -3.PREVIEW
-//#Preview {
-//    EditArtistAcountView()
-//}

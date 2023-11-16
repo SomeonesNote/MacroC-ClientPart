@@ -26,18 +26,10 @@ struct ArtistInfoModalView: View {
                     ArtistPageView(viewModel: ArtistPageViewModel(artist: viewModel.artist))
                 } label: { sheetBoxText(text: "더보기").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)) }
                 Spacer()
-                //            Button { } label: { sheetBoxText(text: "찾아가기").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)) }
             }.background(backgroundView())
         }
     }
 }
-
-//MARK: -3.PREVIEW
-//#Preview {
-//    //    MapView()
-//    ArtistInfoModalView(viewModel: ArtistInfoModalViewModel(busking: dummyArtist1))
-//}
-
 
 //MARK: -4. EXTENSION
 extension ArtistInfoModalView {

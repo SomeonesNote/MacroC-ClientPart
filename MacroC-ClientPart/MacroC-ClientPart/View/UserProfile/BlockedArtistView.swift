@@ -42,11 +42,11 @@ struct BlockedArtistView: View {
                 Button {
                     clickedUnBlock = true
                 } label: {
-                toolbarButtonLabel(buttonLabel: "Unblock")
+                    toolbarButtonLabel(buttonLabel: "Unblock")
+                }
             }
         }
-    }
-    
+        
         .background(backgroundView())
         .ignoresSafeArea()
         .toolbarBackground(.hidden, for: .navigationBar)
@@ -69,7 +69,7 @@ struct BlockedArtistView: View {
         } message: {
             Text("Are you sure unblock this artist?")
         }
-}
+    }
 }
 
 //MARK: -4.EXTENSION

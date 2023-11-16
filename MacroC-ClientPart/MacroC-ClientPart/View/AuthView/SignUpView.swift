@@ -4,17 +4,19 @@
 //
 // Created by Kimjaekyeong on 2023/10/06.
 //
+
 import SwiftUI
 import PhotosUI
+
 struct SignUpView: View {
     //MARK: - 1.PROPERTY
-    @EnvironmentObject var awsService : AwsService //TODO: 테스트용으로 넣은거임 다시 지워야함
+    @EnvironmentObject var awsService : AwsService 
     
     //MARK: - 2.BODY
     var body: some View {
         VStack(spacing: UIScreen.getWidth(6)) {
             Spacer()
-
+            
             imagePicker
             Spacer()
             nameTextField
@@ -79,37 +81,7 @@ extension SignUpView {
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                Button {
-                    // TODO: 서버에 같은 닉네임이 있는지 확인하는 함수 + 시트로 가능하다고 띄우는 함수
-                } label: {
-                    Text("중복확인")
-                        .font(.custom10semibold())
-                        .padding(UIScreen.getWidth(15))
-                        .background(Color(appIndigo))
-                        .cornerRadius(6)
-                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                }
             }
-            HStack {
-                switch awsService.usernameStatus {
-                case .empty:
-                    Text("사용 가능한 닉네임입니다.") // 아무 메시지도 표시하지 않음
-                        .font(.custom10bold())
-                        .foregroundColor(.clear)
-                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                case .duplicated:
-                    Text("이미 사용 중인 닉네임입니다.")
-                        .font(.custom10bold())
-                        .foregroundColor(.red)
-                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                case .available:
-                    Text("사용 가능한 닉네임입니다.")
-                        .font(.custom10bold())
-                        .foregroundColor(.blue)
-                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                }
-                Spacer()
-            }.padding(.leading, UIScreen.getWidth(5))
         }
     }
     var signUpbutton: some View {

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F62B8A6F2ACED1B80077CA17"
-               BuildableName = "MacroC-ClientPart.app"
-               BlueprintName = "MacroC-ClientPart"
-               ReferencedContainer = "container:MacroC-ClientPart.xcodeproj">
+               BuildableName = "Yonder.app"
+               BlueprintName = "Yonder"
+               ReferencedContainer = "container:Yonder.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F62B8A6F2ACED1B80077CA17"
-            BuildableName = "MacroC-ClientPart.app"
-            BlueprintName = "MacroC-ClientPart"
-            ReferencedContainer = "container:MacroC-ClientPart.xcodeproj">
+            BuildableName = "Yonder.app"
+            BlueprintName = "Yonder"
+            ReferencedContainer = "container:Yonder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,9 +61,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F62B8A6F2ACED1B80077CA17"
-            BuildableName = "MacroC-ClientPart.app"
-            BlueprintName = "MacroC-ClientPart"
-            ReferencedContainer = "container:MacroC-ClientPart.xcodeproj">
+            BuildableName = "Yonder.app"
+            BlueprintName = "Yonder"
+            ReferencedContainer = "container:Yonder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

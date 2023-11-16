@@ -160,14 +160,14 @@ struct KeychainItem {
         }
     }
     
-    static var currentRefreshToken: String { //애플에서 받아오는 RefreshToken
-        do {
-            let storedRefresh = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "refreshToken").readItem()
-            return storedRefresh
-        } catch {
-            return "currentRefresh error!"
-        }
-    }
+//    static var currentRefreshToken: String { //애플에서 받아오는 RefreshToken
+//        do {
+//            let storedRefresh = try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "refreshToken").readItem()
+//            return storedRefresh
+//        } catch {
+//            return "currentRefresh error!"
+//        }
+//    }
     
     static var currentEmail: String { //애플에서 받아오는 RefreshToken
         do {
@@ -214,13 +214,13 @@ struct KeychainItem {
         }
     }
   
-    static func deleteRefreshTokenFromKeychain() { // Apple UserIdentifier 지우기
-        do {
-            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "refreshToken").deleteItem()
-        } catch {
-            print("Keychain.deleteUserIdentifierFromKeychain.error : Unable to delete refreshToken from keychain")
-        }
-    }
+//    static func deleteRefreshTokenFromKeychain() { // Apple UserIdentifier 지우기
+//        do {
+//            try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "refreshToken").deleteItem()
+//        } catch {
+//            print("Keychain.deleteUserIdentifierFromKeychain.error : Unable to delete refreshToken from keychain")
+//        }
+//    }
     
     static func deleteEmailFromKeychain() { // Apple UserIdentifier 지우기
         do {

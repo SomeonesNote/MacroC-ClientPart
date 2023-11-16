@@ -20,8 +20,7 @@ struct MapView: View {
             ZStack(alignment: .bottom){
                 if viewModel.mapViewOn {
                     GoogleMapView(viewModel: viewModel)
-                        .ignoresSafeArea(.all, edges: .top)
-                    
+//                        .ignoresSafeArea(.all, edges: .bottom)
                         .overlay(alignment: .top) {
                             MapViewSearchBar(viewModel: viewModel)
                                 .padding(UIScreen.getWidth(4))
@@ -33,20 +32,24 @@ struct MapView: View {
                         }
                 }
                 if viewModel.popModal {
-                    MapBuskingLow(artist: viewModel.selectedArtist ?? Artist(), busking: viewModel.selectedBusking ?? Busking())
-                        .padding(4)
+                    NavigationLink {
+                        ArtistPageView(viewModel: ArtistPageViewModel(artist: viewModel.selectedArtist ?? Artist()))
+                    } label: {
+                        MapBuskingLow(artist: viewModel.selectedArtist ?? Artist(), busking: viewModel.selectedBusking ?? Busking())
+                            .padding(4)
+                    }
                 }
             }
             .onTapGesture {
                 viewModel.popModal = false
             }
-            .background(backgroundView())
+            .background(backgroundViewForMap())
+//            .background(.black)
             .ignoresSafeArea(.keyboard)
             .navigationTitle("")
         }
         .onAppear {
             awsService.getAllArtistBuskingList{
-                print(awsService.allBusking)
                 viewModel.mapViewOn = true }
         }
         .onDisappear {

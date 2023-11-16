@@ -28,12 +28,8 @@ struct MapBuskingLow: View {
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                         .padding(.bottom, UIScreen.getHeight(4))
                     Spacer()
-                    NavigationLink {
-                        ArtistPageView(viewModel: ArtistPageViewModel(artist: artist))
-                    } label: {
-                        Image(systemName: "chevron.forward.circle.fill").font(.custom20bold())
-                            .padding(15)
-                    }
+                        Image(systemName: "chevron.forward").font(.custom20semibold())
+                        .padding(.trailing, UIScreen.getHeight(8))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
                     Image(systemName: "calendar").font(.custom14semibold())

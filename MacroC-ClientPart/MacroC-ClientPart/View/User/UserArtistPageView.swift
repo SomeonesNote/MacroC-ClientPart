@@ -276,9 +276,7 @@ extension UserArtistPageView {
                 viewModel.isEditName = false
                 viewModel.isEditInfo = false
                 awsService.artistPatchcroppedImage = viewModel.croppedImage
-                awsService.patchUserArtistProfile {
-                    feedback.notificationOccurred(.success)
-                }
+                awsService.patchUserArtistProfile { }
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(8))
             })
@@ -371,7 +369,6 @@ extension UserArtistPageView {
                 //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.artist?.stageName = viewModel.editUsername // awsService에 값 할당
                 
-                feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {
                     viewModel.nameSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { //알림페이지떠있는 시간 1.5초
@@ -415,8 +412,6 @@ extension UserArtistPageView {
             Button {
                 //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.artist?.artistInfo = viewModel.editUserInfo
-                
-                feedback.notificationOccurred(.success)
                 withAnimation(.smooth(duration: 0.5)) {
                     viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초

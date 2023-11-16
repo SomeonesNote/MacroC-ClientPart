@@ -32,12 +32,10 @@ class AwsService : ObservableObject {
     @Published var nowBuskingArtist : [Artist] = [] // 맵뷰 그리기 위해서 필요한 리스트
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
     @Published var isLoading: Bool = false
-    @Published var isCreatUserArtist: Bool = UserDefaults.standard.bool(forKey: "isCreatUserArtist")
     
     @Published var isSignIn : Bool = UserDefaults.standard.bool(forKey: "isSignIn") // 테스트 SignIn 테스트 유저 토큰 발행용
     @Published var isSignUp : Bool = UserDefaults.standard.bool(forKey: "isSignup") // 서버에서 받아온 커런트 토큰이 없으면 true 있으면 false
     
-    //    let serverURL: String = "http://localhost:3000"
     let serverURL: String = "https://macro-app.fly.dev"
     
     @Published var reportText: String = ""
@@ -60,13 +58,14 @@ class AwsService : ObservableObject {
             "uid": uid,
             "email": email
         ]
-        print(parameters)
          if !self.user.username.isEmpty {
              AF.upload(multipartFormData: { multipartFormData in
                  if let imageData = self.croppedImage?.jpegData(compressionQuality: 1) {
+//                     if let imageData = self.croppedImage?.pngData() {
                      multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                  }
                  else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+//                 else if let defaultImageData = UIImage(named: "UserBlank")?.pngData() {
                      multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                  }
                  for (key, value) in parameters {
@@ -79,11 +78,9 @@ class AwsService : ObservableObject {
                     print("7.awsService.signUp.Success")
                     do {
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
-                        print("signUp.tokenResponse : \(KeychainItem.currentTokenResponse)")
                     } catch {
                         print("#tokenResponse on Keychain is fail")
                     }
-                    print("8.awsService.accessToken : \(String(describing: self.accesseToken))")
                         self.getUserProfile { //유저프로필 가져오기
                             self.getFollowingList {}}//팔로우 리스트 가져오기
                         self.getAllArtistList{
@@ -91,7 +88,6 @@ class AwsService : ObservableObject {
                         }
                     self.isSignUp = true
                     UserDefaults.standard.set(true, forKey: "isSignup")
-                    print("#awsService.isSignUp : \(self.isSignUp)")
                 case .failure(let error):
                     print("#awsService.isSignUp.Error: \(error.localizedDescription)")
                     self.isSignUp = false
@@ -99,7 +95,6 @@ class AwsService : ObservableObject {
             }
         }
     }
-    
     
     
     //Get Profile //배치완료
@@ -121,7 +116,6 @@ class AwsService : ObservableObject {
                     if userData.artist == nil {
                         self.user.artist = Artist()
                     }
-                    print(self.user)
                 case .failure(let error) :
                     print("#getUserProfile.error : \(error.localizedDescription)")
                     if error.responseCode == 401 {
@@ -139,18 +133,12 @@ class AwsService : ObservableObject {
         let parameters: [String : String] = [
             "uid" : "\(uid)"
         ]
-        print(parameters)
         AF.request("\(serverURL)/auth/isSignUp", method: .post, parameters: parameters)
             .responseDecodable(of: Bool.self) { response in
                 switch response.result {
                 case .success(let bool) :
                     if bool == true {
-//                            self.getUserProfile { //유저프로필 가져오기
-//                                self.getFollowingList {}}//팔로우 리스트 가져오기
-//                            self.getAllArtistList{}
-//                            UserDefaults.standard.set(bool, forKey: "isSignup")
                         self.isSignUp = bool
-                        print("7.checkSignUp : \(self.isSignUp)") //MARK: 8
                         completion()
                         }
                 case .failure(let error) :
@@ -161,9 +149,8 @@ class AwsService : ObservableObject {
         completion()
         }
     
-    func tokenReresponse(completion: @escaping () -> Void)  { //MARK: - 이미 계쩡이 있는 유저가 로그인할 떄 + 유저 프로파일 받아오는 함수
-//        let token : String? = KeychainItem.currentFirebaseToken
-        let token : String? = "" //TODO: -사인업 할 때 필요한 토큰값이 뭐지???
+    func tokenReresponse(completion: @escaping () -> Void)  {//TODO: 서버에서 어떻게 되는지 찾기
+        let token : String? = ""
         let headers: HTTPHeaders = [.authorization(bearerToken: token ?? "")]
         let parameters: [String: String] = [
             "uid": KeychainItem.currentUserIdentifier
@@ -172,15 +159,12 @@ class AwsService : ObservableObject {
             .responseDecodable(of: TokenResponse.self) { response in
                 switch response.result {
                 case .success(let token):
-                    print("#tokenReresponse : \(token.accessToken)")
                     do {
                         self.accesseToken = token.accessToken
                         try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
-                        print("tokenResponse : \(token.accessToken) is saved on Keychain")
                     } catch {
                         print("#tokenResponse on Keychain is fail")
                     }
-                    
                         self.getUserProfile { //유저프로필 가져오기
                             self.getFollowingList {}}//팔로우 리스트 가져오기
                             self.getMyBuskingList()
@@ -205,11 +189,13 @@ class AwsService : ObservableObject {
         if !user.username.isEmpty {
             AF.upload(multipartFormData: { multipartFormData in
                 if let imageData = self.patchcroppedImage?.jpegData(compressionQuality: 1) {
+//                if let imageData = self.patchcroppedImage?.pngData() {
                     multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                 }
-                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
-                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
-                }
+//                else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+////                else if let defaultImageData = UIImage(named: "UserBlank")?.pngData() {
+//                    multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
+//                }
                 for (key, value) in parameters {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
@@ -218,6 +204,7 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let patchData):
                     self.user = patchData
+                    feedback.notificationOccurred(.success)
                     print("#User Profile Update Success!")
                 case .failure(let error):
                     print("#patchUserProfile.Error : \(error.localizedDescription)")
@@ -236,7 +223,7 @@ class AwsService : ObservableObject {
                     self.getFollowingList {
                         self.getMyArtistBuskingList()
                         self.getMyBuskingList()
-                        print("#following.success")
+                        feedback.notificationOccurred(.success)
                     }
                 case .failure(let error) :
                     print("#following.error: \(error.localizedDescription)")
@@ -260,8 +247,6 @@ class AwsService : ObservableObject {
                     self.followingInt = self.following.map {$0.id}
                     self.getMyArtistBuskingList()
                     self.getMyBuskingList()
-                    print("#getFollowingList.followingData : \(self.following)")
-                    //                    print("getFollowingList.followingInt : \(self.followingInt)")
                 case .failure(let error) :
                     print("#getFollowingList.error : \(error.localizedDescription)")
                 }
@@ -277,7 +262,7 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success :
                     self.getFollowingList {
-                        print("#unfollow success")
+                        feedback.notificationOccurred(.success)
                     }
                 case .failure(let error) :
                     print("#unfollowing.error : \(error.localizedDescription)")
@@ -306,7 +291,7 @@ class AwsService : ObservableObject {
                     KeychainItem.deleteUserIdentifierFromKeychain()
                     KeychainItem.deleteTokenResponseFromKeychain()
                     KeychainItem.deleteAppleRefreashToken()
-                    print("#DeleteUser.success!")
+                    feedback.notificationOccurred(.success)
                     
                 case .failure(let error) :
                     print("deleteUser.error : \(error.localizedDescription)")
@@ -329,9 +314,11 @@ class AwsService : ObservableObject {
         
                 AF.upload(multipartFormData: { multipartFormData in
                     if let imageData = self.artistCropedImage?.jpegData(compressionQuality: 1) {
+//                    if let imageData = self.artistCropedImage?.pngData() {
                         multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                     }
                     else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+//                    else if let defaultImageData = UIImage(named: "UserBlank")?.pngData() {
                         multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
                     }
                     for (key, value) in parameters {
@@ -343,37 +330,35 @@ class AwsService : ObservableObject {
                     case .success:
                         self.getUserProfile {
                             self.getAllArtistList {
-                                print(parameters)
+                                feedback.notificationOccurred(.success)
                             }
                         }
                     case .failure(let error):
-                        print("postUserArtist.error : \(error.localizedDescription)")
-                        print(parameters)
                         debugPrint(error)
                     }
                 }
                 completion()
         }
     
-    //Get User Artist Profilfe // 일단 지금 안쓸듯
-    func getUserArtistProfile(completion: @escaping () -> Void) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        AF.request("\(serverURL)/artist/\(self.user.id)", method: .get)
-            .validate()
-            .responseDecodable(of: Artist.self, decoder: decoder) { response in
-                switch response.result {
-                case .success(let userArtistData) :
-                    self.user.artist = userArtistData
-                    print("getUserArtistProfile.userArtistdata : \(userArtistData)")
-                case .failure(let error) :
-                    print("getUserArtistProfile.error : \(error)")
-                }
-                completion()
-            }
-    }
+    //Get User Artist Profilfe //
+//    func getUserArtistProfile(completion: @escaping () -> Void) {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+//        let decoder = JSONDecoder()
+//        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+//        AF.request("\(serverURL)/artist/\(self.user.id)", method: .get)
+//            .validate()
+//            .responseDecodable(of: Artist.self, decoder: decoder) { response in
+//                switch response.result {
+//                case .success(let userArtistData) :
+//                    self.user.artist = userArtistData
+//                    print("getUserArtistProfile.userArtistdata : \(userArtistData)")
+//                case .failure(let error) :
+//                    print("getUserArtistProfile.error : \(error)")
+//                }
+//                completion()
+//            }
+//    }
     
     //Patch User Artist
     func patchUserArtistProfile(completion: @escaping () -> Void) {
@@ -391,9 +376,11 @@ class AwsService : ObservableObject {
         //        if !user.artist?.stageName.isEmpty || !user.artist?.artistInfo.isEmpty {
         AF.upload(multipartFormData: { multipartFormData in
             if let imageData = self.artistPatchcroppedImage?.jpegData(compressionQuality: 1) {
+//            if let imageData = self.artistPatchcroppedImage?.pngData() {
                 multipartFormData.append(imageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
             }
             else if let defaultImageData = UIImage(named: "UserBlank")?.jpegData(compressionQuality: 1) {
+//            else if let defaultImageData = UIImage(named: "UserBlank")?.pngData() {
                 multipartFormData.append(defaultImageData, withName: "images", fileName: "avatar.jpg", mimeType: "image/jpeg")
             }
             for (key, value) in parameters {
@@ -403,9 +390,10 @@ class AwsService : ObservableObject {
         .response { response in
             switch response.result {
             case .success:
-                print("#PatchUserArtist.success")
                 self.getUserProfile {
-                    self.getFollowingList { }
+                    self.getFollowingList {
+                        feedback.notificationOccurred(.success)
+                    }
                 }
                 self.getAllArtistList { }
             case .failure(let error):
@@ -425,11 +413,9 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success :
                     self.getUserProfile {
-                        self.isCreatUserArtist = false
                         self.getMyArtistBuskingList()
                         self.getMyBuskingList()
-                        UserDefaults.standard.set(false ,forKey: "isCreatUserArtist")
-                        print("#UserDefaults.standard.bool : \( UserDefaults.standard.bool(forKey: "isCreatUserArtist"))")
+                        feedback.notificationOccurred(.success)
                     }
                 case .failure(let error) :
                     print("#deleteUserArtist.error : \(error)")
@@ -450,11 +436,11 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let allArtistData) :
                     self.allAtrist = allArtistData
-                    print("#getAllArtistList.allArtistData : \(self.allAtrist)")
+                    completion()
                 case .failure(let error) :
                     print("#getAllArtistList.error : \(error.localizedDescription)")
+                    completion()
                 }
-                completion()
             }
     }
     
@@ -490,13 +476,11 @@ class AwsService : ObservableObject {
                         self.getMyArtistBuskingList()
                         self.getAllArtistBuskingList{}
                         print("#postBusking.success")
+                        feedback.notificationOccurred(.success)
                         print(parameters)
                     })
                 case .failure(let error) :
-                    print("-StartTime : \(buskingStartTimeString)")
-                    print("-StartTime : \(buskingEndTimeString)")
-                    print("-header:\(headers)")
-                    print("-postBusking.error : \(error.localizedDescription)")
+                    print("postBuskingError : \(error) : \(parameters)")
                 }
             }
     }
@@ -517,7 +501,6 @@ class AwsService : ObservableObject {
                 case .success(let myBuskingData) :
                     self.myBuskingList = myBuskingData
                     self.getMyArtistBuskingList()
-                    print("#getMyBuskingList.success : \(myBuskingData)")
                 case .failure(let error) :
                     print("#getMyBuskingList.error : \(error.localizedDescription)")
                 }
@@ -538,7 +521,6 @@ class AwsService : ObservableObject {
                 switch response.result {
                 case .success(let targetBuskingData) :
                     self.targetBusking = targetBuskingData
-                    print("#getTargetBusking.success : \(targetBuskingData)")
                 case .failure(let error) :
                     print("#getTargetBusking.error : \(error.localizedDescription)")
                 }
@@ -558,12 +540,11 @@ class AwsService : ObservableObject {
                         self.getAllArtistList {
                             self.getFollowingList {
                                 self.getMyArtistBuskingList()
-                                print("#deleteBusking.success")
+                                feedback.notificationOccurred(.success)
                             }
                         }
                     }
                 case .failure(let error) :
-                    print("#ServerToken: \(headers)")
                     print("#deleteBusking.error : \(error.localizedDescription)")
                 }
                 completion()
@@ -574,13 +555,11 @@ class AwsService : ObservableObject {
         let followingList = self.following
         let buskingList = followingList.filter { $0.buskings != nil && !$0.buskings!.isEmpty }
         self.myArtistBuskingList = buskingList
-        print("#getMyArtistBuskingList : \(myArtistBuskingList)")
     }
     
     func getAllArtistBuskingList(completion: @escaping () -> Void) {
         let list = self.allAtrist.filter { $0.buskings != nil && !$0.buskings!.isEmpty }
         self.allBusking = list.shuffled()
-        print("##allBusking : \(self.allBusking)")
         completion()
     }
     
@@ -591,10 +570,9 @@ class AwsService : ObservableObject {
           .response { response in
             switch response.result {
             case.success:
-              print("Block Success")
                 self.getAllArtistList {
                     self.getFollowingList {
-                        
+                        feedback.notificationOccurred(.success)
                     }
                 }
             case .failure(let error):
@@ -617,8 +595,9 @@ class AwsService : ObservableObject {
          .response { response in
            switch response.result {
            case .success :
-               self.blockingArtist(artistId: artistId) {}
-             print("Reporting Success")
+               self.blockingArtist(artistId: artistId) {
+                   feedback.notificationOccurred(.success)
+               }
            case .failure(let error):
              print("Reporting fail Error : \(error)")
            }
@@ -633,7 +612,7 @@ class AwsService : ObservableObject {
           .response { response in
             switch response.result {
             case .success:
-              print("Unblock Artist Success")
+                feedback.notificationOccurred(.success)
             case .failure(let error):
               print("Unblock Artist fail Error : \(error)")
             }
@@ -653,7 +632,6 @@ class AwsService : ObservableObject {
             switch response.result {
             case .success(let reData):
               self.blockingList = reData
-              print("Get Block Artist Success")
             case .failure(let error):
               print("Get Block Artist fail Error : \(error)")
             }

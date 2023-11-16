@@ -99,11 +99,6 @@ struct ArtistPageView: View {
         }
         .confirmationDialog("Report", isPresented: $clickedReport) {
             Button(role: .destructive) {
-//                isLoading = true
-//                awsService.reporting(artistId: viewModel.artist.id) {
-//                    isLoading = false
-//                    dismiss()
-//                }
                 showReport = true
             } label: {
                 Text("Report")

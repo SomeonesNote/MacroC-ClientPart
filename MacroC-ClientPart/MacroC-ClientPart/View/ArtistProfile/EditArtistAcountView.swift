@@ -31,7 +31,6 @@ struct EditArtistAcountView: View {
             }.padding(.top, UIScreen.getHeight(120))
                 .alert(isPresented: $showDeleteAlert) {
                     Alert(title: Text(""), message: Text("Are you sure you want to delete your account?"), primaryButton: .destructive(Text("Delete"), action: {
-                        print("탈퇴 완료")
                         awsService.deleteUserArtist()
                         showDeleteAlert = false
                         onDismiss = false

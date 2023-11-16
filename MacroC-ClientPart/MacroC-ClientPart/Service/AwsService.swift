@@ -115,10 +115,39 @@ class AwsService : ObservableObject {
                     }
                 case .failure(let error) :
                     print("#getUserProfile.error : \(error.localizedDescription)")
+                    if error.responseCode == 401 {
+                        self.tokenReresponse {
+                        }
+                    }
                 }
                 completion()
             }
     }
+    
+    func tokenReresponse(completion: @escaping () -> Void) {
+        let parameters: [String: String] = [
+          "uid": KeychainItem.currentUserIdentifier
+        ]
+        AF.request("\(serverURL)/auth/signin", method: .post, parameters: parameters)
+          .responseDecodable(of: TokenResponse.self) { response in
+            switch response.result {
+            case .success(let token):
+              do {
+                self.accesseToken = token.accessToken
+                try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
+              } catch {
+                print("#tokenResponse on Keychain is fail")
+              }
+                self.getUserProfile {
+                  self.getFollowingList {}}
+                  self.getMyBuskingList()
+                  self.getMyArtistBuskingList()
+            case .failure(let error):
+              print("#tokenReresponse.Error: \(error.localizedDescription)")
+            }
+            completion()
+          }
+      }
     
     func checkSignUp(uid: String, completion: @escaping () -> Void) {
         let parameters: [String : String] = [

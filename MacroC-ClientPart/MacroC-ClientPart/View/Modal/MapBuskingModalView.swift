@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct MapBuskingModalView: View {
-
+    
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService : AwsService
     @ObservedObject var viewModel: MapBuskingModalViewModel
     
     @State var showPopover: Bool = false
     @State var showReport: Bool = false
-   
-
+    
+    
     //MARK: -2.BODY
     var body: some View {
         ZStack {
@@ -44,11 +44,6 @@ struct MapBuskingModalView: View {
     }
 }
 
-//MARK: -3.PREVIEW
-//#Preview {
-//    MainView()
-//}
-
 //MARK: -4.EXTENSION
 extension MapBuskingModalView {
     var buskingInfoToolbar: some View {
@@ -59,7 +54,7 @@ extension MapBuskingModalView {
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(7))
             Spacer()
             Button{
-               showReport = true
+                showReport = true
             } label: {
                 Image(systemName: "light.beacon.max.fill")
                     .padding(UIScreen.getWidth(3))
@@ -71,22 +66,22 @@ extension MapBuskingModalView {
             }
         }.padding(.init(top: UIScreen.getWidth(40), leading: UIScreen.getWidth(15), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(15)))
     }
-
+    
     var buskingInfoImage: some View {
         CircleBlur(image: viewModel.artist.artistImage, width: UIScreen.getWidth(40))
             .overlay {
                 Circle().stroke(lineWidth: 1).opacity(0.8)
             }
     }
-
+    
     var buskingTime: some View {
         HStack {
             VStack(spacing: UIScreen.getHeight(3)) {
-                Text(viewModel.formatDate()) //TODO: 시간모델
+                Text(viewModel.formatDate()) 
                     .font(.custom13heavy())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     .padding(.horizontal, UIScreen.getWidth(30))
-
+                
                 Text("\(viewModel.formatStartTime()) ~ \(viewModel.formatEndTime())")
                     .font(.custom13heavy())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
@@ -109,9 +104,9 @@ extension MapBuskingModalView {
                 .font(.custom13heavy())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                 .padding(.horizontal, UIScreen.getWidth(30))
-
+            
         }
-
+        
         .overlay(alignment: .leading) {
             Image(systemName: "signpost.right")
                 .frame(width: UIScreen.getWidth(13), height: UIScreen.getHeight(10))
@@ -122,7 +117,7 @@ extension MapBuskingModalView {
             Button { UIPasteboard.general.string = viewModel.addressString
                 withAnimation(.easeIn(duration: 0.4)) {
                     showPopover = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         withAnimation(.easeOut(duration: 0.4)) {
                             showPopover = false
                         }
@@ -138,7 +133,7 @@ extension MapBuskingModalView {
         }
         .padding(.init(top: UIScreen.getHeight(5), leading: UIScreen.getWidth(0), bottom: UIScreen.getHeight(0), trailing: UIScreen.getWidth(0)))
     }
-
+    
     var buskingInfoMap: some View {
         CropedGoogleMapView(busking: viewModel.busking, artist: viewModel.artist)
             .frame(height: UIScreen.getHeight(300))

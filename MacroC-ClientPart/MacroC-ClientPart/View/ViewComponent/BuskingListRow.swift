@@ -60,11 +60,6 @@ struct BuskingListRow: View {
     }
 }
 
-//MARK: -3.PREVIEW
-//#Preview {
-//    MainView(viewModel: MainViewModel())
-//}
-
 //MARK: - 4.EXTENSION
 extension BuskingListRow {
     func reverseGeo(busking: Busking) {
@@ -84,30 +79,20 @@ extension BuskingListRow {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "yyyy년 M월 d일"
-//        let busking = busking.BuskingStartTime {
         return formatter.string(from: busking.BuskingStartTime)
-//        }
-//        return ""
     }
     
     func formatStartTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "a h시 mm분"
-//        if let busking = artist.buskings?.last?.BuskingStartTime{
-        return formatter.string(from: busking.BuskingStartTime)
-//        }
-//        return ""
-    }
+        return formatter.string(from: busking.BuskingStartTime)    }
     
     func formatEndTime() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "h시 mm분"
-//        if let busking = artist.buskings?.last?.BuskingEndTime{
         return formatter.string(from: busking.BuskingEndTime)
-//        }
-//        return ""
     }
     
 }

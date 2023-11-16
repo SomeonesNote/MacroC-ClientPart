@@ -11,7 +11,6 @@ struct ArtistPageView: View {
     
     //MARK: -1.PROPERTY
     @EnvironmentObject var awsService: AwsService
-//    @StateObject var viewModel: ArtistPageViewModel
     @ObservedObject var viewModel : ArtistPageViewModel
     @Environment(\.dismiss) var dismiss
     @State var clickedDdot: Bool = false
@@ -82,7 +81,7 @@ struct ArtistPageView: View {
                     }
                 } label:
                 { customSFButton(image: clickedDdot ? "xmark.circle.fill" : "ellipsis.circle.fill").shadow(color: .black.opacity(0.3),radius: UIScreen.getHeight(5))
-                    }.scaleEffect(0.8)
+                }.scaleEffect(0.8)
             }
         }
         

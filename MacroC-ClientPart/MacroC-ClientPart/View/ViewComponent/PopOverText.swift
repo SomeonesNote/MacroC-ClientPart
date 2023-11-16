@@ -23,6 +23,3 @@ struct PopOverText: View {
             .shadow(color: .white.opacity(0.4), radius: UIScreen.getWidth(5))
     }
 }
-#Preview {
-    PopOverText()
-}

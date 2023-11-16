@@ -74,15 +74,6 @@ struct UserPageView: View {
     }
 }
 
-
-
-////MARK: -3.PREVIEW
-//#Preview {
-//    NavigationView {
-//        UserPageView()
-//    }
-//}
-
 //MARK: -4.EXTENSION
 extension UserPageView {
     var artistPageImage: some View {
@@ -201,15 +192,11 @@ extension UserPageView {
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
             
-            //editNameSheet Button
             Button {
-                //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.username = viewModel.EditUsername
-                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
                 viewModel.nameSaveOKModal = true
                 withAnimation(.smooth(duration: 0.5)) {
-                    // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         viewModel.nameSaveOKModal = false
                         viewModel.isEditName = false
                     }
@@ -240,49 +227,4 @@ extension UserPageView {
             }
         }.resume()
     }
-    
-    
-    //    var editInfoSheet: some View {
-    //        VStack(alignment: .leading, spacing: UIScreen.getWidth(10)) {
-    //            HStack {
-    //                Image(systemName: "info.circle.fill")
-    //                    .resizable()
-    //                    .scaledToFit()
-    //                    .frame(width: UIScreen.getWidth(20))
-    //                    .padding(.leading, UIScreen.getWidth(3))
-    //                Text("User Info").font(.custom14semibold())
-    //            }
-    //            TextField("", text: $viewModel.EditUserInfo)
-    //                .font(.custom10semibold())
-    //                .padding(UIScreen.getWidth(12))
-    //                .background(.ultraThinMaterial)
-    //                .cornerRadius(6)
-    //            //editInfoSheet Button
-    //            Button {
-    //                //TODO: 서버에 올리는 함수 구현하기
-    //                //UserInfo 없애야하나;;;;
-    //                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
-    //                withAnimation(.smooth(duration: 0.5)) {
-    //                    viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
-    //                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-    //                        viewModel.infoSaveOKModal = false
-    //                        viewModel.isEditInfo = false
-    //                    }
-    //                }
-    //            } label: {
-    //                HStack {
-    //                    Spacer()
-    //                    Text("Save")
-    //                    Spacer()
-    //                }
-    //                .font(.custom14semibold())
-    //                .padding(UIScreen.getWidth(14))
-    //                .background(LinearGradient(colors: [.appSky ,.appIndigo1, .appIndigo2], startPoint: .topLeading, endPoint: .bottomTrailing))
-    //                .cornerRadius(6)
-    //            }
-    //        }
-    //        .padding(.horizontal, UIScreen.getWidth(10))
-    //        .presentationDetents([.height(UIScreen.getHeight(150))])
-    //        .presentationDragIndicator(.visible)
-    //    }
 }

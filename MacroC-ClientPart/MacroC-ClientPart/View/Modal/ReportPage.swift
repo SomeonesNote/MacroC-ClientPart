@@ -23,7 +23,6 @@ struct ReportPage: View {
                 Spacer()
                 HStack {
                     Text("Report")
-                    //                    .foregroundColor(.appRed)
                         .font(.custom21black())
                         .padding(.horizontal)
                         .padding(.vertical, 3)
@@ -68,7 +67,6 @@ struct ReportPage: View {
                     awsService.reporting(artistId: artistID) {
                         awsService.getAllArtistList {
                             awsService.getFollowingList {
-                                
                                 isLoading = false
                                 dismiss()
                             }
@@ -102,8 +100,3 @@ struct ReportPage: View {
         }
     }
 }
-
-////MARK: -3.PREVIEW
-//#Preview {
-//    ReportPage()
-//}

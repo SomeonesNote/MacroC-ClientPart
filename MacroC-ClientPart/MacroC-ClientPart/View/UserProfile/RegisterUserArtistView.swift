@@ -9,6 +9,7 @@
 import SwiftUI
 import PhotosUI
 struct RegisterUserArtistView: View {
+    
     //MARK: - 1.PROPERTY
     @EnvironmentObject var awsService : AwsService
     @Environment(\.dismiss) var dismiss
@@ -17,19 +18,19 @@ struct RegisterUserArtistView: View {
     //MARK: - 2.BODY
     var body: some View {
         ZStack {
-                VStack(spacing: UIScreen.getWidth(5)) {
-                    imagePickerView
-                    Spacer()
-                    nameTextField
-                    infoTextField
-                    Spacer()
-                    customDivider()
-                    Spacer()
-                    youtubeTextField
-                    instagramTextField
-                    soundcloudTextField
-                    Spacer()
-                }
+            VStack(spacing: UIScreen.getWidth(5)) {
+                imagePickerView
+                Spacer()
+                nameTextField
+                infoTextField
+                Spacer()
+                customDivider()
+                Spacer()
+                youtubeTextField
+                instagramTextField
+                soundcloudTextField
+                Spacer()
+            }
             if viewModel.isLoading {
                 ProgressView()
             }

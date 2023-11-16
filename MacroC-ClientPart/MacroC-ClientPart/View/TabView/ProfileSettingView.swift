@@ -40,11 +40,6 @@ struct ProfileSettingView: View {
     }
 }
 
-//MARK: -3.PREVIEW
-#Preview {
-    ProfileSettingView()
-}
-
 //MARK: -4.EXTENSION
 extension ProfileSettingView {
     var profileSection: some View {
@@ -55,7 +50,7 @@ extension ProfileSettingView {
                     Image(systemName: "person.circle.fill").font(.custom18semibold())
                     Text(awsService.user.username).font(.custom21black())
                 }
-                    .padding(.bottom, UIScreen.getWidth(15))
+                .padding(.bottom, UIScreen.getWidth(15))
             }.padding(.top, UIScreen.getWidth(15)).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5))
             Spacer()
         }.padding(.init(top: UIScreen.getWidth(30), leading: UIScreen.getWidth(20), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(20)))
@@ -74,7 +69,7 @@ extension ProfileSettingView {
     
     var artistSetting: some View {
         NavigationLink {
-            EditFollowingListView() // TODO: 팔로잉 연결하기
+            EditFollowingListView() 
         } label: {
             Text("아티스트 관리")
                 .font(.custom13bold())

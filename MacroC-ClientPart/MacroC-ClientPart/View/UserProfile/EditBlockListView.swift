@@ -86,7 +86,7 @@ struct EditBlockListView: View {
                         }
                     }.padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(10), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(10)))
                 }
-               
+                
             }.blur(radius: isLoading ? 15 : 0)
             if isLoading {
                 Color.black.opacity(0.3)
@@ -115,10 +115,3 @@ struct EditBlockListView: View {
         .toolbarBackground(.hidden, for: .navigationBar)
     }
 }
-//MARK: -3.PREVIEW
-#Preview {
-    NavigationView {
-        EditBlockListView()
-    }
-}
-//MARK: -4.EXTENSION

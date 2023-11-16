@@ -21,7 +21,7 @@ struct AddBuskingPageView: View {
     //MARK: -2.BODY
     var body: some View {
         ZStack {
-            ScrollView { // 키보드 뷰 밀림때문에 넣음
+            ScrollView {
                 VStack(spacing: UIScreen.getWidth(16)) {
                     informationHeader
                     informationTextField
@@ -46,7 +46,7 @@ struct AddBuskingPageView: View {
                         awsService.postBusking()
                         withAnimation(.easeIn(duration: 0.4)) {
                             showPopover = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                 withAnimation(.easeOut(duration: 0.4)) {
                                     showPopover = false
                                 }
@@ -68,10 +68,6 @@ struct AddBuskingPageView: View {
     }
 }
 
-//MARK: -3.PREVIEW
-#Preview {
-    AddBuskingPageView(viewModel: AddBuskingPageViewModel())
-}
 
 //MARK: -4.EXTENSION
 extension AddBuskingPageView {
@@ -94,21 +90,21 @@ extension AddBuskingPageView {
     
     var map: some View {
         ZStack(alignment: .top) {
-            AddBuskingMapView(viewModel: viewModel)
-                .frame(height: UIScreen.getHeight(270))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .overlay(alignment: .bottom) {
-                    Text(viewModel.markerAdressString)
-                        .font(.custom12semibold())
-                        .padding(.init(top: UIScreen.getWidth(8), leading: UIScreen.getWidth(30), bottom: UIScreen.getWidth(8), trailing: UIScreen.getWidth(30)))
-                        .background(LinearGradient(colors: [Color(appIndigo2),Color(appIndigo)], startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .cornerRadius(20)
-                        .modifier(dropShadow())
-                        .padding(UIScreen.getHeight(5))
-                }
-                .shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(3))
-            AddBuskingSearchBar(viewModel: viewModel)
-                .padding(UIScreen.getHeight(3))
+                AddBuskingMapView(viewModel: viewModel)
+                    .frame(height: UIScreen.getHeight(270))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay(alignment: .bottom) {
+                        Text(viewModel.markerAdressString)
+                            .font(.custom12semibold())
+                            .padding(.init(top: UIScreen.getWidth(8), leading: UIScreen.getWidth(30), bottom: UIScreen.getWidth(8), trailing: UIScreen.getWidth(30)))
+                            .background(LinearGradient(colors: [Color(appIndigo2),Color(appIndigo)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .cornerRadius(20)
+                            .modifier(dropShadow())
+                            .padding(UIScreen.getHeight(5))
+                    }
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(3))
+                AddBuskingSearchBar(viewModel: viewModel)
+                    .padding(UIScreen.getHeight(3))
         }
     }
     
@@ -120,7 +116,7 @@ extension AddBuskingPageView {
         }.padding(.top, UIScreen.getHeight(20))
     }
     
-    var datePickerView: some View { //TODO: - 버스킹 스타트 타임이랑 엔드타임 날짜 맞추기
+    var datePickerView: some View {
         VStack(spacing: UIScreen.getWidth(5)) {
             DatePicker(selection: $viewModel.startTime, displayedComponents: .date) {
                 Text("공연 날짜")
@@ -181,7 +177,7 @@ extension AddBuskingPageView {
             
             awsService.addBusking.BuskingStartTime = viewModel.startTime
             awsService.addBusking.BuskingEndTime = viewModel.endTime
-            awsService.addBusking.latitude = viewModel.latitude //TODO: 이거 값 없을떄 버튼 디스에이블로 잡기
+            awsService.addBusking.latitude = viewModel.latitude
             awsService.addBusking.longitude = viewModel.longitude
             awsService.addBusking.BuskingInfo = "dd"
             
@@ -189,7 +185,7 @@ extension AddBuskingPageView {
             awsService.postBusking()
             withAnimation(.easeIn(duration: 0.4)) {
                 showPopover = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     withAnimation(.easeOut(duration: 0.4)) {
                         showPopover = false
                     }

@@ -29,10 +29,6 @@ struct MainView: View{
     }
 }
 
-//MARK: - 3.PREVIEW
-//#Preview {
-//    MainView()
-//}
 
 //MARK: - 4.EXTENSION
 extension MainView {

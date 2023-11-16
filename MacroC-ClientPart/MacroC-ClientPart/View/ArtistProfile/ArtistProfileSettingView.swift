@@ -49,11 +49,6 @@ struct ArtistProfileSettingView: View {
     }
 }
 
-//MARK: -3.PREVIEW
-//#Preview {
-//    ArtistProfileSettingView()
-//}
-
 //MARK: -4.EXTENSION
 
 extension ArtistProfileSettingView {
@@ -66,8 +61,8 @@ extension ArtistProfileSettingView {
                     Image(systemName: "person.circle.fill").font(.custom18semibold())
                     Text(awsService.user.artist?.stageName ?? "").font(.custom21black())
                 }
-              
-                    .padding(.bottom, UIScreen.getWidth(15))
+                
+                .padding(.bottom, UIScreen.getWidth(15))
             }.padding(.top, UIScreen.getWidth(15)).shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5))
             Spacer()
         }

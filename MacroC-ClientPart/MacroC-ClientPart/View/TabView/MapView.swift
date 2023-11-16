@@ -20,7 +20,6 @@ struct MapView: View {
             ZStack(alignment: .bottom){
                 if viewModel.mapViewOn {
                     GoogleMapView(viewModel: viewModel)
-//                        .ignoresSafeArea(.all, edges: .bottom)
                         .overlay(alignment: .top) {
                             MapViewSearchBar(viewModel: viewModel)
                                 .padding(UIScreen.getWidth(4))
@@ -44,7 +43,6 @@ struct MapView: View {
                 viewModel.popModal = false
             }
             .background(backgroundViewForMap())
-//            .background(.black)
             .ignoresSafeArea(.keyboard)
             .navigationTitle("")
         }
@@ -57,10 +55,4 @@ struct MapView: View {
             viewModel.mapViewOn = false
         }
     }
-}
-
-
-//MARK: - 3.PREVIEW
-#Preview {
-    MapView()
 }

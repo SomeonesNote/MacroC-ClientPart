@@ -133,7 +133,7 @@ struct linkButton: View {
 
 //MARK: -EXTENSION
 
-//KeyboardHide
+//MARK: KeyboardHide
 extension View {
     func hideKeyboardWhenTappedAround() -> some View {
         return self.onTapGesture {
@@ -142,7 +142,7 @@ extension View {
     }
 }
 
-//CornerRadius Corner
+//MARK: CornerRadius Corner
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
@@ -159,7 +159,7 @@ struct RoundedCorner: Shape {
     }
 }
 
-//SearchBar ClearButton
+//MARK: SearchBar ClearButton
 extension View {
     func clearButton(text: Binding<String>) -> some View {
         modifier(ClearButton(text: text))
@@ -184,7 +184,7 @@ struct ClearButton: ViewModifier {
     }
 }
 
-//ToolBarButtonLabel
+//MARK: ToolBarButtonLabel
 struct toolbarButtonLabel: View {
     var buttonLabel: String
     var body: some View {
@@ -194,12 +194,11 @@ struct toolbarButtonLabel: View {
     }
 }
 
-//InnerShadow
+//MARK: InnerShadow
 extension View {
     func innerShadow<S: Shape, SS: ShapeStyle>(shape: S, color: SS, lineWidth: CGFloat = 1, offsetX: CGFloat = 0, offsetY: CGFloat = 0, blur: CGFloat = 0, blendMode: BlendMode = .normal, opacity: Double = 1) -> some View {
         return self
             .overlay {
-                // MARK: Bottom Sheet Inner Shadow
                 shape
                     .stroke(color, lineWidth: 1)
                     .blendMode(blendMode)

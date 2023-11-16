@@ -36,6 +36,7 @@ struct RegisterUserArtistView: View {
         }
         .background(backgroundView())
         .hideKeyboardWhenTappedAround()
+        .keyboardResponsive()
         .ignoresSafeArea()
         .cropImagePicker(show: $viewModel.popImagePicker, croppedImage: $viewModel.croppedImage, isLoding: $viewModel.isLoading)
         .onChange(of: viewModel.selectedItem) { newItem in
@@ -98,7 +99,9 @@ extension RegisterUserArtistView {
                     
                     awsService.postUserArtist {
                         viewModel.isLoading = false
-                        dismiss()
+                        awsService.getUserProfile {
+                            dismiss()
+                        }
                     }
                 } label: {
                     toolbarButtonLabel(buttonLabel: "Register")
@@ -114,7 +117,7 @@ extension RegisterUserArtistView {
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("닉네임을 입력하세요", text: $viewModel.artistName)
                     .font(.custom12semibold())
-                    .padding(UIScreen.getWidth(11))
+                    .padding(UIScreen.getWidth(10))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
@@ -128,7 +131,7 @@ extension RegisterUserArtistView {
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("Information을 입력하세요", text: $viewModel.artistInfo)
                     .font(.custom12semibold())
-                    .padding(UIScreen.getWidth(11))
+                    .padding(UIScreen.getWidth(10))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
@@ -145,7 +148,7 @@ extension RegisterUserArtistView {
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("Youtube 계정을 입력하세요", text: $viewModel.youtubeURL)
                     .font(.custom12semibold())
-                    .padding(UIScreen.getWidth(11))
+                    .padding(UIScreen.getWidth(10))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
@@ -162,7 +165,7 @@ extension RegisterUserArtistView {
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("Instagram 계정을 입력하세요", text: $viewModel.instagramURL)
                     .font(.custom12semibold())
-                    .padding(UIScreen.getWidth(11))
+                    .padding(UIScreen.getWidth(10))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
@@ -179,7 +182,7 @@ extension RegisterUserArtistView {
             HStack(spacing: UIScreen.getWidth(8)){
                 TextField("Sound Cloud 계정을 입력하세요", text: $viewModel.soundcloudURL)
                     .font(.custom12semibold())
-                    .padding(UIScreen.getWidth(11))
+                    .padding(UIScreen.getWidth(10))
                     .background(.ultraThinMaterial)
                     .cornerRadius(6)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))

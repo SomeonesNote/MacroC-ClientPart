@@ -46,7 +46,6 @@ struct AddBuskingPageView: View {
                         awsService.postBusking()
                         withAnimation(.easeIn(duration: 0.4)) {
                             showPopover = true
-                            feedback.notificationOccurred(.success)
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
                                 withAnimation(.easeOut(duration: 0.4)) {
                                     showPopover = false
@@ -190,7 +189,6 @@ extension AddBuskingPageView {
             awsService.postBusking()
             withAnimation(.easeIn(duration: 0.4)) {
                 showPopover = true
-                feedback.notificationOccurred(.success)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
                     withAnimation(.easeOut(duration: 0.4)) {
                         showPopover = false

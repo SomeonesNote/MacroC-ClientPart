@@ -31,7 +31,7 @@ struct SignUpView: View {
         .cropImagePicker(show: $awsService.popImagePicker, croppedImage: $awsService.croppedImage, isLoding: $awsService.isLoading)
         .padding()
         .background(backgroundView().hideKeyboardWhenTappedAround())
-        .onDisappear {
+        .onAppear {
             awsService.croppedImage = nil
             awsService.user.username = ""
         }
@@ -112,32 +112,6 @@ extension SignUpView {
             }.padding(.leading, UIScreen.getWidth(5))
         }
     }
-//    var infoTextField: some View {
-//        VStack {
-//            HStack(spacing: UIScreen.getWidth(8)){
-//                TextField("이메일을 입력하세요", text: $viewModel.email)
-//                    .font(.custom14semibold())
-//                    .padding(UIScreen.getWidth(13))
-//                    .background(.ultraThinMaterial)
-//                    .cornerRadius(6)
-//                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-//            }
-//            Text(" ").font(.custom14semibold())
-//        }
-//    }
-//    var passWordField: some View {
-//        VStack {
-//            HStack(spacing: UIScreen.getWidth(8)){
-//                TextField("비밀번호를 입력하세요", text: $viewModel.password)
-//                    .font(.custom14semibold())
-//                    .padding(UIScreen.getWidth(13))
-//                    .background(.ultraThinMaterial)
-//                    .cornerRadius(6)
-//                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-//            }
-//            Text(" ").font(.custom14semibold())
-//        }
-//    }
     var signUpbutton: some View {
         Button {
             awsService.signUp()

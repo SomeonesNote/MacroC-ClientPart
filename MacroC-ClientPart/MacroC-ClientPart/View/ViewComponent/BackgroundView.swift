@@ -17,6 +17,14 @@ struct backgroundView: View {
         }
     }
 }
-#Preview {
-    backgroundView()
+
+struct backgroundViewForMap: View {
+    var body: some View {
+        ZStack {
+            Image("backgroundForMap")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+        }
+    }
 }

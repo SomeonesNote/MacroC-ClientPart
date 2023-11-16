@@ -23,8 +23,11 @@ struct MapBuskingModalView: View {
             VStack(spacing: 0) {
                 Spacer()
                 buskingInfoToolbar
-                Spacer()
                 buskingTime
+                Divider()
+                    .frame(height: 1.3)
+                    .overlay(Color.white)
+                    .padding(.init(top: UIScreen.getHeight(5), leading: UIScreen.getWidth(60), bottom: UIScreen.getHeight(0), trailing: UIScreen.getWidth(60)))
                 buskingInfoAddress
                 buskingInfoMap
             }
@@ -53,17 +56,20 @@ extension MapBuskingModalView {
             buskingInfoImage.shadow(color: .black.opacity(0.2),radius: UIScreen.getWidth(5))
             Text(viewModel.artist.stageName)
                 .font(.custom24black())
-                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(7))
             Spacer()
             Button{
                showReport = true
-//                feedback.notificationOccurred(.success)
             } label: {
                 Image(systemName: "light.beacon.max.fill")
+                    .padding(UIScreen.getWidth(3))
+                    .overlay {
+                        Circle().stroke(lineWidth: UIScreen.getWidth(1.5))
+                    }
                     .font(.custom13bold())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
-        }.padding(.init(top: UIScreen.getWidth(40), leading: UIScreen.getWidth(7), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(15)))
+        }.padding(.init(top: UIScreen.getWidth(40), leading: UIScreen.getWidth(15), bottom: UIScreen.getWidth(10), trailing: UIScreen.getWidth(15)))
     }
 
     var buskingInfoImage: some View {
@@ -85,7 +91,6 @@ extension MapBuskingModalView {
                     .font(.custom13heavy())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     .padding(.horizontal, UIScreen.getWidth(30))
-
             } .overlay(alignment: .leading) {
                 VStack(spacing: UIScreen.getHeight(3)) {
                     Image(systemName: "calendar")
@@ -117,7 +122,6 @@ extension MapBuskingModalView {
             Button { UIPasteboard.general.string = viewModel.addressString
                 withAnimation(.easeIn(duration: 0.4)) {
                     showPopover = true
-                    feedback.notificationOccurred(.success)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {//MARK: 알림페이지떠있는 시간 1.5초
                         withAnimation(.easeOut(duration: 0.4)) {
                             showPopover = false

@@ -131,7 +131,6 @@ extension UserPageView {
             ZStack {
                 Text(awsService.user.username)
                     .font(.custom40black())
-                    .underline()
                 if viewModel.isEditMode == true {
                     HStack {
                         Spacer()
@@ -174,7 +173,6 @@ extension UserPageView {
                 
                 awsService.patchcroppedImage = viewModel.croppedImage
                 awsService.patchUserProfile()
-                feedback.notificationOccurred(.success)
             } label: {
                 toolbarButtonLabel(buttonLabel: "Save").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(8))
             })
@@ -208,7 +206,6 @@ extension UserPageView {
                 //TODO: 서버에 올리는 함수 구현하기
                 awsService.user.username = viewModel.EditUsername
                 //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
-                feedback.notificationOccurred(.success)
                 viewModel.nameSaveOKModal = true
                 withAnimation(.smooth(duration: 0.5)) {
                     // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
@@ -265,7 +262,6 @@ extension UserPageView {
     //                //TODO: 서버에 올리는 함수 구현하기
     //                //UserInfo 없애야하나;;;;
     //                //TODO: 밖에 빈백 누르면 수정된 값 초기화하는 함수 구현하기
-    //                feedback.notificationOccurred(.success)
     //                withAnimation(.smooth(duration: 0.5)) {
     //                    viewModel.infoSaveOKModal = true // TODO: 서버에서 석세스 받으면 되도록 옵셔널로 바꾸기
     //                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {

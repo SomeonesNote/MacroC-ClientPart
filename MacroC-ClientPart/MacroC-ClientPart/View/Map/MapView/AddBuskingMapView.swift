@@ -88,7 +88,7 @@ struct AddBuskingMapView: UIViewRepresentable {
 
                 let markerImage = UIImageView()
                 if let url = URL(string: parent.awsService.user.artist?.artistImage ?? "") { markerImage.af.setImage(withURL: url) }
-                let customMarker = UIImageView(image: UIImage(named: "markerpin"))
+                let customMarker = UIImageView(image: UIImage(named: "markerpin_blue"))
                 
                 customMarker.addSubview(markerImage)
                 customMarker.translatesAutoresizingMaskIntoConstraints = false

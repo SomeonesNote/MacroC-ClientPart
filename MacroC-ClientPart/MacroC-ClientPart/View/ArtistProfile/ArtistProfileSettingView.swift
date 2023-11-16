@@ -27,10 +27,6 @@ struct ArtistProfileSettingView: View {
                 
                 customDivider()
                 
-                secondSection
-                
-                customDivider()
-                
                 thirdSection
                 
                 Spacer()

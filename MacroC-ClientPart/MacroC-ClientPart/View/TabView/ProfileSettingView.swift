@@ -27,9 +27,6 @@ struct ProfileSettingView: View {
                 blockartistSetting
                 
                 customDivider()
-                notificationSetting
-                
-                customDivider()
                 artistAccount
                 accountSetting
                 

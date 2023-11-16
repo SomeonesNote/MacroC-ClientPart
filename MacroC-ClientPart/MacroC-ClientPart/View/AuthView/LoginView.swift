@@ -18,19 +18,14 @@ struct appleRefreashToken : Codable {
     var refreshToken : String
 }
 
-
 struct LoginView: View {
     
     @EnvironmentObject var awsService : AwsService
-    @StateObject var viewModel = LoginViewModel()
     @State private var isLoggedin: Bool = false
     @State private var userUID: String = ""
     let serverURL: String = "https://macro-app.fly.dev"
     @State var serverToken: String = ""
     @State var ReToken : String = KeychainItem.currentAppleRefreashToken
-//    @State var refreshToken: String = ""
-//    @State var reeData : String? = ""
-    
     
     var body: some View {
         ZStack {
@@ -56,18 +51,12 @@ struct LoginView: View {
                             case let appleIDCredential as ASAuthorizationAppleIDCredential :
                                 let userId = appleIDCredential.user
                                 let email = appleIDCredential.email
-//                                let identityTokenData = appleIDCredential.identityToken
                                 let authCodeData = appleIDCredential.authorizationCode
-//                                let identityToken = String(data: identityTokenData ?? Data(), encoding: .utf8)
                                 let authCode = String(data: authCodeData ?? Data(), encoding: .utf8)
                              
                                 print("userId : \(userId)")
                                 print("email : \(email ?? "")")
-//                                print("identityToken : \(identityToken ?? "")")
                                 print("authcode : \(authCode ?? "")")
-                                
-//                                awsService.email = email ?? ""
-//                                try? KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "authorizationCode").saveItem(authCode ?? "")
                                 appleLogin(authCode: authCode ?? "")
                                 
                                 do {
@@ -96,7 +85,6 @@ struct LoginView: View {
                 ProgressView()
             }
         }
-//        .background(backgroundView().ignoresSafeArea())
         .background(Color.white.ignoresSafeArea())
         .onDisappear {
             isLoggedin = false
@@ -131,7 +119,6 @@ extension LoginView {
                 if let data = response.data, let responseString = String(data: data, encoding: .utf8) {
                         print("Response String: \(responseString)")
                     }
-                print("Error:\(parameters)")
                 print("getRefreshToken.error : \(error.localizedDescription)")
             }
         }

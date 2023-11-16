@@ -22,7 +22,6 @@
 		070658FD2ADE6AED00FD1B00 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		070658FF2ADE6AED00FD1B00 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		070659012ADE6AED00FD1B00 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		0707172B2AD9412700B72319 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172A2AD9412700B72319 /* SignInView.swift */; };
 		0707172D2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172C2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift */; };
 		0707172F2AD9428D00B72319 /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707172E2AD9428D00B72319 /* ProfileSettingViewModel.swift */; };
 		070717312AD942BD00B72319 /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070717302AD942BD00B72319 /* KeychainItem.swift */; };
@@ -54,9 +53,9 @@
 		07C96E782AFF3B6B0067D7D6 /* MapBuskingLow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C96E772AFF3B6B0067D7D6 /* MapBuskingLow.swift */; };
 		07CD19CB2B008FB200E29D9B /* BlockedArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CD19CA2B008FB200E29D9B /* BlockedArtistView.swift */; };
 		07CD19CD2B008FFA00E29D9B /* BlockedArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CD19CC2B008FFA00E29D9B /* BlockedArtistViewModel.swift */; };
-		07FBF2882ACF5223004EF174 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */; };
 		07FBF28B2ACFF90B004EF174 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FBF28A2ACFF90B004EF174 /* SignUpView.swift */; };
 		07FD2BE62AD32D4B0030865A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD2BE52AD32D4B0030865A /* MainViewModel.swift */; };
+		07FD5D362B04DACC0029E58F /* KeyboardResponsiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD5D352B04DACC0029E58F /* KeyboardResponsiveModifier.swift */; };
 		F62B8A742ACED1B80077CA17 /* MacroC_ClientPartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */; };
 		F62B8A762ACED1B80077CA17 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62B8A752ACED1B80077CA17 /* ContentView.swift */; };
 		F62B8A782ACED1B90077CA17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F62B8A772ACED1B90077CA17 /* Assets.xcassets */; };
@@ -113,7 +112,6 @@
 		07038C832ADCC422002445DD /* UserPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageViewModel.swift; sourceTree = "<group>"; };
 		07038C852ADCC535002445DD /* UserPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageView.swift; sourceTree = "<group>"; };
 		07038C872ADCEE83002445DD /* RegisterUserArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserArtistView.swift; sourceTree = "<group>"; };
-		0707172A2AD9412700B72319 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		0707172C2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArtistProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		0707172E2AD9428D00B72319 /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		070717302AD942BD00B72319 /* KeychainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
@@ -138,10 +136,10 @@
 		07C96E772AFF3B6B0067D7D6 /* MapBuskingLow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBuskingLow.swift; sourceTree = "<group>"; };
 		07CD19CA2B008FB200E29D9B /* BlockedArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedArtistView.swift; sourceTree = "<group>"; };
 		07CD19CC2B008FFA00E29D9B /* BlockedArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedArtistViewModel.swift; sourceTree = "<group>"; };
-		07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		07FBF2892ACFD143004EF174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07FBF28A2ACFF90B004EF174 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		07FD2BE52AD32D4B0030865A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		07FD5D352B04DACC0029E58F /* KeyboardResponsiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponsiveModifier.swift; sourceTree = "<group>"; };
 		F62B8A702ACED1B80077CA17 /* MacroC-ClientPart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MacroC-ClientPart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F62B8A732ACED1B80077CA17 /* MacroC_ClientPartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroC_ClientPartApp.swift; sourceTree = "<group>"; };
 		F62B8A752ACED1B80077CA17 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 			children = (
 				F62B8A962ACED4070077CA17 /* LoginView.swift */,
 				07FBF28A2ACFF90B004EF174 /* SignUpView.swift */,
-				0707172A2AD9412700B72319 /* SignInView.swift */,
 			);
 			path = AuthView;
 			sourceTree = "<group>";
@@ -290,6 +287,7 @@
 			children = (
 				F62B8AEC2ACED9BA0077CA17 /* dropShadowModifier.swift */,
 				070F6BE62ADB1BCD00328570 /* mainpageTitleModifier.swift */,
+				07FD5D352B04DACC0029E58F /* KeyboardResponsiveModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -375,7 +373,6 @@
 			isa = PBXGroup;
 			children = (
 				071BFF132AEE5A1E004BDD00 /* LoginViewModel.swift */,
-				07FBF2872ACF5223004EF174 /* SignUpViewModel.swift */,
 				07FD2BE52AD32D4B0030865A /* MainViewModel.swift */,
 				F62B8AD42ACED8C10077CA17 /* MapViewMedel.swift */,
 				F62B8AD62ACED8D80077CA17 /* ArtistPageViewModel.swift */,
@@ -563,7 +560,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07FBF2882ACF5223004EF174 /* SignUpViewModel.swift in Sources */,
 				F62B8AA42ACED4B10077CA17 /* EditFollowingListView.swift in Sources */,
 				F62B8A762ACED1B80077CA17 /* ContentView.swift in Sources */,
 				F62B8ABD2ACED6590077CA17 /* GooglePlacesSearch.swift in Sources */,
@@ -614,10 +610,10 @@
 				0707172D2AD9427E00B72319 /* UserArtistProfileSettingViewModel.swift in Sources */,
 				F62B8AB22ACED5710077CA17 /* EditArtistAcountView.swift in Sources */,
 				074C58AF2AFCC7BE0019B6C8 /* ReportPage.swift in Sources */,
-				0707172B2AD9412700B72319 /* SignInView.swift in Sources */,
 				F62B8AED2ACED9BA0077CA17 /* dropShadowModifier.swift in Sources */,
 				F62B8AA62ACED4CB0077CA17 /* DonationListView.swift in Sources */,
 				070717402ADA0CC100B72319 /* BackroundStar.swift in Sources */,
+				07FD5D362B04DACC0029E58F /* KeyboardResponsiveModifier.swift in Sources */,
 				F62B8AB72ACED5C80077CA17 /* CropedGoogleMapView.swift in Sources */,
 				F62B8A9D2ACED46D0077CA17 /* UserArtistPageView.swift in Sources */,
 				F62B8ACB2ACED8270077CA17 /* BuskingListRow.swift in Sources */,

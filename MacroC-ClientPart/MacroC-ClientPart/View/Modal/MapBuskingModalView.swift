@@ -27,8 +27,21 @@ struct MapBuskingModalView: View {
                 Divider()
                     .frame(height: 1.3)
                     .overlay(Color.white)
-                    .padding(.init(top: UIScreen.getHeight(5), leading: UIScreen.getWidth(60), bottom: UIScreen.getHeight(0), trailing: UIScreen.getWidth(60)))
-                buskingInfoAddress
+                    .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+
+                    .padding(.init(top: UIScreen.getHeight(8), leading: UIScreen.getWidth(60), bottom: UIScreen.getHeight(5), trailing: UIScreen.getWidth(60)))
+                HStack {
+                    VStack(spacing: UIScreen.getHeight(3)) {
+                        Text(viewModel.busking.BuskingInfo)
+                            .font(.custom13heavy())
+                            .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                            .padding(.horizontal, UIScreen.getWidth(30))
+                    } .overlay(alignment: .leading) {
+                            Image(systemName: "bubble.left")
+                                .font(.custom14semibold())
+                                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                    }
+                }
                 buskingInfoMap
             }
             if showPopover { PopOverText() } }
@@ -78,21 +91,21 @@ extension MapBuskingModalView {
         HStack {
             VStack(spacing: UIScreen.getHeight(3)) {
                 Text(viewModel.formatDate()) 
-                    .font(.custom13heavy())
+                    .font(.custom12heavy())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     .padding(.horizontal, UIScreen.getWidth(30))
                 
                 Text("\(viewModel.formatStartTime()) ~ \(viewModel.formatEndTime())")
-                    .font(.custom13heavy())
+                    .font(.custom12heavy())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     .padding(.horizontal, UIScreen.getWidth(30))
             } .overlay(alignment: .leading) {
                 VStack(spacing: UIScreen.getHeight(3)) {
                     Image(systemName: "calendar")
-                        .font(.custom14semibold())
+                        .font(.custom13semibold())
                         .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     Image(systemName: "clock")
-                        .font(.custom14semibold())
+                        .font(.custom13semibold())
                         .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                 }
             }
@@ -101,16 +114,15 @@ extension MapBuskingModalView {
     var buskingInfoAddress: some View {
         HStack {
             Text(viewModel.addressString)
-                .font(.custom13heavy())
+                .font(.custom12heavy())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                 .padding(.horizontal, UIScreen.getWidth(30))
             
         }
-        
         .overlay(alignment: .leading) {
             Image(systemName: "signpost.right")
                 .frame(width: UIScreen.getWidth(13), height: UIScreen.getHeight(10))
-                .font(.custom14semibold())
+                .font(.custom13semibold())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
         }
         .overlay(alignment: .trailing) {
@@ -127,11 +139,14 @@ extension MapBuskingModalView {
                 Image(systemName: "rectangle.on.rectangle")
                     .resizable()
                     .frame(width: UIScreen.getWidth(15), height: UIScreen.getHeight(15))
-                    .font(.custom14semibold())
+                    .font(.custom13semibold())
                     .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
             }
         }
-        .padding(.init(top: UIScreen.getHeight(5), leading: UIScreen.getWidth(0), bottom: UIScreen.getHeight(0), trailing: UIScreen.getWidth(0)))
+        .padding(.init(top: UIScreen.getHeight(7), leading: UIScreen.getWidth(20), bottom: UIScreen.getHeight(7), trailing: UIScreen.getWidth(20)))
+        .background(backgroundView())
+        .clipShape(Capsule())
+        .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
     }
     
     var buskingInfoMap: some View {
@@ -142,6 +157,10 @@ extension MapBuskingModalView {
             .overlay {
                 RoundedRectangle(cornerRadius: 20).stroke(lineWidth: UIScreen.getWidth(2)).shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                     .foregroundStyle(LinearGradient(colors: [.white, .white, .appSky.opacity(0.6), .white, .appSky.opacity(0.6), .white], startPoint: .topLeading, endPoint: .bottomTrailing))
+            }
+            .overlay(alignment: .bottom) {
+                buskingInfoAddress
+                    .padding(.bottom, UIScreen.getWidth(10))
             }
             .padding(.init(top: UIScreen.getWidth(10), leading: UIScreen.getWidth(8), bottom: UIScreen.getWidth(20), trailing: UIScreen.getWidth(8)))
     }

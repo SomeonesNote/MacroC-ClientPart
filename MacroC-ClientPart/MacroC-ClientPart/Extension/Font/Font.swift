@@ -70,6 +70,10 @@ extension Font {
         return Font.custom("Pretendard-Bold", fixedSize: 10 * setFontSize())
     }
     
+    static func custom12bold() -> Font {
+        return Font.custom("Pretendard-Bold", fixedSize: 12 * setFontSize())
+    }
+    
     static func custom13bold() -> Font {
         return Font.custom("Pretendard-Bold", fixedSize: 13 * setFontSize())
     }
@@ -95,6 +99,10 @@ extension Font {
     }
     
     //MARK: Heavy
+    static func custom12heavy() -> Font {
+        return Font.custom("Pretendard-ExtraBold", fixedSize: 12 * setFontSize())
+    }
+    
     static func custom13heavy() -> Font {
         return Font.custom("Pretendard-ExtraBold", fixedSize: 13 * setFontSize())
     }

@@ -22,23 +22,37 @@ struct BuskingListRow: View {
                 .padding(.horizontal, UIScreen.getWidth(10))
             
             VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
-                Text(artist.stageName)
-                    .font(.custom22black())
+                VStack(alignment: .leading ,spacing: 0){
+                    Text(artist.stageName)
+                        .font(.custom22black())
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                      
+                    HStack(spacing: UIScreen.getWidth(8)) {
+                        Image(systemName: "bubble.left").font(.custom13semibold())
+                        Text(busking.BuskingInfo) .font(.custom12bold())
+                            .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                            .padding(.init(top: UIScreen.getHeight(-2), leading: 0, bottom: UIScreen.getHeight(2), trailing: 0))
+                    }
+                }
+                Divider()
+                    .frame(height: 1.0)
+                    .overlay(Color.white)
                     .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                    .padding(.bottom, UIScreen.getHeight(4))
+                    .padding(.init(top: UIScreen.getHeight(2), leading: UIScreen.getWidth(0), bottom: UIScreen.getHeight(2), trailing: UIScreen.getWidth(0)))
+                
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "calendar").font(.custom14semibold())
-                    Text(formatDate()) .font(.custom13bold())
+                    Image(systemName: "calendar").font(.custom13semibold())
+                    Text(formatDate()) .font(.custom12bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "clock").font(.custom14semibold())
-                    Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom13bold())
+                    Image(systemName: "clock").font(.custom13semibold())
+                    Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom12bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "signpost.right").font(.custom14semibold())
-                    Text("\(addressString)").font(.custom13bold())
+                    Image(systemName: "signpost.right").font(.custom13semibold())
+                    Text("\(addressString)").font(.custom12bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
             }.frame(height: UIScreen.getHeight(130))

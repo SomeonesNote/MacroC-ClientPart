@@ -43,7 +43,9 @@ struct ContentView: View {
             }
         }.ignoresSafeArea()
             .onAppear {
+                checkAlbumPermission()
                 awsService.accesseToken = KeychainItem.currentTokenResponse
+                print(awsService.accesseToken)
                 if awsService.isSignUp {
                     awsService.getUserProfile {
                         awsService.getFollowingList {}}

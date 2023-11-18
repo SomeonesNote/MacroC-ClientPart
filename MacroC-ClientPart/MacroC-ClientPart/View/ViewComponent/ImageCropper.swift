@@ -16,6 +16,21 @@ extension View {
             self
         }
     }
+        func checkAlbumPermission(){
+            PHPhotoLibrary.requestAuthorization( { status in
+                switch status{
+                case .authorized:
+                    print("Album: authorized")
+                case .denied:
+                    print("Album: denied")
+                case .restricted, .notDetermined:
+                    print("Album: \(status)")
+                default:
+                    break
+                }
+            })
+        }
+
     
     @ViewBuilder
     func frame(_ size: CGSize) -> some View {

@@ -29,22 +29,39 @@ struct MapBuskingLow: View {
                         .padding(.bottom, UIScreen.getHeight(4))
                     Spacer()
                     Image(systemName: "chevron.forward").font(.custom20semibold())
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+
                         .padding(.trailing, UIScreen.getHeight(8))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "calendar").font(.custom14semibold())
-                    Text(formatDate()) .font(.custom13bold())
+                    Image(systemName: "bubble.left").font(.custom14semibold())
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+
+                    Text(busking.BuskingInfo) .font(.custom13bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
                     Image(systemName: "clock").font(.custom14semibold())
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                     Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom13bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
                     Image(systemName: "signpost.right").font(.custom14semibold())
+                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                     Text("\(addressString)").font(.custom13bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                }.padding(.trailing, UIScreen.getWidth(30))
+                .overlay(alignment: .trailing) {
+                    Button { UIPasteboard.general.string = addressString
+                        feedback.notificationOccurred(.success)
+                    } label: {
+                        Image(systemName: "rectangle.on.rectangle")
+                            .resizable()
+                            .frame(width: UIScreen.getWidth(15), height: UIScreen.getHeight(15))
+                            .font(.custom14semibold())
+                            .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
+                    }
                 }
             }.frame(height: UIScreen.getHeight(130))
             Spacer()

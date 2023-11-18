@@ -16,6 +16,7 @@ struct AddBuskingPageView: View {
     
     @State var informationText: String = ""
     @State var showPopover: Bool = false
+    @State var emptyTextAlert: Bool = false
     @Environment(\.dismiss) var dismiss
     
     //MARK: -2.BODY
@@ -37,24 +38,29 @@ struct AddBuskingPageView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        awsService.addBusking.BuskingStartTime = viewModel.startTime
-                        awsService.addBusking.BuskingEndTime = viewModel.endTime
-                        awsService.addBusking.latitude = viewModel.latitude
-                        awsService.addBusking.longitude = viewModel.longitude
-                        awsService.addBusking.BuskingInfo = informationText
-                        
-                        awsService.postBusking()
-                        withAnimation(.easeIn(duration: 0.4)) {
-                            showPopover = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                withAnimation(.easeOut(duration: 0.4)) {
-                                    showPopover = false
+                        if informationText == "" {
+                            emptyTextAlert = true
+                            print(informationText)
+                        } else {
+                            awsService.addBusking.BuskingStartTime = viewModel.startTime
+                            awsService.addBusking.BuskingEndTime = viewModel.endTime
+                            awsService.addBusking.latitude = viewModel.latitude
+                            awsService.addBusking.longitude = viewModel.longitude
+                            awsService.addBusking.BuskingInfo = informationText
+                            awsService.postBusking()
+                            withAnimation(.easeIn(duration: 0.4)) {
+                                showPopover = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                    withAnimation(.easeOut(duration: 0.4)) {
+                                        showPopover = false
+                                    }
                                 }
                             }
+                            dismiss()
                         }
-                        dismiss()
                     } label: {
                         toolbarButtonLabel(buttonLabel: "Register").shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(8))
+                            .foregroundColor(informationText == "" ? .gray : .white)
                     }
                 }
             }
@@ -72,12 +78,29 @@ struct AddBuskingPageView: View {
 //MARK: -4.EXTENSION
 extension AddBuskingPageView {
     
+    var informationHeader: some View {
+        HStack {
+            roundedBoxText(text: "Information").padding(.leading, UIScreen.getWidth(10))
+                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)).scaleEffect(0.9)
+            Spacer()
+        }
+    }
+
     var informationTextField: some View {
-        TextField("Information", text: $informationText)
-            .font(.custom12regular())
-            .padding(UIScreen.getHeight(10))
-            .background(Color.black.opacity(0.7))
-            .cornerRadius(UIScreen.getHeight(10))
+        VStack(spacing: 0) {
+            TextField("Information", text: $informationText)
+                .font(.custom12regular())
+                .padding(UIScreen.getHeight(10))
+                .background(Color.black.opacity(0.7))
+                .cornerRadius(UIScreen.getHeight(10))
+                HStack{
+                    Text("Please insert busking information")
+                        .font(.custom10semibold())
+                        .padding(.init(top: UIScreen.getHeight(4), leading: UIScreen.getHeight(4), bottom: UIScreen.getHeight(0), trailing: UIScreen.getHeight(0)))
+                        .foregroundStyle(emptyTextAlert ? Color.appRed : Color.clear)
+                    Spacer()
+                }
+        }
     }
     
     var locationHeader: some View {
@@ -110,10 +133,10 @@ extension AddBuskingPageView {
     
     var timeHeader: some View {
         HStack {
-            roundedBoxText(text: "Time").padding(.leading, UIScreen.getWidth(10))
+            roundedBoxText(text: "Time").padding(.leading, UIScreen.getWidth(15))
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)).scaleEffect(0.9)
             Spacer()
-        }.padding(.top, UIScreen.getHeight(20))
+        }
     }
     
     var datePickerView: some View {
@@ -161,47 +184,5 @@ extension AddBuskingPageView {
         .background(Material.ultraThin.opacity(0.5))
         .shadow(color: .black.opacity(0.4),radius: UIScreen.getWidth(5))
         .cornerRadius(10)
-    }
-    
-    var informationHeader: some View {
-        HStack {
-            roundedBoxText(text: "Information").padding(.leading, UIScreen.getWidth(10))
-                .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5)).scaleEffect(0.9)
-            Spacer()
-        }
-    }
-    
-    //
-    var registerButton: some View {
-        Button{
-            
-            awsService.addBusking.BuskingStartTime = viewModel.startTime
-            awsService.addBusking.BuskingEndTime = viewModel.endTime
-            awsService.addBusking.latitude = viewModel.latitude
-            awsService.addBusking.longitude = viewModel.longitude
-            awsService.addBusking.BuskingInfo = "dd"
-            
-            
-            awsService.postBusking()
-            withAnimation(.easeIn(duration: 0.4)) {
-                showPopover = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    withAnimation(.easeOut(duration: 0.4)) {
-                        showPopover = false
-                    }
-                }
-            }
-            dismiss()
-        } label: {
-            HStack{
-                Spacer()
-                Text("Register").font(.custom13bold()).shadow(color: .black.opacity(0.7),radius: UIScreen.getHeight(5))
-                Spacer()
-            }
-            .padding(UIScreen.getWidth(15))
-            .background(LinearGradient(colors: [.appBlue2.opacity(0.2), .appIndigo2.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing))
-            .cornerRadius(6)
-            .shadow(color: .white.opacity(0.1),radius: UIScreen.getHeight(5))
-        }
     }
 }

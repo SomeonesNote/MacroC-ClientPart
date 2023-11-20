@@ -26,12 +26,10 @@ struct BuskingListRow: View {
                     Text(artist.stageName)
                         .font(.custom22black())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                      
                     HStack(spacing: UIScreen.getWidth(8)) {
-                        Image(systemName: "bubble.left").font(.custom13semibold())
+                        Image(systemName: "bubble.left").font(.custom12semibold())
                         Text(busking.BuskingInfo) .font(.custom12bold())
                             .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                            .padding(.init(top: UIScreen.getHeight(-2), leading: 0, bottom: UIScreen.getHeight(2), trailing: 0))
                     }
                 }
                 Divider()

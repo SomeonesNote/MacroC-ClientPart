@@ -114,7 +114,7 @@ extension MapBuskingModalView {
     var buskingInfoAddress: some View {
         HStack {
             Text(viewModel.addressString)
-                .font(.custom12heavy())
+                .font(.custom12semibold())
                 .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
                 .padding(.horizontal, UIScreen.getWidth(30))
             

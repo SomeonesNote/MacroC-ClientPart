@@ -20,48 +20,44 @@ struct MapBuskingLow: View {
         HStack(spacing: UIScreen.getWidth(10)) {
             CircleBlur(image: artist.artistImage, width: 120, strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
                 .padding(.horizontal, UIScreen.getWidth(10))
-            
             VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
-                HStack {
-                    Text(artist.stageName)
-                        .font(.custom22black())
-                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                        .padding(.bottom, UIScreen.getHeight(4))
+                HStack{
+                    VStack(alignment: .leading ,spacing: 0){
+                        Text(artist.stageName)
+                            .font(.custom22black())
+                            .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                        HStack(spacing: UIScreen.getWidth(8)) {
+                            Image(systemName: "bubble.left").font(.custom12semibold())
+                            Text(busking.BuskingInfo) .font(.custom12bold())
+                                .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                        }
+                    }
                     Spacer()
                     Image(systemName: "chevron.forward").font(.custom20semibold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-
                         .padding(.trailing, UIScreen.getHeight(8))
                 }
+                
+                Divider()
+                    .frame(height: 1.0)
+                    .overlay(Color.white)
+                    .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
+                    .padding(.init(top: UIScreen.getHeight(2), leading: UIScreen.getWidth(0), bottom: UIScreen.getHeight(2), trailing: UIScreen.getWidth(0)))
+                
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "bubble.left").font(.custom14semibold())
-                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-
-                    Text(busking.BuskingInfo) .font(.custom13bold())
+                    Image(systemName: "calendar").font(.custom13semibold())
+                    Text(formatDate()) .font(.custom12bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "clock").font(.custom14semibold())
-                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                    Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom13bold())
+                    Image(systemName: "clock").font(.custom13semibold())
+                    Text("\(formatStartTime()) ~ \(formatEndTime())").font(.custom12bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                 }
                 HStack(spacing: UIScreen.getWidth(8)) {
-                    Image(systemName: "signpost.right").font(.custom14semibold())
+                    Image(systemName: "signpost.right").font(.custom13semibold())
+                    Text("\(addressString)").font(.custom12bold())
                         .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                    Text("\(addressString)").font(.custom13bold())
-                        .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
-                }.padding(.trailing, UIScreen.getWidth(30))
-                .overlay(alignment: .trailing) {
-                    Button { UIPasteboard.general.string = addressString
-                        feedback.notificationOccurred(.success)
-                    } label: {
-                        Image(systemName: "rectangle.on.rectangle")
-                            .resizable()
-                            .frame(width: UIScreen.getWidth(15), height: UIScreen.getHeight(15))
-                            .font(.custom14semibold())
-                            .shadow(color: .black.opacity(0.7),radius: UIScreen.getWidth(5))
-                    }
                 }
             }.frame(height: UIScreen.getHeight(130))
             Spacer()

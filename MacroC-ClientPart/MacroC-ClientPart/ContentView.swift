@@ -66,7 +66,6 @@ struct ContentView: View {
                     }
                 case 1 :
                     awsService.getAllArtistList { }
-                    awsService.getAllArtistBuskingList{ }
                 case 2 :
                     awsService.getUserProfile{}
                 default :

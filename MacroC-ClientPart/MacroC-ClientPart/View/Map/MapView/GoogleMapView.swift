@@ -37,10 +37,10 @@ struct GoogleMapView: UIViewRepresentable {
         context.coordinator.mapView = view
         context.coordinator.startLocationUpdates()
         
-        for artist in awsService.allBusking {
-            for busking in artist.buskings! {
+//        for artist in awsService.allBusking {
+            for busking in awsService.nowBusking {
                 let markerImage = UIImageView()
-                if let url = URL(string: artist.artistImage) { markerImage.af.setImage(withURL: url) }
+                if let url = URL(string: busking.artistImage ?? "") { markerImage.af.setImage(withURL: url) }
                 let customMarker = UIImageView(image: UIImage(named: "markerpin_blue"))
                 
                 customMarker.addSubview(markerImage)
@@ -66,10 +66,10 @@ struct GoogleMapView: UIViewRepresentable {
                 marker.map = view
                 marker.iconView = customMarker
                 marker.isDraggable = false
-                let markerData = MarkerData(artist: artist, busking: busking)
+                let markerData = MarkerData(artist: awsService.targetArtist, busking: busking)
                 marker.userData = markerData
             }
-        }
+//        }
         return view
     }
     

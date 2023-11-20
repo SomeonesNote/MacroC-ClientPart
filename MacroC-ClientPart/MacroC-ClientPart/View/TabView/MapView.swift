@@ -32,9 +32,9 @@ struct MapView: View {
                 }
                 if viewModel.popModal {
                     NavigationLink {
-                        ArtistPageView(viewModel: ArtistPageViewModel(artist: viewModel.selectedArtist ?? Artist()))
+                        ArtistPageView(viewModel: ArtistPageViewModel(artist: awsService.targetArtist))
                     } label: {
-                        MapBuskingLow(artist: viewModel.selectedArtist ?? Artist(), busking: viewModel.selectedBusking ?? Busking())
+                        MapBuskingLow(artist: awsService.targetArtist, busking: viewModel.selectedBusking ?? Busking())
                             .padding(4)
                     }
                 }
@@ -47,8 +47,9 @@ struct MapView: View {
             .navigationTitle("")
         }
         .onAppear {
-            awsService.getAllArtistBuskingList{
-                viewModel.mapViewOn = true }
+            awsService.getNowBusking {
+                viewModel.mapViewOn = true
+            }
         }
         .onDisappear {
             viewModel.popModal = false

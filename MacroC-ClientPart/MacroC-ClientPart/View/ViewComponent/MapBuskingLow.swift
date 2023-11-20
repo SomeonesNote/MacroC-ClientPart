@@ -11,6 +11,7 @@ import CoreLocation
 struct MapBuskingLow: View {
     
     //MARK: -1.PROPERTY
+    @EnvironmentObject var awsService: AwsService
     @State private var addressString: String = ""
     var artist : Artist
     var busking : Busking
@@ -18,12 +19,13 @@ struct MapBuskingLow: View {
     //MARK: -2.BODY
     var body: some View {
         HStack(spacing: UIScreen.getWidth(10)) {
-            CircleBlur(image: artist.artistImage, width: 120, strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
+            CircleBlur(image: busking.artistImage ?? "", width: 120, strokeColor: Color(appIndigo2), shadowColor: Color(appIndigo2))
+
                 .padding(.horizontal, UIScreen.getWidth(10))
             VStack(alignment: .leading,spacing: UIScreen.getWidth(4)) {
                 HStack{
                     VStack(alignment: .leading ,spacing: 0){
-                        Text(artist.stageName)
+                        Text(busking.stageName)
                             .font(.custom22black())
                             .shadow(color: .black.opacity(0.4),radius: UIScreen.getHeight(5))
                         HStack(spacing: UIScreen.getWidth(8)) {
@@ -73,6 +75,7 @@ struct MapBuskingLow: View {
                 .padding(1)
         }
         .onAppear {
+            awsService.getTargetArtist(buskingID: busking.id)
             reverseGeo(busking: busking)
         }
     }

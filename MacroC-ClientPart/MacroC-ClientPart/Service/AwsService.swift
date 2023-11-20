@@ -15,6 +15,7 @@ struct TokenResponse : Codable {
 class AwsService : ObservableObject {
     @Published var user : User = User()
     @Published var addBusking : Busking = Busking()
+    @Published var targetArtist : Artist = Artist()
     @Published var targetBusking : Busking = Busking()
     @Published var myBuskingList : [Busking] = []
     @Published var myArtistBuskingList : [Artist] = []
@@ -31,6 +32,7 @@ class AwsService : ObservableObject {
     @Published var artistPatchcroppedImage: UIImage?
     
     @Published var nowBuskingArtist : [Artist] = []
+    @Published var nowBusking : [Busking] = []
     @Published var accesseToken : String? = KeychainItem.currentTokenResponse
     @Published var isLoading: Bool = false
     
@@ -126,28 +128,28 @@ class AwsService : ObservableObject {
     
     func tokenReresponse(completion: @escaping () -> Void) {
         let parameters: [String: String] = [
-          "uid": KeychainItem.currentUserIdentifier
+            "uid": KeychainItem.currentUserIdentifier
         ]
         AF.request("\(serverURL)/auth/signin", method: .post, parameters: parameters)
-          .responseDecodable(of: TokenResponse.self) { response in
-            switch response.result {
-            case .success(let token):
-              do {
-                self.accesseToken = token.accessToken
-                try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
-              } catch {
-                print("#tokenResponse on Keychain is fail")
-              }
-                self.getUserProfile {
-                  self.getFollowingList {}}
-                  self.getMyBuskingList()
-                  self.getMyArtistBuskingList()
-            case .failure(let error):
-              print("#tokenReresponse.Error: \(error.localizedDescription)")
+            .responseDecodable(of: TokenResponse.self) { response in
+                switch response.result {
+                case .success(let token):
+                    do {
+                        self.accesseToken = token.accessToken
+                        try KeychainItem(service: "com.DonsNote.MacroC-ClientPart", account: "tokenResponse").saveItem(token.accessToken)
+                    } catch {
+                        print("#tokenResponse on Keychain is fail")
+                    }
+                    self.getUserProfile {
+                        self.getFollowingList {}}
+                    self.getMyBuskingList()
+                    self.getMyArtistBuskingList()
+                case .failure(let error):
+                    print("#tokenReresponse.Error: \(error.localizedDescription)")
+                }
+                completion()
             }
-            completion()
-          }
-      }
+    }
     
     func checkSignUp(uid: String, completion: @escaping () -> Void) {
         let parameters: [String : String] = [
@@ -580,5 +582,43 @@ class AwsService : ObservableObject {
                 }
             }
         completion()
+    }
+    
+    func getNowBusking(completion: @escaping () -> Void) {
+        let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        AF.request("\(serverURL)/busking/getNowPlayingBuskings", method: .get, headers: headers)
+            .validate()
+            .responseDecodable(of: [Busking].self, decoder: decoder) { response in
+                switch response.result {
+                case .success(let nowBusking):
+                    self.nowBusking = nowBusking
+                    completion()
+                case .failure(let error):
+                    print("getNowBusking : \(error)")
+                    completion()
+                }
+            }
+    }
+    
+    func getTargetArtist(buskingID: Int) {
+        let headers: HTTPHeaders = [.authorization(bearerToken: accesseToken ?? "")]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        AF.request("\(serverURL)/busking/getArtist/\(buskingID)", method: .get, headers: headers)
+            .validate()
+            .responseDecodable(of: Artist.self, decoder: decoder) { response in
+                switch response.result {
+                case .success(let artist) :
+                    self.targetArtist = artist
+                case .failure(let error):
+                    print("getTargetArtist : \(error)")
+                }
+            }
     }
 }

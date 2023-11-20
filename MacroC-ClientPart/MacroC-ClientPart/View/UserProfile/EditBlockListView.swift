@@ -73,9 +73,8 @@ struct EditBlockListView: View {
                             } .scaleEffect(0.8)
                                 .alert(isPresented: $deleteAlert) {
                                     Alert(title: Text(""), message: Text("Do you want to unBlock?"), primaryButton: .destructive(Text("UnBlock"), action: {
-                                        //TODO: 팔로우 리스트에서 삭제
                                         isLoading = true
-                                        awsService.unblockingArtist(artistId: i.id) { // 언팔하는 함수
+                                        awsService.unblockingArtist(artistId: i.id) { 
                                             awsService.getBlockArtist{
                                                 isLoading = false
                                                 dismiss()

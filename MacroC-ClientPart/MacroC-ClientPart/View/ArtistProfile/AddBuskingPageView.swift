@@ -40,7 +40,6 @@ struct AddBuskingPageView: View {
                     Button {
                         if informationText == "" {
                             emptyTextAlert = true
-                            print(informationText)
                         } else {
                             awsService.addBusking.BuskingStartTime = viewModel.startTime
                             awsService.addBusking.BuskingEndTime = viewModel.endTime

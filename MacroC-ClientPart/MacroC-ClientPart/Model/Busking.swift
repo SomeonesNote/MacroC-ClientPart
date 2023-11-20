@@ -14,6 +14,7 @@ struct Busking:  Identifiable, Codable , Hashable{
     var stageName: String
     var latitude: Double
     var longitude: Double
+    var artistImage: String?
     var BuskingInfo : String
     
     init(

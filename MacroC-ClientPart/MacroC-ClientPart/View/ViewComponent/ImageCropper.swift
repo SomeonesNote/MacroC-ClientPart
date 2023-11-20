@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-//MARK: view extension
+//MARK: View Extension
 extension View {
     @ViewBuilder
     func cropImagePicker(show: Binding<Bool>, croppedImage: Binding<UIImage?>, isLoding: Binding<Bool>) -> some View {
@@ -17,12 +17,13 @@ extension View {
         }
     }
         func checkAlbumPermission(){
+            
             PHPhotoLibrary.requestAuthorization( { status in
                 switch status{
                 case .authorized:
                     print("Album: authorized")
                 case .denied:
-                    print("Album: denied")
+                    print("Album: \(status)")
                 case .restricted, .notDetermined:
                     print("Album: \(status)")
                 default:
@@ -30,7 +31,6 @@ extension View {
                 }
             })
         }
-
     
     @ViewBuilder
     func frame(_ size: CGSize) -> some View {
@@ -109,13 +109,10 @@ struct CropView: View {
     @State private var lastStoredOffset: CGSize = .zero
     @GestureState private var isInteracting: Bool = false
     
-    
     var body: some View{
         NavigationStack{
             VStack{
                 ImageView()
-                    .navigationTitle("Crop View")
-                    .navigationBarTitleDisplayMode(.inline)
                     .toolbarBackground(.visible, for: .navigationBar)
                     .toolbarBackground(.hidden, for: .navigationBar)
                     .toolbarColorScheme(.dark, for: .navigationBar)

@@ -178,7 +178,6 @@ extension UserArtistPageView {
             .overlay(alignment: .bottom) {
                 if viewModel.isEditMode {
                     PhotosPicker(
-                        //TODO: 사진첩 접근해서 사진 받는 거 구현
                         selection: $viewModel.selectedItem,
                         matching: .images,
                         photoLibrary: .shared()) {
@@ -238,7 +237,6 @@ extension UserArtistPageView {
         }
     }
     
-    //Cancle Button
     var firstToolbarItem: some View {
         if viewModel.isEditMode {
             return AnyView(Button {
@@ -256,7 +254,6 @@ extension UserArtistPageView {
     }
     
     
-    //Save Button
     var secondToolbarItem: some View {
         if viewModel.isEditMode {
             return AnyView(Button{
@@ -395,7 +392,6 @@ extension UserArtistPageView {
                 .padding(UIScreen.getWidth(12))
                 .background(.ultraThinMaterial)
                 .cornerRadius(6)
-            //editInfoSheet Button
             Button {
                 awsService.user.artist?.artistInfo = viewModel.editUserInfo
                 withAnimation(.smooth(duration: 0.5)) {

@@ -106,7 +106,7 @@ extension LoginView {
                     } catch {
                         print("Apple Refreash Token on Keychain is fail")
                     }
-                    awsService.checkSignUp(uid: uid) {
+                    awsService.checkSignUp() {
                     }
                     awsService.isSignIn = true
                     UserDefaults.standard.set(true, forKey: "isSignIn")

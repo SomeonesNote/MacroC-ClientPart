@@ -743,7 +743,8 @@
 				INFOPLIST_FILE = "MacroC-ClientPart/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Yonder;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App needs your coordinate to show on the Map";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location let us provide you with active street performance information nearby.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow photo access to add photos to your profile. it could be share other users.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -791,7 +792,8 @@
 				INFOPLIST_FILE = "MacroC-ClientPart/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Yonder;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This App needs your coordinate to show on the Map";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location let us provide you with active street performance information nearby.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow photo access to add photos to your profile. it could be share other users.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

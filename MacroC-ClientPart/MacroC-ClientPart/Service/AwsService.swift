@@ -151,7 +151,8 @@ class AwsService : ObservableObject {
             }
     }
     
-    func checkSignUp(uid: String, completion: @escaping () -> Void) {
+    func checkSignUp(completion: @escaping () -> Void) {
+        let uid : String = KeychainItem.currentUserIdentifier
         let parameters: [String : String] = [
             "uid" : "\(uid)"
         ]
